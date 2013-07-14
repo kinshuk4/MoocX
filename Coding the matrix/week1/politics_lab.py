@@ -130,8 +130,25 @@ def find_average_similarity(sen, sen_set, voting_dict):
         Sum += policy_compare(sen, i, voting_dict)
     return Sum / len(sen_set)
 
-most_average_Democrat = ... # give the last name (or code that computes the last name)
-
+#looking for democrates
+democrats = {}
+for i in voting_data:
+    l = i.split()
+    if l[1] == "D":
+        dict_list = []
+        for j in l[3:]:
+            dict_list.append(int(j))
+        democrats[l[0]] = dict_list;
+        
+voting_dict = create_voting_dict()
+maxim = -1000
+for i in voting_dict.keys():
+    temp = find_average_similarity(i, democrats.keys(), voting_dict)
+    if temp > maxim:
+        maxim = temp
+        name = i
+most_average_Democrat = name # give the last name (or code that computes the last name)
+print(name)
 
 # Task 7
 
@@ -156,8 +173,16 @@ def find_average_record(sen_set, voting_dict):
         v[i] = v[i] / len(sen_set)
     return v
 
-average_Democrat_record = ... # (give the vector)
-
+average_Democrat_record = find_average_record(democrats, voting_dict) # (give the vector)
+maxim = -1000
+for i in voting_dict.keys():
+    temp = 0
+    for j in range(len(average_Democrat_record)):
+        temp += average_Democrat_record[j] * voting_dict[i][j]
+    if temp > maxim:
+        maxim = temp
+        name = i
+print(name)
 
 # Task 8
 
@@ -174,14 +199,13 @@ def bitter_rivals(voting_dict):
     """
     oponents = {}
     compare = 100000
-    names = ()
     for i in voting_dict.keys():
         oponents[i] = least_similar(i, voting_dict)
     for i in oponents:
         temp = policy_compare(i, oponents[i], voting_dict)
         if temp < compare:
             compare = temp
-            name = (i, oponents[i])
-    return name
+            names = (i, oponents[i])
+    return names
 
 
