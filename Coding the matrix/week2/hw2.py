@@ -78,35 +78,28 @@ def GF2_span(D, L):
         return [Vec(D, {})]
     else:
         result = GF2_span(D, L[:(len(L) - 1)])
-        for i in result:
-                result.append[i + L[len(L) - 1]]
+        temp = len(result)
+        j = 0
+        for i in result: 
+            if j < temp:
+                result.append(i + L[len(L) - 1])
+                j += 1
         return result
-
-from GF2 import one
-
-D = {'a', 'b', 'c'}
-L = [Vec(D, {'a': one, 'c': one}), Vec(D, {'b': one})]
-print(len(GF2_span(D, L)))
-print(Vec(D, {}) in GF2_span(D, L))
-
-print(Vec(D, {'b': one}) in GF2_span(D, L))
-print(Vec(D, {'a':one, 'c':one}) in GF2_span(D, L))
-print(Vec(D, {x:one for x in D}) in GF2_span(D, L))
 
 ## Problem 4
 # Answer with a boolean, please.
 
-is_it_a_vector_space_1 = ...
-is_it_a_vector_space_2 = ...
+is_it_a_vector_space_1 = True
+is_it_a_vector_space_2 = False
 
 
 
 ## Problem 5
-is_it_a_vector_space_3 = ...
-is_it_a_vector_space_4 = ...
+is_it_a_vector_space_3 = True
+is_it_a_vector_space_4 = False
 
 
 ## Problem 6
 
-is_it_a_vector_space_5 = ...
-is_it_a_vector_space_6 = ...
+is_it_a_vector_space_5 = True
+is_it_a_vector_space_6 = False
