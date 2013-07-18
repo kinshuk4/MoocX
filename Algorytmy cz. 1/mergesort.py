@@ -15,7 +15,6 @@ def merge(left, right):
     result = list()
     i = 0
     j = 0
-    k = 0
     while i < len(left) and j < len(right):
         if left[i] < right[j]:
             result.append(left[i])
@@ -26,6 +25,7 @@ def merge(left, right):
             j += 1
     result += left[i:]
     result += right[j:]
+    print(len(result))
     return result
 
 def merge_sort(L):
@@ -39,7 +39,5 @@ def merge_sort(L):
         right = merge_sort(L[middle:])
         return merge(left, right)
 
-
-lista = [1,4,6,2,3,9,7,5]
-merge_sort(data)
+new = merge_sort(data)
 print(count)
