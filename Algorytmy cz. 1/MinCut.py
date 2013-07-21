@@ -1,5 +1,5 @@
 '''graph'''
-from random import *
+from random import seed, choice
 
 def minCut(data):
     if len(data) == 2:
@@ -8,7 +8,7 @@ def minCut(data):
     else:
         i1 = choice([i for i in data.keys()])
         i2 = choice(data[i1])
-        data[i1] = data[i1] + data[i2]
+        data[i1] += data[i2]
         for i in data[i2]:
             for j in data[i].copy():
                 if j == i2:
@@ -20,10 +20,9 @@ def minCut(data):
         del data[i2]
         return minCut(data)
 
-mini = 10000
+mini = 10000  #  INF
 for i in range(0, 100):   #here is the problem, because dictionaries are not 'deepcopyable'   
     seed(i)
-    print(i)
     data = {}   #so every time I want to invoke minCut I have to read my data from file 
     try:
         file = open("E:\\coursera\\algo part1\\program\\kargerMinCut.txt")
@@ -35,7 +34,6 @@ for i in range(0, 100):   #here is the problem, because dictionaries are not 'de
     finally:
         file.close()
     temp = minCut(data)
-    print(temp)
     if temp < mini:
         mini = temp
 print(mini)
