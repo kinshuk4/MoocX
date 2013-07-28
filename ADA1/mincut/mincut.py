@@ -37,13 +37,16 @@ def main():
     """Find the minimum cut in the graph G using Karger's algorithm after n*n*logn repeated trials.
     The probability of failing to find a min cut after n*n*logn trials can be shown to be 1/n
     In the code below, I actually ran it 1000 times only... because waiting for 200*200*log(200) iterations can be very long."""
-    
+    print ("Reading the file");
     f = open('kargerMinCut.txt', 'r')
     line_list = f.readlines()
+    print ("Read the file");
     G = {int(line.split()[0]): [int(val) for val in line.split()[1:] if val] for line in line_list if line}
     mincut = float("inf") # set mincut to positive infinity
 
+    
     # loop 1000 times and calculate the min cut. It may take a while
+    print("loop 1000 times and calculate the min cut. It may take a while");
     for _ in range(1000): 
         curr = findMinCut(deepcopy(G)) # make a deepcopy of G in every iteration
         if curr < mincut:
