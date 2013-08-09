@@ -67,13 +67,13 @@ class Vec:
         if other == 0:
             return self
 
-    def __sub__(a,b):
+    def __sub__(self,a,b):
          "Returns a vector which is the difference of a and b."
          return a+(-b)
 
     __eq__ = equal
 
-    def __str__(v):
+    def __str__(self,v):
         "pretty-printing"
         try:
             D_list = sorted(v.D)
