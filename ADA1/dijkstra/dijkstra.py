@@ -120,7 +120,9 @@ def main():
     for v in lst:
         D, _ = dijkstra(G, 1, v)
         if v != lst[-1]:
-            print(D[v], end=",")
+            print(D[v])
+            end=","
+            print end
         else:
             print(D[v])
     

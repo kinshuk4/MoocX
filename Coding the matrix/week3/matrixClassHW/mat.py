@@ -1,74 +1,88 @@
-from vec import Vec
+from vec import Vec, keys
 
 def getitem(M, k):
-    "Returns the value of entry k in M.  The value of k should be a pair."
+    "Returns the value of entry k in M. The value of k should be a pair."
     assert k[0] in M.D[0] and k[1] in M.D[1]
-    return M.f[k] if k in M.f else 0
+    return M.f.get(k,0)
 
 def setitem(M, k, val):
-    "Sets the element of v with label k to be val.  The value of k should be a pair"
+    "Sets the element of M with label k to be val. The value of k should be a pair"
     assert k[0] in M.D[0] and k[1] in M.D[1]
     M.f[k] = val
-    return
 
 def add(A, B):
     "Returns the sum of A and B"
     assert A.D == B.D
-    f = {}
-    for i in A.f:
-        if i in B.f:
-            f[i] = A.f[i] + B.f[i]
-        else:
-            f[i] = A.f[i]
-    for i in B.f:
-        if not i in f:
-            f[i] = B.f[i]
-    return Mat(A.D, f)
-        
+    ret = Mat(A.D,{})
+    for k in keys(A,B):
+        ret[k] = A[k]+B[k]
+    return ret
 
 def scalar_mul(M, alpha):
-    "Returns the product of scalar alpha with M" 
-    f = {}
-    for i in M.f:
-        f[i] = M.f[i] * alpha
-    return Mat(M.D, f) 
+    "Returns the product of scalar alpha with M"
+    ret = Mat(M.D,{})
+    for k in M.f.keys():
+        ret[k]=alpha*M[k]
+    return ret
 
 def equal(A, B):
     "Returns true iff A is equal to B"
     assert A.D == B.D
-    for (i, j) in A.D[0]:
-        for j in A.D[1]:
-            if getitem(A, (i, j)) != getitem(B, (i, j)):
-                return False
+    for k in keys(A,B):
+        if A[k] != B[k]:
+            return False
     return True
 
 def transpose(M):
     "Returns the transpose of M"
-    result = Mat((M.D[1], M.D[0]), {})
-    for i in M.D[0]:
-        for j in M.D[1]:
-            result[j, i] = M[i, j]
-    return result
+    return Mat((M.D[1],M.D[0]), {(j,i):v for ((i,j),v) in M.f.items() })
 
 def vector_matrix_mul(v, M):
     "Returns the product of vector v and matrix M"
     assert M.D[0] == v.D
-    return Vec(M.D[1], {i: sum(M[j, i] * v[j] for j in M.D[0]) for i in M.D[1]})
+    # return Vec(M.D[1], { c:sum((v[r]*M[r,c] for r in v.D)) for c in M.D[1] })
+    ret = Vec(M.D[1],{})
+    for (i,j) in M.f.keys():
+        ret[j] = ret[j] + v[i]*M[i,j]
+    return ret
 
 def matrix_vector_mul(M, v):
     "Returns the product of matrix M and vector v"
     assert M.D[1] == v.D
-    return Vec(M.D[0], {i: sum(M[i, j] * v[j] for j in M.D[1]) for i in M.D[0]})
+    # return Vec(M.D[0], { r:sum((v[c]*M[r,c] for c in v.D)) for r in M.D[0] })
+    ret = Vec(M.D[0],{})
+    for (i,j) in M.f.keys():
+        ret[i] = ret[i] + M[i,j]*v[j]
+    return ret
 
+# could probably use some more thorough tests!
 def matrix_matrix_mul(A, B):
     "Returns the product of A and B"
     assert A.D[1] == B.D[0]
-    result = Mat((A.D[0], B.D[1]), {})
-    for i in A.D[0]:
-        for j in B.D[1]:
-            result[i, j] = sum(A[i, k] * B[k, j] for k in A.D[1])
-    return result
-        
+    # rows = matutil.mat2rowdict(A)
+    # cols = matutil.mat2coldict(B)
+    # return Mat((A.D[0],B.D[1]),
+    # { (r,c):rows[r]*cols[c] for r in rows.keys() for c in cols.keys() })
+
+    # Think of matrices as IxJ and JxK
+    I = A.D[0]
+    J = A.D[1]
+    K = B.D[1]
+    ret = Mat((I,K),{})
+    # Do fewest lookups/multiplies
+    if len(A.f) * len(B.D[1]) <= len(B.f) * len(A.D[0]):
+        for (i,j) in A.f.keys():
+            for k in K:
+                if (j,k) in B.f:
+                    ret[i,k] = ret[i,k] + A[i,j]*B[j,k]
+    else:
+        for (j,k) in B.f.keys():
+            for i in I:
+                if (i,j) in A.f:
+                    ret[i,k] = ret[i,k] + A[i,j]*B[j,k]
+    return ret
+
+    
 
 ################################################################################
 
@@ -96,12 +110,12 @@ class Mat:
     def __rmul__(self, other):
         if Vec == type(other):
             return vector_matrix_mul(other, self)
-        else:  # Assume scalar
+        else: # Assume scalar
             return scalar_mul(self, other)
 
     __add__ = add
 
-    def __sub__(a,b):
+    def __sub__(self,a,b):
         return a+(-b)
 
     __eq__ = equal
@@ -109,7 +123,7 @@ class Mat:
     def copy(self):
         return Mat(self.D, self.f.copy())
 
-    def __str__(M, rows=None, cols=None):
+    def __str__(self,M, rows=None, cols=None):
         "string representation for print()"
         if rows == None:
             try:
@@ -137,3 +151,5 @@ class Mat:
     def __repr__(self):
         "evaluatable representation"
         return "Mat(" + str(self.D) +", " + str(self.f) + ")"
+
+import matutil

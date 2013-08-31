@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="week2"/>
 	<classpathentry kind="src" path="week3"/>
 	<classpathentry kind="src" path="week4"/>
+	<classpathentry kind="src" path="week5"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

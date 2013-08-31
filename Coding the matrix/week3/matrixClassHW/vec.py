@@ -1,7 +1,12 @@
+def keys(u,v):
+    s = set(u.f.keys())
+    s.update(v.f.keys())
+    return s
+
 def getitem(v,d):
     "Returns the value of entry d in v"
     assert d in v.D
-    return v.f[d] if d in v.f else 0
+    return v.f.get(d,0)
 
 def setitem(v,d,val):
     "Set the element of v with label d to be val"
@@ -11,36 +16,40 @@ def setitem(v,d,val):
 def equal(u,v):
     "Returns true iff u is equal to v"
     assert u.D == v.D
-    [u.f.setdefault(_, 0) for _ in u.D if _ not in u.f ]
-    [v.f.setdefault(_, 0) for _ in v.D if _ not in v.f ]
-    return u.f == v.f
+    for k in keys(u, v):
+        if u[k] != v[k]:
+            return False
+    return True
 
 def add(u,v):
     "Returns the sum of the two vectors"
     assert u.D == v.D
-    return Vec(u.D,{_: (u.f.setdefault(_, 0) + v.f.setdefault(_, 0)) for _ in u.D})
+    f = {}
+    for k in keys(u,v):
+        f[k] = u[k] + v[k]
+    return Vec(u.D, f)
 
 def dot(u,v):
     "Returns the dot product of the two vectors"
     assert u.D == v.D
-    return sum([ u.f.setdefault(_, 0) * v.f.setdefault(_, 0) for _ in u.D])
+    return sum((u[k]*v[k] for k in keys(u,v)))
 
 def scalar_mul(v, alpha):
     "Returns the scalar-vector product alpha times v"
-    return Vec(v.D, {_: (v.f.setdefault(_, 0) * alpha) for _ in v.D})
+    return Vec(v.D, {k:alpha*v[k] for k in v.f.keys()})
 
 def neg(v):
     "Returns the negation of a vector"
-    return Vec(v.D, {_: -v.f.setdefault(_, 0) for _ in v.D})
+    return -1*v
 
 ##### NO NEED TO MODIFY BELOW HERE #####
 class Vec:
     """
-    A vector has two fields:
-    D - the domain (a set)
-    f - a dictionary mapping (some) domain elements to field elements
-        elements of D not appearing in f are implicitly mapped to zero
-    """
+A vector has two fields:
+D - the domain (a set)
+f - a dictionary mapping (some) domain elements to field elements
+elements of D not appearing in f are implicitly mapped to zero
+"""
     def __init__(self, labels, function):
         self.D = labels
         self.f = function
@@ -55,9 +64,9 @@ class Vec:
         if isinstance(other, Vec):
             return dot(self,other)
         else:
-            return NotImplemented  #  Will cause other.__rmul__(self) to be invoked
+            return NotImplemented # Will cause other.__rmul__(self) to be invoked
 
-    def __truediv__(self,other):  # Scalar division
+    def __truediv__(self,other): # Scalar division
         return (1/other)*self
 
     __add__ = add
@@ -66,7 +75,7 @@ class Vec:
         "Hack to allow sum(...) to work with vectors"
         if other == 0:
             return self
-
+    
     def __sub__(self,a,b):
          "Returns a vector which is the difference of a and b."
          return a+(-b)

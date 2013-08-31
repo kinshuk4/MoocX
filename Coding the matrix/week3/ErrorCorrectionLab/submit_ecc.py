@@ -1,19 +1,19 @@
-########                                     ######## 
-# Hi there, curious student.                        #
-#                                                   #
-# This submission script runs some tests on your    #
+# version code 828+######## ########
+# Hi there, curious student. #
+# #
+# This submission script runs some tests on your #
 # code and then uploads it to Coursera for grading. #
-#                                                   #
+# #
 # Changing anything in this script might cause your #
-# submissions to fail.                              #
-########                                     ########
+# submissions to fail. #
+######## ########
 
 import io, os, sys, doctest, traceback, importlib, urllib.request, urllib.parse, urllib.error, base64, hashlib, random, ast
 
-URL                 = 'matrix-001'
-part_friendly_names = ['Getter', 'Setter', 'Equality', 'Addition', 'Dot Product', 'Negation', 'Scalar Multiplication', 'Matrix-Matrix Multiplication']
-groups              = [[('LMt7OXMcj4gJbRun', 'Getter', ">>> v = Vec({'a','b','c','d', 1}, {'a':2,'c':1,'d':4})\n>>> print(test_format([v[x] for x in 'abcd']))\n>>> print(test_format(v[1]))\n>>> v = Vec({1},{1:2})\n>>> print(test_format(v[1]))\n")], [('GyW38nINeQ9JTHed', 'Setter', ">>> v = Vec({'a','b','c','d'}, {'a':2,'c':1,'d':4})\n>>> v['a'] = 3\n>>> print(test_format([v[x] for x in 'abcd']))\n>>> v['b'] = 9\n>>> print(test_format([v[x] for x in 'abcd']))\n>>> v['c'] = 0\n>>> print(test_format([v[x] for x in 'abcd']))\n")], [('nDGdTq55hscA70NN', 'Equality', ">>> v1 = Vec({'a','b','c','d'}, {'a':2,      'c':1,'d':4})\n>>> v2 = Vec({'a','b','c','d'}, {'a':2,'b':0,'c':1,'d':4})\n>>> v3 = Vec({'a','b','c','d'}, {'b':0,'a':2,'c':1,'d':4})\n>>> v4 = Vec({'a','b','c','d'}, {'a':3,      'c':1,'d':4})\n>>> v5 = Vec({'a','b','c','d'}, {            'c':1,'d':4})\n>>> print(test_format(v1 == v1))\n>>> print(test_format(v1 == v2))\n>>> print(test_format(v1 == v3))\n>>> print(test_format(v1 == v4))\n>>> print(test_format(v1 == v5))\n>>> print(test_format(Vec({True, False}, {True: 1}) == Vec({True, False}, {False: 0})))\n")], [('JJlIn0jkR2s1ZpYz', 'Addition', ">>> u = Vec({'a','b'},{'a':1})\n>>> v = Vec({'a','b'},{'b':2})\n>>> w1 = u + v\n>>> print(test_format([u['a'], u['b']]))\n>>> print(test_format([v['a'], v['b']]))\n>>> w2 = v + u\n>>> print(test_format([w1['a'], w1['b']]))\n>>> print(test_format([w2['a'], w2['b']]))\n>>> w3 = w1 + w1 + u\n>>> print(test_format([w3['a'], w3['b']]))\n>>> u2 = u + Vec(u.D, {}) \n>>> print(test_format([u2['a'], u2['b']]))\n")], [('jAfx2JAr4uCRVERt', 'Dot Product', ">>> u = Vec({'a','b','c'}, {})\n>>> v = Vec({'a','b','c'}, {'a': 1, 'b': 2})\n>>> w = Vec({'a','b','c'}, {'c': 1, 'b': 3})\n>>> x = Vec({'a','b','c'}, {'a': -1, 'c': 1, 'b': 3})\n>>> print(test_format(dot(u, u)))\n>>> print(test_format(dot(u, v)))\n>>> print(test_format(dot(u, w)))\n>>> print(test_format(dot(v, w)))\n>>> print(test_format([u[q] for q in 'abc']))\n>>> print(test_format([v[q] for q in 'abc']))\n>>> print(test_format(dot(x, w) == dot(w, x)))\n>>> print(test_format(dot(x, v)))\n")], [('gkt6hIimmWeVvxIr', 'Negation', ">>> u = -Vec({'a','b','c'}, {})\n>>> v = -Vec({'a','b','c'}, {'a': 1, 'b': 2})\n>>> print(test_format([(-u)[x] for x in 'abc']))\n>>> print(test_format(v == -v))\n>>> print(test_format([(-(-v))[x] for x in 'abc']))\n>>> print(test_format(u['a']))\n>>> print(test_format(v['b']))\n")], [('4tvH0n1dkdsP0ctt', 'Scalar Multiplication', ">>> u = Vec({'a','b','c'}, {})\n>>> v = Vec({'a','b','c'}, {'a': 1, 'b': 2})\n>>> print(test_format([(3*u)[x] for x in 'abc']))\n>>> print(test_format([(0*v)[x] for x in 'abc']))\n>>> w = Vec({'a', 'b'}, {'a':6, 'b':10})\n>>> w2 = 1.5*w\n>>> print(test_format([w2[x] for x in 'ab']))\n>>> print(test_format([(-2*w2)[x] for x in 'ab']))\n")]]
-source_files        = ['ecc_lab.py'] * len(sum(groups,[]))
+URL = 'matrix-001'
+part_friendly_names = ['Matrix G', 'Encode 1001', 'Matrix R', 'Matrix H', 'Find Error', 'Decode 1011011', 'Find Error Matrix', 'Matrix P', 'Matrix E', 'Number of Bits Encoded']
+groups = [[('aKngN8Qrgk3Krynswj0Njyxy93G2WSG9', 'Matrix G', '>>> print(test_format(G.D))\n>>> print(test_format(G.f))\n')], [('aKngN8Qrgk3KrynsZcSwrzNCUDIXUN3o', 'Encode 1001', '>>> print(test_format(encoding_1001))\n')], [('aKngN8Qrgk3KrynsRZeIXCMBidKOEbOW', 'Matrix R', '>>> print(test_format(R.D))\n>>> print(test_format(R*G))\n')], [('aKngN8Qrgk3KrynshvUCB9PJDcvTdvHP', 'Matrix H', '>>> print(test_format(H.D))\n>>> print(test_format(H.f))\n')], [('aKngN8Qrgk3KrynsUoFC5liGjiWJ8mwV', 'Find Error', '>>> from vec import Vec\n>>> x = [Vec({0, 1, 2},{0: 0, 1: 0, 2: 0}), Vec({0, 1, 2},{0: 0, 1: 0, 2: one}), Vec({0, 1, 2},{0: 0, 1: one, 2: 0}), Vec({0, 1, 2},{0: 0, 1: one, 2: one}), Vec({0, 1, 2},{0: one, 1: 0, 2: 0}), Vec({0, 1, 2},{0: one, 1: 0, 2: one}), Vec({0, 1, 2},{0: one, 1: one, 2: 0}), Vec({0, 1, 2},{0: one, 1: one, 2: one})]\n>>> print(test_format([find_error(y).D for y in x]))\n>>> print(test_format([find_error(y).f for y in x]))\n')], [('aKngN8Qrgk3KrynsNP7mgVOTcTTC7Mj3', 'Decode 1011011', '>>> print(test_format(error_vector))\n>>> print(test_format(code_word))\n>>> print(test_format(original))\n')], [('aKngN8Qrgk3KrynsH6FQSvgfzJK7BTeQ', 'Find Error Matrix', '>>> from mat import Mat\n>>> print(test_format(find_error_matrix(Mat(({0, 1, 2}, {0, 1}), {(0, 1): 0, (2, 0): one, (0, 0): one, (1, 0): one, (1, 1): 0, (2, 1): one}))))\n>>> print(test_format(find_error_matrix(Mat(({0, 1, 2}, {0, 1, 2, 3, 4}), {(0, 1): 0, (1, 2): 0, (0, 0): one, (0, 2): one, (0, 4): one, (2, 1): one, (1, 1): 0, (2, 0): one, (1, 3): one, (2, 3): 0, (1, 4): one, (2, 2): 0, (2, 4): one, (1, 0): 0, (0, 3): 0}))))\n')], [('aKngN8Qrgk3Krynsw48M0OQeN4hIqR26', 'Matrix P', '>>> from hashlib import *\n>>> print(test_format(md5(test_format(P).encode()).hexdigest()))\n')], [('aKngN8Qrgk3Kryns2LTGZYLRzmNa3Loc', 'Matrix E', '>>> from hashlib import *\n>>> print(test_format(md5(test_format(C).encode()).hexdigest()))\n>>> print(test_format(bits_before))\n>>> print(test_format(bits_after))\n')], [('aKngN8Qrgk3KrynsW3mV56QUDnFQiAqS', 'Number of Bits Encoded', '>>> from hashlib import *\n>>> from mat import Mat\n>>> noisy = Mat(({0, 1, 2, 3, 4, 5, 6}, {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223}), {(2, 198): one, (4, 166): one, (0, 20): one, (2, 72): one, (0, 132): one, (2, 84): one, (5, 79): one, (5, 26): one, (4, 84): one, (4, 90): one, (0, 92): one, (3, 185): one, (1, 217): one, (3, 214): one, (5, 43): one, (3, 145): one, (6, 157): one, (2, 11): one, (3, 159): one, (4, 108): one, (2, 44): one, (6, 13): one, (5, 27): one})\n>>> CTILDE = C + noisy\n>>> print(test_format(md5(test_format(correct(CTILDE)).encode()).hexdigest()))\n')]]
+source_files = ['ecc_lab.py'] * len(sum(groups,[]))
 
 try:
     import ecc_lab as solution
@@ -73,8 +73,8 @@ def test_format(obj, precision=6):
     elif otype is tuple:
         return '(%s%s)' % (delimit(map(tf, obj)), ',' if len(obj) is 1 else '')
     elif otype.__name__ in ['Vec','Mat']:
-        entries = delimit(map(tf, sorted(filter(lambda o: o[1] != 0, obj.f.items()))))
-        return '<%s %s {%s}>' % (otype.__name__, test_format(obj.D), entries)
+        entries = tf({x:obj.f[x] for x in obj.f if obj.f[x] != 0})
+        return '%s(%s, %s)' % (otype.__name__, test_format(obj.D), entries)
     else:
         return str(obj)
 
@@ -96,7 +96,7 @@ test_vars['line_contains_substr'] = line_contains_substr
 base_url = '://class.coursera.org/%s/assignment/' % URL
 protocol = 'https'
 colorize = False
-verbose  = False
+verbose = False
 
 class ModifiedDocTestRunner(doctest.DocTestRunner):
     def __init__(self, *args, **kwargs):
@@ -114,14 +114,14 @@ class OutputAccepter(doctest.OutputChecker):
     def check_output(self, want, got, optionflags):
         return True
 
-def submit(parts_string, login, password):   
+def submit(parts_string, login, password):
     print('= Coding the Matrix Homework and Lab Submission')
-    
+    print('**** VERSION 2.0 ****')
     if not login:
         login = login_prompt()
     if not password:
         password = password_prompt()
-    if not parts_string: 
+    if not parts_string:
         parts_string = parts_prompt()
 
     parts = parse_parts(parts_string)
@@ -137,14 +137,14 @@ def submit(parts_string, login, password):
         (login, ch, state, ch_aux) = get_challenge(login, sid)
 
         if not all([login, ch, state]):
-            print('  !! Error: %s\n' % login)
+            print(' !! Error: %s\n' % login)
             return
 
         # to stop Coursera's strip() from doing anything, we surround in parens
-        results  = output(part_tests)
+        results = output(part_tests)
         prog_out = '(%s)' % ''.join(map(str.rstrip, results))
-        token    = challenge_response(login, password, ch)
-        src      = source(sid)
+        token = challenge_response(login, password, ch)
+        src = source(sid)
 
         feedback = submit_solution(login, token, sid, prog_out, src, state, ch_aux)
 
@@ -173,7 +173,7 @@ def parts_prompt():
     print('These are the assignment parts that you can submit:')
 
     for i, name in enumerate(part_friendly_names):
-        print('  %d) %s' % (i+1, name))
+        print(' %d) %s' % (i+1, name))
 
     return input('\nWhich parts do you want to submit? (Ex: 1, 4-7): ')
 
@@ -192,12 +192,12 @@ def get_challenge(email, sid):
 
     challenge_url = '%s%schallenge' % (protocol, base_url)
     data = urllib.parse.urlencode(params).encode('utf-8')
-    req  = urllib.request.Request(challenge_url, data)
+    req = urllib.request.Request(challenge_url, data)
     resp = urllib.request.urlopen(req)
     text = resp.readall().decode('utf-8').strip().split('|')
 
     if len(text) != 9:
-        print('  !! %s' % '|'.join(text))
+        print(' !! %s' % '|'.join(text))
         sys.exit(1)
   
     return tuple(text[x] for x in [2,4,6,8])
@@ -211,16 +211,16 @@ def submit_solution(email_address, ch_resp, sid, output, source, state, ch_aux):
     b64ize = lambda s: str(base64.encodebytes(s.encode('utf-8')), 'ascii')
 
     values = { 'assignment_part_sid' : sid
-             , 'email_address'       : email_address
-             , 'submission'          : b64ize(output) 
-             , 'submission_aux'      : b64ize(source)
-             , 'challenge_response'  : ch_resp
-             , 'state'               : state
+             , 'email_address' : email_address
+             , 'submission' : b64ize(output)
+             , 'submission_aux' : b64ize(source)
+             , 'challenge_response' : ch_resp
+             , 'state' : state
              }
 
     submit_url = '%s%ssubmit' % (protocol, base_url)
-    data     = urllib.parse.urlencode(values).encode('utf-8')
-    req      = urllib.request.Request(submit_url, data)
+    data = urllib.parse.urlencode(values).encode('utf-8')
+    req = urllib.request.Request(submit_url, data)
     response = urllib.request.urlopen(req)
 
     return response.readall().decode('utf-8').strip()
@@ -246,17 +246,16 @@ if __name__ == '__main__':
             , 'use an encrypted connection to Coursera'
             , 'use an unencrypted connection to Coursera'
             ]
-    parser.add_argument('tasks',      default=env.get('COURSERA_TASKS'), nargs='*', help=helps[0])
-    parser.add_argument('--email',    default=env.get('COURSERA_EMAIL'),            help=helps[1])
-    parser.add_argument('--password', default=env.get('COURSERA_PASS'),             help=helps[2])
-    parser.add_argument('--colorize', default=False, action='store_true',           help=helps[3])
-    parser.add_argument('--verbose',  default=False, action='store_true',           help=helps[4])
+    parser.add_argument('tasks', default=env.get('COURSERA_TASKS'), nargs='*', help=helps[0])
+    parser.add_argument('--email', default=env.get('COURSERA_EMAIL'), help=helps[1])
+    parser.add_argument('--password', default=env.get('COURSERA_PASS'), help=helps[2])
+    parser.add_argument('--colorize', default=False, action='store_true', help=helps[3])
+    parser.add_argument('--verbose', default=False, action='store_true', help=helps[4])
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--https', dest="protocol", const="https", action="store_const", help=helps[-2])
-    group.add_argument('--http',  dest="protocol", const="http",  action="store_const", help=helps[-1])
+    group.add_argument('--http', dest="protocol", const="http", action="store_const", help=helps[-1])
     args = parser.parse_args()
     if args.protocol: protocol = args.protocol
     colorize = args.colorize
     verbose = args.verbose
     submit(','.join(args.tasks), args.email, args.password)
-

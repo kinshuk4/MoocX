@@ -25,7 +25,7 @@ def findNumTwoSum(dic):
     Input: dic - a hash table contains all the numbers in the input file"""
 
     numSatisfied = 0 # the number of target values that passed the requirement
-    for target in range(2500, 4001): # [2500, 4000]
+    for target in range(-10000, 10000): # [2500, 4000]
         for x in dic:
             y = target - x
             if y in dic and y != x: # ensure dictinctness
@@ -34,7 +34,7 @@ def findNumTwoSum(dic):
     return numSatisfied
     
 def main():
-    dic = make_dict("HashInt.txt")
+    dic = make_dict("2sum.txt")
     print("The number of target values in [2500, 4000] that satisfied the requirement is:", \
               findNumTwoSum(dic))
     

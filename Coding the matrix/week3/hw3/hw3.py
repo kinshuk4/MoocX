@@ -23,12 +23,12 @@ M_swap_two_vector = [[0, 1], [1, 0]]
 
 
 # # Problem 3
-three_by_three_matrix = [[1, 0, 1], [0, 1, 0], [1, 0, 0]]  # Represent with a list of rows lists.
+three_by_three_matrix = [[1, 0, 1], [0, 1, 0], [1, 0, 0]] # Represent with a list of rows lists.
 
 
 
 # # Problem 4
-multiplied_matrix = [[2, 0, 0], [0, 4, 0], [0, 0, 3]]  # Represent with a list of row lists.
+multiplied_matrix = [[2, 0, 0], [0, 4, 0], [0, 0, 3]] # Represent with a list of row lists.
 
 
 
@@ -36,9 +36,9 @@ multiplied_matrix = [[2, 0, 0], [0, 4, 0], [0, 0, 3]]  # Represent with a list o
 # Please enter a boolean representing if the multiplication is valid.
 # If it is not valid, please enter None for the dimensions.
 
-part_1_valid = False  # True or False
-part_1_number_rows = None  # Integer or None
-part_1_number_cols = None  # Integer or None
+part_1_valid = False # True or False
+part_1_number_rows = None # Integer or None
+part_1_number_cols = None # Integer or None
 
 part_2_valid = False
 part_2_number_rows = None
