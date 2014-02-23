@@ -1,12 +1,12 @@
 '''
 Created on Mar 16, 2013
 
-@author: kchandra
+@author: kinshuk
 '''
 #Qstk imports
-import qstkutil.qsdateutil as du
-import qstkutil.tsutil as tsu
-import qstkutil.DataAccess as da
+import QSTK.qstkutil.qsdateutil as du
+import QSTK.qstkutil.tsutil as tsu
+import QSTK.qstkutil.DataAccess as da
 
 # Third Party Imports
 import datetime as dt

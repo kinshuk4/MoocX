@@ -2,13 +2,16 @@
 <?eclipse-pydev version="1.0"?><pydev_project>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/ComputationalInvesting1</path>
-<path>/ComputationalInvesting1/assignment1</path>
 <path>/ComputationalInvesting1/assignment3</path>
-<path>/ComputationalInvesting1/assignment4</path>
 <path>/ComputationalInvesting1/assignment4</path>
 <path>/ComputationalInvesting1/examples</path>
 <path>/ComputationalInvesting1/assignment5</path>
+<path>/${PROJECT_DIR_NAME}/week3</path>
+<path>/${PROJECT_DIR_NAME}/week5</path>
+<path>/${PROJECT_DIR_NAME}/week6</path>
+<path>/${PROJECT_DIR_NAME}/week7</path>
+<path>/${PROJECT_DIR_NAME}/week8</path>
 </pydev_pathproperty>
-<pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 3.0</pydev_property>
-<pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">python33</pydev_property>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.7</pydev_property>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">py27</pydev_property>
 </pydev_project>
