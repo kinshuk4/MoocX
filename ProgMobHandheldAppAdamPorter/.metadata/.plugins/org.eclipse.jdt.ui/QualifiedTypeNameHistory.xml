@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="course.labs.activitylab.R.id"/>
+<fullyQualifiedTypeName name="org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager"/>
+<fullyQualifiedTypeName name="android.content.SharedPreferences"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.content.SharedPreferences.Editor"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="course.labs.intentslab.ActivityLoaderActivity"/>
+<fullyQualifiedTypeName name="course.labs.intentslab.ExplicitlyLoadedActivity"/>
+</qualifiedTypeNameHistroy>

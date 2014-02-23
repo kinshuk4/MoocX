@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExternalProjectImportWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="D:\lyf\Code\Github\Coursera\ProgMobHandheldAppAdamPorter\A3\Fragments\SourceFiles\TestCases\FragmentsLabTestTablet"/>
+			<item value="D:\lyf\Code\Github\Coursera\ProgMobHandheldAppAdamPorter\A3\Fragments\SourceFiles\TestCases\FragmentsLabTestPhone"/>
+			<item value="D:\lyf\Code\Github\Coursera\ProgMobHandheldAppAdamPorter\A3\Fragments\SourceFiles\Skeletons\FragmentsLab"/>
+			<item value="D:\lyf\Code\Github\Coursera\ProgMobHandheldAppAdamPorter\A3\Permissions\SourceFiles\Skeletons\PermissionsLab"/>
+			<item value="D:\lyf\Code\Github\Coursera\ProgMobHandheldAppAdamPorter\A3\Permissions\SourceFiles\Skeletons\DangerousApp"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+	<section name="DialogMarkerPropertiesDialogSettings">
+		<item value="723" key="DIALOG_WIDTH"/>
+		<item value="189" key="DIALOG_Y_ORIGIN"/>
+		<item value="283" key="DIALOG_HEIGHT"/>
+		<item value="330" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+	<section name="CleanDialogSettings">
+		<item value="500" key="DIALOG_WIDTH"/>
+		<item value="true" key="BUILD_NOW"/>
+		<item value="true" key="BUILD_ALL"/>
+		<item value="117" key="DIALOG_Y_ORIGIN"/>
+		<item value="433" key="DIALOG_X_ORIGIN"/>
+		<item value="441" key="DIALOG_HEIGHT"/>
+		<item value="false" key="TOGGLE_SELECTED"/>
+	</section>
+</section>
