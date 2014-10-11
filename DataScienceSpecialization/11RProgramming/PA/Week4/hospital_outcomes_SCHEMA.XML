@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="HL7">
+	<table_structure name="hospital_outcomes">
+		<field Field="Provider_Number" Type="varchar(255)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="Hospital_Name" Type="varchar(255)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="Address_1" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Address_2" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Address_3" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="City" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="State" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="ZIP_Code" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="County_Name" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Phone_Number" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Hospital_30_Day_Death_Rates_from_Heart_Attack" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Comp_Death_Rates_from_Heart_Attack" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Lower_Death_Rates_from_Heart_Attack" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Upper_Death_Rates_from_Heart_Attack" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Number_Death_Rates_from_Heart_Attack" Type="int(11)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Note_Death_Rates_from_Heart_Attack" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Hospital_30_Day_Death_Rates_from_Heart_Failure" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Comp_Death_Rates_from_Heart_Failure" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Lower_Death_Rates_from_Heart_Failure" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Upper_Death_Rates_from_Heart_Failure" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Number_Death_Rates_from_Heart_Failure" Type="int(11)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Note_Death_Rates_from_Heart_Failure" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Hospital_30_Day_Death_Rates_from_Pneumonia" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Comp_Death_Rates_from_Pneumonia" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Lower_Death_Rates_from_Pneumonia" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Upper_Death_Rates_from_Pneumonia" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Number_Death_Rates_from_Pneumonia" Type="int(11)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Note_Death_Rates_from_Pneumonia" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Hospital_30_Day_Readmission_Rates_from_Heart_Attack" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Comp_Readmission_Rates_from_Heart_Attack" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Est_UReadmission_Rates_from_Heart_Attack" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Est_LReadmission_Rates_from_Heart_Attack" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Number_Readmission_Rates_from_Heart_Attack" Type="int(11)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Note_Readmission_Rates_from_Heart_Attack" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Hospital_30_Day_Readmission_Rates_from_Heart_Failure" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Comp_Readmission_Rates_from_Heart_Failure" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Est_UReadmission_Rates_from_Heart_Failure" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Est_LReadmission_Rates_from_Heart_Failure" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Number_Readmission_Rates_from_Heart_Failure" Type="int(11)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Note_Readmission_Rates_from_Heart_Failure" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Hospital_30_Day_Readmission_Rates_from_Pneumonia" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Comp_Readmission_Rates_from_Pneumonia" Type="varchar(255)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Est_UReadmission_Rates_from_Pneumonia" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Est_LReadmission_Rates_from_Pneumonia" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Number_Readmission_Rates_from_Pneumonia" Type="int(11)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Note_Readmission_Rates_from_Pneumonia" Type="float" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<key Table="hospital_outcomes" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="2424" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="hospital_outcomes" Engine="InnoDB" Version="10" Row_format="Compact" Rows="2318" Avg_row_length="685" Data_length="1589248" Max_data_length="0" Index_length="0" Data_free="9437184" Auto_increment="4096" Create_time="2014-08-21 19:59:30" Collation="latin1_swedish_ci" Create_options="" Comment="" />
+	</table_structure>
+
