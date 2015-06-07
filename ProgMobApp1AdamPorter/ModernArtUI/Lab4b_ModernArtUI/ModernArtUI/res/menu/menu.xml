@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.moderartui.MainActivity" >
+
+    <item
+        android:id="@+id/more_information"
+        android:title="@string/more_info"
+        android:orderInCategory="1"
+        android:showAsAction="ifRoom"
+        android:onClick="showDialog"
+        android:icon="@drawable/ic_more"
+        />
+
+</menu>
