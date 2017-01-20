@@ -1,0 +1,11 @@
+head -50 ../purchases.txt>testfile.txt
+
+testing with small dataset 
+
+cat testfile.txt |python mapper.py|sort|python reducer.py
+cat testfile.txt |python mapper.py|sort
+cat testfile.txt |python mapper.py|sort|python reducer.py
+
+hs mapper.py reducer.py myinput op
+hadoop fs -cat op/part-00000
+
