@@ -1,3 +1,5 @@
+Originals can be found in the [Tensorflow repo](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/udacity).
+
 <div align="center">
   <img src="https://www.tensorflow.org/images/tf_logo_transp.png"><br><br>
 </div>
