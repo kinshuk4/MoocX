@@ -1,0 +1,55 @@
+<datasources>
+	<xa-datasource>
+		<jndi-name>XATitanDB</jndi-name>
+		<track-connection-by-tx />
+		<isSameRM-override-value>false</isSameRM-override-value>
+		
+		<xa-datasource-class>
+			oracle.jdbc.xa.client.OracleXADataSource
+		</xa-datasource-class>
+		<xa-datasource-property name="URL">
+			jdbc:oracle:thin:@localhost:1521:beginner
+		</xa-datasource-property>
+		<xa-datasource-property name="User">
+			root
+		</xa-datasource-property>
+		<xa-datasource-property name="Password">
+			tiger
+		</xa-datasource-property>
+		<transaction-isolation>
+			TRANSACTION_SERIALIZABLE
+		</transaction-isolation>
+		<exception-sorter-class-name>
+			org.mk.training.jdbc.vendor.OracleExceptionSorter
+		</exception-sorter-class-name>
+		<no-tx-separate-pools />
+	</xa-datasource>
+	<xa-datasource>
+		<jndi-name>XATitanDB2</jndi-name>
+		<track-connection-by-tx />
+		<isSameRM-override-value>false</isSameRM-override-value>
+		<xa-datasource-class>
+			oracle.jdbc.xa.client.OracleXADataSource
+		</xa-datasource-class>
+		<xa-datasource-property name="URL">jdbc:oracle:thin:@192.168.1.10:1521:beginner</xa-datasource-property>
+		<xa-datasource-property name="User">root</xa-datasource-property>
+		<xa-datasource-property name="Password">tiger</xa-datasource-property>
+		<transaction-isolation>
+			TRANSACTION_SERIALIZABLE
+		</transaction-isolation>
+		<exception-sorter-class-name>
+			org.mk.training.jdbc.vendor.OracleExceptionSorter
+		</exception-sorter-class-name>
+		<no-tx-separate-pools />
+	</xa-datasource>
+
+
+	<mbean
+		code="org.jboss.resource.adapter.jdbc.vendor.OracleXAExceptionFormatter"
+		name="jboss.jca:service=OracleXAExceptionFormatter">
+		<depends optional-attribute-name="TransactionManagerService">
+			jboss:service=TransactionManager
+		</depends>
+	</mbean>
+
+</datasources>

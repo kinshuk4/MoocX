@@ -1,0 +1,280 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>How to use JSR 160</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="previous" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="next" href="ch03s10.html" title="JSR 160 Security"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">How to use JSR 160</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 3. JSR 160 (JMX Remoting) Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03s10.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10370"></a>How to use JSR 160</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10373"></a>Introduction</h3></div></div><p>
+         Using JSR 160 is very simple; the API is standard, so it does not matter if you use MX4J's JSR 160
+         implementation or Sun's JSR 160 reference implementation.
+         <br>
+         You can checkout the JSR 160 examples shipped with MX4J to understand how to use the JSR 160 API.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1037A"></a>JMXServiceURLs</h3></div></div><p>
+         JSR 160 connector servers are identified by a JMXServiceURL, represented by the class
+         <tt>javax.management.remote.JMXServiceURL</tt>.
+         <br>
+         A JMXServiceURL is a string of the form:
+      </p><p>
+         service:jmx:
+         <span class="emphasis"><i>&lt;protocol&gt;</i></span>://[[[
+         <span class="emphasis"><i>&lt;host&gt;</i></span>]:
+         <span class="emphasis"><i>&lt;port&gt;]</i></span>/
+         <span class="emphasis"><i>&lt;path&gt;</i></span>]
+      </p><p>
+         where
+         <span class="emphasis"><i>protocol</i></span> is a short string that represent the protocol such as "rmi", "iiop", "jmxmp"
+         or "soap", while
+         <span class="emphasis"><i>host</i></span>,
+         <span class="emphasis"><i>port</i></span> and
+         <span class="emphasis"><i>path</i></span> are optional.
+      </p><p>
+         A JMXServiceURL can be seen as the "address" of a JMXConnectorServer, and it is the mean by which
+         a JMXConnector can connect to a JMXConnectorServer.
+      </p><p>
+         However, a JMXServiceURL is not sufficient to express the many possibile configurations of a
+         JMXConnectorServer (for example, it would be difficult to use a JMXServiceURL to specify - for the
+         RMIConnectorServer - the RMIClientSocketFactory and the RMIServerSocketFactory).
+         <br>
+         For this reason JMXConnectorServers and JMXConnector make use of
+         <tt>java.util.Map</tt>s to
+         specify environment properties that a JMXConnectorServer or a JMXConnector may use to setup properly.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N103A9"></a>Creating a JMXConnectorServer</h3></div></div><p>
+         A JMXConnectorServer is attached to an MBeanServer.
+         <br>
+         This can be achieved by explicitely passing the MBeanServer to the JMXConnectorServer at the moment of
+         creation, or by registering the JMXConnectorServer - an MBean itself - inside the target MBeanServer.
+      </p><p>
+         Once a JMXConnectorServer is attached to an MBeanServer, it is not yet ready to accept incoming calls
+         from clients: it must be
+         <span class="emphasis"><i>started</i></span>.
+         <br>
+         After a JMXConnectorServer has been started successfully, it is ready to accept incoming calls from clients.
+         <br>
+         Symmetrically, a JMXConnectorServer must be
+         <span class="emphasis"><i>stopped</i></span> in order to stop accepting incoming
+         calls from clients. After a JMXConnectorServer has been stopped, it cannot be restarted, and should be
+         tossed away.
+      </p><p>
+         The preferred way to create a JMXConnectorServer is by using the
+         <tt>javax.management.remote.JMXConnectorServerFactory</tt> class:
+      </p><p>
+         <div class="example"><p><b>Example 3.1. Creating and starting a standalone JMXConnectorServer</b></p><pre class="programlisting">
+               
+// The address of the connector server
+JMXServiceURL address = new JMXServiceURL("service:jmx:rmi://host");
+
+// The environment map, null in this case
+Map environment = null;
+
+// The MBeanServer to which the JMXConnectorServer will be attached to
+MBeanServer server = MBeanServerFactory.createMBeanServer();
+
+// Create the JMXCconnectorServer
+JMXConnectorServer cntorServer = JMXConnectorServerFactory.newJMXConnectorServer(address, environment, server);
+
+// Start the JMXConnectorServer
+cntorServer.start();
+               
+            </pre></div>
+      </p><p>
+         The example above creates a JMXConnectorServer attached to a freshly created MBeanServer.
+         <br>
+         The JMXConnectorServer - itself an MBean - is however not registered in the MBeanServer.
+      </p><p>
+         The following code creates a JMXConnectorServer and registers it in a MBeanServer.
+      </p><p>
+         <div class="example"><p><b>Example 3.2. Creating and starting an MBean JMXConnectorServer</b></p><pre class="programlisting">
+               
+// The address of the connector
+JMXServiceURL address = new JMXServiceURL("service:jmx:rmi://host");
+
+// The environment map, null in this case
+Map environment = null;
+
+JMXConnectorServer cntorServer = JMXConnectorServerFactory.newJMXConnectorServer(address, environment, null);
+
+// The MBeanServer to which the JMXConnectorServer will be registered in
+MBeanServer server = MBeanServerFactory.createMBeanServer();
+
+// Register the JMXConnectorServer in the MBeanServer
+ObjectName cntorServerName = ObjectName.getInstance("connectors:protocol=rmi");
+server.registerMBean(cntorServer, cntorServerName);
+
+// Start the JMXConnectorServer
+cntorServer.start();
+
+// An alternative way to start the JMXConnectorServer via the MBeanServer
+server.invoke(cntorServerName, "start", null, null);
+
+// Yet another way to start the JMXConnectorServer via the MBeanServer
+Object proxy = MBeanServerInvocationHandler.newProxyInstance(server, cntorServerName, JMXConnectorServerMBean.class, true);
+JMXConnectorServerMBean cntorServerMBean = (JMXConnectorServerMBean)proxy;
+cntorServerMBean.start();
+               
+            </pre></div>
+      </p><p>
+         Once a JMXConnectorServer is connected to an MBeanServer and once it has been started, it is possible to
+         create a JMXConnector on a client host and connect it to the JMXConnectorServer.
+         <br>
+         We already saw that the mean used by a JMXConnector to connect to a JMXConnectorServer is a JMXServiceURL.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N103DD"></a>Creating a JMXConnector</h3></div></div><p>
+         If a JMXConnectorServer is the server-side component that allows to interact with a MBeanServer,
+         a JMXConnector is the client-side component that allows client code to contact a remote MBeanServer.
+         <br>
+         A JMXConnector handles the details of registering notification listeners and receiving notifications from the
+         remote MBeanServer, as well as providing a way to authenticate to the JMXConnectorServer, and eventually
+         execute operations on behalf of a given
+         <tt>javax.security.auth.Subject</tt>.
+         <br>
+         Finally the JMXConnector allows client code to obtain an implementation of the
+         <tt>javax.management.MBeanServerConnection</tt> interface that allows to interact with the
+         remote MBeanServer as if it is local.
+      </p><p>
+         The preferred way to create a JMXConnector is to use the
+         <tt>javax.management.remote.JMXConnectorFactory</tt> class:
+      </p><p>
+         <div class="example"><p><b>Example 3.3. Connecting a JMXConnector</b></p><pre class="programlisting">
+               
+// The address of the connector server
+JMXServiceURL address = ...;
+
+// The environment map, null in this case
+Map environment = null;
+
+// Create the JMXCconnectorServer
+JMXConnector cntor = JMXConnectorFactory.connect(address, environment);
+
+// Obtain a "stub" for the remote MBeanServer
+MBeanServerConnection mbsc = cntor.getMBeanServerConnection();
+
+// Call the remote MBeanServer
+String domain = mbsc.getDefaultDomain();
+               
+            </pre></div>
+      </p><p>
+         JMXConnectors can be instantiated, but connected at a later time.
+         <br>
+         Below is a code snippet that shows how to instantiate a JMXConnector and then connect it
+         to the JMXConnectorServer.
+         <br>
+         Note the use of two different environment Maps: one is used to specify creation parameters, the other
+         to specify connection parameters.
+      </p><p>
+         <div class="example"><p><b>Example 3.4. Creating and connecting a JMXConnector</b></p><pre class="programlisting">
+               
+// The address of the connector server
+JMXServiceURL address = ...;
+
+// The creation environment map, null in this case
+Map creationEnvironment = null;
+
+// Create the JMXCconnectorServer
+JMXConnector cntor = JMXConnectorFactory.newJMXConnector(address, creationEnvironment);
+
+// The connection environment map, null in this case
+// May contain - for example - user's credentials
+Map connectionEnvironment = null;
+
+// Connect
+cntor.connect(connectionEnvironment);
+
+// Obtain a "stub" for the remote MBeanServer
+MBeanServerConnection mbsc = cntor.getMBeanServerConnection();
+
+// Call the remote MBeanServer
+String domain = mbsc.getDefaultDomain();
+               
+            </pre></div>
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10409"></a>Remote Notifications</h3></div></div><p>
+         JSR 160 connectors are able to receive notifications emitted by a remote MBean.
+         <br>
+         The details of the mechanism of how remote notifications are delivered depends on the protocol
+         used by the connector; however, few general principles are explained below.
+      </p><p>
+         To receive notifications, a client must register a listener by means of the
+         <tt>javax.management.MBeanServerConnection.addNotificationListener(...)</tt> method.
+         <br>
+         There are two overloaded versions of this method: one that takes an ObjectName as listener, and one that
+         takes a NotificationListener as listener.
+      </p><p>
+         In the first case, the listener is remote (an MBean in the remote MBeanServer) and thus both the filter
+         and the handback object are sent over the wire to the server (and of course both must be serializable).
+      </p><p>
+         The more interesting case is the second, where the listener is local to the client code.
+         <br>
+         In this case the listener that receives notifications emitted by a remote MBean always
+         remains local to the client code that registered it. The NotificationListener object is never sent across
+         the wire.
+         <br>
+         NotificationListener objects are usually implemented with anonymous inner classes
+         (that most of the times are not serializables), and client code should not make any particular attention
+         on how to implement NotificationListeners that receive remote Notifications: anonymous inner classes are
+         a good choice.
+      </p><p>
+         On the other end, if the remote MBean sends custom subclasses of the Notification class, it must ensure that
+         the custom Notification objects are
+         <span class="emphasis"><i>serializable</i></span>.
+         <br>
+         The meaning of
+         <span class="emphasis"><i>serializable</i></span> depends on the protocol used; in case of RMI, it is the
+         usual meaning of "Java serializable" (that is, it can be written to a
+         <tt>java.io.ObjectOutputStream</tt>).
+      </p><p>
+         NotificationFilters may or may not be sent over the wire, depending on the protocol used by the JMXConnector.
+         <br>
+         It is a good choice to use the standard JMX NotificationFilters such as
+         <tt>javax.management.NotificationFilterSupport</tt>,
+         <tt>javax.management.AttributeChangeNotificationFilter</tt> and
+         <tt>javax.management.relation.MBeanServerNotificationFilter</tt> to perform filtering of
+         Notifications: these classes are serializable, and known to the server side.
+         <br>
+         If you want to write your custom NotificationFilter, write it in such a way that will work no matter if it is
+         run on client side or on server side, and be sure its class is known to the server side (for more
+         details about server side classloading, refer to the JSR 160 specification).
+      </p><p>
+         The handback object always remains on client side.
+      </p><p>
+         In the MX4J implementation, notifications are requested by the client to the server, and use a notification
+         buffer as explained in the JSR 160 specification.
+         <br>
+         Since it's the client that initiates the notification request, the mechanism can be seen as a polling
+         mechanism. However, if the server does not have notifications to send to the client, it does not return
+         an empty result, but instead holds the call for a configurable timeout until a notification is emitted
+         or the timeout elapses.
+         <br>
+         This allows to reduce the network traffic (since there is no continuous polling from the client to the
+         server) and still have a fast reactivity to notification emitted by the server.
+         <br>
+         Refer to the javadocs of the
+         <a href="/docs/api/mx4j/remote/RemoteNotificationClientHandler.html" target="_top">
+            <tt>mx4j.remote.RemoteNotificationClientHandler</tt>
+         </a> and of the
+         <a href="/docs/api/mx4j/remote/RemoteNotificationServerHandler.html" target="_top">
+            <tt>mx4j.remote.RemoteNotificationServerHandler</tt>
+         </a> for further details.
+      </p><p>
+         Take also a look at the examples bundled with the MX4J distribution for code snippets on registering
+         listeners to remote MBeans.
+         <br>
+         Below, a quick example of how to register a listener to a remote MBean:
+      </p><p>
+         <div class="example"><p><b>Example 3.5. Registering a NotificationListener to a remote MBean</b></p><pre class="programlisting">
+               
+// The address of the connector server
+JMXServiceURL address = ...;
+
+// The JMXConnector
+JMXConnector connector = JMXConnectorFactory.connect(address);
+
+// The MBeanServerConnection "stub"
+MBeanServerConnection mbsc = connector.getMBeanServerConnection();
+
+// The MBeanServerDelegate emits notifications about registration/unregistration of MBeans
+ObjectName delegateName = ObjectName.getInstance("JMImplementation:type=MBeanServerDelegate");
+
+NotificationListener listener = new NotificationListener()
+{
+   public void handleNotification(Notification notification, Object handback)
+   {
+      // Do something
+   }
+};
+
+mbsc.addNotificationListener(delegateName, listener, null, null);
+               
+            </pre></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03s10.html">Next</a></td></tr><tr><td align="left" width="40%">Chapter 3. JSR 160 (JMX Remoting) Explained&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch03.html">Up</a></td><td align="right" width="40%">&nbsp;JSR 160 Security</td></tr></table></div></body></html>

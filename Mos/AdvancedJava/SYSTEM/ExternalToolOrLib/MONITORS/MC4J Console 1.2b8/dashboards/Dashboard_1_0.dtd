@@ -1,0 +1,65 @@
+<!ELEMENT Dashboard (#PCDATA | DashboardMatch | Description | Context | LayoutManager | Content)*>
+<!ATTLIST Dashboard version CDATA #REQUIRED>
+<!ATTLIST Dashboard name CDATA #REQUIRED>
+
+<!ELEMENT DashboardMatch (#PCDATA | BeanMatch)*>
+<!ATTLIST DashboardMatch type CDATA #REQUIRED>
+<!ATTLIST DashboardMatch location CDATA #IMPLIED>
+
+<!ELEMENT BeanMatch (#PCDATA | Condition)*>
+<!ATTLIST BeanMatch id CDATA #REQUIRED>
+<!ATTLIST BeanMatch type CDATA #REQUIRED>
+
+<!ELEMENT Condition (#PCDATA)*>
+<!ATTLIST Condition type CDATA #REQUIRED>
+<!ATTLIST Condition filter CDATA #IMPLIED>
+<!ATTLIST Condition attributeName CDATA #IMPLIED>
+<!ATTLIST Condition value CDATA #IMPLIED>
+<!ATTLIST Condition serverType CDATA #IMPLIED>
+
+
+<!ELEMENT Context (#PCDATA)>
+<!ATTLIST Context name CDATA #IMPLIED>
+<!ATTLIST Context type CDATA #IMPLIED>
+<!ATTLIST Context value CDATA #IMPLIED>
+
+<!ELEMENT Attribute (#PCDATA | Component)*>
+<!ATTLIST Attribute name CDATA #REQUIRED>
+<!ATTLIST Attribute value CDATA #IMPLIED>
+
+<!ELEMENT Description (#PCDATA)>
+
+<!ELEMENT Component (#PCDATA | Constraint | LayoutManager | Content | Attribute | Border)*>
+<!ATTLIST Component id CDATA #IMPLIED>
+<!ATTLIST Component type CDATA #REQUIRED>
+
+<!ELEMENT Constraint (#PCDATA)>
+<!ATTLIST Constraint anchor CDATA #IMPLIED>
+<!ATTLIST Constraint gridx CDATA #IMPLIED>
+<!ATTLIST Constraint gridy CDATA #IMPLIED>
+<!ATTLIST Constraint widthx CDATA #IMPLIED>
+<!ATTLIST Constraint weightx CDATA #IMPLIED>
+<!ATTLIST Constraint weighty CDATA #IMPLIED>
+<!ATTLIST Constraint fill CDATA #IMPLIED>
+<!ATTLIST Constraint insets CDATA #IMPLIED>
+<!ATTLIST Constraint type CDATA #REQUIRED>
+<!ATTLIST Constraint direction CDATA #IMPLIED>
+
+<!ELEMENT LayoutManager (#PCDATA)>
+<!ATTLIST LayoutManager rows CDATA #IMPLIED>
+<!ATTLIST LayoutManager cols CDATA #IMPLIED>
+<!ATTLIST LayoutManager type CDATA #REQUIRED>
+<!ATTLIST LayoutManager axis CDATA #IMPLIED>
+
+<!ELEMENT Content (#PCDATA | Component)*>
+
+<!ELEMENT Border (#PCDATA | Attribute)*>
+<!ATTLIST Border type CDATA #REQUIRED>
+<!ATTLIST Border color CDATA #IMPLIED>
+<!ATTLIST Border thickness CDATA #IMPLIED>
+<!ATTLIST Border top CDATA #IMPLIED>
+<!ATTLIST Border left CDATA #IMPLIED>
+<!ATTLIST Border bottom CDATA #IMPLIED>
+<!ATTLIST Border right CDATA #IMPLIED>
+
+

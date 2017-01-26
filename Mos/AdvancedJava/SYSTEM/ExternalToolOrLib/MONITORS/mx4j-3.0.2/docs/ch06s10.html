@@ -1,0 +1,64 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Mailer MBean</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch06.html" title="Chapter 6. MX4J Tools"><link rel="previous" href="ch06s05.html" title="Naming MBeans"><link rel="next" href="ch06s14.html" title="Jython MBean"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Mailer MBean</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch06s05.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 6. MX4J Tools</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch06s14.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10D64"></a>Mailer MBean</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10D67"></a>Introduction</h3></div></div><p>
+         The SMTP MBean is meant to be used to send emails from your JMX application.
+         The MBean's class is
+         <tt>mx4j.tools.mail.SMTP</tt>.
+      </p><p>
+         You can use it in basically two ways:
+         <div class="itemizedlist"><ul><li><p>
+                  Directly by calling the sendMail method
+               </p></li><li><p>
+                  By listening notifications, for instance from a Timer or Monitor
+               </p></li></ul></div>
+      </p><p>
+         The usage of the MBean requires that you have JavaMail and the Java Activation Framework.
+         The MBean has been tested with JavaMail 1.2 and JAF 1.0.1.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10D7B"></a>Configuration</h3></div></div><p>
+         The MBean has quite many attributes to work but as a minimum you should set up the
+         <span class="emphasis"><i>serverHost</i></span>
+         and
+         <span class="emphasis"><i>To</i></span>. After that you can start sending emails.
+      </p><p>
+         If your	server requires authentication, set the
+         <span class="emphasis"><i>LoginToServer</i></span> attribute to true
+         and fill the
+         <span class="emphasis"><i>ServerUserName</i></span> and
+         <span class="emphasis"><i>ServerPassword fields</i></span>
+      </p><p>
+         You can also set the source address by setting the
+         <span class="emphasis"><i>FromAddress</i></span> field as well
+         as the
+         <span class="emphasis"><i>FromName</i></span> field. The destination attributes can be set setting a comma separated
+         list of addresses by using the
+         <span class="emphasis"><i>To</i></span>,
+         <span class="emphasis"><i>Cc</i></span> and
+         <span class="emphasis"><i>Bcc</i></span> attributes.
+         The addresses are not checked until a mail is actually sent, but in case some are not well formed, to those who are will be sent anyway
+      </p><p>
+         To make the MBean to listen for notifications set the
+         <span class="emphasis"><i>ObservedObject</i></span> field. The SMTPMBean
+         will register iteself as listener of that MBean and when a notification is received it will send the mail.
+         If you set the
+         <span class="emphasis"><i>NotificationName</i></span> field, only notification names with that type will be
+         valid to send a mail. For instance "javax.management.monitor.string.differ"
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10DAA"></a>Keyword expanding</h3></div></div><p>
+         To make the content of the mail more customizable you can include keyword expansion
+         on the
+         <span class="emphasis"><i>Subject</i></span>, and
+         <span class="emphasis"><i>Content</i></span> field. The keywords
+         are special words set in between of $ signs. e.g. $date$. Those keywords will be replaced
+         before the mail is sent, so you can get text containing more information.
+         The recognized keywords are:
+         <div class="itemizedlist"><ul><li><p>
+                  <span class="emphasis"><i>$date$</i></span> Expands to the current date formatted with locale format
+               </p></li><li><p>
+                  <span class="emphasis"><i>$time$</i></span> Expands to the current time formatted with locale format
+               </p></li><li><p>
+                  <span class="emphasis"><i>$datetime$</i></span> Expands to the current datetime formatted with locale format
+               </p></li><li><p>
+                  <span class="emphasis"><i>$observed$</i></span> Expands to the observed MBean's ObjectName which triggered the mail
+               </p></li><li><p>
+                  <span class="emphasis"><i>$notification$</i></span> Expands to the notification type which triggered the mail
+               </p></li><li><p>
+                  <span class="emphasis"><i>$objectname$</i></span> Expands to the SMTPMBean's ObjectName
+               </p></li></ul></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch06s05.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch06s14.html">Next</a></td></tr><tr><td align="left" width="40%">Naming MBeans&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch06.html">Up</a></td><td align="right" width="40%">&nbsp;Jython MBean</td></tr></table></div></body></html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+	| This file defines the JMS Queues that are used in exercise 13.2
+	|
+	| You can add other destinations to this file, or you can create other
+	| *-service.xml files to contain your application's destinations.
+-->
+
+<server>
+
+	<mbean code="org.jboss.mq.server.jmx.Queue"
+		name="jboss.mq.destination:service=Queue,name=F">
+		<depends optional-attribute-name="DestinationManager">
+			jboss.mq:service=DestinationManager
+		</depends>
+	</mbean>
+	<mbean code="org.jboss.mq.server.jmx.Queue"
+		name="jboss.mq.destination:service=Queue,name=G">
+		<depends optional-attribute-name="DestinationManager">
+			jboss.mq:service=DestinationManager
+		</depends>
+	</mbean>
+	<mbean code="org.jboss.mq.server.jmx.Queue"
+		name="jboss.mq.destination:service=Queue,name=H">
+		<depends optional-attribute-name="DestinationManager">
+			jboss.mq:service=DestinationManager
+		</depends>
+	</mbean>
+	<mbean code="org.jboss.mq.server.jmx.Queue"
+		name="jboss.mq.destination:service=Queue,name=I">
+		<depends optional-attribute-name="DestinationManager">
+			jboss.mq:service=DestinationManager
+		</depends>
+	</mbean>
+	<mbean code="org.jboss.mq.server.jmx.Queue"
+		name="jboss.mq.destination:service=Queue,name=E">
+		<depends optional-attribute-name="DestinationManager">
+			jboss.mq:service=DestinationManager
+		</depends>
+	</mbean>
+
+</server>

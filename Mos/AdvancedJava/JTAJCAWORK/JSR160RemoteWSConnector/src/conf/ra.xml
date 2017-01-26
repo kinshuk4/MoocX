@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connector id="Connector_ID" version="1.5" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd"> 
+    <description></description>
+    <display-name>JSR160RemoteWSConnector</display-name>
+    <vendor-name></vendor-name>
+    <eis-type></eis-type>
+    <resourceadapter-version></resourceadapter-version>
+    <resourceadapter>
+        <resourceadapter-class>org.mk.training.jsr160jmxconnector.JSR160Adapter</resourceadapter-class>
+        <config-property>
+            <config-property-name>MbeanServerDomainName</config-property-name>
+            <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+            <config-property-name>Jsr160URL</config-property-name>
+            <config-property-type>java.lang.String</config-property-type>
+            <config-property-value>service:jmx:ws://localhost:8010/jmxws</config-property-value>
+        </config-property>
+    </resourceadapter>
+</connector>

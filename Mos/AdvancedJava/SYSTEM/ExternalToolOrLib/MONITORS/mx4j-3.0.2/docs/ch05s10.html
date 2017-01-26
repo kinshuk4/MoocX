@@ -1,0 +1,146 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>XSLTProcessor</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch05.html" title="Chapter 5. MX4J HTTP Adaptor"><link rel="previous" href="ch05.html" title="Chapter 5. MX4J HTTP Adaptor"><link rel="next" href="ch06.html" title="Chapter 6. MX4J Tools"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">XSLTProcessor</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch05.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 5. MX4J HTTP Adaptor</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10AFA"></a>XSLTProcessor</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10AFD"></a>Introduction</h3></div></div><p>
+			The XSLTProcessor can be used to customize the output of the HttpAdaptor.
+			It basically takes the XML output of the HttpAdaptor and process it by using
+			XSL. This enables you to customize the look as you wish. Normally the processing
+			will produce HTML files you can display in a standard browser.
+		</p><p>
+			The actual files to be used are specified via the File property. This points to dir
+			where the template files are. Optionally you can package all your files in a .jar
+			or .zip file and deliver that instead.
+		</p><p>
+			The processor identifies which xsl template to use from the HTTP request. i.e.
+			if the request is mbean it will try to find a mbean.xsl file and use it to process
+			the resulting XML tree. You can modify this by passing a template variable. For instance.
+			<span class="emphasis"><i>http://host:port/mbean?objectname=Test:name=test1&amp;template=testmbean</i></span>
+			In that case the HttpAdaptor will build a mbean resulting tree but instead of being
+			processed using the mbean.xsl, it will use testmbean.xsl.
+		</p><p>
+			An identity transformation file is included in the distribution and you can use it to get the original XML message.
+			For instance<span class="emphasis"><i>http://host:port/mbean?objectname=Test:name=test1&amp;template=identity</i></span>
+		</p><p>
+			If you need to deliver extra files like images or raw HTML, you can add it to the
+			target filesystem. The processor knows a few MIME types which are classified according to
+			the extension. This includes:
+			<div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+						GIF images: extension=".gif", MIME type: "image/gif"
+					</p></li><li style="list-style-type: opencircle"><p>
+						PNG images: extension=".png", MIME type: "image/png"
+					</p></li><li style="list-style-type: opencircle"><p>
+						JPG images: extension=".jpg", MIME type: "image/jpg"
+					</p></li><li style="list-style-type: opencircle"><p>
+						HTML raw files: extension=".html,.html", MIME type: "text/html"
+					</p></li><li style="list-style-type: opencircle"><p>
+						HTML raw files: extension=".css", MIME type: "text/css"
+					</p></li><li style="list-style-type: opencircle"><p>
+						XML files: extension=".xml", MIME type: "text/xml"
+					</p></li><li style="list-style-type: opencircle"><p>
+						XSL files: extension=".xsl", MIME type: "text/xsl"
+					</p></li><li style="list-style-type: opencircle"><p>
+						etc...
+					</p></li></ul></div>
+		</p><p>
+			You can add extra MIME type with the addMimeType method. If a MIME type is not found
+			for a given extension a text/plain type is assigned
+		</p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10B2D"></a>Compatibility</h3></div></div><p>
+			For the XSLTProcessor to work you need a JAXP parser (Which you need for using the
+			raw HttpAdaptor too) and a TRaX (Transformation API for XML) library. In principle
+			anyone should work but there are differences between the different implementations
+			and versions. It follows some tested and working platforms:
+			<div class="itemizedlist"><ul><li>
+					Java SDK 1.4.0, using the bundled parser and transformation library
+				</li><li>
+					Java SDK 1.4.1, using the bundled parser and transformation library
+				</li><li>
+					Java SDK 1.4.0 + saxon 6.5.2, Working since MX4j version 1.1.1. Not
+					working with MX4J version 1.1
+				</li><li>
+					Java SDK 1.4.0 + saxon 7.2, Working since MX4j version 1.1.1.
+				</li><li>
+					Java SDK 1.4.0 + jd.xslt 1.2.8, Working since MX4j version 1.1.1.
+				</li></ul></div>
+			<p>
+				Combinations reported not to work
+			</p>
+			<div class="itemizedlist"><ul><li>
+					Usage of xalan 2.0 and xerces 1.2.3 has been reported as not working
+				</li></ul></div>
+		</p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10B45"></a>Attributes</h3></div></div><p>
+			The XSLTProcessor has the following attributes and operations that you can use to customize
+			the operation.
+			<div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+						<span class="emphasis"><i>File:</i></span> Determines where to look for xsl files. If the
+						target file is a dir, it assumes that xsl files are located on the dir. Otherwise
+						if it points to a .jar or .zip files, it assumes that the files are located inside.
+						Pointing it to a file system is especially useful for testing.
+					</p></li><li style="list-style-type: opencircle"><p>
+						<span class="emphasis"><i>PathInJar:</i></span> Sets the dir in the jar file where xsl files reside
+					</p></li><li style="list-style-type: opencircle"><p>
+						<span class="emphasis"><i>UseJar:</i></span> Read-only. It tells whether the processor is reading from a jar file
+					</p></li><li style="list-style-type: opencircle"><p>
+						<span class="emphasis"><i>UsePath:</i></span> Read-only. It tells whether the processor is reading from a dir
+					</p></li><li style="list-style-type: opencircle"><p>
+						<span class="emphasis"><i>UseCache:</i></span> Indicates whether to cache the transformation objects. This
+						speeds-up the process. It is usually set to true, but you can set it to false for easier testing
+					</p></li><li style="list-style-type: opencircle"><p>
+						<span class="emphasis"><i>Locale:</i></span> It's the locale used for i18n pruposes. By default it is "en"
+					</p></li><li style="list-style-type: opencircle"><p>
+						<span class="emphasis"><i>LocaleString:</i></span> Sets the locale by using a String
+					</p></li><li style="list-style-type: opencircle"><p>
+						<span class="emphasis"><i>addMimeType:</i></span> Adds a mime type in the form of a addMimeType(".pdf", "application/pdf"). The XSLTProcessor
+						will use th given MIME type for files with the given extension
+					</p></li></ul></div>
+		</p><p>
+				For example you can set the attributes as follow:
+					<pre class="programlisting">
+	
+ObjectName processorName = new ObjectName("Server:name=XSLTProcessor");
+server.createMBean("mx4j.tools.adaptor.http.XSLTProcessor", processorName, null);
+
+// set it to use a dir
+server.setAttribute(processorName, new Attribute("File", "/home/tibu/devel/mx4j/src/core/mx4j/adaptor/http/xsl"));
+
+// set it to use a compressed file
+server.setAttribute(processorName, new Attribute("File", "/home/tibu/skins.jar"));
+
+// set the target dir
+server.setAttribute(processorName, new Attribute("PathInJar", "/mx4j/adaptor/http/xsl"));
+
+// set not to use cache
+server.setAttribute(processorName, new Attribute("UseCache", Boolean.FALSE));
+
+// set not to use cache
+server.setAttribute(processorName, new Attribute("LocaleString", "fi"));
+
+// adds a mime type
+server.invoke(processorName, "addMimeType", new Object[] {".pdf", "application/pdf"}, new String[] {"java.lang.String", "java.lang.String"});
+	
+				</pre>
+			</p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10B83"></a>XSL Development</h3></div></div><p>
+			If you want to develop your own GUI, please refer to the xsl sources of the
+			GUI delivered in the mx4j-tools.jar file
+		</p><p>
+			An important element to help you in the development are implicit params passed to
+			the template. This includes all the request variables in the form of request.variable
+			params. For instance with the follwing request
+			<p>
+			<span class="emphasis"><i>http://host.port/mbean?objectname=Test:name=test1&amp;template=testmbean</i></span>
+			</p>
+			<p>
+			There will be two paramaters request.objectname and request.template
+			</p>
+			<p>
+			Besides, there is alwyas a locale variable as request.locale. Notice that you can explicitly set the
+			locale in a request passing the locale varible like
+			<span class="emphasis"><i>http://host.port/mbean?objectname=Test:name=test1&amp;template=testmbean&amp;locale=de</i></span>
+			</p>
+		</p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10B99"></a>Internationalization</h3></div></div><p>
+			Since MX4J version 1.1.1 the XSLTProcessor supports internationalization. This is done
+			replacing the previously hardcoded strings with a call to the 'str' template on the
+			common.xsl. The 'str' template takes an id which points to the string actually displayed on
+			screen. An xml file contains the strings indexed by id. With the current distribution a
+			strings_en.xml file is shipped containing the standard english translation.
+		</p><p>
+			If you want to create your own translation add or replace strings_XX.xml files by your
+			own translation on the jar file. The strings accept
+			a replacement of up to two parameters which are indicated wth brackets like {0} or {1}
+		</p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch05.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch06.html">Next</a></td></tr><tr><td align="left" width="40%">Chapter 5. MX4J HTTP Adaptor&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch05.html">Up</a></td><td align="right" width="40%">&nbsp;Chapter 6. MX4J Tools</td></tr></table></div></body></html>

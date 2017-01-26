@@ -1,0 +1,34 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Support for remote API</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch02.html" title="Chapter 2. JMX 1.2 Explained"><link rel="previous" href="ch02.html" title="Chapter 2. JMX 1.2 Explained"><link rel="next" href="ch02s07.html" title="The
+      javax.management.MBeanServerBuilder class
+   "></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Support for remote API</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch02.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 2. JMX 1.2 Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch02s07.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N100F6"></a>Support for remote API</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N100F9"></a>Overview</h3></div></div><p>
+         JMX 1.2 defined all changes to the JMX specification needed to support remote API.
+         <br>
+         Imagine a situation where a client needs to contact a remote MBeanServer, to invoke operations on it and
+         to receive the result of such invocations.
+         <br>
+         In order for this situation to be possible, the JMX specification needed several changes such as
+         specifying the serialVersionUID of serializable classes that can be exchanged between the client and
+         the remote MBeanServer (for example
+         <tt>javax.management.MBeanInfo</tt>), specifying
+         details of MBeanServer's classloading to support classloading from remote locations, and the possibility
+         for the client to invoke operations on an MBeanServer-like interface that supports remote invocation
+         (for example that throws IOException if the connection with the remote MBeanServer is broken).
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10105"></a>The
+         <tt>javax.management.MBeanServer</tt> class inherits from
+         <tt>javax.management.MBeanServerConnection</tt>
+      </h3></div></div><p>
+         The MBeanServer interface cannot be used directly by clients that need to contact a remote MBeanServer.
+         <br>
+         The reason is that this interface does not list, in its method's throws clause,
+         <tt>java.io.IOException</tt> as a possible exception being thrown.
+         Furthermore, the MBeanServer interface has some method (like registerMBean(), deserialize(),
+         getClassLoader(), etc.) that have no meaning in the remote case.
+      </p><p>
+         The
+         <tt>javax.management.MBeanServerConnection</tt> interface has been defined as the
+         portion of the MBeanServer interface that can be used by client to contact a remote MBeanServer, and
+         is MBeanServer's parent interface.
+         <br>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch02.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch02s07.html">Next</a></td></tr><tr><td align="left" width="40%">Chapter 2. JMX 1.2 Explained&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch02.html">Up</a></td><td align="right" width="40%">&nbsp;The
+      <tt>javax.management.MBeanServerBuilder</tt> class
+   </td></tr></table></div></body></html>

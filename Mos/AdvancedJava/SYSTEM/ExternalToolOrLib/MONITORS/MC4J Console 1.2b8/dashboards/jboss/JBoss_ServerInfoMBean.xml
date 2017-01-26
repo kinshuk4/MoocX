@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Dashboard PUBLIC "-//MC4J//DTD Dashboard 1.0//EN" "http://mc4j.sourceforge.net/Dashboard_1_0.dtd">
+
+<!--
+    Created on : October 6, 2002, 10:01 PM
+    Author     : ghinkl
+-->
+
+<Dashboard version="1.0" name="JBoss Server Info">
+  <Description>This dashboard displays basic information relating to the
+    overall execution of a JBoss server.</Description>
+
+  <DashboardMatch type="Global" location="/JBoss">
+      <BeanMatch id="JBossServerInfoBean" type="Single">
+          <Condition type="BeanObjectNameCondition" filter="jboss.system:type=ServerInfo"/>
+      </BeanMatch>
+  </DashboardMatch>
+
+  
+  <LayoutManager type="java.awt.BorderLayout"/>
+  <Content>
+    
+    <!-- *** The header section displays title and a refresh control *** -->
+    <Component type="javax.swing.JPanel">
+        <Constraint type="BorderConstraints" direction="NORTH"/>
+        <LayoutManager type="java.awt.BorderLayout"/>
+        <Border type="javax.swing.border.EmptyBorder" top="(Literal)2" left="(Literal)5" bottom="(Literal)2" right="(Literal)5"/>
+        <Content>
+            <Component type="javax.swing.JPanel">
+                <Constraint type="BorderConstraints" direction="CENTER"/>
+                <LayoutManager type="java.awt.BorderLayout"/>
+                <Content>
+                    <Component type="javax.swing.JLabel" id="titleLable">
+                        <Constraint type="BorderConstraints" direction="CENTER"/>
+                        <Attribute name="text" value="DashboardName"/>
+                        <Attribute name="font" value="(Literal)SansSerif bold 20"/>
+                        <Attribute name="foreground" value="(Literal)0x666666"/>
+                    </Component>
+                    <Component type="javax.swing.JTextArea">
+                        <Constraint type="BorderConstraints" direction="SOUTH"/>
+                        <Attribute name="text" value="DashboardDescription"/>
+                        <Attribute name="font" value="(Literal)DialogInput bold 14"/>
+                        <Attribute name="opaque" value="(Literal)false"/>
+                        <Attribute name="editable" value="(Literal)false"/>
+                    </Component>
+                </Content>
+            </Component>
+            <Component type="org.mc4j.console.dashboard.components.RefreshControlComponent">
+                <Constraint type="BorderConstraints" direction="EAST"/>
+                <Attribute name="refreshDelay" value="(Literal)1000"/>
+            </Component>
+        </Content>
+    </Component>
+    
+    <Component type="javax.swing.JSplitPane">
+        <Constraint type="BorderConstraints" direction="CENTER"/>
+        <Attribute name="orientation" value="(Literal)HORIZONTAL_SPLIT"/>
+        <Attribute name="preferredSize" value="(Literal)400,300"/>
+        <Attribute name="minimumSize" value="(Literal)400,300"/>
+        <Attribute name="leftComponent">
+        
+            <Component type="javax.swing.JScrollPane">
+                <Constraint type="java.awt.GridBagConstraints" anchor="NORTH" gridx="1" gridy="1" weightx="1" weighty="1" fill="BOTH"/>
+                <Content>
+                    <Component type="org.mc4j.console.dashboard.components.AttributeListComponent">
+                        <Attribute name="beanNode" value="JBossServerInfoBean"/>
+                        <!--Attribute name="MBeanNode" value="MBeanNode"/-->
+                        <!--Attribute name="AttributeName" value="(Literal)BuildDate"/-->
+                        <Attribute name="Label" value="(Literal)Server Information"/>
+                        <Attribute name="background" value="(Literal)0xFFFFFF"/>
+
+                        <Border type="javax.swing.border.TitledBorder">
+                            <Attribute name="title" value="(Literal)MBean Attributes"/>
+                        </Border>
+                    </Component>
+                 </Content>
+            </Component>
+        </Attribute>
+        <Attribute name="rightComponent">
+            <Component type="javax.swing.JPanel">
+            
+                <LayoutManager type="java.awt.GridBagLayout"/>
+                
+                <Content>
+                    <Component type="javax.swing.JPanel">
+                        <Constraint type="java.awt.GridBagConstraints" anchor="NORTH" gridx="1" gridy="1" weightx="0.5" weighty="0.5" fill="BOTH"/>
+                        <Content>                                            
+                            <Component type="org.mc4j.console.dashboard.components.NumericAttributeMeter">
+                                <Attribute name="beanNode" value="JBossServerInfoBean"/>
+                                <Attribute name="preferredSize" value="(Literal)150,150"/>
+                                <Attribute name="maxAttributeName" value="(Literal)MaxMemory"/>
+                                <Attribute name="currentAttributeName" value="(Literal)FreeMemory"/>
+                                <Attribute name="minimumSize" value="(Literal)50,50"/>    
+                                <Attribute name="label" value="(Literal)Free Memory"/>
+                                <Attribute name="updateInterval" value="(Literal)1000"/>
+                                
+                            </Component>
+                        </Content>
+                    </Component>
+                    <Component type="javax.swing.JPanel">
+                        <Constraint type="java.awt.GridBagConstraints" anchor="NORTH" gridx="2" gridy="1" weightx="0.5" weighty="0.5" fill="BOTH"/>
+                        <Content>                                            
+                            <Component type="org.mc4j.console.dashboard.components.NumericAttributeMeter">
+                                <Attribute name="beanNode" value="JBossServerInfoBean"/>
+                                <Attribute name="preferredSize" value="(Literal)150,150"/>
+                                <Attribute name="maxAttributeValue" value="(Literal)500"/>
+                                <Attribute name="currentAttributeName" value="(Literal)ActiveThreadCount"/>
+                                <Attribute name="minimumSize" value="(Literal)50,50"/>    
+                                <Attribute name="label" value="(Literal)Active Threads"/>
+                            </Component>
+                        </Content>
+                    </Component>
+                    
+                    <Component type="org.mc4j.console.dashboard.components.NumericAttributeGraph">
+                        <Attribute name="beanNode" value="JBossServerInfoBean"/>
+                        <Constraint type="java.awt.GridBagConstraints" anchor="NORTH" gridx="1" gridy="2" widthx="2" weightx="0.5" weighty="0.5" fill="BOTH" insets="3,3,3,3"/>
+                        <Attribute name="preferredSize" value="(Literal)100,100"/>
+                        <Attribute name="attributeName" value="(Literal)FreeMemory"/>
+                    </Component>
+                    
+                    <Component type="org.mc4j.console.dashboard.components.NumericAttributeGraph">
+                        <Attribute name="beanNode" value="JBossServerInfoBean"/>
+                        <Constraint type="java.awt.GridBagConstraints" anchor="NORTH" gridx="2" gridy="2" widthx="2" weightx="0.5" weighty="0.5" fill="BOTH" insets="3,3,3,3"/>
+                        <Attribute name="attributeName" value="(Literal)ActiveThreadCount"/>
+                    
+                    </Component>
+                    
+                    
+                    
+                </Content>
+            </Component>
+        
+        </Attribute>
+        
+    </Component>
+    
+    <!-- List of methods to execute -->
+    <Component type="org.mc4j.console.dashboard.components.OperationListComponent">
+        <Attribute name="beanNode" value="JBossServerInfoBean"/> 
+        <Constraint type="BorderConstraints" direction="SOUTH"/>
+        <Attribute name="format" value="(Literal)BUTTON_ONLY_FORMAT"/>
+        
+        <Border type="javax.swing.border.TitledBorder">
+            <Attribute name="title" value="(Literal)Server Actions"/>
+        </Border>
+    </Component>
+    
+  </Content>
+</Dashboard>

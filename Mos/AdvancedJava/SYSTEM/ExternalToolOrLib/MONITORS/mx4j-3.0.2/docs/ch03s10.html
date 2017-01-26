@@ -1,0 +1,291 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>JSR 160 Security</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="previous" href="ch03s04.html" title="How to use JSR 160"><link rel="next" href="ch03s13.html" title="Advanced JSR 160"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">JSR 160 Security</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03s04.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 3. JSR 160 (JMX Remoting) Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03s13.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10460"></a>JSR 160 Security</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10463"></a>Requiring user authentication to connect to a JMXConnectorServer</h3></div></div><p>
+         JSR 160 provides a pluggable authentication mechanism based on the
+         <tt>javax.management.remote.JMXAuthenticator</tt> interface.
+         <br>
+         The JMXAuthenticator interface has only one method that takes credentials from the client and returns a
+         <tt>javax.security.auth.Subject</tt>:
+         <br>
+         <br>
+         <code class="funcdef">
+            <b class="fsfunc">public Subject authenticate(Object credentials) throws SecurityException</b>
+         </code>
+         <br>
+      </p><p>
+         An implementation of that interface may read username / password pairs from a file, and compare them
+         with the supplied credentials (for example a String[2] where String[0] contains the username and String[1]
+         contains the password).
+      </p><p>
+         MX4J provides a default implementation of the JMXAuthenticator interface, namely the
+         <tt>mx4j.tools.remote.PasswordAuthenticator</tt> class. Refer to the PasswordAuthenticator
+         <a href="/docs/api/mx4j/remote/PasswordAuthenticator.html" target="_top">javadoc</a> for details.
+         <br>
+         It is possible to specify a file or a resource containing username/password pairs (where
+         passwords can be in clear text or obfuscated via a digest algorithm) to the PasswordAuthenticator, that
+         will then check correctness of the credentials passed by the client against this file or resource.
+      </p><p>
+         It is worth noting that JMXConnectorServers that offer a strong security (an example of a JMXConnectorServer
+         that offers strong security is the - optional -
+         <tt>javax.management.remote.jmxmp.JMXMPConnectorServer</tt>,
+         whose security is based on
+         <a href="http://www.jcp.org/en/jsr/detail?id=28" target="_top">SASL</a>) may choose not to
+         base their security system on JMXAuthenticator.
+      </p><p>
+         The JMXAuthenticator implementation must be provided to the JMXConnectorServer via the environment map:
+      </p><p>
+         <div class="example"><p><b>Example 3.6. Using JMXAuthenticator in a JMXConnectorServer</b></p><pre class="programlisting">
+               
+// The address of the connector server
+JMXServiceURL address = ...;
+
+// The JMXAuthenticator implementation
+JMXAuthenticator authenticator = ...;
+
+// The environment map
+Map environment = new HashMap();
+environment.put(JMXConnectorServer.AUTHENTICATOR, authenticator);
+
+// The MBeanServer to which the JMXConnectorServer will be attached to
+MBeanServer server = MBeanServerFactory.createMBeanServer();
+
+// Create the JMXCconnectorServer
+JMXConnectorServer cntorServer = JMXConnectorServerFactory.newJMXConnectorServer(address, environment, server);
+
+// Start the JMXConnectorServer
+cntorServer.start();
+               
+            </pre></div>
+      </p><p>
+         Once the JMXConnectorServer is setup correctly, it is possible to connect only by providing correct credentials
+         from a JMXConnector.
+         <br>
+         The credentials must be serializable because they are provided by the JMXConnector and will be sent to the
+         JMXConnectorServer to authenticate a Subject.
+         <br>
+         If the credentials provided are not correct, a SecurityException is raised.
+      </p><p>
+         <div class="example"><p><b>Example 3.7. Passing credentials using a JMXConnector</b></p><pre class="programlisting">
+               
+// The address of the connector server
+JMXServiceURL address = ...;
+
+// Create the JMXCconnectorServer
+JMXConnector cntor = JMXConnectorFactory.newJMXConnector(address, null);
+
+// The credentials
+Object credentials = ...;
+
+// The connection environment map
+Map environment = new HashMap();
+environment.put(JMXConnector.CREDENTIALS, credentials);
+
+// Connect and invoke an operation on the remote MBeanServer
+try
+{
+   cntor.connect(environment);
+}
+catch (SecurityException x)
+{
+   // Uh-oh ! Bad credentials !
+   throw x;
+}
+
+// Obtain a stub for the remote MBeanServer
+MBeanServerConnection mbsc = cntor.getMBeanServerConnection();
+
+// Call the remote MBeanServer
+ObjectName delegate = ObjectName.getInstance("JMImplementation:type=MBeanServerDelegate");
+String id = mbsc.getAttribute(delegate, "MBeanServerId");
+               
+            </pre></div>
+      </p><p>
+         Once correct credentials are provided the server side, the JMXAuthenticator can authenticate a Subject.
+         <br>
+         When you invoke operations on the MBeanServerConnection object obtained from the JMXConnector, the invocation
+         end up on the server side, and over there the operation will be executed on behalf of the authenticated Subject.
+      </p><p>
+         If a SecurityManager is in place, you can specify different permissions for different authenticated subjects,
+         fine tuning the security policy as you want.
+         <br>
+         You can for example grant all permissions to an "admin" principal, while granting only read access to MBean
+         attributes to a "guest" principal.
+      </p><p>
+         If a SecurityManager is not in place, then using a JMXAuthenticator only allows you to deny access to non
+         authenticated users: a simple way to restrict the access to the JMXConnectorServer.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N104B7"></a>Running under SecurityManager and Subject Delegation</h3></div></div><p>
+         Running a JMXConnectorServer under a SecurityManager allows to fine tune access to it from remote clients.
+      </p><p>
+         If you just want to restrict access to the JMXConnectorServer to authenticated users, but allow an
+         authenticated user to perform any operation on the JMXConnectorServer and its underlying MBeanServer,
+         then it is enough to provide a JMXAuthenticator while creating the JMXConnectorServer,
+         as explained in the section above.
+      </p><p>
+         If instead, you want to be able to grant different permissions to different users, then you have to
+         run the JMXConnectorServer under a SecurityManager and grant different permissions to different users.
+         <br>
+         For example, you may want the "admin" user to be able to perform any operation on the remote MBeanServer,
+         and the "guest" user to be able to perform only read operations, and not write operations.
+      </p><p>
+         To show how to achieve this fine tuning, we will refer to example classes bundled with the MX4J distribution,
+         namely
+         <tt>mx4j.examples.remote.security.Client</tt> and
+         <tt>mx4j.examples.remote.security.Server</tt>, and show how to setup the policy files in JDK 1.4
+         and JDK 1.3.
+         <br>
+         By default it will shown the sequence of operations for JDK 1.4, and differences with JDK 1.3 will be
+         highlighted.
+      </p><p>
+         We will assume that the JMX implementation (mx4j.jar), the JMX Remote implementation (mx4j-remote.jar)
+         and the MX4J examples (mx4j-examples.jar) are present in a directory called $WORK/lib, and that the
+         example is started from the $WORK directory.
+         <br>
+         For JDK 1.3 you will also need jaas.jar in the $WORK/lib directory.
+      </p><p>
+         As first step, let's take a look at
+         <tt>mx4j.examples.remote.security.Server</tt>.
+         <br>
+         It first creates a "users.properties" file with the "admin" and "guest" users under $WORK.
+         This step is of course omitted in a real environment, where the "users.properties" file is provided
+         externally.
+         <br>
+         Then it starts the NamingService and the JMXConnectorServer over RMI/JRMP, specifying a JMXAuthenticator
+         that reads user names and passwords from the "users.properties" file.
+      </p><p>
+         Let's create now a policy file under $WORK, server.policy:
+      </p><p>
+         <div class="example"><p><b>Example 3.8. The server.policy file</b></p><pre class="programlisting">
+               
+grant codebase "file:${user.dir}/lib/mx4j-remote.jar"
+{
+   permission java.security.AllPermission;
+};
+grant codebase "file:${user.dir}/lib/mx4j.jar"
+{
+   permission java.security.AllPermission;
+};
+grant codebase "file:${user.dir}/lib/mx4j-tools.jar"
+{
+   permission java.security.AllPermission;
+};
+
+/* Uncomment for JDK 1.3
+grant codebase "file:${user.dir}/lib/jaas.jar"
+{
+   permission java.security.AllPermission;
+};
+*/
+
+grant codebase "file:${user.dir}/lib/mx4j-examples.jar"
+{
+   permission java.security.AllPermission;
+};
+               
+            </pre></div>
+      </p><p>
+         Notice how we grant AllPermission to the MX4J jars that implement JMX and JMX Remote,
+         and to the MX4J Tools jar (and to JAAS jar for JDK 1.3).
+         <br>
+         You can consider those jars as libraries, and you trust that the MX4J implementation, as well as the JAAS
+         implementation, won't harm your system.
+      </p><p>
+         Different is the motivation behind granting AllPermission to the MX4J Examples jar, which is the one that
+         containes
+         <tt>mx4j.examples.remote.security.Server</tt>.
+         <br>
+         For this example we grant AllPermission because we trust the Server class not to perform any security
+         sensitive operation beyond starting the JMXConnectorServer and reading the "users.properties" file,
+         but you may want to restrict the set of operations performed by the classes that start the
+         JMXConnectorServer.
+         <br>
+         With the above server.policy file, you can successfully start the
+         <tt>mx4j.examples.remote.security.Server</tt> class, in this way:
+      </p><p>
+         <div class="example"><p><b>Example 3.9. Starting the secured server</b></p><pre class="programlisting">
+               
+$WORK&gt;java -Djava.security.manager
+           -Djava.security.policy==server.policy
+           -Djava.security.auth.policy=jaas.server.policy    --&gt; Only for JDK 1.3
+           -classpath lib/mx4j-examples.jar;                 \
+                      lib/mx4j.jar;                          \
+                      lib/mx4j-remote.jar                    \
+                      lib/jaas.jar                           --&gt; Only for JDK 1.3
+           mx4j.examples.remote.security.Server
+               
+            </pre></div>
+      </p><p>
+         Note the double equals sign '=' after the property "java.security.policy": see the documentation guide
+         about policy files for the JDK for further information about the meaning of this double equals sign.
+      </p><p>
+         It is time now to grant permissions for the operations a remote client that is connecting
+         may want to do.
+         <br>
+         Since we specified a JMXAuthenticator, only authenticated users can connect to the JMXConnectorServer.
+         <br>
+         Furthermore, since we run under a SecurityManager, authenticated users may only perform the operations
+         granted to the corrispondent principal in the policy file.
+      </p><p>
+         For JDK 1.3, these permissions must be specified in a separate file, named here "jaas.policy.file",
+         referenced by the "java.security.auth.policy" system property at startup time (see above).
+         <br>
+         For JDK 1.4, these permissions can be added to the "server.policy" file.
+      </p><p>
+         <div class="example"><p><b>Example 3.10. The principal-specific permissions</b></p><pre class="programlisting">
+               
+grant
+{
+   // Required by MX4J implementation
+   permission javax.security.auth.AuthPermission "doAsPrivileged";
+
+   // Required to all clients to connect to the server
+   permission java.net.SocketPermission "localhost:1024-", "listen,resolve";
+   permission java.net.SocketPermission "*", "accept,resolve";
+};
+
+grant principal javax.management.remote.JMXPrincipal "admin"
+{
+   permission java.security.AllPermission;
+};
+
+grant principal javax.management.remote.JMXPrincipal "guest"
+{
+   permission javax.management.MBeanPermission "*", "queryNames";
+   permission javax.management.remote.SubjectDelegationPermission "javax.management.remote.JMXPrincipal.*";
+};
+               
+            </pre></div>
+      </p><p>
+         First of all, note that there is no specification of the codebase.
+         <br>
+         It is not possible to specify the codebase for permissions you want to grant to a JSR 160 connector
+         server, you have to omit it.
+      </p><p>
+         Second, note that there are three grant blocks: one that specifies permissions common to all principals,
+         one that specifies permissions for the "admin" principal, and one that specifies permissions for the
+         "guest" principal.
+      </p><p>
+         The common block allows anyone to connect to the server side, as specified by the two SocketPermissions.
+      </p><p>
+         The "admin" principal has AllPermission, while the "guest" principal can only call the
+         <tt>javax.management.MBeanServerConnection.queryNames()</tt> method.
+      </p><p>
+         In the same exact way, you can specify many principal blocks, one per principal, with a different set
+         of permission for each one; this allows to fine tune the permissions granted to each principal
+         that connects to the server side.
+      </p><p>
+         Lastly, note the SubjectDelegationPermission. This permission is needed when you have, on client, a
+         JAAS Subject and you want to perform, on server side, operations on behalf of that Subject.
+         <br>
+         For example, it is possible that on a client there are many users that want to interact with the
+         server side, and that all users have been granted the same set of permissions.
+         <br>
+         In this case is more efficient to establish only one connection with the server side, with an
+         authenticated user (in the example above, "guest"), and then use that connection with many
+         delegate users, by using
+         <tt>javax.management.remote.JMXConnector.getMBeanServerConnection(Subject delegate)</tt>.
+         <br>
+         In the example above, the authenticated principal "guest" allows any delegate principal (of class
+         <tt>javax.management.remote.JMXPrincipal</tt>) to perform
+         operations in its behalf, since it grants a SubjectDelegationPermission with a name of
+         "javax.management.remote.JMXPrincipal.*" (refer to the JMX Remote javadocs for explanation of the
+         syntax of SubjectDelegationPermission).
+         <br>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03s04.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03s13.html">Next</a></td></tr><tr><td align="left" width="40%">How to use JSR 160&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch03.html">Up</a></td><td align="right" width="40%">&nbsp;Advanced JSR 160</td></tr></table></div></body></html>

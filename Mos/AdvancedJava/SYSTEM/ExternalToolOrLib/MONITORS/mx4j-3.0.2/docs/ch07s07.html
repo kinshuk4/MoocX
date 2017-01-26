@@ -1,0 +1,201 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>MBeans</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch07.html" title="Chapter 7. MX4J Examples"><link rel="previous" href="ch07.html" title="Chapter 7. MX4J Examples"><link rel="next" href="ch07s15.html" title="Tools"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">MBeans</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch07.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 7. MX4J Examples</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch07s15.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10EE7"></a>MBeans</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10EEA"></a>RMI MBean example</h3></div></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10EED"></a>Introduction</h4></div></div><p>
+            The purpose of this example is to give some guideline on how to expose RMI remote objects also as MBeans.
+         </p><p>
+            This will give to server administrators the possibility to manage RMI remote objects in the JMX sense. This
+            means that may be possible to start, stop and restart the service implemented by the remote object; and also
+            checking if it is running, or ask to reload configurations files.
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10EF4"></a>The example classes</h4></div></div><p>
+            The example java source files can be found in the examples directory under mbeans/rmi, they include:
+            <div class="itemizedlist"><ul><li><tt>Server</tt> (the class that starts the remote service)
+               </li><li><tt>Client</tt> (the client class)
+               </li><li><tt>MyRemoteService</tt> (the remote interface)
+               </li><li><tt>MyRemoteServiceObjectMBean</tt> (the management interface)
+               </li><li><tt>MyRemoteServiceObject</tt> (the MBean that implements the remote interface)
+               </li></ul></div>
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10F0F"></a>Understanding the example</h4></div></div><p>
+            The remote object is, at the same time an MBean and an RMI remote object.
+         </p><p>
+            Clients can see it through 2 interfaces: users of the service see it through the
+            <span class="emphasis"><i>remote interface</i></span>
+            (
+            <tt>MyRemoteService</tt>), while management application (such as the HTTP adaptor)
+            see it through the
+            <span class="emphasis"><i>management interface</i></span> (
+            <tt>MyRemoteServiceObjectMBean</tt>).
+            <br>
+            The remote interface contains only one method:
+         </p><p>
+            <code class="funcdef">public void
+               <b class="fsfunc">sayHello(String name)</b>
+            </code>
+         </p><p>
+            that will execute client's requests.
+            <br>
+            The management interface, conversely, contains 3 methods:
+         </p><p>
+            <code class="funcdef">public void
+               <b class="fsfunc">start()</b>
+            </code>
+            <br>
+            <code class="funcdef">public void
+               <b class="fsfunc">stop()</b>
+            </code>
+            <br>
+            <code class="funcdef">public boolean
+               <b class="fsfunc">isRunning()</b>
+            </code>
+         </p><p>
+            that will be used by management application such as the HTTP adaptor.
+         </p><p>
+            Notice that users of the remote interface cannot invoke methods of the management interface, as well as management
+            application cannot invoke methods of the remote interface.
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10F50"></a>The implementation</h4></div></div><p>
+            The purpose of the
+            <tt>Server</tt> class is only to start a JMX Agent by instantiating the MBeanServer,
+            register the service we want to expose, and starting it.
+         </p><p>
+            <div class="example"><p><b>Example 7.4. The
+                  <tt>Server</tt> class
+               </b></p><pre class="programlisting">
+                  
+public class Server
+{
+   public static void main(String[] args) throws Exception
+   {
+      MBeanServer server = MBeanServerFactory.createMBeanServer();
+
+      ObjectName name = new ObjectName("examples:type=remote");
+      MyRemoteServiceObject remote = new MyRemoteServiceObject();
+      server.registerMBean(remote, name);
+
+      MyRemoteServiceObjectMBean managed = (MyRemoteServiceObjectMBean)MBeanServerInvocationHandler.newProxyInstance(server, name, MyRemoteServiceObjectMBean.class, false);
+      managed.start();
+   }
+}
+               
+               </pre></div>
+         </p><p>
+            The remote object, instance of
+            <tt>MyRemoteServiceObject</tt> class, is worth some more detail.
+            <br>
+            First notice that it extends
+            <tt>java.rmi.server.RemoteServer</tt> and not
+            <tt>java.rmi.server.UnicastRemoteObject</tt>. This is done to avoid that the object is automatically
+            exported to the RMI runtime when creating it, since we want to control the export and unexport via the
+            <tt>start()</tt> and
+            <tt>stop()</tt> methods of the management interface.
+            <br>
+            Second, notice the symmetry of the
+            <tt>start()</tt> and
+            <tt>stop()</tt> methods:
+            <tt>start()</tt> export the object to the RMI runtime and binds it in the naming, while
+            <tt>stop()</tt>
+            unbinds it from the naming and unexport it from the RMI runtime.
+         </p><p>
+            <div class="example"><p><b>Example 7.5. The
+                  <tt>MyRemoteServiceObject</tt> class
+               </b></p><pre class="programlisting">
+                  
+public class MyRemoteServiceObject extends RemoteServer implements MyRemoteService, MyRemoteServiceObjectMBean
+{
+   private boolean m_running;
+
+   public MyRemoteServiceObject() throws RemoteException {}
+
+   public void sayHello(String name) throws RemoteException
+   {
+      System.out.println("Hello, " + name);
+   }
+
+   public void start() throws Exception
+   {
+      if (!m_running)
+      {
+         UnicastRemoteObject.exportObject(this);
+         InitialContext ctx = new InitialContext();
+         ctx.rebind(JNDI_NAME, this);
+         m_running = true;
+         System.out.println("My remote service started successfully");
+      }
+   }
+
+   public void stop() throws Exception
+   {
+      if (m_running)
+      {
+         InitialContext ctx = new InitialContext();
+         ctx.unbind(JNDI_NAME);
+         UnicastRemoteObject.unexportObject(this, false);
+         m_running = false;
+         System.out.println("My remote service stopped successfully");
+      }
+   }
+
+   public boolean isRunning()
+   {
+      return m_running;
+   }
+}
+               
+               </pre></div>
+         </p><p>
+            Thus, will be possible to start the service via a management application and let it available to users;
+            and will be possible to stop it, maybe changing some configuration file (not in this simple example, but you
+            got the picture), and restarting it,
+            <span class="emphasis"><i>WITHOUT</i></span> shutting down other services that may have
+            been started by the same JMX Agent.
+         </p><p>
+            The implementation of the
+            <tt>sayHello(String name)</tt> method is straightforward, as well as
+            the
+            <tt>isRunning()</tt> one that, accessible from management applications, returns if the
+            service is running or not.
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10FA6"></a>Compiling the example files</h4></div></div><p>
+            The above classes must be compiled using
+            <span class="emphasis"><i>javac</i></span>, and the
+            <tt>MyRemoteServiceObject</tt> class
+            must be compiled using
+            <span class="emphasis"><i>rmic</i></span>.
+         </p><p>
+            Let's suppose you unpack the MX4J distribution in the mx4j-
+            <span class="emphasis"><i>ver</i></span> directory; from this directory you issue these
+            commands:
+         </p><p>
+            C:\mx4j-
+            <span class="emphasis"><i>ver</i></span>&gt;javac -classpath lib\mx4j-jmx.jar examples\mbeans\rmi\*.java
+            <br>
+            C:\mx4j-
+            <span class="emphasis"><i>ver</i></span>&gt;rmic mx4j.examples.mbeans.rmi.MyRemoteServiceObject
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10FC3"></a>Running the example</h4></div></div><p>
+            To run the example, three consoles are needed:
+            <div class="itemizedlist"><ul><li>One for the
+                  <span class="emphasis"><i>rmiregistry</i></span></li><li>One for the server</li><li>One for the client</li></ul></div>
+         </p><p>
+            For the rmiregistry, you need to have in the classpath the RMI stub of the
+            <tt>MyRemoteServiceObject</tt>
+            class you just compiled with
+            <span class="emphasis"><i>rmic</i></span>. Then you can start it by typing the following command:
+         </p><p>
+            C:\mx4j-
+            <span class="emphasis"><i>ver</i></span>&gt;set classpath=.
+            <br>
+            C:\mx4j-
+            <span class="emphasis"><i>ver</i></span>&gt;rmiregistry
+         </p><p>
+            For the server, you need all the compiled classes (apart for the
+            <tt>Client</tt> class),
+            mx4j-jmx.jar (the JMX implementation), and a suitable
+            <span class="emphasis"><i>jndi.properties</i></span> file (there is a default
+            one shipped with this example) in the classpath. Then you can start the server with the following command:
+         </p><p>
+            C:\mx4j-
+            <span class="emphasis"><i>ver</i></span>&gt;java -cp .;examples;lib\mx4j-jmx.jar mx4j.examples.mbeans.rmi.Server
+         </p><p>
+            For the client, you need the
+            <tt>Client</tt> class, the remote interface and the RMI stub, and a suitable
+            <span class="emphasis"><i>jndi.properties</i></span> file (there is a default one shipped with this example).
+            Then you can start the client with the following command:
+         </p><p>
+            C:\mx4j-
+            <span class="emphasis"><i>ver</i></span>&gt;java -cp .;examples mx4j.examples.mbeans.rmi.Client
+         </p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch07.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch07s15.html">Next</a></td></tr><tr><td align="left" width="40%">Chapter 7. MX4J Examples&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch07.html">Up</a></td><td align="right" width="40%">&nbsp;Tools</td></tr></table></div></body></html>

@@ -1,0 +1,151 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>MX4J's JSR 160 JMXConnectors and JMXConnectorServers</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="previous" href="ch03s15.html" title="Standard JSR 160 JMXConnectors and JMXConnectorServers"><link rel="next" href="ch03s23.html" title="Using HTTP-based connectors over HTTPS"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">MX4J's JSR 160 JMXConnectors and JMXConnectorServers</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03s15.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 3. JSR 160 (JMX Remoting) Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03s23.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N105F4"></a>MX4J's JSR 160 JMXConnectors and JMXConnectorServers</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N105F7"></a>The SOAP JSR 160 connector</h3></div></div><p>
+         Thanks to the fact that JSR 160 allows complete pluggability of the communication protocol between
+         JMXConnector and JMXConnectorServer, it is possible to add easily new protocol providers.
+         <br>
+         However, since these protocol providers are not defined by the JSR 160 specification, they are likely
+         to be not interoperable between different JSR 160 implementations.
+         <br>
+         This means that - for example - it is safe to have the JSR 160 Sun Reference Implementation on server side
+         and MX4J on client side, or viceversa, only when the the protocol used is RMI or IIOP.
+         <br>
+         MX4J implements a JSR 160 JMXConnector and JMXConnectorServer that use
+         <a href="http://www.w3.org/TR/soap/" target="_top">SOAP</a> to communicate. The SOAP toolkit used by MX4J is
+         <a href="http://ws.apache.org/axis/" target="_top">Axis 1.1</a>.
+         <br>
+         When the SOAP protocol is used, other JSR 160 implementations will fail because
+         they don't implement the SOAP provider, or they don't implement it in a interoperable way with MX4J.
+         <br>
+         By placing MX4J on both client and server side, you can leverage the functionalities offered by MX4J:
+         in this case you can use SOAP to communicate from client to server and viceversa.
+      </p><p>
+         Refer to the examples shipped with the MX4J distribution,
+         <tt>mx4j.examples.tools.remote.soap.Server</tt> and
+         <tt>mx4j.examples.tools.remote.soap.Client</tt> to follow the instructions below.
+      </p><p>
+         Starting successfully a SOAPConnectorServer requires Axis 1.1 and a servlet 2.3 compliant web container.
+         In this example the web container will be the
+         <a href="http://jetty.mortbay.com" target="_top">Jetty</a> web
+         container.
+         <br>
+         Starting a standalone SOAPConnectorServer will perform several operations:
+         <div class="itemizedlist"><ul><li>Start a Jetty server on the port specified by the JMXServiceURL</li><li>Deploy to Jetty the Axis servlet, and mapping it to the path specified by the JMXServiceURL</li><li>Deploy to Axis the webservice that represent the remote MBeanServer</li></ul></div>
+      </p><p>
+         On server side, the SOAPConnectorServer ignores the host part of the JMXServiceURL, since
+         it starts the web container on the local host.
+         <br>
+         It is therefore recommended to start the SOAPConnectorServer passing null as host name,
+         to allow the real host name to be retrieved and used (as stated by the JMXServiceURL specification).
+         Also, it is recommended that URL path of the JMXServiceURL not be the empty string.
+      </p><p>
+         On client side, differently from the rmi, iiop and local providers, the host part of the JMXServiceURL
+         is not ignored; it is used to connect to the server side.
+         <br>
+         It is very important that the host name of the JMXServiceURL on the server and the host name
+         of the JMXServiceURL on the client be exactly the same. If they differ (for example one is the
+         IP address and the other is the host name), then a message saying that the SOAPConnectorServer
+         cannot be found will be displayed.
+      </p><p>
+         It is possible to start several SOAPConnectorServers in the same JVM, with the constraint that
+         they must all have different URL path in their JMXServiceURLs.
+         In this case only one instance of Jetty will be used (and multiple servlet-mappings mapped to
+         the same Axis servlet).
+      </p><p>
+         <div class="example"><p><b>Example 3.17. Starting the SOAPConnectorServer</b></p><pre class="programlisting">
+               
+// Use null as host
+JMXServiceURL url = new JMXServiceURL("soap", null, 8080, "/jmxconnector");
+
+MBeanServer server = ...;
+
+JMXConnectorServer cntorServer = JMXConnectorServerFactory.newJMXConnectorServer(url, null, server);
+
+// This method call will:
+// 1. Start Jetty on port 8080
+// 2. Deploy to Jetty the Axis servlet with servlet-mapping /jmxconnector/*
+// 3. Deploy to Axis the web service that represent the remote MBeanServer
+cntorServer.start();
+               
+            </pre></div>
+      </p><p>
+         <div class="example"><p><b>Example 3.18. Connecting to the SOAPConnectorServer</b></p><pre class="programlisting">
+               
+// Remember to specify the host name if not in-VM
+JMXServiceURL url = new JMXServiceURL("soap", null, 8080, "/jmxconnector");
+
+// Connect !
+JMXConnector cntor = JMXConnectorFactory.connect(url);
+
+// Invoke some operation
+MBeanServerConnection connection = cntor.getMBeanServerConnection();
+Integer count = connection.getMBeanCount();
+               
+            </pre></div>
+      </p><p>
+         When you want to use a SOAPConnectorServer from within a running web application, it is possible
+         to tell to the SOAPConnectorServer not to start another web container, by passing the property
+         <tt>SOAPConnectorServer.USE_EXTERNAL_WEB_CONTAINER</tt> with the value
+         <tt>Boolean.TRUE</tt> to the environment map passed to
+         <tt>JMXConnectorServerFactory</tt>.
+         <br>
+         In this case, the external web container must already have Axis deployed and mapped to a certain path.
+         <br>
+         For example, the default installation of Axis maps the Axis servlet to the path /axis/services/*.
+         <br>
+         The JMXServiceURL to use in this case should be:
+      </p><p>
+         service:jmx:soap://host:8080/axis/services
+      </p><p>
+         As further example, you can take a look at the index.jsp page inside the mx4j-soap.war bundled
+         with the MX4J distribution to see how a SOAPConnectorServer can be started from within a web
+         application.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10657"></a>The HESSIAN and BURLAP JSR 160 connectors</h3></div></div><p>
+         MX4J implements other two JMXConnectors and JMXConnectorServers that use open source (Apache license)
+         <a href="http://www.caucho.com" target="_top">Caucho</a> protocols
+         <a href="http://www.caucho.com/hessian" target="_top">Hessian and Burlap</a>.
+         <br>
+         Similarly to the SOAP JMXConnector and JMXConnectorServer, Hessian's and Burlap's
+         JMXConnector and JMXConnectorServer use HTTP as transport protocol.
+      </p><p>
+         Starting successfully a [Hessian|Burlap]ConnectorServer requires the hessian/burlap library
+         (hessian-3.0.8.jar) and a servlet 2.3 compliant web container, like for example, the
+         <a href="http://jetty.mortbay.com" target="_top">Jetty</a> web container.
+         <br>
+         Starting a standalone [Hessian|Burlap]ConnectorServer will perform several operations:
+         <div class="itemizedlist"><ul><li>Start a Jetty server on the port specified by the JMXServiceURL</li><li>Deploy to Jetty an MX4J's customized [Hessian|Burlap] servlet, and mapping it to the path specified by the JMXServiceURL</li></ul></div>
+      </p><p>
+         Follow the advices given for the SOAPConnectorServer in choosing the JMXServiceURL on server side
+         and on client side.
+      </p><p>
+         <div class="example"><p><b>Example 3.19. Starting the HessianConnectorServer</b></p><pre class="programlisting">
+               
+// Use null as host
+JMXServiceURL url = new JMXServiceURL("hessian", null, 8080, "/hessian");
+
+MBeanServer server = ...;
+
+JMXConnectorServer cntorServer = JMXConnectorServerFactory.newJMXConnectorServer(url, null, server);
+
+// This method call will:
+// 1. Start Jetty on port 8080
+// 2. Deploy to Jetty the MX4J's Hessian servlet with servlet-mapping /hessian/*
+cntorServer.start();
+               
+            </pre></div>
+      </p><p>
+         <div class="example"><p><b>Example 3.20. Connecting to the HessianConnectorServer</b></p><pre class="programlisting">
+               
+// Remember to specify the host name if not in-VM
+JMXServiceURL url = new JMXServiceURL("hessian", null, 8080, "/hessian");
+
+// Connect !
+JMXConnector cntor = JMXConnectorFactory.connect(url);
+
+// Invoke some operation
+MBeanServerConnection connection = cntor.getMBeanServerConnection();
+Integer count = connection.getMBeanCount();
+               
+            </pre></div>
+      </p><p>
+         To use the Burlap protocol instead of the Hessian protocol, just replace the protocol (and optionally
+         the path), from 'hessian' to 'burlap'.
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03s15.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03s23.html">Next</a></td></tr><tr><td align="left" width="40%">Standard JSR 160 JMXConnectors and JMXConnectorServers&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch03.html">Up</a></td><td align="right" width="40%">&nbsp;Using HTTP-based connectors over HTTPS</td></tr></table></div></body></html>

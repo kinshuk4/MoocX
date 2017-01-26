@@ -1,0 +1,147 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Tools</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch07.html" title="Chapter 7. MX4J Examples"><link rel="previous" href="ch07s07.html" title="MBeans"><link rel="next" href="ch08.html" title="Chapter 8. FAQ"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Tools</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch07s07.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 7. MX4J Examples</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch08.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10FFE"></a>Tools</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N11001"></a>Using XDoclet</h3></div></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N11004"></a>Introduction</h4></div></div><p>
+            MX4J provides a way to generate source code of MBean interfaces and descriptions using some custom javadoc comments in
+            source code. This source generation is done with the help of
+            <a href="http://xdoclet.sourceforge.net" target="_top">XDoclet</a>.
+            It is recommended to look at the example included in the distribution for getting started with this feature.
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N1100D"></a>Preparing Ant</h4></div></div><p>
+            In order to generate the source code, XDoclet must be copied into the directory where all libraries are. This is usually
+            the lib subdirectory of the project which will be referred as the Ant variable
+            ${lib} from now on.
+            A path must be defined for the Ant task. An example is given below:
+         </p><p>
+            <div class="example"><p><b>Example 7.6. Defining the xdoclet classpath and Ant task.</b></p><pre class="programlisting">
+&lt;path id="xdoclet"&gt;
+   &lt;pathelement location="${lib.dir}/xjavadoc.jar"/&gt;
+   &lt;pathelement location="${lib.dir}/xdoclet.jar"/&gt;
+   &lt;pathelement location="${lib.dir}/xdoclet-jmx-module.jar"/&gt;
+   &lt;pathelement location="${lib.dir}/xdoclet-mx4j-module.jar"/&gt;
+   &lt;pathelement location="${lib}/log4j.jar"/&gt;
+   &lt;pathelement location="${ANT_HOME}/lib/ant.jar"/&gt;
+   &lt;pathelement location="${build}"/&gt;
+&lt;/path&gt;
+&lt;taskdef name="jmxdoclet" classname="xdoclet.jmx.JMXDocletTask"&gt;
+   &lt;classpath refid="xdoclet"/&gt;
+&lt;/taskdef&gt;
+      </pre></div>
+         </p><p>
+            Let's suppose now that the Ant compilation target is called
+            compilation. The easiest way to generate
+            the source code of the MBean interface and description is to make the
+            compilation depending on the
+            target
+            generateJMX defined by:
+         </p><p>
+            <div class="example"><p><b>Example 7.7. </b></p><pre class="programlisting">
+&lt;target name="generate-jmx" depends="init"&gt;
+   &lt;!-- Generate the MBean interfaces and descriptions --&gt;
+   &lt;jmxdoclet sourcepath="${src}" destdir="${src}" classpathref="xdoclet" force="yes"&gt;
+      &lt;fileset dir="${src}"&gt;
+         &lt;include name="com/xtremejava/webos/**" /&gt;
+      &lt;/fileset&gt;
+      &lt;!-- Create the {0}MBean interface for the MBean --&gt;
+      &lt;mbeaninterface/&gt;
+      &lt;!-- Create the MX4J specific description adaptor class for the MBean --&gt;
+      &lt;mx4jdescription /&gt;
+      &lt;!-- Generate the mlet file --&gt;
+      &lt;mlet destinationFile="mbeans.mlet" destdir="conf"/&gt;
+   &lt;/jmxdoclet&gt;
+&lt;/target&gt;
+      </pre></div>
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N11035"></a>Basic usage</h4></div></div><p>
+            A few javadoc tags can be used in order to specify how to generate the interface and the description of your MBean.
+            <div class="table"><p><b>Table 7.1. List of Javadoc tags</b></p><table summary="List of Javadoc tags" border="1"><colgroup><col><col></colgroup><thead><tr><th>Javadoc Tag Name</th><th>Meaning</th></tr></thead><tbody><tr><td>@jmx:mbean</td><td>Tag used in order to define the name of the MBean and its description. Must be defined at class level.</td></tr><tr><td>@jmx:managed-constructor</td><td>Tag used in order to define the name of the constructor and its description. Must be defined at constructor level.</td></tr><tr><td>@jmx:managed-constructor-parameter</td><td>Tag used in order to define the name of a constructor attribute, it's index, and its description. Must be defined at constructor level.</td></tr><tr><td>@jmx:managed-operation</td><td>Tag used in order to define the name of an operation and its description. Must be defined at method level.</td></tr><tr><td>@jmx:managed-operation-parameter</td><td>Tag used in order to define the name of an operation attribute, it's index, and its description. Must be defined at method level.</td></tr><tr><td>@jmx:managed-attribute</td><td>
+                           Tag used in order to define the description of an attribute. Must be defined at method level. Note: the getter description has
+                           priority over the setter description.
+                        </td></tr><tr><td>@jmx:mlet-entry</td><td>Tag used in order to generate the mlets file. All classes having this tags will have the result merge in one file. Must be defined at class level.</td></tr></tbody></table></div>
+         </p></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1106A"></a>FilePersister example</h3></div></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N1106D"></a>Introduction</h4></div></div><p>
+            This example will cover the usage of the FilePersister with MLets. It will give a good overview of how to use MLets into the bargain :-).
+            What we will do is create two MBeans the one extends FilePersister, so that it can load and store Objects. The other is a standard MBean which will ask the FilePersisterMBean to store it, The interesting thing about this example is that the two mbeans are loaded by two differnet MLets from two different jar files. One note of importance any object to be stored must implement the interface Serializable. Let us begin.
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N11072"></a>Writing the code</h4></div></div><p>
+            We are going to write an MBean which extends FilePersister and pass any calls made to it to its parent class.
+         </p><div class="example"><p><b>Example 7.8. MBeanOne implementation</b></p><pre class="programlisting">
+public class MBeanOne extends FilePersister implements Serializable
+{
+   public MBeanOne(String location, String name) throws MBeanException
+       {
+      super(location, name);
+       }
+
+   public void store(Object mbean)throws MBeanException, InstanceNotFoundException
+   {
+      store(mbean);
+   }
+
+   public Object load()throws MBeanException, RuntimeOperationsException, InstanceNotFoundException
+   {
+      return load();
+   }
+}
+            </pre></div><p>
+            Now to do the mbean that will ask the MBeanOne to store it.
+         </p><div class="example"><p><b>Example 7.9. MBeanTwo implementation</b></p><pre class="programlisting">
+public class MBeanTwo implements MBeanTwoMBean, Serializable
+{
+   // constructor... see example
+   //we are now going to invoke MBeanOne through the MBeanServer
+   public void storeIt(MBeanServer server, ObjectName name)
+   {
+      server.invoke(name, "store", new Object[]{this}, new String[]{"java.lang.Object"});
+   }
+
+   public Object loadIt(MBeanServer server, ObjectName name)
+   {
+      Object me = null;
+      try
+      {
+         me = (MBeanTwo)server.invoke(name, "load", new Object[0], new String[0]);
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+      return me;
+   }
+}
+            </pre></div></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N11085"></a>The Agent MLet implementation</h4></div></div><p>
+            The "main" class will now create and register two MLets, each MLet will load its own MBean from separate jar files
+         </p><div class="example"><p><b>Example 7.10. The FilePersisterAgent</b></p><pre class="programlisting">
+// Create the MBeanServer
+// Build the ObjectNames for the MLets
+// Register the MLets
+MLet mlet1 = new MLet();
+m_server.registerMBean(mlet1, mName1);
+mlet1.addURL(jarOneUrl);
+
+MLet mlet2 = new MLet();
+m_server.registerMBean(mlet2, mName2);
+mlet2.addURL(jarTwoUrl);
+
+// We now have access to the MBeans, so instantiate them
+m_server.createMBean(mbeanClassName, mbeanObjectName, mLetObjectName, params, signature);
+
+// As above but the other mbean is now registered using the othe MLet object name as the third parameter
+m_server.createMBean(.....);
+
+// Now invoke the storage of one MBean by the other
+m_server.invoke(mbeanName2, "storeIt", new Object[] {m_server, mbeanName1},
+             new String[]{"javax.management.MBeanServer", "javax.management.ObjectName"});
+
+// Now load it
+Object a = m_server.invoke(mbeanName2, "loadIt", new Object[] {m_server, mbeanName1},
+           new String[]{"javax.management.MBeanServer", "javax.management.ObjectName"});
+
+// And finally a test to see that the objects are equal
+if(a.getClass().getName() == mbeanClass2) System.out.println("Objects are equal and the same");
+            </pre></div></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N11090"></a>Steps for Running the Example</h4></div></div><p>
+            Once you have the files and compiled them you will need to build the jars holding the mbeans start a command prompt (windows) cd to the examples/classes directory and type in the following commands:
+         </p><div class="example"><p><b>Example 7.11. </b></p><pre class="programlisting">
+jar cvf one.jar examples/tools/persister/MBeanOne.class
+// and then
+jar cvf two.jar examples/tools/persister/MBeanTwo.class examples/tools/persister/MBeanTwoMBean.class
+            </pre></div><p>
+            Now delete the MBeanOne.class and MBeanTwo.class (we do not want them in the classpath :-). Once this is done add four application parameters
+            <div class="itemizedlist"><ul><li>1) path to jar one.jar eg:file:C:/dev/mx4j/one.jar</li><li>2) path to jar two.jar eg: file:C:/dev/two.jar</li><li>3) path where to store the file eg: C:/temp</li><li>4) name of the file eg: test.ser</li></ul></div>
+         </p><p>
+            You are now ready to start the agent!
+            Have fun !!
+         </p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch07s07.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch08.html">Next</a></td></tr><tr><td align="left" width="40%">MBeans&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch07.html">Up</a></td><td align="right" width="40%">&nbsp;Chapter 8. FAQ</td></tr></table></div></body></html>

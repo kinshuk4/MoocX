@@ -1,0 +1,125 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Porting old MX4J remoting code to JSR 160</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="previous" href="ch03s23.html" title="Using HTTP-based connectors over HTTPS"><link rel="next" href="ch03s30.html" title="MX4J Remote Tools and Utilities"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Porting old MX4J remoting code to JSR 160</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03s23.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 3. JSR 160 (JMX Remoting) Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03s30.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N106F0"></a>Porting old MX4J remoting code to JSR 160</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N106F3"></a>Introduction</h3></div></div><p>
+         MX4J version 1.x provided a custom implementation of a connector server and connector client based on
+         the RMI protocol.
+         <br>
+         That old code is now obsolete due to the fact that MX4J implements JSR 160. In the following sections will
+         be explained how to port old MX4J 1.x remoting code to the standard JSR 160 API.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N106FA"></a>Porting Examples</h3></div></div><p>
+         The following example will show old MX4J 1.x remoting code compared to JSR 160 code,
+         with respect to creating and starting a connector server over JRMP on server side.
+      </p><p>
+         <div class="example"><p><b>Example 3.23. Old MX4J 1.x remoting code, server side</b></p><pre class="programlisting">
+               
+(1)
+String jndiName = "jrmp";
+
+(2)
+mx4j.adaptor.rmi.jrmp.JRMPAdaptor adaptor = new mx4j.adaptor.rmi.jrmp.JRMPAdaptor();
+
+(3)
+adaptor.putJNDIProperty(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.rmi.registry.RegistryContextFactory");
+adaptor.putJNDIProperty(Context.PROVIDER_URL, "rmi://localhost:1099");
+adaptor.setJNDIName(jndiName);
+
+(4)
+adaptor.start();
+               
+            </pre></div>
+      </p><p>
+         <div class="example"><p><b>Example 3.24. JSR 160 remoting code, server side</b></p><pre class="programlisting">
+               
+(1)
+JMXServiceURL address = new JMXServiceURL("rmi", "localhost", 0, "/jndi/jrmp");
+
+(3)
+Map environment = new HashMap();
+environment.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.rmi.registry.RegistryContextFactory");
+environment.put(Context.PROVIDER_URL, "rmi://localhost:1099");
+
+(2)
+JMXConnectorServer cntorServer = JMXConnectorServerFactory.newJMXConnector(address, environment, null); (2)
+
+(4)
+cntorServer.start();
+               
+            </pre></div>
+      </p><p>
+         Note the following differences:
+         <div class="orderedlist"><ol type="1"><li>
+               How the JNDI name "jrmp" has been replaced by a JMXServiceURL with an URLPath of "/jndi/jrmp".
+            </li><li>
+               How the instantiation of the adaptor has been replaced by usage of a factory.
+            </li><li>
+               How the JNDI properties are passed via a Map.
+            </li></ol></div>
+      </p><p>
+         Note that in both cases the adaptor (connector server) must be started in order to be able to accept
+         incoming connections (4).
+      </p><p>
+         Note also that both the JRMPAdaptor and the JMXConnectorServer are MBeans, and as such they can be
+         registered inside an MBeanServer (no differences here).
+      </p><p>
+         The following example will show old MX4J 1.x remoting code compared to JSR 160 code,
+         with respect to creating and connecting a connector over JRMP on client side.
+      </p><p>
+         <div class="example"><p><b>Example 3.25. Old MX4J 1.x remoting code, client side</b></p><pre class="programlisting">
+               
+(1)
+String jndiName = "jrmp";
+
+(2)
+mx4j.connector.rmi.jrmp.JRMPConnector connector = new mx4j.connector.rmi.jrmp.JRMPConnector();
+
+(3)
+Hashtable environment = new Hashtable();
+environment.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.rmi.registry.RegistryContextFactory");
+environment.put(Context.PROVIDER_URL, "rmi://localhost:1099");
+
+(4)
+connector.connect(jndiName, environment);
+
+(5)
+mx4j.connector.RemoteMBeanServer server = connector.getRemoteMBeanServer();
+               
+            </pre></div>
+      </p><p>
+         <div class="example"><p><b>Example 3.26. JSR 160 remoting code, client side</b></p><pre class="programlisting">
+               
+(1)
+JMXServiceURL address = new JMXServiceURL("rmi", "localhost", 0, "/jndi/jrmp");
+
+(3)
+Map environment = new HashMap();
+environment.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.rmi.registry.RegistryContextFactory");
+environment.put(Context.PROVIDER_URL, "rmi://localhost:1099");
+
+(2)
+JMXConnector connector = JMXConnectorFactory.newJMXConnector(address, environment);
+
+(4)
+connector.connect(environment);
+
+(5)
+MBeanServerConnection server = connector.getMBeanServerConnection();
+               
+            </pre></div>
+      </p><p>
+         Again, note the following differences:
+         <div class="orderedlist"><ol type="1"><li>
+               How the JNDI name "jrmp" has been replaced by a JMXServiceURL with an URLPath of "/jndi/jrmp".
+            </li><li>
+               How the instantiation of the connector has been replaced by usage of a factory.
+            </li><li>
+               How the JNDI properties are passed via a Map.
+            </li><li>
+               The different number of arguments passed to the connect() method.
+            </li><li>
+               How the
+               <tt>mx4j.connector.RemoteMBeanServer</tt> class is replaced by the
+               <tt>javax.management.MBeanServerConnection</tt> class.
+            </li></ol></div>
+      </p><p>
+         Very similar changes apply when the old MX4J 1.x remoting code is using the
+         <tt>mx4j.adaptor.rmi.iiop.IIOPAdaptor</tt> and the
+         <tt>mx4j.connector.rmi.iiop.IIOPConnector</tt>.
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03s23.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03s30.html">Next</a></td></tr><tr><td align="left" width="40%">Using HTTP-based connectors over HTTPS&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch03.html">Up</a></td><td align="right" width="40%">&nbsp;MX4J Remote Tools and Utilities</td></tr></table></div></body></html>

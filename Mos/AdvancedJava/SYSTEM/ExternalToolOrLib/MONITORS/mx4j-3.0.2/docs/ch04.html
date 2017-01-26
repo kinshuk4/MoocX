@@ -1,0 +1,117 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 4. MX4J Extensions and utilities</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="index.html" title="MX4J English Documentation"><link rel="previous" href="ch03s30.html" title="MX4J Remote Tools and Utilities"><link rel="next" href="ch04s03.html" title="Interacting with the MX4J implementation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter 4. MX4J Extensions and utilities</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03s30.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch04s03.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><h2 class="title">Chapter 4. MX4J Extensions and utilities</h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch04.html#N1078A">Extensions</a></dt><dd><dl><dt><a href="ch04.html#N10791">Standard MBean descriptions</a></dt></dl></dd><dt><a href="ch04s03.html">Interacting with the MX4J implementation</a></dt><dd><dl><dt><a href="ch04s03.html#N107D6">Internal logging redirection</a></dt><dt><a href="ch04s03.html#N1083B">MBeanServerInterceptor configuration</a></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N1078A"></a>Extensions</h2></div></div><p>
+      MX4J provides some extension to the JMX specification, some transparent with respect to MBeans or applications portability
+      across JMX implementations, and some that instead ties your MBeans or applications to the MX4J implementation.
+      <br>
+   </p><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10791"></a>Standard MBean descriptions</h3></div></div><p>
+         This extension is totally transparent with respect to MBeans portability across JMX implementations.
+      </p><p>
+         When MBeans are coded as standard MBeans, the JMX Agent is responsible of the creation of the metadata
+         information for them. Conversely, when coded as dynamic MBeans, the programmer is responsible of the
+         creation of such metadata information exposed to the JMX Agent through the
+         <code class="funcdef">public MBeanInfo
+            <b class="fsfunc">getMBeanInfo</b>
+         </code>
+         (); method of the
+         <tt>DynamicMBean</tt> interface.
+      </p><p>
+         Although the JMX Agent can retrieve information about attributes, operations, constructors and notifications,
+         for standard MBeans it cannot retrieve user information such as attribute description, operation description
+         and parameter names and descriptions, and so on.
+      </p><p>
+         These information are important for the user of a management application, that can immediately understand
+         what an operation parameter is for just reading the description associated with that parameter. Same happens
+         with attributes.
+      </p><p>
+         MX4J offers the possibility of customize descriptions and parameter's names for attributes, operations,
+         constructors and notifications of standard MBeans. This customization is achieved by implementing a class
+         that follows some lexical patterns, in a way very similar to what happens to standard MBeans and the Java
+         interface that represent their management interface to the JMX Agent.
+      </p><p>
+         The MBean programmer should write a class that has the same full qualified name of the MBean class, ends
+         with "MBeanDescription" and implement the
+         <tt>mx4j.MBeanDescription</tt> interface
+         or extends the
+         <tt>mx4j.MBeanDescriptionAdapter</tt> class.
+      </p><p>
+         For example if you have an MBean whose class is
+         <tt>my.package.MyService</tt>, then you will
+         have a management interface defined by the
+         <tt>my.package.MyServiceMBean</tt> Java interface,
+         and you may add a class named
+         <tt>my.package.MyServiceMBeanDescription</tt> that implements
+         the
+         <tt>mx4j.MBeanDescription</tt> interface and that specifies descriptions and parameter's
+         names for the MBean (see example below).
+      </p><p>
+         The whole mechanism of generating the management interface and the description for standard MBean can be
+         automated using XDoclet (see the section about XDoclet for further details).
+      </p><p>
+         When the MyService MBean is used in another JMX implementation, that implementation will not care about the
+         MBeanDescription class, and thus will ignore the additional information you provided. Your MBean will
+         work normally, but the other implementation's MBeanServer will not be able to provide description information
+         to connectors and adaptors.
+         <br>
+         That's why this extension is transparent: it will not cause your MBeans to stop working in another JMX implementation.
+      </p><p>
+         <div class="example"><p><b>Example 4.1. Specifying description for standard MBeans</b></p><pre class="programlisting">
+               
+      public interface MyServiceMBean
+      {
+         public void start();
+         public void setStatus(int status);
+      }
+
+      public class MyService implements MyServiceMBean
+      {
+         public MyService(String type) {...}
+         public void start() {...}
+         public void stop() {...}
+         public void setStatus(int status) {...}
+      }
+
+      public class MyServiceMBeanDescription extends MBeanDescriptionAdapter
+      {
+         public String getConstructorDescription(Constructor ctor)
+         {
+            // Only one constructor
+            return "Creates a new instance of my personal service";
+         }
+
+         public String getConstructorParameterName(Constructor ctor, int index)
+         {
+            // Constructor has only one parameter
+            return "type";
+         }
+
+         public String getConstructorParameterDescription(Constructor ctor, int index)
+         {
+            // Constructor has only one parameter
+            return "The type of the service. Valid values are 'VOLATILE' or 'PERMANENT'.";
+         }
+
+         public String getAttributeDescription(String attribute)
+         {
+            // There is only one attribue, 'Status'
+            return "The status of the service. Can be set to ON=1, OFF=0";
+         }
+
+         public String getOperationDescription(Method operation)
+         {
+            String name = operation.getName();
+            if (name.equals("start"))
+            {
+               return "Starts the service. After the service is started its status is ON";
+            }
+            else if (name.equals("stop"))
+            {
+               return "Stops the service. After the service is stopped its status is OFF";
+            }
+            else
+            {
+               return super.getOperationDescription(operation);
+            }
+         }
+      }
+            
+            </pre></div>
+      </p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03s30.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch04s03.html">Next</a></td></tr><tr><td align="left" width="40%">MX4J Remote Tools and Utilities&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="index.html">Up</a></td><td align="right" width="40%">&nbsp;Interacting with the MX4J implementation</td></tr></table></div></body></html>

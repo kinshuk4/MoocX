@@ -1,0 +1,4 @@
+grant {
+  permission java.net.SocketPermission "*", "resolve";
+  permission java.net.SocketPermission "*:37", "connect";
+};

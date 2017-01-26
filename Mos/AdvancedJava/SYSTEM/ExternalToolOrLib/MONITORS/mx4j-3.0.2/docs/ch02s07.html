@@ -1,0 +1,255 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>The
+      javax.management.MBeanServerBuilder class
+   </title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch02.html" title="Chapter 2. JMX 1.2 Explained"><link rel="previous" href="ch02s04.html" title="Support for remote API"><link rel="next" href="ch02s13.html" title="The
+      javax.management.MBeanServerInvocationHandler class
+   "></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">The
+      <tt>javax.management.MBeanServerBuilder</tt> class
+   </th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch02s04.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 2. JMX 1.2 Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch02s13.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N1011C"></a>The
+      <tt>javax.management.MBeanServerBuilder</tt> class
+   </h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10122"></a>Introduction</h3></div></div><p>
+         JMX 1.2 introduced the possibility to replace, at runtime, the MBeanServer implementation by specifying
+         a full qualified name of a
+         <tt>javax.management.MBeanServerBuilder</tt> subclass with the
+         system property "javax.management.builder.initial".
+         <br>
+         When creating a new
+         <tt>MBeanServer</tt> instance, the
+         <tt>MBeanServerFactory</tt>
+         checks (every time) for the value of that system property; if it is not null, loads (using the context classloader),
+         instantiates, and delegates the
+         <tt>MBeanServerBuilder</tt> subclass to create
+         <tt>MBeanServer</tt> instances.
+      </p><p>
+         Since now the creation of
+         <tt>MBeanServer</tt> instances can be delegated to a custom
+         <tt>MBeanServerBuilder</tt>, it is possible to achieve two things:
+         <div class="itemizedlist"><ul><li>Use Sun's JMX reference implementation (JMXRI) but telling it to use MX4J's
+               <tt>MBeanServer</tt> implementation
+            </li><li>"Wrap" the
+               <tt>MBeanServer</tt> implementation and "decorate" it with added functionality.
+            </li></ul></div>
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1014C"></a>How to use MX4J's
+         <tt>MBeanServer</tt> implementation with Sun's JMX Reference Implementation.
+      </h3></div></div><p>
+         This is very simple to achieve:
+      </p><p>
+         <div class="example"><p><b>Example 2.1. </b></p><pre class="programlisting">
+               
+java -cp jmxri.jar;mx4j-impl.jar -Djavax.management.builder.initial=mx4j.server.MX4JMBeanServerBuilder &lt;MyClass&gt;
+               
+            </pre></div>
+      </p><p>
+         Note how the classpath specifies
+         <span class="emphasis"><i>first</i></span> the JMXRI jar and
+         <span class="emphasis"><i>then</i></span> the MX4J
+         implementation jar.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10163"></a>How to "decorate"
+         <tt>MBeanServer</tt> methods.
+      </h3></div></div><p>
+         A custom
+         <tt>MBeanServerBuilder</tt> allows you to specify how to create an
+         <tt>MBeanServer</tt>.
+         <br>
+         Any JMX implementation has already in place a mechanism that uses a default
+         <tt>MBeanServerBuilder</tt>
+         to create instances of the default
+         <tt>MBeanServer</tt> implementation.
+         <br>
+         In order to be able to "decorate" an
+         <tt>MBeanServer</tt> it is sufficient to specify a custom
+         <tt>MBeanServerBuilder</tt> that "decorates" the default one; then the implementation of the custom
+         <tt>MBeanServerBuilder</tt> will "decorate" the default
+         <tt>MBeanServer</tt>.
+      </p><p>
+         However, implementing a "decorating"
+         <tt>MBeanServerBuilder</tt> requires a bit of precision.
+         <br>
+         We will explain how to do this in detail in the following, using as example the MX4J implementation.
+      </p><p>
+         Using the
+         <tt>MBeanServerBuilder</tt> to "decorate" an
+         <tt>MBeanServer</tt>
+         requires to write two classes:
+         <div class="itemizedlist"><ul><li>a custom
+               <tt>MBeanServerBuilder</tt></li><li>a decorating
+               <tt>MBeanServer</tt></li></ul></div>
+         <br>
+         Although it's possible to start from scratch, the MX4J API gives you two base classes to start from:
+         <div class="itemizedlist"><ul><li><tt>mx4j.server.ChainedMBeanServerBuilder</tt></li><li><tt>mx4j.server.ChainedMBeanServer</tt></li></ul></div>
+      </p><p>
+         Let's suppose we want to decorate the default
+         <tt>MBeanServer</tt> by adding logging statements
+         whenever a
+         <tt>MBeanServer</tt> method is called.
+         <br>
+         First, we write the "decorating"
+         <tt>MBeanServer</tt>:
+      </p><p>
+         <div class="example"><p><b>Example 2.2. A "decorating"
+               <tt>MBeanServer</tt> that logs method calls.
+            </b></p><pre class="programlisting">
+               
+public class LoggingMBeanServer extends ChainedMBeanServer
+{
+   // Overridden just to make it public
+   public void setMBeanServer(MBeanServer server)
+   {
+      super.setMBeanServer(server);
+   }
+
+   public Object getAttribute(ObjectName objectName, String attribute)
+      throws MBeanException, AttributeNotFoundException, InstanceNotFoundException, ReflectionException
+   {
+      Object value = super.getAttribute(objectName, attribute);
+      System.out.println("[LOGGER] getAttribute() returned: " + value);
+      return value;
+   }
+
+   // And so on for all other MBeanServer methods.
+}
+            
+            </pre></div>
+      </p><p>
+         The class
+         <tt>ChainedMBeanServer</tt> simply forwards the calls to a nested
+         <tt>MBeanServer</tt>.
+         <tt>ChainedMBeanServer</tt> thus allows to create a "chain" of
+         <tt>MBeanServer</tt>s
+         that are called in succession, one after the other, from the outermost to the innermost.
+      </p><p>
+         Second, we write the "decorating"
+         <tt>MBeanServerBuilder</tt>:
+      </p><p>
+         <div class="example"><p><b>Example 2.3. A "decorating"
+               <tt>MBeanServerBuilder</tt>
+            </b></p><pre class="programlisting">
+               
+public class LoggingBuilder extends ChainedMBeanServerBuilder
+{
+   public LoggingBuilder()
+   {
+      super(new mx4j.server.MX4JMBeanServerBuilder());
+   }
+
+   public MBeanServer newMBeanServer(String defaultDomain, MBeanServer outer, MBeanServerDelegate delegate)
+   {
+      LoggingMBeanServer extern = new LoggingMBeanServer();
+      MBeanServer nested = getMBeanServerBuilder().newMBeanServer(defaultDomain, outer == null ? extern : outer, delegate);
+      extern.setMBeanServer(nested);
+      return extern;
+   }
+}
+            
+            </pre></div>
+      </p><p>
+         As for the
+         <tt>ChainedMBeanServer</tt> class, also
+         <tt>ChainedMBeanServerBuilder</tt>
+         simply forwards the calls to a nested
+         <tt>MBeanServerBuilder</tt>.
+         Also here,
+         <tt>ChainedMBeanServerBuilder</tt> allows to create a "chain" of
+         <tt>MBeanServerBuilder</tt>s
+         that are called in succession, one after the other, from the outermost to the innermost.
+      </p><p>
+         The
+         <tt>MBeanServerBuilder</tt> chain works in parallel with the
+         <tt>MBeanServer</tt>
+         chain in this way:
+      </p><p>
+         <div class="example"><p><b>Example 2.4. The
+               <tt>MBeanServerBuilder</tt> and
+               <tt>MBeanServer</tt> chains
+            </b></p><pre class="programlisting">
+               
+MBeanServerFactory  -- calls --&gt;   LoggingBuilder     -- calls --&gt;  MX4JMBeanServerBuilder
+                                         |                                   |
+                                      creates                             creates
+                                         |                                   |
+                                         V                                   V
+       Application  -- calls --&gt;  LoggingMBeanServer  -- calls --&gt;     MX4JMBeanServer
+            
+            </pre></div>
+      </p><p>
+         Note the
+         <tt>LoggingBuilder</tt> constructor: there is where the
+         <tt>MBeanServerBuilder</tt> chain is created.
+         <br>
+         The
+         <tt>LoggingBuilder</tt> specifies a chain of only two rings, the
+         <tt>LoggingBuilder</tt>
+         itself, and MX4J's default
+         <tt>MBeanServerBuilder</tt>,
+         <tt>MX4JMBeanServerBuilder</tt>.
+         <br>
+         This chain is hardcoded in the builder, meaning that if you want to change it at runtime you cannot: either you
+         change and recompile the custom builder, or you use another custom builder.
+      </p><p>
+         Note also the usage of the ternary operator (condition ? this : that) in the nested
+         <code class="funcdef">
+            <b class="fsfunc">newMBeanServer()</b>
+         </code> call: checking for nullity of the "outer" argument is
+         of fundamental importance for the builder to be "chainable". If this check is not made, then
+         <tt>LoggingBuilder</tt> cannot be reused as a ring of a longer chain if, in future, we modify it
+         to accept as parameter to the constructor other builders (i.e. other "rings").
+      </p><p>
+         It is of course possible to use different builders from different vendors, simply by creating a custom builder
+         that "chains" all the other in the desired sequence:
+      </p><p>
+         <div class="example"><p><b>Example 2.5. A "decorating"
+               <tt>MBeanServerBuilder</tt>
+            </b></p><pre class="programlisting">
+               
+public class ComplexBuilder extends ChainedMBeanServerBuilder
+{
+   public LoggingBuilder()
+   {
+      super(new com.sun.jmx.bar.BarBuilder(new com.ibm.jmx.foo.FooBuilder(new mx4j.server.MX4JMBeanServerBuilder())));
+   }
+}
+            
+            </pre></div>
+      </p><p>
+         Just remember that
+         <tt>MX4JMBeanServerBuilder</tt> is a "terminal" builder and must
+         always be the last in the chain.
+         <br>
+         Other vendors are expected to provide an API for their custom builders very similar to
+         <tt>ChainedMBeanServerBuilder</tt> (which is mostly being able to take a
+         <tt>javax.management.MBeanServerBuilder</tt> as argument to a constructor).
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10249"></a>More complex
+         <tt>MBeanServer</tt> "decorations".
+      </h3></div></div><p>
+         We saw above that is possible to "decorate"
+         <tt>MBeanServer</tt>s by decorating the
+         default mechanism of the
+         <tt>MBeanServerBuilder</tt> already in place in any JMX implementation.
+         <br>
+         We saw that to a chain of builders corresponded a chain of servers.
+         <br>
+         However, it's possible that a builder specifies more than one ring for the server chain, in the following way:
+      </p><p>
+         <div class="example"><p><b>Example 2.6. A More complex
+               <tt>MBeanServerBuilder</tt> and
+               <tt>MBeanServer</tt> chains
+            </b></p><pre class="programlisting">
+               
+MBeanServerFactory --calls--&gt;  LoggingBuilder    --calls--&gt;          PerformanceBuilder    --calls--&gt;    MX4JMBeanServerBuilder
+                                     |                                        |                                     |
+                                  creates                                  creates                               creates
+                                     |                                   /         \                                |
+                                     V                                  V           V                               V
+       Application --calls--&gt; LoggingMBeanServer --calls--&gt; TimingServer --calls--&gt; CountingServer --calls--&gt; MX4JMBeanServer
+            
+            </pre></div>
+      </p><p>
+         An example of such chains is present in the MX4J testsuite, in the test class that tests the
+         <tt>MBeanServerBuilder</tt> functionality.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1026F"></a>Possible usages of MBeanServer "decorators"</h3></div></div><p>
+         A (non complete) list of possible "decorators" for
+         <tt>MBeanServer</tt>
+         may include functionality such as:
+         <div class="itemizedlist"><ul><li>Logging the invocation</li><li>Measuring the invocation time</li><li>Counting the number of invocations</li><li>Load-balancing the invocations among server nodes</li><li>Cascading the invocations to child servers</li><li>Notifying a message to someone for a particular invocation</li><li>...</li></ul></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch02s04.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch02s13.html">Next</a></td></tr><tr><td align="left" width="40%">Support for remote API&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch02.html">Up</a></td><td align="right" width="40%">&nbsp;The
+      <tt>javax.management.MBeanServerInvocationHandler</tt> class
+   </td></tr></table></div></body></html>

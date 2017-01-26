@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<registry install_date="2009-08-06 16:54:25" version="1.1" last_modified="2009-08-06 16:54:33">
+	<products>
+		<product name="MC4J Console 1.2b8" id="b2f2f8fe-1ec7-11b2-8fae-9dd090ceb572" version="1.2.0.8" copyright="2005" info_url="http://mc4j.sourceforge.net" support_url="http://sourceforge.net/tracker/?atid=493496&amp;group_id=60228&amp;func=browse" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8" last_modified="2009-08-06 16:54:27">
+		<![CDATA[This software allows for remote connections to JMX servers and provides the ability to browse existing managed beans (MBeans) and execute operations on them.
+]]>
+			<vendor name="MC4J" id="b2f58e0e-1ec7-11b2-8fca-9dd090ceb572" home_page="http://mc4j.sourceforge.net" email="ghinkle@users.sourceforge.net"/>
+			<feature name="Application" last_modified="2009-08-06 16:54:27">
+			<![CDATA[This installs the application feature.]]>
+				<component ref_id="b2f2f943-1ec7-11b2-8fbe-9dd090ceb572" version="1.0.0.0" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\Uninstall MC4J_INSTALL.exe"/>
+			</feature>
+		</product>
+	</products>
+	<components>
+		<component id="b2f2f943-1ec7-11b2-8fbe-9dd090ceb572" version="1.0.0.0" name="Common" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\Uninstall MC4J_INSTALL.exe" vendor="MC4J">
+			<resource keyfile="false" name="MC4J_Console_1.2b8_InstallLog.log" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\MC4J_Console_1.2b8_InstallLog.log" type="file" uninstall="true"/>
+			<resource keyfile="false" name="MC4J Console 1.2b8" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="lax.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\lax.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="MC4J Console 1.2b8.exe" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\MC4J Console 1.2b8.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="MC4J Console 1.2b8.lax" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\MC4J Console 1.2b8.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="UninstallerData" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="uninstaller.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\uninstaller.jar" type="file" uninstall="true"/>
+			<resource keyfile="true" name="Uninstall MC4J_INSTALL.exe" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\Uninstall MC4J_INSTALL.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="Uninstall MC4J_INSTALL.lax" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\Uninstall MC4J_INSTALL.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="resource" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\resource" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="iawin32.dll" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\resource\iawin32.dll" type="file" uninstall="true"/>
+			<resource keyfile="false" name="remove.exe" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\resource\remove.exe" type="file" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8||STRING|$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|DisplayName|STRING|MC4J Console 1.2b8$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|DisplayName" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|UninstallString|STRING|&quot;E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\Uninstall MC4J_INSTALL.exe&quot;$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|UninstallString" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|Publisher|STRING|MC4J$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|Publisher" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|URLInfoAbout|STRING|http://mc4j.sourceforge.net$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|URLInfoAbout" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|URLUpdateInfo|STRING|http://mc4j.sourceforge.net$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|URLUpdateInfo" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|Contact|STRING|ghinkle@users.sourceforge.net$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|Contact" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|ProductID|STRING|b2f2f8fe-1ec7-11b2-8fae-9dd090ceb572$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|ProductID" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|InstallLocation|STRING|E:\MohitBackup\Mirror\MC4J Console 1.2b8$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|InstallLocation" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|InstallDate|STRING|Thu Aug 06 16:54:28 IST 2009$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|InstallDate" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|HelpLink|STRING|http://sourceforge.net/tracker/?atid=493496&amp;group_id=60228&amp;func=browse$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|HelpLink" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|DisplayVersion|STRING|1.2.0.8$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|DisplayVersion" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|Comments|STRING|This software allows for remote connections to JMX servers and provides the ability to browse existing managed beans (MBeans) and execute operations on them.
+$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MC4J Console 1.2b8|Comments" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="bin" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\bin" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="ide.policy" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\bin\ide.policy" type="file" uninstall="true"/>
+			<resource keyfile="false" name="config" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="ModuleAutoDeps" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\ModuleAutoDeps" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="org-openide-execution.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\ModuleAutoDeps\org-openide-execution.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\ModuleAutoDeps\org-openide.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\ModuleAutoDeps\org-netbeans-core.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Modules" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="org-mc4j-console.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-mc4j-console.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-execution.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-core-execution.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-multiview.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-core-multiview.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-output2.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-core-output2.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-ui.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-core-ui.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-windows.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-core-windows.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-autoupdate.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-modules-autoupdate.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-javahelp.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-modules-javahelp.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-masterfs.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-modules-masterfs.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-queries.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-modules-queries.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-settings.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-modules-settings.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-swing-tabcontrol.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-netbeans-swing-tabcontrol.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide-execution.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-openide-execution.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide-io.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\config\Modules\org-openide-io.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="core" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="org-netbeans-swing-plaf.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core\org-netbeans-swing-plaf.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="updater.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core\updater.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="patches" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core\patches" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="Mc4jBranding.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core\patches\Mc4jBranding.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="core.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core\core.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="openide.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core\openide.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="ide.ks" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core\ide.ks" type="file" uninstall="true"/>
+			<resource keyfile="false" name="openide-loaders.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\core\openide-loaders.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="dashboards" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="HtmlDocumentTest.html" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\HtmlDocumentTest.html" type="file" uninstall="true"/>
+			<resource keyfile="false" name="chires" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\chires" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="Chires_Profiler.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\chires\Chires_Profiler.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Chires_JDBCQueryStats.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\chires\Chires_JDBCQueryStats.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="BasicMBean.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\BasicMBean.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="tomcat" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\tomcat" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="Tomcat_ServletTable.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\tomcat\Tomcat_ServletTable.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Tomcat_RequestProcessorTable.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\tomcat\Tomcat_RequestProcessorTable.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Tomcat_SingleServlet_Graph.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\tomcat\Tomcat_SingleServlet_Graph.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="carbon" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\carbon" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="Carbon_ConfigurationTree.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\carbon\Carbon_ConfigurationTree.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Carbon_ServerInfo.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\carbon\Carbon_ServerInfo.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Carbon_MemoryInfo.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\carbon\Carbon_MemoryInfo.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Dashboard_1_0.dtd" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\Dashboard_1_0.dtd" type="file" uninstall="true"/>
+			<resource keyfile="false" name="RelationsGraph2.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\RelationsGraph2.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="RelationsGraph.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\RelationsGraph.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jboss" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="JBoss_MQ_TopicTable.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_MQ_TopicTable.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_ServerDashboard.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_ServerDashboard.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_Web_Jetty.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_Web_Jetty.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_WebTable.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_WebTable.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_System_Server_Control.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_System_Server_Control.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_MQ_QueueTable.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_MQ_QueueTable.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_ServerInfo_Memory.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_ServerInfo_Memory.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_Web_JettyNew.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_Web_JettyNew.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_ServerDashboard.html" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_ServerDashboard.html" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JBoss_ServerInfoMBean.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jboss\JBoss_ServerInfoMBean.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="websphere" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\websphere" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="WebSphere_ServerDashboard.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\websphere\WebSphere_ServerDashboard.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="WebSphere_ServerDashboard.html" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\websphere\WebSphere_ServerDashboard.html" type="file" uninstall="true"/>
+			<resource keyfile="false" name="geronimo" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\geronimo" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="Geronimo_ServerInfo.html" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\geronimo\Geronimo_ServerInfo.html" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Geronimo_ServerInfo.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\geronimo\Geronimo_ServerInfo.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jre15" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jre15" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="JRE15_MemoryUsagePools_PieChart.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jre15\JRE15_MemoryUsagePools_PieChart.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JRE15_ThreadTree.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jre15\JRE15_ThreadTree.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JRE15_Deadlock.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jre15\JRE15_Deadlock.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JRE15_MemoryUsage_LineChart.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jre15\JRE15_MemoryUsage_LineChart.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JRE15_MemoryUsage_Graph.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jre15\JRE15_MemoryUsage_Graph.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JRE15_MemoryUsage_AreaChart.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jre15\JRE15_MemoryUsage_AreaChart.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JRE15_MemoryUsage_AllPools.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\jre15\JRE15_MemoryUsage_AllPools.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="weblogic" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\weblogic" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="Weblogic_ServletTable.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\weblogic\Weblogic_ServletTable.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Weblogic_EJBTransactionRuntime.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\weblogic\Weblogic_EJBTransactionRuntime.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Weblogic_ExecuteQueue_Stats.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\weblogic\Weblogic_ExecuteQueue_Stats.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Weblogic_EJBPoolRuntimeTable.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\weblogic\Weblogic_EJBPoolRuntimeTable.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="HtmlDocumentTest.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\dashboards\HtmlDocumentTest.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="extra" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\extra" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="lib" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\lib" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="boot.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\lib\boot.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="branding" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\lib\branding" type="file" uninstall="true"/>
+			<resource keyfile="false" name="nbexec" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\lib\nbexec" type="file" uninstall="true"/>
+			<resource keyfile="false" name="nbexec.cmd" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\lib\nbexec.cmd" type="file" uninstall="true"/>
+			<resource keyfile="false" name="nbexec.exe" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\lib\nbexec.exe" type="file" uninstall="true"/>
+			<resource keyfile="false" name="mc4jlib" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="animation-1.1.3.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\animation-1.1.3.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="javax77.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\javax77.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jcommon-0.9.3.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\jcommon-0.9.3.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JDMK" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\JDMK" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="jmxri.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\JDMK\jmxri.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="sun_jmx_remoting.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\JDMK\sun_jmx_remoting.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jdnc-0_6-all.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\jdnc-0_6-all.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jfreechart-0.9.18.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\jfreechart-0.9.18.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="JSR160" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\JSR160" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="jmxremote.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\JSR160\jmxremote.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jmxremote_optional.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\JSR160\jmxremote_optional.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jmxri.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\JSR160\jmxri.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="log4j-1.2.8.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\log4j-1.2.8.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="mc4j_common.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\mc4j_common.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="MX4J" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\MX4J" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="mx4j-tools-1.1.1.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\MX4J\mx4j-tools-1.1.1.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="mx4j-jmx-1.1.1.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\MX4J\mx4j-jmx-1.1.1.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="utilConcurrent1.3.2.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\mc4jlib\utilConcurrent1.3.2.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="modules" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="org-netbeans-modules-queries.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-modules-queries.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-javahelp.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-modules-javahelp.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-mc4j-console.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-mc4j-console.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide-io.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-openide-io.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-execution.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-core-execution.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-ui.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-core-ui.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-multiview.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-core-multiview.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-output2.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-core-output2.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-swing-tabcontrol.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-swing-tabcontrol.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="ext" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\ext" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="jh-2.0_01.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\ext\jh-2.0_01.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-masterfs.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-modules-masterfs.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide-execution.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-openide-execution.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-autoupdate.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-modules-autoupdate.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-windows.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-core-windows.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-settings.jar" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\modules\org-netbeans-modules-settings.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="platform4" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\platform4" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="update_tracking" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="org-netbeans-core-execution.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-core-execution.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-multiview.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-core-multiview.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-output2.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-core-output2.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-ui.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-core-ui.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core-windows.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-core-windows.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-core.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-core.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-autoupdate.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-modules-autoupdate.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-javahelp.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-modules-javahelp.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-masterfs.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-modules-masterfs.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-queries.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-modules-queries.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-modules-settings.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-modules-settings.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-swing-plaf.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-swing-plaf.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-netbeans-swing-tabcontrol.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-netbeans-swing-tabcontrol.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide-execution.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-openide-execution.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide-io.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-openide-io.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide-loaders.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-openide-loaders.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org-openide.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\update_tracking\org-openide.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="CREDITS.html" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\CREDITS.html" type="file" uninstall="true"/>
+			<resource keyfile="false" name="module_tracking.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\module_tracking.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="moduleCluster.properties" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\moduleCluster.properties" type="file" uninstall="true"/>
+			<resource keyfile="false" name="nb.cluster.platform.built" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\nb.cluster.platform.built" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Readme.txt" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\Readme.txt" type="file" uninstall="true"/>
+			<resource keyfile="false" name="MC4J Console 1.2b8" location="C:\Documents and Settings\gf\Start Menu\Programs\MC4J Console 1.2b8" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="MC4J Console 1.2b8" location="C:\Documents and Settings\gf\Start Menu\Programs\MC4J Console 1.2b8" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="MC4J Console 1.2b8.ico" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\MC4J Console 1.2b8.ico" type="file" uninstall="true"/>
+			<resource keyfile="false" name="MC4J Console 1.2b8.lnk" location="C:\Documents and Settings\gf\Start Menu\Programs\MC4J Console 1.2b8\MC4J Console 1.2b8.lnk" type="shortcut" uninstall="true"/>
+			<resource keyfile="false" name="ZGWin32LaunchHelper.exe" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\resource\ZGWin32LaunchHelper.exe" type="file" uninstall="true"/>
+			<resource keyfile="false" name=".com.zerog.registry.xml" location="E:\MohitBackup\Mirror\MC4J Console 1.2b8\UninstallerData\.com.zerog.registry.xml" type="file" uninstall="true"/>
+		</component>
+	</components>
+</registry>

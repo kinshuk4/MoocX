@@ -1,0 +1,79 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Advanced JSR 160</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="previous" href="ch03s10.html" title="JSR 160 Security"><link rel="next" href="ch03s15.html" title="Standard JSR 160 JMXConnectors and JMXConnectorServers"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Advanced JSR 160</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03s10.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 3. JSR 160 (JMX Remoting) Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03s15.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10531"></a>Advanced JSR 160</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10534"></a>Intercepting calls between the JSR 160 JMXConnectorServer and the MBeanServer</h3></div></div><p>
+         JSR 160 offers a standard way of intercepting calls between the JMXConnectorServer
+         and the target MBeanServer.
+         <br>
+         Such interception can be useful for logging, for granting access in a dynamic way (for example
+         based on the value of the arguments for a certain call to an MBean - this cannot be
+         achieved via the standard security policy files), for caching of values, and whatever else
+         you may find useful.
+      </p><p>
+         In the examples bundled with the MX4J distribution, there is an example of how to setup
+         such an interception, and here we will show in brief how to do it. Refer to the example's
+         javadocs for further information.
+      </p><p>
+         First of all, you need to implement the interceptor. In the past, these interceptor were all
+         implementation-dependent, but JSR 160 standardized the interface to achieve this:
+         <tt>javax.management.remote.MBeanServerForwarder</tt>.
+         Below you can find a simple (incomplete) example of how to track the Subject of the current
+         invocation.
+      </p><p>
+         <div class="example"><p><b>Example 3.11. Simple subject interceptor skeleton</b></p><pre class="programlisting">
+               
+public class SubjectTrackingMBeanServer implements MBeanServerForwarder
+{
+   private MBeanServer server;
+
+   public synchronized MBeanServer getMBeanServer()
+   {
+      return server;
+   }
+
+   public synchronized void setMBeanServer(MBeanServer server) throws IllegalArgumentException
+   {
+      if (server == null) throw new IllegalArgumentException("Cannot forward to a null MBeanServer");
+      this.server = server;
+   }
+
+   private void trackSubject()
+   {
+      Subject subject = Subject.getSubject(AccessController.getContext());
+      System.out.println("Subject = " + subject);
+   }
+
+   public void addNotificationListener(ObjectName observed, NotificationListener listener, NotificationFilter filter, Object handback)
+           throws InstanceNotFoundException
+   {
+      trackSubject();
+      getMBeanServer().addNotificationListener(observed, listener, filter, handback);
+   }
+
+   ...
+
+}
+               
+            </pre></div>
+      </p><p>
+         It is very simple to add this interceptors to a JMXConnectorServer, to intercept calls
+         directed to the target MBeanServer. It is important to do this before the JMXConnectorServer
+         is started, because if done afterwards it will have no effect (interception will not take place).
+      </p><p>
+         <div class="example"><p><b>Example 3.12. Setting up the interception on the JMXConnectorServer</b></p><pre class="programlisting">
+               
+MBeanServer server = ...;
+File passwords = ...;
+
+Map environment = new HashMap();
+JMXAuthenticator authenticator = new PasswordAuthenticator(passwords);
+environment.put(JMXConnectorServer.AUTHENTICATOR, authenticator);
+
+JMXConnectorServer cntorServer = JMXConnectorServerFactory.newJMXConnectorServer(url, environment, server);
+
+// Here we setup the interception
+SubjectTrackingMBeanServer interceptor = new SubjectTrackingMBeanServer();
+cntorServer.setMBeanServerForwarder(interceptor);
+
+// Start the connector server
+cntorServer.start();
+               
+            </pre></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03s10.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03s15.html">Next</a></td></tr><tr><td align="left" width="40%">JSR 160 Security&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch03.html">Up</a></td><td align="right" width="40%">&nbsp;Standard JSR 160 JMXConnectors and JMXConnectorServers</td></tr></table></div></body></html>

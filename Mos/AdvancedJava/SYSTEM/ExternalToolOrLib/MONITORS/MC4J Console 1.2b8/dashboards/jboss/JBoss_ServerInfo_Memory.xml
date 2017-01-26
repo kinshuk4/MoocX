@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Dashboard PUBLIC "-//MC4J//DTD Dashboard 1.0//EN" "http://mc4j.sourceforge.net/Dashboard_1_0.dtd">
+
+<Dashboard version="1.0" name="JBoss Memory Meter">
+  <Description>This dashboard displays basic information relating to the 
+    overall execution of a JBoss server.</Description>
+
+  <DashboardMatch type="Global" location="/JBoss">
+      <BeanMatch id="JBossServerInfoBean" type="Single">
+          <Condition type="BeanObjectNameCondition" filter="jboss.system:type=ServerInfo"/>
+      </BeanMatch>
+  </DashboardMatch>
+
+
+    <!--
+  <Context name="Match" type="java.lang.String" value="jboss.system:type=ServerInfo"/>
+  -->
+  
+  <LayoutManager type="java.awt.BorderLayout"/>
+  <Content>
+    
+    <!-- *** The header section displays title and a refresh control *** -->
+    <Component type="javax.swing.JPanel">
+        <Constraint type="BorderConstraints" direction="NORTH"/>
+        <LayoutManager type="java.awt.BorderLayout"/>
+        <Border type="javax.swing.border.EmptyBorder" top="(Literal)2" left="(Literal)5" bottom="(Literal)2" right="(Literal)5"/>
+        <Content>
+            <Component type="javax.swing.JPanel">
+                <Constraint type="BorderConstraints" direction="CENTER"/>
+                <LayoutManager type="java.awt.BorderLayout"/>
+                <Content>
+                    <Component type="javax.swing.JLabel" id="titleLable">
+                        <Constraint type="BorderConstraints" direction="CENTER"/>
+                        <Attribute name="text" value="DashboardName"/>
+                        <Attribute name="font" value="(Literal)SansSerif bold 20"/>
+                        <Attribute name="foreground" value="(Literal)0x666666"/>
+                    </Component>
+                    <Component type="javax.swing.JTextArea">
+                        <Constraint type="BorderConstraints" direction="SOUTH"/>
+                        <Attribute name="text" value="DashboardDescription"/>
+                        <Attribute name="font" value="(Literal)DialogInput bold 14"/>
+                        <Attribute name="opaque" value="(Literal)false"/>
+                        <Attribute name="editable" value="(Literal)false"/>
+                    </Component>
+                </Content>
+            </Component>
+        </Content>
+    </Component>
+    
+
+    <Component type="org.mc4j.console.dashboard.components.NumericAttributeGaugeMeter">
+        <Constraint type="BorderConstraints" direction="CENTER"/>
+        <Attribute name="beanNode" value="JBossServerInfoBean"/>
+        <Attribute name="maxAttributeName" value="(Literal)MaxMemory"/>
+        <Attribute name="currentAttributeName" value="(Literal)FreeMemory"/>
+        <!--<Attribute name="minimumSize" value="(Literal)50,50"/>-->
+        <Attribute name="label" value="(Literal)Free Memory"/>
+        <Attribute name="updateInterval" value="(Literal)1000"/>
+        <Attribute name="warningPoint" value="(Literal)0.2"/>
+        <Attribute name="criticalPoint" value="(Literal)0.05"/>
+        <Attribute name="title" value="(Literal)Available Memory"/>
+        <Attribute name="units" value="(Literal)bytes"/>
+
+    </Component>
+
+  </Content>
+</Dashboard>

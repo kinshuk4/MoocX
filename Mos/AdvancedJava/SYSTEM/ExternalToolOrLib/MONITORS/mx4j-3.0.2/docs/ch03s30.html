@@ -1,0 +1,83 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>MX4J Remote Tools and Utilities</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="previous" href="ch03s27.html" title="Porting old MX4J remoting code to JSR 160"><link rel="next" href="ch04.html" title="Chapter 4. MX4J Extensions and utilities"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">MX4J Remote Tools and Utilities</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03s27.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 3. JSR 160 (JMX Remoting) Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch04.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10753"></a>MX4J Remote Tools and Utilities</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10756"></a>Remote MBean Proxying</h3></div></div><p>
+         Complex systems based on JMX are also, most of the times, distributed systems.
+         <br>
+         Such systems are often made of
+         <span class="emphasis"><i>nodes</i></span>, and each node is made of
+         <span class="emphasis"><i>components</i></span>.
+         <br>
+         When the underlying architecture is JMX, in each node there is one (possibly more) MBeanServer that manages
+         the components, and each component is an MBean.
+      </p><p>
+         Sometimes there is the need to have one MBeanServer gathering information from many remote
+         MBeanServers. However, the information needed is only part of the information exposed by each remote
+         MBeanServer: you may want to collect only some information from each remote MBeanServer.
+         <br>
+         For this purpose, it is useful to write an MBean that exposes this information, and register one instance
+         of this MBean per each remote MBeanServer.
+      </p><p>
+         A client application may want to connect to the gathering MBeanServer to see the gathered
+         information, without having the hassle to connect to each individual remote MBeanServer and choose the
+         information MBean among the others.
+      </p><p>
+         In short, the gathering MBeanServer acts as a proxy for certain MBeans hosted elsewhere: client applications
+         only need to contact the gathering MBeanServer to get the information they need.
+      </p><p>
+         For this purpose MX4J provides a remote MBean proxy: an MBean you can register in the
+         gathering MBeanServer that acts as a proxy for a remote MBean hosted in a remote MBeanServer.
+         <br>
+         Refer anyway to the javadocs of the
+         <a href="/docs/api/mx4j/remote/RemoteMBeanProxy.html" target="_top">RemoteMBeanProxy</a> class for further
+         information.
+         <br>
+         Below there is an example where remote MBeanServers publish information about the downloads of
+         products, and a gathering MBeanServer proxies these information for easier access via the HTTPAdaptor.
+      </p><p>
+         <div class="example"><p><b>Example 3.27. Remote MBean proxying</b></p><pre class="programlisting">
+               
+// A remote MBeanServer
+// It exposes also a JMXConnectorServer at the address 'service:jmx:rmi://localhost/jndi/jmx1'
+MBeanServer remoteMBeanServer1 = ...;
+
+// A remote MBean
+Object remoteMBean1 = ...;
+ObjectName remoteMBeanName1 = ObjectName.getInstance("sytem.information:type=downloads,product=mx4j");
+remoteMBeanServer1.registerMBean(remoteMBean1, remoteMBeanName1);
+
+// Another remote MBeanServer
+// It exposes also a JMXConnectorServer at the address 'service:jmx:rmi://localhost/jndi/jmx2'
+MBeanServer remoteMBeanServer2 = ...;
+
+// A remote MBean
+Object remoteMBean2 = ...;
+ObjectName remoteMBeanName2 = ObjectName.getInstance("information.data:type=downloads,product=tomcat");
+remoteMBeanServer2.registerMBean(remoteMBean2, remoteMBeanName2);
+
+// The proxy for the MBean in the first MBeanServer
+JMXServiceURL url1 = new JMXServiceURL("rmi", "localhost", 0, "/jndi/jmx1");
+RemoteMBeanProxy proxy1 = new RemoteMBeanProxy(remoteMBeanName1, url1);
+ObjectName proxyName1 = ObjectName.getInstance("system.download:product=mx4j");
+
+// The proxy for the MBean in the second MBeanServer
+JMXServiceURL url2 = new JMXServiceURL("rmi", "localhost", 0, "/jndi/jmx2");
+RemoteMBeanProxy proxy2 = new RemoteMBeanProxy(remoteMBeanName2, url2);
+ObjectName proxyName2 = ObjectName.getInstance("system.download:product=tomcat");
+
+// The gathering MBeanServer
+// It exposes also a HTTPAdaptor on port 8082
+MBeanServer gatheringMBeanServer = ...;
+gatheringMBeanServer.registerMBean(proxy1, proxyName1);
+gatheringMBeanServer.registerMBean(proxy2, proxyName2);
+
+// Browsing on port 8082 you can see, on the gathering MBeanServer, the proxied MBeans.
+               
+            </pre></div>
+      </p><p>
+         The
+         <tt>mx4j.remote.RemoteMBeanProxy</tt> MBean is a transparent proxy for the remote MBean:
+         invoking a method on the proxy results in the method being invoked on the remote MBean; registering a local
+         NotificationListener on the proxy results in registration on the remote MBean, and thus
+         the local listener will receive notifications emitted by the remote MBean.
+         <br>
+         For example, by proxying the remote MBeanServerDelegate MBean, you can receive locally notifications of
+         MBean registrations/unregistrations that happens in the remote MBeanServer.
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03s27.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch04.html">Next</a></td></tr><tr><td align="left" width="40%">Porting old MX4J remoting code to JSR 160&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch03.html">Up</a></td><td align="right" width="40%">&nbsp;Chapter 4. MX4J Extensions and utilities</td></tr></table></div></body></html>

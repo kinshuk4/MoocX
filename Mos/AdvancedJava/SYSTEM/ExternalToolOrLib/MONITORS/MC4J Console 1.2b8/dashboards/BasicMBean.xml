@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Dashboard PUBLIC "-//MC4J//DTD Dashboard 1.0//EN" "http://mc4j.sourceforge.net/Dashboard_1_0.dtd">
+
+<!--
+    Document   : BasicMBean.xml
+    Created on : October 6, 2002, 10:01 PM
+    Author     : ghinkl
+    Description:
+        Displays the basic information of an MBean
+-->
+
+<Dashboard version="1.0" name="Basic MBean View">
+  <Description>Displays general information about any MBean in the system.</Description>
+
+  <DashboardMatch type="Bean">
+      <BeanMatch id="BeanNode" type="Single">
+          <Condition type="BeanObjectNameCondition" filter=".*"/>
+      </BeanMatch>
+  </DashboardMatch>
+
+  <LayoutManager type="java.awt.BorderLayout"/>
+  <Content>
+
+    <!-- *** The header section displays title and a refresh control *** -->
+    <Component type="javax.swing.JPanel">
+        <Constraint type="BorderConstraints" direction="NORTH"/>
+        <LayoutManager type="java.awt.BorderLayout"/>
+        <Border type="javax.swing.border.EmptyBorder" top="(Literal)2" left="(Literal)5" bottom="(Literal)2" right="(Literal)5"/>
+        <Content>
+            <Component type="javax.swing.JPanel">
+                <Constraint type="BorderConstraints" direction="CENTER"/>
+                <LayoutManager type="java.awt.BorderLayout"/>
+                <Content>
+                    <Component type="javax.swing.JLabel" id="titleLable">
+                        <Constraint type="BorderConstraints" direction="CENTER"/>
+                        <Attribute name="text" value="DashboardName"/>
+                        <Attribute name="font" value="(Literal)SansSerif bold 20"/>
+                        <Attribute name="foreground" value="(Literal)0x666666"/>
+                    </Component>
+                    <Component type="javax.swing.JTextArea">
+                        <Constraint type="BorderConstraints" direction="SOUTH"/>
+                        <Attribute name="text" value="(Message)General information about {ObjectName}"/>
+                        <Attribute name="font" value="(Literal)DialogInput bold 14"/>
+                        <Attribute name="opaque" value="(Literal)false"/>
+                        <Attribute name="editable" value="(Literal)false"/>
+                    </Component>
+                </Content>
+            </Component>
+            <Component type="org.mc4j.console.dashboard.components.RefreshControlComponent">
+                <Constraint type="BorderConstraints" direction="EAST"/>
+                <Attribute name="refreshDelay" value="(Literal)30000"/>
+            </Component>
+        </Content>
+    </Component>
+
+    <!-- *** The main content is displayed within a scrollpane for easy viewing *** -->
+    <Component type="javax.swing.JScrollPane">
+        <Constraint type="BorderConstraints" direction="CENTER"/>
+        <Attribute name="background" value="(Literal)0xFFFFFF"/>
+
+        <Content>
+            <Component type="javax.swing.JPanel">
+                <Attribute name="background" value="(Literal)0xFFFFFF"/>
+
+                <LayoutManager type="java.awt.BoxLayout" axis="Y_AXIS"/>
+                <Content>
+                    <!-- *** A Section holder is an included component for providing hide-able parts *** -->
+                    <Component type="org.mc4j.console.swing.SectionHolder">
+                    <Attribute name="title" value="(Literal)MBean Attributes"/>
+                    <Attribute name="background" value="(Literal)0xFFFFFF"/>
+                    <LayoutManager type="java.awt.BorderLayout"/>
+                    <Content>
+
+                        <!-- *** This component displays the attributes of an MBean *** -->
+                        <Component type="org.mc4j.console.dashboard.components.AttributeTreeTableExplorer">
+                            <!-- *** Notice were setting the node that we matched above by name here *** -->
+                            <Attribute name="beanNode" value="BeanNode"/>
+                            <Constraint type="BorderConstraints" direction="CENTER"/>
+                            <Border type="javax.swing.border.LineBorder" color="(Literal)0x444444" thickness="(Literal)1"/>
+                            <Attribute name="background" value="(Literal)0xFFFFFF"/>
+                            <Attribute name="background" value="(Literal)0xFFFFFF"/>
+                        </Component>
+                    </Content>
+                    </Component>
+                    <Component type="org.mc4j.console.swing.SectionHolder">
+                        <Attribute name="title" value="(Literal)MBean Operations"/>
+                        <Attribute name="background" value="(Literal)0xFFFFFF"/>
+                        <Content>
+                            <Component type="org.mc4j.console.dashboard.components.OperationListComponent">
+                                <Attribute name="beanNode" value="BeanNode"/>
+                                <Attribute name="format" value="(Literal)FULL_FORMAT"/>
+                            </Component>
+                        </Content>
+                    </Component>
+                    <!--
+                    <Component type="org.mc4j.console.dashboard.components.FillerComponent">
+                        <Attribute name="type" value="(Literal)VERTICAL_GLUE_SHAPE"/>
+                    </Component>
+                    -->
+                </Content>
+
+            </Component>
+        </Content>
+    </Component>
+
+  </Content>
+</Dashboard>

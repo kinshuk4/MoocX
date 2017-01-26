@@ -1,0 +1,61 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 1. MX4J and JMX Overview</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="index.html" title="MX4J English Documentation"><link rel="previous" href="index.html" title="MX4J English Documentation"><link rel="next" href="ch01s06.html" title="License"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter 1. MX4J and JMX Overview</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch01s06.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><h2 class="title">Chapter 1. MX4J and JMX Overview</h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch01.html#N10008">Overview</a></dt><dd><dl><dt><a href="ch01.html#N1000B">MX4J</a></dt><dt><a href="ch01.html#N1002D">What is JMX ?</a></dt><dt><a href="ch01.html#N10034">For what can you use JMX ?</a></dt><dt><a href="ch01.html#N10043">MX4J's JMX implementation</a></dt></dl></dd><dt><a href="ch01s06.html">License</a></dt></dl></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10008"></a>Overview</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1000B"></a>MX4J</h3></div></div><p>
+         MX4J is an open source implementation of the JMX
+         <sup>TM</sup> technology.
+         <br>
+         JMX stands for
+         <a href="http://java.sun.com/jmx" target="_top">Java
+            <sup>TM</sup> Management Extensions
+         </a>,
+         and it's an optional package for the J2SE
+         <sup>TM</sup> platform that is now
+         included in J2SE 5.0.
+      </p><p>
+         The Java Management Extension specification is a Java Specification Request (see
+         <a href="http://jcp.org/en/jsr/detail?id=003" target="_top">JSR 003</a>) currently in maintenance release 1.2.
+         <br>
+         A new JSR has been issued to address connectivity to a remote JMX Agent,
+         <a href="http://jcp.org/en/jsr/detail?id=160" target="_top">JSR 160</a>, which has released version 1.0 on
+         October 2003.
+      </p><p>
+         MX4J implements both JSR 3 and JSR 160.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1002D"></a>What is JMX ?</h3></div></div><p>
+         JMX defines the architecture, the patterns, the API and the services to build manageable Java applications.
+         <br>
+         But what do this really mean ?
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10034"></a>For what can you use JMX ?</h3></div></div><p>
+         By means of JMX, components of an application have a standard way of exposing some of their functionality
+         for management. A JMX Agent enables manageability of these functionalities from local or remote, allowing
+         a system administrator to manage the components of the application.
+      </p><p>
+         Managing a component means having the possibility to stop and restart it, to remove it from the application or
+         to add it to an application, to change its configuration files,
+         to ask it to do some operation (such as downloading information from an URL the system administrator passes in),
+         and so on, depending on the management interface that this component expose.
+      </p><p>
+         Many application servers such as Tomcat, JBoss, IONA, BEA WebLogic have their architecture based on JMX.
+      </p><p>
+         Every JMX Agent comes with a set of predefined services, defined by the JMX specification.
+         <br>
+         A service is a manageable component that can be used by, embedded in or extended by an application.
+         <br>
+         Every JMX implementation can provide additional services, and normally each additional service can be used or
+         deployed in a different JMX implementation without requiring any additional operation, thus achieving
+         extreme portability of applications and application components.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10043"></a>MX4J's JMX implementation</h3></div></div><p>
+         MX4J's implementation of the JMX specification is stable and reliable, passing every night an extended
+         <a href="/test/index.html" target="_top">suite of tests</a>
+         following the
+         <a href="http://extremeprogramming.org" target="_top">XP</a> principles.
+      </p><p>
+         The MX4J implementation runs in J2SE version 1.3 or superior.
+      </p><p>
+         It provides some non-standard but
+         useful extension that can be used at wish, or not used if maximum portability is a primary goal.
+      </p><p>
+         The MX4J implementation provides also useful services and tools, and several examples to guide users
+         in the use of JMX to build their applications.
+         Some example of tools, extensions and utilities are:
+         <div class="itemizedlist"><ul><li>HTTP adaptor (also over SSL)</li><li>ConfigurationLoader to read MBean configuration from XML</li><li>AbstractDynamicMBean to ease DynamicMBean development</li><li>Utility MBeans for:
+               <div class="itemizedlist"><ul><li>RMIRegistry</li><li>TNameServ</li><li>Statistics</li><li>EMail</li><li>Remote MBean Proxying</li></ul></div></li><li>Automatic generation of management interfaces for standard MBean via
+               <a href="http://xdoclet.sourceforge.net" target="_top">XDoclet</a></li></ul></div>
+      </p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch01s06.html">Next</a></td></tr><tr><td align="left" width="40%">MX4J English Documentation&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="index.html">Up</a></td><td align="right" width="40%">&nbsp;License</td></tr></table></div></body></html>

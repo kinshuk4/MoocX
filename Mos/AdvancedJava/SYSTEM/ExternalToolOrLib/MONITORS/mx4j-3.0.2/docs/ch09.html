@@ -1,0 +1,229 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 9. MX4J Developer's guide</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="index.html" title="MX4J English Documentation"><link rel="previous" href="ch08.html" title="Chapter 8. FAQ"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter 9. MX4J Developer's guide</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch08.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;</td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><h2 class="title">Chapter 9. MX4J Developer's guide</h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch09.html#N110D7">Introduction</a></dt><dd><dl><dt><a href="ch09.html#N110DC">Coding conventions</a></dt><dt><a href="ch09.html#N110EF">Using logging</a></dt><dt><a href="ch09.html#N11209">Writing documentation</a></dt><dt><a href="ch09.html#N11218">Releasing MX4J</a></dt><dt><a href="ch09.html#N1123B">MX4J Implementation Architecture</a></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N110D7"></a>Introduction</h2></div></div><p>
+	This chapter aims to give some suggestion to developers of MX4J, in order to have some common base to start from.
+	It gives also some indication on how to create and distribute a new MX4J release, and the general architecture
+	of the MX4J implementation.
+</p><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N110DC"></a>Coding conventions</h3></div></div><p>
+		The base to start from are the coding conventions for Java,
+		see <a href="http://java.sun.com/docs/codeconv" target="_top">here</a>. <br>
+		We require as additional convention the one-line one-brace style:
+<p><div class="example"><p><b>Example 9.1. One-line one-brace style</b></p><pre class="programlisting">
+	
+public class Main { // bad
+	private String name;
+	public Main(String n) { // bad
+		if (n != null) { // bad
+			name = n;
+		}
+	}
+}
+
+public class Main
+{ // good
+	private String name;
+	public Main(String n)
+	{ // good
+		if (n != null)
+		{ // good
+			name = n;
+		}
+	}
+}
+	
+	</pre></div></p>
+
+	</p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N110EF"></a>Using logging</h3></div></div><p>
+		It is good practice to insert logging statements in the code, to help debugging and
+		to record information about what the program is doing.
+	</p><p>
+		MX4J has a built-in logging system based on the <tt>mx4j.log.Logger</tt>
+		class, whose usage is very similar to the <tt>Category</tt> class
+		of the <a href="http://jakarta.apache.org/log4j" target="_top">Log4J project</a>.
+	</p><p>
+		Class <tt>Logger</tt> has six methods that logs at a different priority;
+		from the lowest priority to the highest they are:
+		<div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+				<code class="funcdef">public void <b class="fsfunc">trace</b></code>(...);
+			</p></li><li style="list-style-type: opencircle"><p>
+				<code class="funcdef">public void <b class="fsfunc">debug</b></code>(...);
+			</p></li><li style="list-style-type: opencircle"><p>
+				<code class="funcdef">public void <b class="fsfunc">info</b></code>(...);
+			</p></li><li style="list-style-type: opencircle"><p>
+				<code class="funcdef">public void <b class="fsfunc">warn</b></code>(...);
+			</p></li><li style="list-style-type: opencircle"><p>
+				<code class="funcdef">public void <b class="fsfunc">error</b></code>(...);
+			</p></li><li style="list-style-type: opencircle"><p>
+				<code class="funcdef">public void <b class="fsfunc">fatal</b></code>(...);
+			</p></li></ul></div>
+		They all have two overloaded version, one that takes one argument of type
+		<tt>Java.lang.Object</tt>, and one that takes two arguments
+		of type <tt>Java.lang.Object</tt> and
+		<tt>java.lang.Throwable</tt>.
+	</p><p>
+		Class <tt>Logger</tt> has another useful method that returns the
+		priority enabled for that instance of <tt>Logger</tt>:
+		<div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+				<code class="funcdef">public boolean <b class="fsfunc">isEnabledFor</b></code>(...);
+			</p></li></ul></div>
+		Using correctly this method will save the run-time cost associated with the concatenation
+		of <tt>String</tt> objects:
+<p><div class="example"><p><b>Example 9.2. Saving run-time cost of <tt>String</tt> concatenation</b></p><pre class="programlisting">
+	
+Logger logger = ...;
+if (logger.isEnabledFor(Logger.TRACE))
+{
+	logger.trace("Result is: " + result + " on item: " + item + " for process: " + process);
+}
+	
+	</pre></div></p>
+		Saving the time associated with the creation of temporary objects used only for the logging
+		statement is mandatory when the priority is trace, debug or info, to avoid unnecessary drop of
+		performance.
+	</p><p>
+		Another useful way to avoid creation of temporary <tt>String</tt> objects is to use
+		the <tt>StringBuffer</tt> class, following this example:
+<p><div class="example"><p><b>Example 9.3. Saving run-time cost of <tt>String</tt> concatenation with <tt>StringBuffer</tt></b></p><pre class="programlisting">
+	
+Logger logger = ...;
+if (logger.isEnabledFor(Logger.TRACE))
+{
+	StringBuffer message = new StringBuffer("Result is: ").append(result).append(" on item: ").append(" for process: ").append(process);
+	logger.trace(message);
+}
+	
+	</pre></div></p>
+		This version, when the logging is performed because the priority is enabled for the logger instance,
+		is more efficient than the previous example that used <tt>String</tt> concatenation.
+	</p><p>
+		How do you obtain an instance of the <tt>Logger</tt> class ? You must use the
+		<tt>mx4j.log.Log</tt> class, this way:
+		<p><div class="example"><p><b>Example 9.4. Retrieving a Logger instance</b></p><pre class="programlisting">
+			
+Logger logger = Log.getLogger("MyCategory");
+			
+			</pre></div></p>
+		Every logger instance is associated with a <span class="emphasis"><i>category</i></span>, i.e. a string that
+		normally represent a correlated group of logging requests.
+	</p><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N1119B"></a>Choosing the right priority</h4></div></div><p>
+			Choosing the right priority is important, and here there are few guidelines:
+			<div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+					Use <code class="funcdef"><b class="fsfunc">Logger.trace</b></code> to log execution flow.
+                    <span class="emphasis"><i>Always</i></span> surround a log with trace priority with a call
+					to <code class="funcdef"><b class="fsfunc">Logger.isEnabledFor</b></code>.
+				</p></li><li style="list-style-type: opencircle"><p>
+					Use <code class="funcdef"><b class="fsfunc">Logger.debug</b></code> to log variables values.
+                    <span class="emphasis"><i>Always</i></span> surround a log with debug priority with a call
+					to <code class="funcdef"><b class="fsfunc">Logger.isEnabledFor</b></code>.
+				</p></li><li style="list-style-type: opencircle"><p>
+					Use <code class="funcdef"><b class="fsfunc">Logger.info</b></code> to log information that
+					can be of interest for the user. For every public method there should
+					be at least one log with info priority.
+                    <span class="emphasis"><i>Always</i></span> surround a log with info priority with a call
+					to <code class="funcdef"><b class="fsfunc">Logger.isEnabledFor</b></code>.
+				</p></li><li style="list-style-type: opencircle"><p>
+					Use <code class="funcdef"><b class="fsfunc">Logger.warn</b></code> to log recoverable errors that
+					in normal situations should not happen. The warn priority is the default priority
+					for MX4J.
+				</p></li><li style="list-style-type: opencircle"><p>
+					Use <code class="funcdef"><b class="fsfunc">Logger.error</b></code> to log exceptions.
+					Typically, log with error priority are inside catch blocks, just before rethrowing:
+<p><div class="example"><p><b>Example 9.5. Logs with error priority</b></p><pre class="programlisting">
+	
+Logger logger = ...;
+try
+{
+	thisMethodThrows();
+}
+catch (Exception x)
+{
+	logger.error("Exception happened: ", x);
+	throw x;
+}
+	
+	</pre></div></p>
+				</p></li><li style="list-style-type: opencircle"><p>
+					Use <code class="funcdef"><b class="fsfunc">Logger.fatal</b></code>(...); to log fatal errors that
+					will force the JVM to terminate.
+					Typically log with fatal priority are inside catch blocks, just before
+					calling <code class="funcdef"><b class="fsfunc">System.exit</b></code>:
+<p><div class="example"><p><b>Example 9.6. Logs with fatal priority</b></p><pre class="programlisting">
+	
+Logger logger = ...;
+try
+{
+	Class.forName("java.lang.Object");
+}
+catch (ClassNotFoundException x)
+{
+	logger.fatal("Can't find core classes", x);
+	System.exit(1);
+}
+	
+	</pre></div></p>
+					However, it is mandatory that in the MX4J code
+					<code class="funcdef"><b class="fsfunc">System.exit</b></code> is <span class="emphasis"><i>never</i></span> called.
+				</p></li></ul></div>
+		</p></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N11209"></a>Writing documentation</h3></div></div><p>
+		The documentation that comes with MX4J is written using <a href="http://www.docbook.org" target="_top">DocBook</a>.
+		It is very easy to use DocBook, and an on-line manual is available
+		<a href="http://www.docbook.org/tdg/en/html/docbook.html" target="_top">here</a>.
+	</p><p>
+		Generally, the layout is defined in the file index.xml. All other files are DocBook sections belonging to
+		a chapter, also defined in index.xml.
+	</p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N11218"></a>Releasing MX4J</h3></div></div><p>
+        The following steps are required for a new release of MX4J:
+		<div class="itemizedlist"><ul><li>Fresh checkout from CVS. Do NOT update, checkout to a new directory the whole CVS</li><li>Add to lib directory all the optional libraries</li><li>Build the code and run the test suite. All tests must pass</li><li>Build the distribution kit</li><li>Check that the distribution kit contains all the jars, the sources and licensing information
+			(also for third party software used)</li><li>Tag CVS with the suitable release tag</li><li>Upload the new kit to SourceForge, creating a new release version</li><li>Update the Change Notes tracker in SourceForge</li><li>Submit a news in SourceForge</li><li>Submit a news in FreshMeat</li><li>Submit a news in JavaLobby</li><li>Submit a news in TheServerSide</li><li>Submit a news in jmx-forum@java.sun.com</li><li>Submit a news in comp.lang.java.announce</li></ul></div>
+	</p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1123B"></a>MX4J Implementation Architecture</h3></div></div><p>
+		The primary implementation class of the MX4J JMX Agent is <tt>mx4j.server.MX4JMBeanServer</tt>.
+	</p><p>
+		The MBeanServer implementation class accomplishes these roles:
+		<div class="itemizedlist"><ul><li>Returns information about the Agent</li><li>It is a repository for MBeans</li><li>Introspect the MBeans to determine their type and compliance</li><li>It acts as invoker, on behalf of the user, of operations on the registered MBeans</li></ul></div>
+	</p><p>
+		The information about the JMX Agent are returned by several methods such as, for example,
+		<code class="funcdef"><b class="fsfunc">getDefaultDomain()</b></code>, and are implemented directly in the
+		<tt>mx4j.server.MX4JMBeanServer</tt> class.
+	</p><p>
+		The registered MBeans are stored into a repository. <br>
+		The MBeanServer implementation delegates to implementations of the
+		<tt>mx4j.server.MBeanRepository</tt> interface the repository task; therefore the
+		MBeanServer implementation acts as a <span class="emphasis"><i>factory</i></span> for MBeanRepository instances,
+		but the implementation is delegated to MBeanRepository instances. <br>
+		It is possible to specify custom MBeanRepository implementations by specifying the full qualified name
+		of the implementation class as value of the system property "mx4j.mbeanserver.repository".
+	</p><p>
+		When an MBean is registered several checks must be made to determine the MBean's type, if it is a
+		compliant MBean or not and to retrieve its MBeanInfo information. <br>
+		The MBeanServer implementation delegates this task to the <tt>mx4j.server.MBeanIntrospector</tt>
+		class. <br>
+		Objects of this class are first asked to fully introspect the given MBean; after the MBeanIntrospector has
+		gathered all information about the MBean into an instance of <tt>mx4j.server.MBeanMetaData</tt>
+		class, the MBeanServer implementation asks the MBeanIntrospector to check the compliance of the MBean. <br>
+		If the MBean is a standard one, the MBeanIntrospector must create the MBeanInfo information for it using
+		introspection on the MBean's management interface, and create the MBean invoker for it, see below. <br>
+		The role of the MBeanIntrospector is thus to check the MBean compliance, to create the MBeanInfo information
+		for standard MBeans and to act as a <span class="emphasis"><i>factory</i></span> for MBean invokers.
+	</p><p>
+		The MBeanServer implementation acts as an invoker, on behalf of the user, of operations on the registered
+		MBeans. <br>
+		The architecture is interceptor-based, that is whenever you call
+		from a client an MBeanServer method that will end up to call the MBean instance, the call is dispatched to
+		the interceptor chain and eventually to the MBean instance. <br>
+		The interceptors are configurable via the MBeanServer Interceptor Configurator MBean, that is an MBean
+		of class <tt>mx4j.server.MBeanServerInterceptorConfigurator</tt> registered under the
+		"JMImplementation" domain. <br>
+		When the call is about to arrive to the MBean instance, the last interceptor dispatches the call depending on
+		the MBean type: if the MBean is a dynamic MBean, the call is dispatched directly using the methods of the
+		<tt>DynamicMBean</tt> interface; if the MBean is a standard
+		MBean, then an MBean invoker is delegated to invoke the operation on the MBean instance. <br>
+		MBean invokers are implementations of the <tt>mx4j.server.MBeanInvoker</tt> interface.<br>
+		There are 2 default MBean invoker implementations: the first is based on reflection to invoke the MBean instance,
+		the second is based on an on-the-fly generated class that invokes the MBean directly.
+		This on-the-fly generated class is created at registration time; its bytecode is built at runtime using the
+		<a href="http://jakarta.apache.com/bcel" target="_top">Byte Code Engineering Library</a>. <br>
+		Both versions make use of TernaryTree as fast caches for MBean information, so that the invocations on
+		standard MBeans are really <span class="emphasis"><i>FAST</i></span>. <br>
+		Early performance benchmarks reveal that the on-the-fly generated version is 2 times faster than the one that use
+		reflection.
+	</p><p>
+		For further information, see the Javadocs of the cited classes.
+	</p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch08.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;</td></tr><tr><td align="left" width="40%">Chapter 8. FAQ&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="index.html">Up</a></td><td align="right" width="40%">&nbsp;</td></tr></table></div></body></html>

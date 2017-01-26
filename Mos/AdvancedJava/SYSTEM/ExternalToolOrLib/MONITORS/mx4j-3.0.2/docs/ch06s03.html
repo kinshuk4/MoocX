@@ -1,0 +1,229 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Dynamic MBeans</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch06.html" title="Chapter 6. MX4J Tools"><link rel="previous" href="ch06.html" title="Chapter 6. MX4J Tools"><link rel="next" href="ch06s05.html" title="Naming MBeans"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Dynamic MBeans</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch06.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 6. MX4J Tools</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch06s05.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10C45"></a>Dynamic MBeans</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10C48"></a>AbstractDynamicMBean base class for DynamicMBean implementation</h3></div></div><p>
+         Writing an MBean by implementing the
+         <tt>javax.management.DynamicMBean</tt> interface can be a heavy
+         and tedious task.
+      </p><p>
+         MX4J provides the class
+         <tt>mx4j.AbstractDynamicMBean</tt> as a base class to implement a
+         dynamic MBean.
+         <br>This class handles most of the tedious work that must be done when implementing dynamic MBeans,
+         so that the MBean implementor has just to override few methods to provide the needed information required
+         to create the MBean.
+      </p><p>
+         The methods of the
+         <tt>AbstractDynamicMBean</tt> class can be divided in 2 groups: the methods of the
+         <tt>DynamicMBean</tt> interface and the methods added by
+         <tt>AbstractDynamicMBean</tt> itself.
+      </p><p>
+         <tt>AbstractDynamicMBean</tt> already implements all the methods of the
+         <tt>DynamicMBean</tt>
+         interface, and normally the MBean implementor does not have to override them.
+         <br>
+         The methods belonging to the second group are normally overridden by the MBean implementor to provide the MBean metadata information,
+         and are the following:
+         <div class="itemizedlist"><ul><li><code class="funcdef">
+                  <b class="fsfunc">createMBeanAttributeInfo</b>
+               </code>, if the MBeans has manageable attributes
+            </li><li><code class="funcdef">
+                  <b class="fsfunc">createMBeanOperationInfo</b>
+               </code>, if the MBeans has manageable operations
+            </li><li><code class="funcdef">
+                  <b class="fsfunc">createMBeanNotificationInfo</b>
+               </code>, if the MBeans has manageable notifications
+            </li><li><code class="funcdef">
+                  <b class="fsfunc">createMBeanConstructorInfo</b>
+               </code>, if the MBeans has manageable constructors
+            </li><li><code class="funcdef">
+                  <b class="fsfunc">getMBeanDescription</b>
+               </code></li></ul></div>
+      </p><p>
+         A third group of methods belongs to the subclass of
+         <tt>AbstractDynamicMBean</tt> and are the implementation
+         methods, the ones that implement the functionality of the MBean itself (see below for an example).
+      </p><p>
+         <div class="example"><p><b>Example 6.7. Subclassing
+               <tt>AbstractDynamicMBean</tt>
+            </b></p><pre class="programlisting">
+               
+public class SimpleDynamic extends AbstractDynamicMBean
+{
+   /* Method of the second group that is overridden */
+   protected MBeanAttributeInfo[] createMBeanAttributeInfo()
+   {
+      return new MBeanAttributeInfo[]
+      {
+         new MBeanAttributeInfo("Name", String.class.getName(), "The name", true, true, false)
+      };
+   }
+
+   /* Method of the second group that is overridden */
+   protected String getMBeanDescription()
+   {
+      return "A simple DynamicMBean";
+   }
+
+   /* Method of the third group that implements the MBean functionality */
+   public String getName() { ... }
+
+   /* Method of the third group that implements the MBean functionality */
+   public void setName(String name) { ... }
+}
+            
+            </pre></div>
+      </p><p>
+         As you can see above, no methods from the
+         <tt>DynamicMBean</tt> interface needs to be implemented.
+         It is sufficient to override some (or all) of the methods of the second group, and provide the relative methods
+         of the third group.
+      </p><p>
+         Normally the MBean implementor extends
+         <tt>AbstractDynamicMBean</tt>, but if the MBean already extends another
+         class it is sufficient to implement
+         <tt>DynamicMBean</tt> and delegate to a subclass of
+         <tt>AbstractDynamicMBean</tt>, having care of calling the
+         <code class="funcdef">
+            <b class="fsfunc">setResource</b>
+         </code>
+         method (see example below).
+      </p><p>
+         <div class="example"><p><b>Example 6.8. Delegating to
+               <tt>AbstractDynamicMBean</tt> subclass
+            </b></p><pre class="programlisting">
+               
+public class ComposedDynamic extends MyBaseClass implements DynamicMBean
+{
+   /* Create an AbstractDynamicMBean subclass */
+   private AbstractDynamicMBean delegate = new AbstractDynamicMBean()
+   {
+      protected MBeanAttributeInfo[] createMBeanAttributeInfo()
+      {
+         return new MBeanAttributeInfo[]
+         {
+            new MBeanAttributeInfo("Status", int.class.getName(), "The status", true, true, false),
+            new MBeanAttributeInfo("Enabled", boolean.class.getName(), "The enable status", true, false, true)
+         };
+      }
+
+      protected MBeanOperationInfo[] createMBeanOperationInfo()
+      {
+         return new MBeanOperationInfo[]
+         {
+            new MBeanOperationInfo("enable", "Enables this MBean", new MBeanParameterInfo[0], Void.class.getName(), MBeanOperationInfo.ACTION),
+            new MBeanOperationInfo("disable", "Disables this MBean", new MBeanParameterInfo[0], Void.class.getName(), MBeanOperationInfo.ACTION)
+         };
+      }
+   };
+
+   private int status;
+   private boolean enabled;
+
+   public ComposedDynamicMBean()
+   {
+      // Set the actual resource
+      delegate.setResource(this);
+   }
+
+   /* Implement the methods of DynamicMBean interface to delegate to the AbstractDynamicMBean subclass */
+
+   public Object getAttribute(String attribute) throws AttributeNotFoundException, MBeanException, ReflectionException
+   {
+      return delegate.getAttribute(attribute);
+   }
+
+   // Do the same with all other methods of DynamicMBean interface
+   ...
+
+   /* Methods of the third group that implements MBean functionality */
+
+   public void setStatus(int status)
+   {
+      this.status = status;
+   }
+
+   public int getStatus()
+   {
+      return status;
+   }
+
+   public boolean isEnabled()
+   {
+      return this.enabled;
+   }
+
+   public void enable()
+   {
+      this.enabled = true;
+   }
+
+   public void disable()
+   {
+      this.enabled = false;
+   }
+}
+            
+            </pre></div>
+      </p><p>
+         <tt>AbstractDynamicMBean</tt> can also be used for non-invasive management: if you already have a component
+         but you don't want to change it to implement a management interface, you can set it as target of a subclass of
+         <tt>AbstractDynamicMBean</tt> and provide the suitable metadata information.
+      </p><p>
+         <div class="example"><p><b>Example 6.9. Subclassing
+               <tt>AbstractDynamicMBean</tt>
+            </b></p><pre class="programlisting">
+               
+public class NonInvasiveDynamic extends AbstractDynamicMBean
+{
+   /* Methods of the second group that are overridden */
+   protected MBeanOperationInfo[] createMBeanOperationInfo()
+   {
+      return new MBeanOperationInfo[]
+      {
+         new MBeanOperationInfo("start", "Starts this MBean", new MBeanParameterInfo[0], Void.class.getName(), MBeanOperationInfo.ACTION),
+         new MBeanOperationInfo("stop", "Stops this MBean", new MBeanParameterInfo[0], Void.class.getName(), MBeanOperationInfo.ACTION)
+      };
+   }
+
+   protected String getMBeanDescription()
+   {
+      return "A non invasive DynamicMBean that manages resource";
+   }
+
+   /* Constructor that takes the managed resource */
+   public NonInvasiveDynamic(ExternalService service)
+   {
+      // Set the actual resource that this MBean represents.
+      setresource(service);
+   }
+
+/* Old main, before JMX
+   public static void main(String[] args) throws Exception
+   {
+      // Create the service
+      ExternalService service = new ExternalService();
+
+      // Start the service
+      service.start();
+   }
+*/
+   public static void main(String[] args) throws Exception
+   {
+      // Create the service
+      ExternalService service = new ExternalService();
+
+      MBeanServer server = MBeanServerFactory.createMBeanServer();
+      NonInvasiveDynamic mbean = new NonInvasiveDynamic(service);
+      ObjectName name = new ObjectName("domain:key=value");
+      server.registerMBean(mbean, name);
+
+      // Now start the service via JMX:
+      // Few lines more, but now the service is manageable !
+      server.invoke(name, "start", null, null);
+   }
+}
+            
+            </pre></div>
+      </p><p>
+         The example above shows how simple can be to plug JMX into already existing architectures, and how it is possible,
+         in few lines of code, to make services manageable (and remotely manageable with JSR 160) without even impacting
+         already existing service's code.
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch06.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch06s05.html">Next</a></td></tr><tr><td align="left" width="40%">Chapter 6. MX4J Tools&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch06.html">Up</a></td><td align="right" width="40%">&nbsp;Naming MBeans</td></tr></table></div></body></html>

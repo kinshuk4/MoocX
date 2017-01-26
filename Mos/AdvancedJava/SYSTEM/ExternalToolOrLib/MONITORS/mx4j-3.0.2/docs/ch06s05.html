@@ -1,0 +1,142 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Naming MBeans</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch06.html" title="Chapter 6. MX4J Tools"><link rel="previous" href="ch06s03.html" title="Dynamic MBeans"><link rel="next" href="ch06s10.html" title="Mailer MBean"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Naming MBeans</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch06s03.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 6. MX4J Tools</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch06s10.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10CDF"></a>Naming MBeans</h2></div></div><p>
+      MX4J ships with two naming MBeans, the NamingService and the CosNamingService, that wrap as MBeans respectively
+      the rmiregistry and the tnameserv tools provided with the JDK.
+   </p><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10CE4"></a>The NamingService MBean</h3></div></div><p>
+         The NamingService MBean allows you to start the
+         rmiregistry in the same JVM as other MBeans, such as the RMI MBean (see examples in the documentation), or the
+         RMI adaptor.
+         <br>
+         The MBean's class is
+         <tt>mx4j.tools.naming.NamingService</tt>.
+      </p><p>
+         The usage of the NamingService MBean does not require additional libraries, as all the needed classes are already
+         shipped with the JDK.
+      </p><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10CF0"></a>Deployment</h4></div></div><p>
+            The NamingService MBean is easily deployed into a JMX Agent. The following code snippet shows how to deploy it into
+            a JMX Agent.
+         </p><p>
+            <div class="example"><p><b>Example 6.10. Deploying the NamingService MBean</b></p><pre class="programlisting">
+                  
+MBeanServer server = MBeanServerFactory.createMBeanServer();
+ObjectName naming = new ObjectName("Naming:type=registry");
+server.createMBean("mx4j.tools.naming.NamingService", naming, null);
+               
+               </pre></div>
+         </p><p>
+            To use the NamingService MBean as rmiregistry, it must be started;
+            the NamingService MBean can be started and stopped at wish, simply by invoking the
+            <tt>start()</tt> and
+            <tt>stop()</tt> methods of the management interface.
+            <br>
+         </p><p>
+            <div class="example"><p><b>Example 6.11. Starting and stopping the NamingService MBean</b></p><pre class="programlisting">
+                  
+Object proxy = MBeanServerInvocationHandler.newProxyInstance(server, naming, NamingServiceMBean.class, false);
+NamingServiceMBean mbean = (NamingServiceMBean)proxy;
+mbean.start();
+...
+mbean.stop();
+
+
+or using the MBeanServer:
+
+
+server.invoke(naming, "start", new Object[0], new String[0]);
+...
+server.invoke(naming, "stop", new Object[0], new String[0]);
+            
+               </pre></div>
+         </p><p>
+            It is also possible to specify the port on which the rmiregistry will run. Simply pass this parameter to
+            the constructor of the NamingService MBean. By default the rmiregistry runs on port 1099.
+         </p><p>
+            <div class="example"><p><b>Example 6.12. Changing the default port</b></p><pre class="programlisting">
+                  
+MBeanServer server = MBeanServerFactory.createMBeanServer();
+ObjectName naming = new ObjectName("Naming:type=registry");
+
+server.createMBean("mx4j.tools.naming.NamingService", naming, null, new Object[] {new Integer(2099)}, new String[] {"int"});
+
+
+or
+
+
+NamingService mbean = new NamingService(3099);
+server.registerMBean(mbean, naming);
+
+
+or via MLet file (specify the suitable codebase)
+
+
+&lt;MLET CODE="mx4j.tools.naming.NamingService"
+      ARCHIVE="mx4j-tools.jar"
+      CODEBASE="../lib/"&gt;
+   &lt;ARG TYPE="int" VALUE="4099"&gt;
+&lt;/MLET&gt;
+               
+               </pre></div>
+         </p><p>
+            It is also possible to change the rmiregistry port at runtime. Just start the NamingService MBean, stop it after a while,
+            change the port it runs on, and restarting it, so that it will accept requests on the new port.
+            <br>
+            Below you can see the steps needed to perform this change.
+         </p><p>
+            <div class="example"><p><b>Example 6.13. Changing the port at runtime</b></p><pre class="programlisting">
+                  
+MBeanServer server = MBeanServerFactory.createMBeanServer();
+ObjectName naming = new ObjectName("Naming:type=registry");
+server.createMBean("mx4j.tools.naming.NamingService", naming, null);
+Object proxy = MBeanServerInvocationHandler.newProxyInstance(server, naming, NamingServiceMBean.class, false);
+NamingServiceMBean mbean = (NamingServiceMBean)proxy;
+
+mbean.start();
+...
+mbean.stop();
+mbean.setPort(5099);
+mbean.start();
+            
+               </pre></div>
+         </p></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10D2B"></a>The CosNamingService MBean</h3></div></div><p>
+         The CosNamingService MBean is very similar to the NamingService MBean: it allows you to start
+         tnameserv in the same JVM as other MBeans.
+         <br>
+         The MBean's class is
+         <tt>mx4j.tools.naming.CosNamingService</tt>.
+      </p><p>
+         The usage of the CosNamingService MBean does not require additional libraries, as all the needed classes are already
+         shipped with the JDK.
+      </p><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10D37"></a>Deployment</h4></div></div><p>
+            The CosNamingService MBean is easily deployed into a JMX Agent, in a way very similar to the NamingService MBean.
+         </p><p>
+            Exactly like the NamingService MBean, the CosNamingService MBean must be first registered in the MBeanServer and then
+            started using the management interface it exposes.
+            <br>
+            There is the possibility to set the port on which the service will listen for incoming connections, exactly like the
+            NamingService MBean.
+         </p><p>
+            One difference between the CosNamingService and the NamingService MBeans is that the latter provides and easy API
+            to be implemented, so that creating, starting and stopping it can be implemented easily by the MX4J team,
+            while the former does not.
+         </p><p>
+            A consequence of this is that tnameserv is started using
+            <code class="funcdef">
+               <b class="fsfunc">Runtime.exec()</b>
+            </code>
+            and stopped by killing the process created when starting the MBean.
+         </p><p>
+            Since starting and stopping an external process may result in the
+            <code class="funcdef">
+               <b class="fsfunc">start</b>
+            </code>
+            (); and
+            <code class="funcdef">
+               <b class="fsfunc">stop</b>
+            </code>
+            (); returning
+            <span class="emphasis"><i>before</i></span> the process is really started (or stopped),
+            it is recommended to sleep some time after start() and stop() in order to let
+            tnameserv to start and stop completely.
+            <br>
+            A suggested value for this delay may be few seconds (1000-5000 milliseconds), but the value strongly depends on the
+            hardware and operative system.
+         </p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch06s03.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch06s10.html">Next</a></td></tr><tr><td align="left" width="40%">Dynamic MBeans&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch06.html">Up</a></td><td align="right" width="40%">&nbsp;Mailer MBean</td></tr></table></div></body></html>

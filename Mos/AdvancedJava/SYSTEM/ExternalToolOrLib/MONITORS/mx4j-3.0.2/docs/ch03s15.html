@@ -1,0 +1,171 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Standard JSR 160 JMXConnectors and JMXConnectorServers</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="previous" href="ch03s13.html" title="Advanced JSR 160"><link rel="next" href="ch03s20.html" title="MX4J's JSR 160 JMXConnectors and JMXConnectorServers"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Standard JSR 160 JMXConnectors and JMXConnectorServers</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03s13.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 3. JSR 160 (JMX Remoting) Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03s20.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10556"></a>Standard JSR 160 JMXConnectors and JMXConnectorServers</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10559"></a>Overview of RMIConnector and RMIConnectorServer</h3></div></div><p>
+         JSR 160 compliance requires implementation of a JMXConnector and JMXConnectorServer that
+         use Java's Remote Method Invocation (RMI) to communicate.
+         <br>
+         The RMI connector and connector server are meant to work both over JRMP (Java Remote
+         Method Protocol, RMI's native protocol) and over IIOP (Internet Inter ORB Protocol, CORBA's
+         native protocol), and MX4J implements both fully.
+      </p><p>
+         Java's RMI works so that the RMI client needs to have a
+         <span class="emphasis"><i>stub</i></span> object.
+         A normal java method call on the stub is routed to the network and ends up on the RMI server
+         making possible to perform remote calls as if they were standard local calls.
+         <br>
+         The stub takes care the details of invoking the server side such as arguments and return
+         value marshalling, exception throwing and so on.
+         <br>
+         The stub class is normally present in the client's
+         classpath (since the stub is part of the JSR 160 classes), but the stub object is normally
+         downloaded from a naming server such as the
+         <span class="emphasis"><i>rmiregistry</i></span>.
+         The RMI client only needs to know the naming path under which the stub object has been bound to
+         by the RMI server.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1056C"></a>Connecting to the RMIConnectorServer</h3></div></div><p>
+         A JSR 160 RMIConnector needs to be able to retrieve the stub object in order to contact
+         a remote JSR 160 RMIConnectorServer.
+         <br>
+         JSR 160 gives two possibilities to retrieve the RMI stub object to be able to contact the
+         RMIConnectorServer.
+      </p><p>
+         The first way to contact an RMIConnectorServer is make the stub object part of
+         the RMIConnectorServer's address, represented by a JMXServiceURL.
+         The JSR 160 specification refers to this possibility as the "encoded form".
+         <br>
+         In case of JRMP, the stub is serialized and its bytes are Base64 encoded and attached to
+         the JMXServiceURL, so that passing the JMXServiceURL to clients, they have all information
+         needed to contact the server side (no naming server is needed).
+         <br>
+         The JMXServiceURL path, in this case, starts with
+         <span class="emphasis"><i>/stub/</i></span>.
+         <br>
+         In case of IIOP, the IOR is attached to the JMXServiceURL (and again no naming server is
+         needed).
+         <br>
+         The JMXServiceURL path, in this case, starts with
+         <span class="emphasis"><i>/ior/</i></span>.
+         <br>
+         Simply passing an encoded form JMXServiceURL to a JMXConnector is enough to allow it
+         to contact the corrispondent JMXConnectorServer: the JMXConnector will take care of
+         decoding the stub.
+      </p><p>
+         <div class="example"><p><b>Example 3.13. Examples of encoded form JMXServiceURLs</b></p><pre class="programlisting">
+               
+// JRMP encoded form
+service:jmx:rmi://localhost/stub/rO0ABXNyAC5qYXZheC5tYW5hZ2VtZW50LnJlbW90ZS5ybWkuUk1JU2VydmVySW1wbF9TdHViAAAAAAAAAAICAAB4cgAaamF2YS5ybWkuc2VydmVyLlJlbW90ZVN0dWLp/tzJi+FlGgIAAHhyABxqYXZhLnJtaS5zZXJ2ZXIuUmVtb3RlT2JqZWN002G0kQxhMx4DAAB4cHc5AAtVbmljYXN0UmVmMgAADjE2LjE5Mi4xMjAuMTI5AAANcQAAAAAAAAAIAOgIQgAAAPlXjcJugAEAeA==
+
+// IIOP encoded form
+service:jmx:iiop://localhost/ior/IOR:000000000000003b524d493a6a617661782e6d616e6167656d656e742e72656d6f74652e726d692e524d495365727665723a303030303030303030303030303030300000000000010000000000000068000102000000000f31362e3139322e3132302e31323900000d93000000000019afabcb0000000002578f08b80000000800000000000000000a0000000000000100000001000000200000000000010001000000020501000100010020000101090000000100010100
+               
+            </pre></div>
+      </p><p>
+         The second way to contact an RMIConnectorServer is to specify a path in the JMXServiceURL
+         that indicates the location of a naming server and the JNDI path where the stub object
+         can be found.
+         <br>
+         The JSR 160 specification refers to this possibility as the "JNDI form".
+         <br>
+         In this case the JMXServiceURL path starts with
+         <span class="emphasis"><i>/jndi/</i></span>.
+      </p><p>
+         Working with JNDI requires to specify some information about the naming server and the configuration
+         of JNDI itself. These information can be passed to the RMIConnector in several ways; these ways are
+         very similar to the the ways JNDI requires to specify parameters and present no surprise to JNDI users.
+      </p><p>
+         For example, the URL 'rmi://namingHost:1099/jndiPath' (not to be confused with a JMXServiceURL) says that
+         a naming server on the host 'namingHost' is listening on port 1099, that the naming server is an
+         rmiregistry (indicated by the 'rmi' scheme) and that under the '/jndiPath' path something has been registered.
+         <br>
+         Similarly, the URL 'iiop://namingHost:900/jndiPath' says that
+         a naming server on the host 'namingHost' is listening on port 900, that the naming server is a
+         COS naming service (indicated by the 'iiop' scheme) and that under the '/jndiPath' path something
+         has been registered.
+      </p><p>
+         It is straightforward then to specify a JMXServiceURL that uses the JNDI URL form:
+      </p><p>
+         <div class="example"><p><b>Example 3.14. Examples of JNDI URL form JMXServiceURLs</b></p><pre class="programlisting">
+               
+// JNDI URL form for JRMP
+service:jmx:rmi://rmiHost/jndi/rmi://namingHost:1099/jndiPath
+
+// JNDI URL form for IIOP
+service:jmx:iiop://rmiHost/jndi/iiop://namingHost:900/jndiPath
+               
+            </pre></div>
+      </p><p>
+         Alternatively, JNDI properties can be specified in the usual ways they are specified for JNDI,
+         namely specifying system properties, a 'jndi.properties' file in the classpath or via an environment Map
+         passed to the
+         <code class="funcdef">JMXConnector.connect(Map environment)</code> method or to the
+         <code class="funcdef">JMXConnectorFactory.connect(JMXServiceURL url, Map environment)</code> method.
+         <br>
+         Since JNDI properties are specified separately, the JMXServiceURL path can be specified
+         using the JNDI short form, where only the JNDI path is specified in the JMXServiceURL:
+      </p><p>
+         <div class="example"><p><b>Example 3.15. Examples of JNDI short form JMXServiceURLs</b></p><pre class="programlisting">
+               
+// JNDI short form for JRMP
+service:jmx:rmi://rmiHost/jndi/jndiPath
+
+// JNDI short form for IIOP
+service:jmx:iiop://rmiHost/jndi/jndiPath
+
+// Code example that uses the JNDI short form specifying JNDI properties via environment Map
+// The JNDI environment
+Map environment = new HashMap();
+environment.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.rmi.registry.RegistryContextFactory");
+environment.put(Context.PROVIDER_URL, "rmi://namingHost:1099");
+// The JNDI short form JMXServiceURL
+JMXServiceURL url = new JMXServiceURL("service:jmx:rmi://rmiHost/jndi/jndiPath");
+// Connect to the server side
+JMXConnector connector = JMXConnectorFactory.connect(url, environment);
+               
+            </pre></div>
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N105BB"></a>ORB properties for JMXConnector and JMXConnectorServer over IIOP</h3></div></div><p>
+         When working with IIOP, there may be the need to pass some information in order to
+         correctly create the ORB.
+         <br>
+         In plain Java code, these properties are passed via system properties or via environment Map.
+         Similarly, when using the JSR 160 API, ORB properties can be specified as system properties
+         or via the environment Map
+         passed to the
+         <code class="funcdef">JMXConnector.connect(Map environment)</code> method or to the
+         <code class="funcdef">JMXConnectorFactory.connect(JMXServiceURL url, Map environment)</code> method.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N105C8"></a>RMI socket factories (over SSL) for the RMIConnectorServer over JRMP</h3></div></div><p>
+         JSR 160 specifies two constants to specify the
+         <tt>java.rmi.server.RMIClientSocketFactory</tt>
+         and
+         <tt>java.rmi.server.RMIServerSocketFactory</tt> instances that the
+         RMIConnectorServer should use to export itself to the RMI runtime.
+         <br>
+         These constants are
+         <tt>javax.management.remote.rmi.RMIConnectorServer.RMI_CLIENT_SOCKET_FACTORY_ATTRIBUTE</tt> and
+         <tt>javax.management.remote.rmi.RMIConnectorServer.RMI_SERVER_SOCKET_FACTORY_ATTRIBUTE</tt>.
+      </p><p>
+         The MX4J implementation provides already an implementation of the
+         <tt>java.rmi.server.RMIClientSocketFactory</tt>
+         and
+         <tt>java.rmi.server.RMIServerSocketFactory</tt> interfaces that can be used to
+         encrypt the communication between the RMIConnector and the RMIConnectorServer using SSL, namely the
+         <tt>mx4j.tools.remote.rmi.SSLRMIClientSocketFactory</tt> and
+         <tt>mx4j.tools.remote.rmi.SSLRMIServerSocketFactory</tt>.
+         <br>
+         These classes only work with JDK 1.4 or superior.
+      </p><p>
+         <div class="example"><p><b>Example 3.16. How to specify the RMI socket factories</b></p><pre class="programlisting">
+               
+SSLContext ssl = ...;
+RMIServerSocketFactory ssf = new SSLRMIServerSocketFactory(ssl);
+RMIClientSocketFactory csf = new SSLRMIClientSocketFactory();
+
+Map env = new HashMap();
+env.put(RMIConnectorServer.RMI_SERVER_SOCKET_FACTORY_ATTRIBUTE, ssf);
+env.put(RMIConnectorServer.RMI_CLIENT_SOCKET_FACTORY_ATTRIBUTE, csf);
+
+MBeanServer server = ...;
+
+JMXServiceURL url = new JMXServiceURL("rmi", "localhost", 0);
+cntorServer = JMXConnectorServerFactory.newJMXConnectorServer(url, env, server);
+cntorServer.start();
+                
+            </pre></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03s13.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03s20.html">Next</a></td></tr><tr><td align="left" width="40%">Advanced JSR 160&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch03.html">Up</a></td><td align="right" width="40%">&nbsp;MX4J's JSR 160 JMXConnectors and JMXConnectorServers</td></tr></table></div></body></html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Dashboard PUBLIC "-//MC4J//DTD Dashboard 1.0//EN" "http://mc4j.sourceforge.net/Dashboard_1_0.dtd">
+
+<!--
+    Document   : BasicMBean.xml
+    Created on : October 6, 2002, 10:01 PM
+    Author     : ghinkl
+    Description:
+        Displays the basic information of an MBean
+-->
+
+<Dashboard version="1.0" name="Relations Graph">
+  <Description>Displays a graph of the relations in the system.</Description>
+
+  <DashboardMatch type="Bean">
+      <BeanMatch id="RelationServiceBean" type="Single">
+          <Condition type="BeanObjectNameCondition" filter="name=RelationService"/>
+      </BeanMatch>
+  </DashboardMatch>
+
+  
+  <LayoutManager type="java.awt.BorderLayout"/>
+  <Content>
+    
+    
+    
+    <Component type="javax.swing.JPanel">
+        <Constraint type="BorderConstraints" direction="NORTH"/>
+        <!--LayoutManager type="java.awt.GridBagLayout"/-->
+        <LayoutManager type="java.awt.GridLayout" rows="2" cols="1"/>
+        <Content>
+            <Component type="javax.swing.JLabel" id="titleLable">
+                <!--Constraint type="java.awt.GridBagConstraints" anchor="NORTHWEST" fill="HORIZONTAL" gridx="1" gridy="1"/-->
+                <Attribute name="text" value="(Literal)Relationship graph"/>
+                <Attribute name="font" value="(Literal)Dialog bold 24"/>
+                <Attribute name="foreground" value="(Literal)0xFF2222"/>
+
+            </Component>
+
+            <Component type="javax.swing.JTextArea">
+                <!--Constraint type="java.awt.GridBagConstraints" anchor="NORTH" gridx="1" gridy="2"/-->
+                <Attribute name="text" value="(Literal)This Dashboard displays a graph of the relations in the system."/>
+                <Attribute name="opaque" value="(Literal)false"/>
+                <Attribute name="editable" value="(Literal)false"/>
+            </Component>
+
+        </Content>
+    </Component>
+
+    
+    <Component type="javax.swing.JScrollPane">
+        <Constraint type="BorderConstraints" direction="CENTER"/>
+        <Attribute name="background" value="(Literal)0xFFFFFF"/>
+        <Content>
+            <Component type="org.mc4j.console.dashboard.components.RelationsGraphComponent">
+                <Attribute name="beanNode" value="RelationServiceBean"/>
+                <Attribute name="background" value="(Literal)0xFFFFFF"/>
+                
+                <Attribute name="preferredSize" value="(Literal)800,800"/>
+                
+            </Component>
+        </Content>
+    </Component>
+
+  </Content>
+</Dashboard>

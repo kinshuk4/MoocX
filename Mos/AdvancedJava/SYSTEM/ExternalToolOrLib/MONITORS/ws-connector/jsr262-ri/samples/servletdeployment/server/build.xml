@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ build.xml
+ Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+-->
+<project name="ServletDeployment" default="all" basedir=".">
+    <property name="liblocation" value="../../../lib"/>
+    <property file="../../common/common.properties"/>
+    <target name="init">  
+    </target>
+    <target name="all" depends="init">
+        <copy file="${liblocation}/jmxws.jar" todir="samplewebapp/WEB-INF/lib"/>
+        <copy file="${liblocation}/wiseman-core.jar" todir="samplewebapp/WEB-INF/lib"/>
+        <javac classpath="${liblocation}/servlet-api.jar" srcdir="samplewebapp/WEB-INF/classes" includes="*.java"/>
+        <jar jarfile="samplewebapp.war">
+            <fileset dir="samplewebapp"/>
+        </jar>
+    </target>
+</project>

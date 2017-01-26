@@ -1,0 +1,192 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>The
+      javax.management.MBeanServerInvocationHandler class
+   </title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch02.html" title="Chapter 2. JMX 1.2 Explained"><link rel="previous" href="ch02s07.html" title="The
+      javax.management.MBeanServerBuilder class
+   "><link rel="next" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">The
+      <tt>javax.management.MBeanServerInvocationHandler</tt> class
+   </th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch02s07.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 2. JMX 1.2 Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10287"></a>The
+      <tt>javax.management.MBeanServerInvocationHandler</tt> class
+   </h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1028D"></a>Introduction</h3></div></div><p>
+         MX4J version 1.x provided a custom implementation of a JDK 1.3's dynamic proxy to ease invocation
+         of methods on a MBean via the MBeanServer, the
+         <tt>mx4j.util.StandardMBeanProxy</tt> class.
+         <br>
+         MX4J 1.x provided also a class for invocation of methods on remote MBeans, namely
+         <tt>mx4j.connector.RemoteStandardMBeanProxy</tt>
+         based on MX4J's custom remote implementation.
+         <br>
+         In MX4J 1.x these classes were separated since JMX 1.1 did not specify a super-interface for MBeanServer
+         that could be used also remotely.
+      </p><p>
+         In JMX 1.2, the
+         <tt>javax.management.MBeanServer</tt> interface inherits from the
+         <tt>javax.management.MBeanServerConnection</tt> interface.
+         <br>
+         The MBeanServerConnection interface has basically the same methods of MBeanServer except those that
+         does not have sense remotely (like deserialize() and registerMBean()), and adds
+         <tt>java.io.IOException</tt> in the throws clause
+         of each method, thus making it the "remote" view of a remote MBeanServer.
+      </p><p>
+         As of JMX 1.2, both
+         <tt>mx4j.util.StandardMBeanProxy</tt> and
+         <tt>mx4j.connector.RemoteStandardMBeanProxy</tt> are obsolete since they have been
+         replaced by one single class, the standard
+         <tt>javax.management.MBeanServerInvocationHandler</tt> class, that takes advantage of
+         the improved class hierarchy of the
+         <tt>javax.management.MBeanServer</tt> interface
+         to unify the functionalities that were provided before by the two MX4J classes.
+      </p><p>
+         In the following section will be explained how to port old MX4J 1.x code to the new JMX 1.2 code.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N102B9"></a>MBeanServerInvocationHandler usage</h3></div></div><p>
+         The JMX API to call an MBean via MBeanServer is very tedious: involves a reflection-like syntax and
+         a complex exception handling.
+         <br>
+         The reflection-like syntax is sometimes an advantage, but it suffers of lack of static type checkings
+         made by the compiler.
+         <br>
+         The exception handling is complex since it involves unwrapping of
+         <tt>javax.management.MBeanException</tt>s and rethrowing of the original exception thrown
+         by the MBean method, very much like
+         <tt>java.lang.reflect.InvocationTargetException</tt>
+         requires.
+      </p><p>
+         Fortunately, JDK 1.3 provides
+         <span class="emphasis"><i>dynamic proxies</i></span> via the
+         <tt>java.lang.reflect.Proxy</tt> class.
+         <br>
+         By means of dynamic proxies, is it possible to write a proxy that hides the complexity of JMX
+         invocations and provides static type checking and trasparent exception handling.
+         <br>
+         Compare the two code examples below and note how the second example is cleaner.
+      </p><p>
+         <div class="example"><p><b>Example 2.7. Standard JMX invocation</b></p><pre class="programlisting">
+               
+// The ObjectName of the delegate MBean
+ObjectName delegateName = ObjectName.getInstance("JMImplementation:type=delegate");
+
+MBeanServer server = ...;
+
+// The MBeanServer ID
+String id = null;
+try
+{
+   id = server.getAttribute(delegateName, "MBeanServerId");
+}
+catch (MBeanException x)
+{
+   // The getMBeanServerId() method threw an exception ?!?
+}
+catch(AttributeNotFoundException x)
+{
+   // Uh ? Not a compliant JMX implementation ?
+}
+catch (InstanceNotFoundException x)
+{
+   // Uh ? Not a compliant JMX implementation ?
+}
+catch (ReflectionException x)
+{
+  // Uh ? What happened here ?
+}
+               
+            </pre></div>
+      </p><p>
+         <div class="example"><p><b>Example 2.8. JMX invocation with MBeanServerInvocationHandler</b></p><pre class="programlisting">
+               
+// The ObjectName of the delegate MBean
+ObjectName delegateName = ObjectName.getInstance("JMImplementation:type=delegate");
+
+MBeanServer server = ...;
+
+Object proxy = MBeanServerInvocationHandler.newProxyInstance(server, delegateName, MBeanServerDelegateMBean.class, true);
+MBeanServerDelegateMBean delegateMBean = (MBeanServerDelegateMBean)proxy;
+
+// The MBeanServer ID
+String id = delegateMBean.getMBeanServerId();
+               
+            </pre></div>
+      </p><p>
+         Usage of the
+         <tt>javax.management.MBeanServerInvocationHandler</tt> class is straightforward
+         for standard MBeans, since they already comply a management interface that is also a Java interface.
+         This interface can be used directly
+         as argument for the creation of the proxy (the third parameter of the
+         MBeanServerInvocationHandler.newProxyInstance() call).
+         <br>
+         However, usage of MBeanServerInvocationHandler is not limited to standard MBeans, but also to dynamic MBeans
+         can use it, provided that the management interface they comply to does not change during proxy's life.
+         It is not necessary that the dynamic MBean implements a Java interface: it is
+         enough that the Java interface provided to the MBeanServerInvocationHandler is a (sub)set of the
+         management interface exposed by the dynamic MBean.
+      </p><p>
+         The MBeanServerInvocationHandler class can also be used for remote MBeans, in conjuction with the
+         JSR 160 API, like shown in the following code snippet:
+      </p><p>
+         <div class="example"><p><b>Example 2.9. Remote JMX invocation with MBeanServerInvocationHandler</b></p><pre class="programlisting">
+               
+// The address of the connector server
+JMXServiceURL address = ...;
+
+// Create the JMXCconnectorServer
+JMXConnector cntor = JMXConnectorFactory.connect(address);
+
+// Obtain a "stub" for the remote MBeanServer
+MBeanServerConnection mbsc = cntor.getMBeanServerConnection();
+
+// The ObjectName of a remote delegate MBean
+ObjectName delegateName = ObjectName.getInstance("JMImplementation:type=delegate");
+
+Object proxy = MBeanServerInvocationHandler.newProxyInstance(mbsc, delegateName, MBeanServerDelegateMBean.class, true);
+MBeanServerDelegateMBean delegateMBean = (MBeanServerDelegateMBean)proxy;
+
+// The MBeanServer ID
+String id = delegateMBean.getMBeanServerId();
+               
+            </pre></div>
+      </p><p>
+         Refer to the javadocs of the
+         <tt>javax.management.MBeanServerInvocationHandler</tt> class
+         for further details.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N102FD"></a>Porting examples for
+         <tt>mx4j.util.StandardMBeanProxy</tt>
+      </h3></div></div><p>
+         The MX4J 1.x API of
+         <tt>mx4j.util.StandardMBeanProxy</tt> is very similar to
+         <tt>javax.management.MBeanServerInvocationHandler</tt>'s.
+         <br>
+         Below are shown two code snippets that compare the old MX4J 1.x API with the new standard one.
+         <br>
+         Note how only the line marked with (*) changes from the old version to the new one.
+      </p><p>
+         <div class="example"><p><b>Example 2.10. Old MX4J 1.x proxy API</b></p><pre class="programlisting">
+               
+// The ObjectName of the delegate MBean
+ObjectName delegateName = ObjectName.getInstance("JMImplementation:type=delegate");
+
+MBeanServer server = ...;
+
+Object proxy = StandardMBeanProxy.create(MBeanServerDelegateMBean.class, server, delegateName);  (*)
+MBeanServerDelegateMBean delegateMBean = (MBeanServerDelegateMBean)proxy;
+
+// The MBeanServer ID
+String id = delegateMBean.getMBeanServerId();
+               
+            </pre></div>
+      </p><p>
+         <div class="example"><p><b>Example 2.11. Standard JMX 1.2 proxy API</b></p><pre class="programlisting">
+               
+// The ObjectName of the delegate MBean
+ObjectName delegateName = ObjectName.getInstance("JMImplementation:type=delegate");
+
+MBeanServer server = ...;
+
+Object proxy = MBeanServerInvocationHandler.newProxyInstance(server, delegateName, MBeanServerDelegateMBean.class, true);
+MBeanServerDelegateMBean delegateMBean = (MBeanServerDelegateMBean)proxy;
+
+// The MBeanServer ID
+String id = delegateMBean.getMBeanServerId();
+               
+            </pre></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch02s07.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03.html">Next</a></td></tr><tr><td align="left" width="40%">The
+      <tt>javax.management.MBeanServerBuilder</tt> class
+   &nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch02.html">Up</a></td><td align="right" width="40%">&nbsp;Chapter 3. JSR 160 (JMX Remoting) Explained</td></tr></table></div></body></html>

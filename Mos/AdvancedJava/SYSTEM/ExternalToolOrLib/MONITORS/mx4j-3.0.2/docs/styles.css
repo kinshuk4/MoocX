@@ -1,0 +1,118 @@
+/*
+ * Copyright (C) The MX4J Contributors.
+ * All rights reserved.
+ *
+ * This software is distributed under the terms of the MX4J License version 1.0.
+ * See the terms of the MX4J License in the documentation provided with this software.
+ */
+
+/*
+ * MX4J stylesheet
+ * For colors definitions, see (among others)
+ * http://www.projectcool.com/developer/reference/color-chart.html
+ * $Revision: 1.3 $
+ */
+
+body
+{
+   font-family: verdana,arial,helvetica,sans-serif;
+   font-size: 9pt;
+   color: black;
+   background:  white;
+}
+
+tt
+{
+   font-size: 9pt
+}
+
+td
+{
+   font-size: 10pt
+}
+
+th
+{
+   font-size: 10pt;
+   font-weight: bold
+}
+
+h1
+{
+   font-size: 30pt;
+   color: dodgerblue;
+   text-align: center;
+}
+
+h2
+{
+   font-size: 14pt;
+   color: dodgerblue;
+   font-weight: bold
+}
+
+h3
+{
+   font-size: 12pt;
+   color: dodgerblue;
+   font-weight: bold
+}
+
+h4
+{
+   font-size: 10pt;
+   color: dodgerblue;
+   font-weight: bold;
+   font-style: italic
+}
+
+a:link
+{
+   color : forestgreen;
+   font-weight: bold;
+}
+
+a:visited
+{
+   color : indianred;
+   font-weight: bold;
+}
+
+a:hover
+{
+   color: indigo;
+   font-weight: bold;
+}
+
+.example
+{
+   padding: 10;
+   border: thin solid;
+   background-color: whitesmoke
+}
+
+.programlisting
+{
+   margin-left: 10;
+   margin-right: auto;
+   font-size: 8pt;
+   font-family: Courier;
+   border-style: solid;
+   border-width: 1;
+   white-space: pre;
+   background-color: lavender
+}
+
+.question
+{
+   color: dodgerblue;
+}
+
+.abstract
+{
+   padding: 5pt;
+   font-size: 8pt;
+   border-style: solid;
+   border-width: 1;
+   background-color: seashell
+}

@@ -1,0 +1,92 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 7. MX4J Examples</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="index.html" title="MX4J English Documentation"><link rel="previous" href="ch06s14.html" title="Jython MBean"><link rel="next" href="ch07s07.html" title="MBeans"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter 7. MX4J Examples</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch06s14.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch07s07.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><h2 class="title">Chapter 7. MX4J Examples</h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch07.html#N10E32">Services</a></dt><dd><dl><dt><a href="ch07.html#N10E35">The Relation Service example</a></dt></dl></dd><dt><a href="ch07s07.html">MBeans</a></dt><dd><dl><dt><a href="ch07s07.html#N10EEA">RMI MBean example</a></dt></dl></dd><dt><a href="ch07s15.html">Tools</a></dt><dd><dl><dt><a href="ch07s15.html#N11001">Using XDoclet</a></dt><dt><a href="ch07s15.html#N1106A">FilePersister example</a></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10E32"></a>Services</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10E35"></a>The Relation Service example</h3></div></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10E38"></a>Introduction</h4></div></div><p>
+            A full description of the RelationService, what it does and why it does it can be found in the
+            <a href="http://java.sun.com/products/JavaManagement/index.html" target="_top">JMX Specifications.</a>
+         </p><p>
+            The example java source files can be found in the examples directory under services/relation, they include:
+            <div class="itemizedlist"><ul><li><tt>RelationServiceExample</tt> (the main class)
+               </li><li><tt>SimpleBooks</tt></li><li><tt>SimpleOwner</tt></li><li><tt>SimplePersonalLibrary</tt> (which extends the
+                  <tt>javax.mangement.relation.RelationTypeSupport</tt> and provides the definitions of our roles)
+               </li></ul></div>
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10E56"></a>Simple use-case for the example</h4></div></div><p>
+            <div class="itemizedlist"><ul><li>1)Adding Books Use-Case: Main Success Scenario:</li></ul></div>
+            <span class="emphasis"><i>A user adds 1 book to his personal library, he already has 3, a check is done and it is determined that he is allowed 4 books, there are no problems and he can add the book.</i></span>
+            <div class="itemizedlist"><ul><li>2)Adding Books Use-Case: Alternate Scenarios:</li></ul></div>
+            <span class="emphasis"><i>Our user decides he would like to add another book, as he has defined the number of books to be minimum 1 and maximum 4, and he is now trying to add a fifth, he is not allowed to add the extra book..</i></span>
+            <div class="itemizedlist"><ul><li>3)Removing Books Use-Case: Main Success Scenario:</li></ul></div>
+            <span class="emphasis"><i>A User decides to remove 3 old books from his personal-library. As he has defined the number of books he is allowed as to being between 1 and 4 there are no problems, the books are removed and he can no longer read or write to them, from the RelationService..</i></span>
+            <div class="itemizedlist"><ul><li>4)Removing Books Use-Case: Alternate Scenario:</li></ul></div>
+            <span class="emphasis"><i>The book owner decides to remove all his books. The relation is invalidated and he can no longer access his records as they have been removed from the RelationService, including his role as Owner..</i></span>
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10E77"></a>Code Usage</h4></div></div><p>
+            Before any relations can be defined the RelationService must be registered in the MBeanServer.
+         </p><div class="example"><p><b>Example 7.1. Creating the RelationService</b></p><pre class="programlisting">
+import javax.management.relation.RelationService;
+
+MBeanServer server = MBeanServerFactory.createMBeanServer();
+String className = "javax.management.relation.RelationService";
+ObjectName objectName = new ObjectName("Relations:name=RelationService");
+
+// The boolean value is to enable a purge of relations to determine invalid relations when an unregistration occurs of MBeans
+Object[] params = {new Boolean(true)};
+String[] signature = {"boolean"};
+server.createMBean(className, objectName, null, params, signature);
+               </pre></div><p>
+            Once we have the RelationService registered we can then create in the server our MBeans that will be playing the roles in our use-case scenarios. This being done we can proceed to adding our RelationType
+            <tt>SimplePersonalLibrary</tt> which must extend
+            <tt>javax.management.relation.RelationTypeSupport</tt>. This class is not registered in the MBeanServer, it is merely a simple way of providing the definitions of our Roles in the RelationService, an example of adding a RelationType in the RelationService follows:
+         </p><div class="example"><p><b>Example 7.2. Adding a RelationType</b></p><pre class="programlisting">
+// SimplePersonalLibrary is our RelationTypeSupport class
+String relationTypeName = "my_library";
+SimplePersonalLibrary library = new SimplePersonalLibrary(relationTypeName);
+
+Object[] params = {library};
+String[] signature = {"javax.management.relation.RelationType"};
+
+server.invoke(objectName, "addRelationType", params, signature);
+               </pre></div><p>
+            Our next step will be to start filling the roles we defined in our support class and adding the MBeans up to the maximum number we defined our SimplePersonalLibrary class. This means registering the MBeans first with MBeanServer. Once registered. we can add them within our Roles...		</p><div class="example"><p><b>Example 7.3. Building Roles</b></p><pre class="programlisting">
+// building the owner Role
+ArrayList ownerList = new ArrayList();
+ownerList.add(ownerName1);  // can only add owner to an owner role cardinality defined as 1
+Role ownerRole = new Role("owner", ownerList);
+
+// building the book role
+ArrayList bookList = new ArrayList();
+// we can have between 1 and 4 books more than 4 invalidates out relation and less than 1 invalidates it
+bookList.add(bookName1);
+bookList.add(bookName2);
+bookList.add(bookName3);
+Role bookRole = new Role("books", bookList);
+
+// add our roles to the RoleList
+RoleList libraryList = new RoleList();
+libraryList.add(ownerRole);
+libraryList.add(bookRole);
+
+// now create the relation
+Object[] params = {personalLibraryId, libraryTypeName, libraryList};
+String[] signature = {"java.lang.String", "java.lang.String", "javax.management.relation.RoleList"};
+m_server.invoke(m_relationObjectName, "createRelation", params, signature);
+               </pre></div><p>
+            We are done a note about the alternate scenarios: Once Role cardinality has been invalidated the relation is removed from the RelationService and can no longer be accessed via the RelationService though any MBeans registered in the MBeanServer can still be accessed individually.
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10E9A"></a>Using Examples from the JMX Reference Implementation</h4></div></div><p>
+            The RelationService examples which can be downloaded from the
+            <a href="http://java.sun.com/products/JavaManagement/index.html" target="_top">JMX</a> website will run in the MX4J implementation. The few changes required are due to the fact that
+            <span class="emphasis"><i>MX4J</i></span> implements the accessors of MBeans as
+            <code class="funcdef">server.getAttribute(..)</code> and
+            <code class="funcdef">server.setAttribute(...)</code> whereas the JMX implements all as method calls using
+            <code class="funcdef">server.invoke(..)</code>
+         </p><p>
+            To be able to use the Examples from the JMX download. A list of the few changes required for the
+            <tt>RelationAgent</tt> follows:
+         </p><p>
+            <div class="itemizedlist"><ul><li>Remove: import com.sun.jdmk.Trace;</li><li>Remove: Trace.parseTraceProperties();</li><li>Change all calls for
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><code class="funcdef">getAllRelationTypeNames</code></li><li style="list-style-type: opencircle"><code class="funcdef">getRelationServiceName</code></li><li style="list-style-type: opencircle"><code class="funcdef">getRelationId</code></li><li style="list-style-type: opencircle"><code class="funcdef">getAllRelationIds</code></li><li style="list-style-type: opencircle"><code class="funcdef">getReferencedMBeans</code>  Note: except where the call comes from an external relation(represented by a subclass of
+                        <tt>javax.management.relation.RelationSupport</tt> or a type of
+                        <tt>javax.management.relation.Relation</tt></li><li style="list-style-type: opencircle"><code class="funcdef">getRelationTypeName</code> Note: same as above
+                     </li><li style="list-style-type: opencircle"><code class="funcdef">getAllRoles</code> Note: same as above
+                     </li><li style="list-style-type: opencircle"><code class="funcdef">setRole</code> Note: same as above
+                     </li></ul></div>
+                  from
+                  <code class="funcdef">server.invoke(...)</code> to
+                  <code class="funcdef">server.getAttribute(....) , server.setAttribute(...) depending on whether it sets or gets.</code></li></ul></div>
+         </p></div></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch06s14.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch07s07.html">Next</a></td></tr><tr><td align="left" width="40%">Jython MBean&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="index.html">Up</a></td><td align="right" width="40%">&nbsp;MBeans</td></tr></table></div></body></html>

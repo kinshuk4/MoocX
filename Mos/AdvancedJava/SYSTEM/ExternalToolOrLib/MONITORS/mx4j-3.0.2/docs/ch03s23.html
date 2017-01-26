@@ -1,0 +1,130 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Using HTTP-based connectors over HTTPS</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch03.html" title="Chapter 3. JSR 160 (JMX Remoting) Explained"><link rel="previous" href="ch03s20.html" title="MX4J's JSR 160 JMXConnectors and JMXConnectorServers"><link rel="next" href="ch03s27.html" title="Porting old MX4J remoting code to JSR 160"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Using HTTP-based connectors over HTTPS</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch03s20.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 3. JSR 160 (JMX Remoting) Explained</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03s27.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N1068A"></a>Using HTTP-based connectors over HTTPS</h2></div></div><p>
+      The HTTP-based connectors, namely the soap, hessian and burlap connectors, can be run over the HTTPS
+      protocol.
+   </p><p>
+      The configuration of the MX4J connector is quite simple, but requires understanding of how certificates
+      and security in general work in the Java platform.
+      <br>
+      You can find more information on the security in the Java platform
+      <a href="http://java.sun.com/security" target="_top">here</a>.
+   </p><p>
+      HTTP-based MX4J connectors can be run over HTTPS by adding the string "+ssl" (without quotes) to
+      the protocol of the JMXServiceURL normally used to start the connector over the plain HTTP protocol.
+      <br>
+      For example, the JMXServiceURL to start the SOAP connector server over plain HTTP would be something like
+   </p><p>
+      service:jmx:soap://host:8080/jmxconnector
+   </p><p>
+      while the JMXServiceURL to start the SOAP connector server over HTTPS would be something like
+   </p><p>
+      service:jmx:soap+ssl://host:8443/jmxconnector
+   </p><p>
+      However, this is not enough, since running a web container over HTTPS requires a detailed configuration
+      of the web container itself and of the keystore that contains the certificate with the public key for the
+      SSL protocol.
+   </p><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N106A3"></a>Configuration of the web container</h3></div></div><p>
+         The configuration of the web container usually requires to specify a file path for the keystore, the
+         keystore and the key passwords, and of course the HTTPS port the web container will listen to, that
+         must match the port provided in the JMXServiceURL.
+      </p><p>
+         This configuration is to be specified in the environment Map passed at the moment of the creation of the
+         JMXConnectorServer using the
+         <tt>mx4j.tools.remote.http.HTTPConnectorServer.WEB_CONTAINER_CONFIGURATION</tt>
+         constant as key, and a String that points to the file path of the configuration file as value.
+         <br>
+         Below there is a sample configuration file for the default web container used by MX4J,
+         <a href="http://jetty.mortbay.com" target="_top">Jetty</a>.
+      </p><p>
+         <div class="example"><p><b>Example 3.21. Example Jetty configuration file to run JMXConnectorServers over HTTPS</b></p><pre class="programlisting">
+               
+&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;
+
+&lt;Configure class="org.mortbay.jetty.Server"&gt;
+  &lt;Call name="addListener"&gt;
+    &lt;Arg&gt;
+      &lt;New class="org.mortbay.http.SunJsseListener"&gt;
+        &lt;Set name="Port"&gt;8443&lt;/Set&gt;
+        &lt;Set name="PoolName"&gt;P1&lt;/Set&gt;
+        &lt;Set name="MaxIdleTimeMs"&gt;30000&lt;/Set&gt;
+        &lt;Set name="lowResources"&gt;30&lt;/Set&gt;
+        &lt;Set name="LowResourcePersistTimeMs"&gt;2000&lt;/Set&gt;
+        &lt;Set name="Keystore"&gt;&lt;SystemProperty name="jetty.home" default="."/&gt;/mx4j.ks&lt;/Set&gt;
+        &lt;Set name="Password"&gt;mx4jmx4j&lt;/Set&gt;
+        &lt;Set name="KeyPassword"&gt;mx4jmx4j&lt;/Set&gt;
+
+        &lt;Set name="HttpHandler"&gt;
+          &lt;New class="org.mortbay.http.handler.MsieSslHandler"&gt;
+            &lt;Set name="UserAgentSubString"&gt;MSIE 5&lt;/Set&gt;
+          &lt;/New&gt;
+        &lt;/Set&gt;
+      &lt;/New&gt;
+    &lt;/Arg&gt;
+  &lt;/Call&gt;
+&lt;/Configure&gt;
+               
+            </pre></div>
+      </p><p>
+         Note that the configuration specifies the keystore file path, the keystore and the key passwords.
+         <br>
+         Jetty allows the passwords to be obfuscated; see the Jetty documentation for more details
+         <a href="http://jetty.mortbay.com/javadoc/org/mortbay/util/Password.html" target="_top">here</a>.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N106C4"></a>Configuration of the keystore</h3></div></div><p>
+         The keystore must contain a valid certificate issued for the server host where the
+         web container (started by the HTTP-based JMXConnectorServer) will run on.
+         <br>
+         This is normally specified in the common name part of the distinguished name of the certificate.
+      </p><p>
+         Furthermore, the certificate must be trusted by the client.
+         This means that the certificate must be signed by
+         a well-known certification authority, and that the root certification authority must be present
+         in the trusted certificates of the Java platform on client side, normally stored in the
+         $JAVA_HOME/jre/lib/security/cacerts file.
+      </p><p>
+         In the more common case of "experiments", or during development, you can create a self-signed
+         certificate using this command:
+      </p><p>
+         $JAVA_HOME/bin/keytool -genkey -keyalg "RSA" -keystore mx4j.ks -storepass mx4jmx4j -dname "cn=myhost"
+      </p><p>
+         Replace the keystore file path and password with your choices, and replace the common name value with
+         the host name the web container will run on.
+      </p><p>
+         To avoid to import this certificate in the trusted certificates of the Java platform on client side, you must
+         specify the following system property (using either the -D syntax in the command line that starts the JVM,
+         or calling
+         <tt>System.setProperty</tt> in your program):
+      </p><p>
+        javax.net.ssl.trustStore=mx4j.ks
+      </p><p>
+         Replace the keystore file path with your choice.
+      </p><p>
+         Needless to say we don't recommend to set these java properties in your programs, nor to share
+         the keystore between client and server. What should be done in real environments is to sign the
+         certificate with a trusted certification authority.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N106DE"></a>Code examples</h3></div></div><p>
+         Refer to the examples bundled with the MX4J distribution, specifically the
+         <tt>mx4j.examples.tools.remote.hessian.ssl.*</tt> files.
+      </p><p>
+         <div class="example"><p><b>Example 3.22. Starting and connecting to the Hessian connector server over HTTPS</b></p><pre class="programlisting">
+               
+// Server side configuration; copy/paste the jetty configuration above into a file named
+// jetty.mx4j.xml and put it in the directory from where the JVM is launched
+Map serverEnv = new HashMap();
+serverEnv.put(HTTPConnectorServer.WEB_CONTAINER_CONFIGURATION, "jetty.mx4j.xml");
+
+// Note the null host: it will use the current host name, that must match the common name
+// present in the certificate contained in the keystore
+JMXServiceURL url = new JMXServiceURL("hessian+ssl", null, 8443, "/hessianjmx");
+
+JMXConnectorServer cntorServer = JMXConnectorServerFactory.newJMXConnectorServer(url, serverEnv, newMBeanServer());
+cntorServer.start();
+
+// Client side configuration; specify the trusted keystore with a system property.
+// NOT recommended for production environments.
+System.setProperty("javax.net.ssl.trustStore", "mx4j.ks");
+JMXConnector cntor = JMXConnectorFactory.connect(url);
+MBeanServerConnection cntion = cntor.getMBeanServerConnection();
+int count = cntion.getMBeanCount().intValue();
+               
+            </pre></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch03s20.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03s27.html">Next</a></td></tr><tr><td align="left" width="40%">MX4J's JSR 160 JMXConnectors and JMXConnectorServers&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch03.html">Up</a></td><td align="right" width="40%">&nbsp;Porting old MX4J remoting code to JSR 160</td></tr></table></div></body></html>

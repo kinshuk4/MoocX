@@ -1,0 +1,20 @@
+<!DOCTYPE connection-factories PUBLIC
+"-//JBoss//DTD JBOSS JCA Config 1.5//EN"
+"http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd">
+<connection-factories>
+    <no-tx-connection-factory>
+        <jndi-name>eis/ra/smtpConnectionFactory</jndi-name>
+        <rar-name>MAILConnector.rar</rar-name>
+        <connection-definition>samples.connectors.mailconnector.api.JavaMailConnectionFactory</connection-definition>
+        <config-property name="serverName" type="java.lang.String">smtp.gmail.com</config-property>
+        <config-property name="port" type="java.lang.String">465</config-property>
+        <config-property name="secure" type="java.lang.Boolean">true</config-property>
+        <config-property name="fromAddress" type="java.lang.String">org.mk.training.jmx@gmail.com</config-property>
+        <config-property name="userName" type="java.lang.String">org.mk.training.jmx@gmail.com</config-property>
+        <config-property name="password" type="java.lang.String">beginner911</config-property>
+        <min-pool-size>0</min-pool-size>
+        <max-pool-size>2</max-pool-size>
+        <metadata>
+      </metadata>
+    </no-tx-connection-factory>
+</connection-factories>

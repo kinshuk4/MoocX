@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+ index.html
+ Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+-->
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<h1>JSR 262 Samples</h1>
+Sample applications are provided to help you better understand how to use the Java Specification Request (JSR) 262
+connector and connector server.
+<h2>System Requirements  </h2>
+<p>The JSR 262 Reference Implementation (RI)  runs on versions 5.0 and 6 of the Java platform, Standard Edition (the Java SE platform). To run the JSR 262 samples, you first need to perform the following actions:
+<ul>
+  <li>Download the JAX-WS 2.1.1 Java archive (JAR) files from the <a
+ href="https://jax-ws.dev.java.net/">JAX-WS page on java.net</a>.</li>
+  <li>Copy the  JAX-WS JAR files into the <code>lib</code> directory.</li>
+  <li>You can enable logging in the samples applications by uncommenting the following line in
+    each <code>build.xml</code> file:
+    <pre>&lt;!--&lt;sysproperty key="java.util.logging.config.file" value="../../common/logging.properties"/&gt;--&gt;</pre>
+  </li>
+</ul>
+<h2>Common Sample Configuration </h2>
+<p>The most common set-up for the JSR 262 sample applications is as follows: </p>
+<ul>
+  <li>You need Ant version 1.6.x or higher to build and run the sample applications.</li>
+  <li>You need to set the <code>JAVA_HOME</code> property in your environment before  calling Ant. <code>JAVA_HOME</code> points to the  directory where the Java Development Kit (JDK) software is installed.</li>
+  <li>The samples' <code>build.xml</code> files are configured to run the samples on JDK version 5.0. If you want to run the samples on JDK version 6, you will  need  to move the following JAR files to the  <code>lib/endorsed</code> directory:
+    <ul>
+      <li><code>lib/jaxws-api.jar</code></li>
+      <li><code>lib/jaxb-api.jar</code></li>
+      <li><code>lib/jsr173_api.jar</code></li>
+      <li><code>lib/saaj-api.jar</code> </li>
+    </ul>
+  Then you must provide the <code>java.endorsed.dirs</code> system property to the <code>ant</code> Java target. The property value is the path to the <code>lib/endorsed</code> directory.</li>
+  <li>The JConsole  sample provides an example of the set-up required by JDK version 6.</li>
+  <li>The samples are pre-configured to run on <code>localhost</code> on port 9998. If you are running the client and server on the same host and if this port is not in use, then you do not need to edit the samples  files. Otherwise, you will need to configure the host names and port numbers accordingly. </li>
+  <li>Make sure you recompile the classes when switching between JDK versions, for example, from JDK version 5.0 to JDK version 6.</li>
+</ul>
+<h2>Samples Index</h2>
+<ul>
+  <li><a href="#Simple">Simple</a>: A client connects to a server and
+    calls <code>getAttribute</code>.</li>
+  <li><a href="#Simple_Security">Simple security</a>: Does the same as <code>Simple</code>, but   with authentication enabled.</li>
+  <li><a href="#Custom_class_handling">Custom class</a>: Does the same as <code>Simple</code>, but  this time the returned attribute value is not a supported
+    class.</li>
+  <li><a href="#Custom_Notification">Custom notification</a>: A client
+    subscribes to notifications and receives a custom <code>Notification</code>.</li>
+  <li><a href="#Simple_Servlet_container_deployment">Servlet container
+    deployment</a>: <code>JMXEndpointService</code> packaged in a <code>war</code> file, and deployed in a
+    servlet container.</li>
+  <li><a href="#Connecting_with_JDK_JConsole">JConsole</a>: Connects
+    from JConsole using the JSR 262 Connector protocol.<br>
+  </li>
+</ul>
+<h3><a name="Simple"></a>Simple</h3>
+<p>The simple sample is found in the directory <code>simple</code>. A client connects to a server and calls <code>getAttribute</code>.
+<ol>
+<li>To launch the server :
+<ul>
+  <li>Navigate to the appropriate directory:<br>
+  <code>% cd simple/server</code></li>
+  <li>Update <code>SimpleAgent.java</code> with the host, port and URL path (optional).</li>
+  <li>Call Ant:<br>
+  <code>% ant</code></li>
+</ul></li>
+<li>To launch the client :
+<ul>
+  <li>Navigate to the appropriate directory:<br>
+    <code>% cd simple/client</code></li>
+  <li>Update <code>SimpleClient.java</code> with the agent host, port and URL path
+    (optional).</li>
+  <li>Call Ant:<br>
+    <code>% ant</code></li></ul>
+<li>The <code>"Hello world(s)<code></code>!"</code> message should be displayed. You can now kill
+the server.</li>
+</ol>
+<h3><a name="Simple_Security"></a>Simple Security</h3>
+<p>The simple security sample is found in the directory <code>simplesecurity</code>. 
+  This sample does the same as <code>Simple</code>, but   with authentication enabled. On the server side, a file <code>server/users.security</code>,
+  contains a username and password association. The client, when it connects to
+  the server, provides a name and a password. Security is based on HTTP
+Basic Authentication. </p>
+<ol>
+  <li>To launch the server :
+    <ul>
+        <li>Navigate to the appropriate directory:<br>
+            <code>% cd simplesecurity/server</code></li>
+      <li>Update <code>SimpleAgentSecurity.java</code> with the host, port and URL path (optional).</li>
+      <li>Call Ant:<br>
+            <code>% ant</code></li>
+    </ul>
+  </li>
+  <li>To launch the client :
+    <ul>
+        <li>Navigate to the appropriate directory:<br>
+            <code>% cd simplesecurity/client</code></li>
+      <li>Update <code>SimpleClientSecurity.java</code> with the agent host, port and URL path
+        (optional).</li>
+      <li>Call Ant:<br>
+            <code>% ant</code></li>
+    </ul>
+  <li>The <code>"Hello world(s)<code></code>!"</code> message should be displayed. You can now kill
+    the server.</li>
+</ol>
+<h3><a name="Custom_class_handling"></a>Custom Class Handling</h3>
+<p>The custom class handling sample is found in the directory <code>customclass</code>. This sample does the same as <code>Simple</code>, but this time  the
+returned attribute value is not a supported class, but <code>HelloHolder</code>, a
+simple class that contains the hello message.
+<p>On the client and the server side, the Java API for XML Binding (JAXB) context is extended with the
+  <code>HelloHolder</code> Java class. </p>
+<p>Look at  <code>server/mycustomclasses/HelloHolder.java</code> and
+  <code>server/mycustomclasses/ObjectFactory.java</code> to see what needs to be done 
+  to make a Java class JAXB "friendly". </p>
+<p><strong>NOTE</strong>: You should read the JAXB documentation to discover the
+  full capabilities of JAXB annotations. This sample application presents a simple use of JAXB. </p>
+<ol>
+  <li>To launch the server :
+    <ul>
+        <li>Navigate to the appropriate directory:<br>
+            <code>% cd customclass/server</code></li>
+      <li>Update <code>CustomAgent.java</code> with the host, port and URL path (optional).</li>
+      <li>Call Ant:<br>
+            <code>% ant</code></li>
+    </ul>
+  </li>
+  <li>To launch the client :
+    <ul>
+        <li>Navigate to the appropriate directory:<br>
+            <code>% cd customclass/client</code></li>
+      <li>Update <code>CustomClient.java</code> with the agent host, port and URL path
+        (optional).</li>
+      <li>Call Ant:<br>
+            <code>% ant</code></li>
+    </ul>
+  <li>The <code>"Hello world(s)<code></code>!"</code> message  contained in <code>HelloHolder</code> is displayed. You can now kill
+    the server.</li>
+</ol>
+<h3><a name="Custom_Notification"></a>Custom Notification</h3>
+The custom notification sample is found in the directory <code>customnotification</code>. A client subscribes to
+notifications and receives a custom <code>Notification</code>. A custom notification
+marshaller and unmarshaller are created to handle this notification.
+This notification adds priority information to a JMX technology <code>Notification</code>.
+<p>This sample shows how to write a <code>JMXWSNotificationExtensionMarshaller</code> and a <code>JMXWSNotificationExtensionUnmarshaller</code> to handle
+  your own <code>Notifications</code> that are extended by the  JMX API. </p>
+<p>A marshaller is used on the server side to marshall notifications. An unmarshaller is used on the client side to unmarshall received
+  notifications. The marshaller and the unmarshaller are passed to the connector or connector server by an environment map.
+</p>
+<ol>
+  <li>To launch the server :
+    <ul>
+        <li>Navigate to the appropriate directory:<br>
+            <code>% cd customnotification/server</code></li>
+      <li>Update <code>CustomNotificationAgent.java</code> with the host, port and URL path (optional).</li>
+      <li>Call Ant:<br>
+            <code>% ant</code></li>
+    </ul>
+  </li>
+  <li>To launch the client :
+    <ul>
+        <li>Navigate to the appropriate directory:<br>
+            <code>% cd customnotification/client</code></li>
+      <li>Update <code>CustomNotificationClient.java</code> with the agent host, port and URL path
+        (optional).</li>
+      <li>Call Ant:<br>
+            <code>% ant</code></li>
+    </ul>
+  <li>A priority of 999 is displayed. You can now kill
+    the server.</li>
+</ol>
+<h3><a name="Simple_Servlet_container_deployment"></a>Simple Servlet
+  Container Deployment</h3>
+The simple servlet container deployment sample is found in the directory <code>servletdeployment</code>. The sample is a web application that also deploys a JSR 262 Connector.
+<p>The directory <code>servletdeployment/server/samplewebapp</code> contains a web application
+  that, once built, can be deployed in a JAX-WS 2.1.1 compliant servlet container. This web application also contains a Servlet <code>SampleServlet</code> that registers an instance of a <code>Sample</code> MBean in the platform
+  MBean server when the application is deployed. The MBean and the servlet
+  are located in <code>WEB-INF/classes</code>. </p>
+<p>During the build process, the web application will be packaged in a file named <code>samplewebapp.war</code>. Copy this <code>war</code> file into your web application directory and start
+  your servlet container.</p>
+<p><b>NOTE:</b> Make sure you have the JAX-WS 2.1.1 JAR files accessible from  <code>samplewebapp</code>. If you are using Tomcat 6 or higher, copy the JAX-WS 2.1.1 JARs into the <code>lib</code>
+  </li> directory. 
+  If you are using Tomcat 5.x, copy JAX-WS 2.1.1 into the <code>shared/lib</code> directory.
+
+<p>A Jakarta Tomcat-compliant <code>logging.properties</code> file is provided. If
+  you are deploying in Tomcat and want to enable logging, uncomment
+  the content of the properties file then restart Tomcat. </p>
+<ol>
+<li>To build the server: 
+<ul>
+  <li>Copy <code>servlet-api.jar</code> into the <code>lib</code> directory.</li>
+  <li>Navigate to the appropriate directory:<br>
+    <code>% cd servletdeployment/server</code> </li>
+  <li>Call Ant:<br>
+    <code>% ant</code></li>
+  <li>The <code>samplewebapp.war</code> package is built</li>
+</ul></li>
+<li>Deploy the application in your favorite container. On Tomcat, for example, copy the <code>samplewebapp.war</code> file into the <code><em>TOMCAT_INSTALL_DIR</em>/webapps</code> directory.
+  If a policy manager is enabled, be sure to grant the required JMX permissions. The following policy file grant clause should be added to your server policy file.
+  <PRE>grant codeBase "file:/-" {
+    // Allow access to ManagementFactory.getPlatformMBeanServer()
+    permission javax.management.MBeanServerPermission "createMBeanServer";
+
+    //Permission to register our MBean
+    permission javax.management.MBeanPermission "Sample#-[:type=Sample]", "registerMBean";
+
+    //Permission to get HelloPrefix attribute
+    permission javax.management.MBeanPermission "Sample#Hello[:type=Sample]", "getAttribute";
+    };
+</PRE></li>
+<li>To launch the client:
+<ul>
+  <li>Navigate to the appropriate directory:<br>
+    <code>% cd servletdeployment/client</code></li>
+  <li>By default, the client will connect to the local host on port 8080. 
+ If you are running the web server on another host or port, update <code>SimpleClient.java</code> accordingly.
+ If you copied <code>samplewebapp.war</code> into the <code>webapps</code> directory, the <code>JMXServiceURL</code>  path 
+ should be <code>/samplewebapp/jmxws</code>.</li>
+  <li>Call Ant:<br>
+    <code>% ant</code></li>
+</ul></li>
+<li>The <code>"Hello world(s)!"</code> message is displayed.</li>
+</ol>
+
+<h3><a name="Connecting_with_JDK_JConsole"></a>Connecting with JConsole</h3>
+An Ant task is provided in the <code>jconsole</code> directory to start JConsole with the JSR 262 RI in its 
+class path.<br>
+<ol>
+  <li>To launch the server:
+    <ul>
+        <li>Navigate to the appropriate directory:<br>
+            <code>% cd simple/server</code></li>
+      <li>Update <code>SimpleAgent.java</code> with the host, port and URL path (optional).</li>
+      <li>Call Ant:<br>
+            <code>% ant</code></li>
+    </ul>
+  </li>
+  <li>To launch JConsole:
+<ul>
+        <li> In the <code>common/common.properties</code> file, update the <code>jdk-install-path</code>    property with the  path of your JDK version 5.0 or 6 installation.</li>
+        <li>Navigate to the appropriate directory:<br>
+            <code>% cd jconsole</code></li>
+        <li>To start JConsole using JDK version 5.0 call the following command:<br>
+		<code>% ant jconsole5</code></li>
+        <li>To start JConsole using JDK version 6 call the following command:<br>
+		<code>% ant jconsole6</code></li>
+        <li>JConsole is displayed. The connection dialog is displayed.</li>
+        <li>On JDK version 5.0, click on the Advanced Tab. On JDK version 6, check the Remote Process checkbox.</li>
+        <li>Type in a <code>JMXServiceURL</code>, as follows: <br>
+		<code>service:jmx:ws://<em>&lt;your server host&gt;</em>:<em>&lt;your server port&gt;</em>/<em>&lt;your server url path&gt;</em></code> <br>
+		For example: <br>
+		<code>service:jmx:ws://localhost:9998/jmxws</code></li>
+        <li>The JConsole tabs are displayed. Go to the MBeans tab, and you should see the <code>Sample</code> MBean under the <code>DefaultDomain</code> node.</li>
+    </ul>
+<br>
+<i><i> </i></i>
+</ol>
+</body>
+</html>

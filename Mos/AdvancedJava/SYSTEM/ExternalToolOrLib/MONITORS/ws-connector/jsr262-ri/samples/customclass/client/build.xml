@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ build.xml
+ Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+-->
+<project name="CustomClient" default="all" basedir=".">
+    <property name="liblocation" value="../../../lib"/>
+    <property file="../../common/common.properties"/>
+    <target name="init">  
+    </target>
+    <target name="all" depends="init">
+        <javac classpath="${classpath}:../server" srcdir="." includes="CustomClient.java"/>  
+        <java fork="true" classpath="${classpath}:../server" classname="CustomClient">
+            <!--<sysproperty key="java.util.logging.config.file" value="../../common/logging.properties"/>-->
+        </java>
+    </target>
+</project>

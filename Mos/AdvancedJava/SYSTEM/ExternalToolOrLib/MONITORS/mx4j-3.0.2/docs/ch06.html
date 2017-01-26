@@ -1,0 +1,224 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 6. MX4J Tools</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="index.html" title="MX4J English Documentation"><link rel="previous" href="ch05s10.html" title="XSLTProcessor"><link rel="next" href="ch06s03.html" title="Dynamic MBeans"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter 6. MX4J Tools</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch05s10.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch06s03.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><h2 class="title">Chapter 6. MX4J Tools</h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch06.html#N10BA3">XML Configuration Loader</a></dt><dd><dl><dt><a href="ch06.html#N10BA6">Loading and starting MBeans using XML files</a></dt></dl></dd><dt><a href="ch06s03.html">Dynamic MBeans</a></dt><dd><dl><dt><a href="ch06s03.html#N10C48">AbstractDynamicMBean base class for DynamicMBean implementation</a></dt></dl></dd><dt><a href="ch06s05.html">Naming MBeans</a></dt><dd><dl><dt><a href="ch06s05.html#N10CE4">The NamingService MBean</a></dt><dt><a href="ch06s05.html#N10D2B">The CosNamingService MBean</a></dt></dl></dd><dt><a href="ch06s10.html">Mailer MBean</a></dt><dd><dl><dt><a href="ch06s10.html#N10D67">Introduction</a></dt><dt><a href="ch06s10.html#N10D7B">Configuration</a></dt><dt><a href="ch06s10.html#N10DAA">Keyword expanding</a></dt></dl></dd><dt><a href="ch06s14.html">Jython MBean</a></dt><dd><dl><dt><a href="ch06s14.html#N10DDE">Introduction</a></dt><dt><a href="ch06s14.html#N10E02">Configuration</a></dt><dt><a href="ch06s14.html#N10E07">Built-in functions</a></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10BA3"></a>XML Configuration Loader</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10BA6"></a>Loading and starting MBeans using XML files</h3></div></div><p>
+         The <tt>javax.management.loading.MLet</tt> class provides a way to load
+         and instantiate MBeans from a configuration file called <span class="emphasis"><i>MLet file</i></span>. <br>
+         The MLet file has however a limited syntax, since it can only instantiate and register
+         MBeans into an MBeanServer: no method invocation is possible, no MBean's unregistration,
+         no possibility to use factories to create objects and so on.
+         Furthermore, the MLet file format is not XML.
+      </p><p>
+         MX4J's <tt>mx4j.tools.config.ConfigurationLoader</tt> defines an XML configuration
+         file format where it is possible to specify creation of objects, their registration
+         into an MBeanServer, their unregistration, the invocation of methods, both via MBeanServer
+         (JMX invocations) and via normal Java invocation.
+      </p><p>
+         Let's see a simple example that registers MX4J's HTTP adaptor into an MBeanServer. <br>
+         First, we need a small class that creates the MBeanServer and the ConfigurationLoader:
+      </p><p>
+         <div class="example"><p><b>Example 6.1. Main class for configuration loading</b></p><pre class="programlisting">
+            
+public class Startup
+{
+   public static void main(final String[] args) throws Exception
+   {
+      // MX4J's logging redirection to Apache's Commons Logging
+//    mx4j.log.Log.redirectTo(new CommonsLogger());
+
+      // Create the MBeanServer
+      MBeanServer server = MBeanServerFactory.createMBeanServer();
+
+      // Create the ConfigurationLoader
+      ConfigurationLoader loader = new ConfigurationLoader();
+
+      // Register the configuration loader into the MBeanServer
+      ObjectName name = ObjectName.getInstance(":service=configuration");
+      server.registerMBean(loader, name);
+
+      // Tell the configuration loader the XML configuration file
+      Reader reader = new BufferedReader(new FileReader(args[0]));
+      loader.startup(reader);
+      reader.close();
+   }
+}
+            
+            </pre></div>
+      </p><p>
+         The class simply creates an MBeanServer, creates the ConfigurationLoader and tells
+         the configuration loader to read an XML file from the path passed as argument. <br>
+         The XML file can be the following:
+      </p><p>
+         <div class="example"><p><b>Example 6.2. XML file for configuration of MX4J's HttpAdaptor</b></p><pre class="programlisting">
+            
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;configuration&gt;
+   &lt;startup&gt;
+      &lt;create classname="mx4j.tools.adaptor.http.HttpAdaptor" objectname="connectors:type=http" loadername="null"&gt;
+         &lt;arg type="int"&gt;9090&lt;/arg&gt;
+         &lt;arg type="string"&gt;localhost&lt;/arg&gt;
+      &lt;/create&gt;
+      &lt;create classname="mx4j.tools.adaptor.http.XSLTProcessor" objectname="connectors:type=http,processor=xslt" loadername="null"/&gt;
+      &lt;call objectname="connectors:type=http" attribute="ProcessorNameString"&gt;
+         &lt;arg type="string"&gt;connectors:type=http,processor=xslt&lt;/arg&gt;
+      &lt;/call&gt;
+      &lt;call objectname="connectors:type=http" operation="start"/&gt;
+   &lt;/startup&gt;
+
+   &lt;shutdown&gt;
+      &lt;call objectname="connectors:type=http" operation="stop"/&gt;
+   &lt;/shutdown&gt;
+&lt;/configuration&gt;
+            
+            </pre></div>
+      </p><p>
+         The first thing to notice is that the configuration file is splitted in 2 sections, namely
+         <span class="emphasis"><i>startup</i></span> and <span class="emphasis"><i>shutdown</i></span>.
+         We will see later how the shutdown section comes into play.
+      </p><p>
+         Let's examine the startup section. <br>
+         It contains the creation of the <tt>mx4j.tools.adaptor.http.HttpAdaptor</tt>
+         MBean (passing 2 arguments to its constructor)
+         and of the <tt>mx4j.tools.adaptor.http.XSLTProcessor</tt> MBean via the
+         <span class="emphasis"><i>create</i></span> element. <br>
+         These MBeans are registered in the MBeanServer that also manages the ConfigurationLoader MBean. <br>
+         Both these 2 operations are possible also with the MLet file. <br>
+         What is different is the possibility to set JMX attributes and invoke JMX operations on the
+         MBeans just registered. This is achieved with the <span class="emphasis"><i>call</i></span> element: first the
+         XSLT processor is set onto the HTTP adaptor, then the HTTP adaptor itself is started.
+      </p><p>
+         Let's see now a more complex example: how to register and start a JSR 160 connector server.
+      </p><p>
+         <div class="example"><p><b>Example 6.3. XML file for configuration of a JSR 160 connector server</b></p><pre class="programlisting">
+            
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;configuration&gt;
+   &lt;startup&gt;
+      &lt;create classname="mx4j.tools.naming.NamingService" objectname="naming:type=rmiregistry"&gt;
+         &lt;arg type="int"&gt;1099&lt;/arg&gt;
+      &lt;/create&gt;
+      &lt;call operation="start" objectname="naming:type=rmiregistry" /&gt;
+
+      &lt;object objectid="rmi"&gt;
+         &lt;call classname="javax.management.remote.JMXConnectorServerFactory" method="newJMXConnectorServer"&gt;
+            &lt;arg type="javax.management.remote.JMXServiceURL"&gt;
+               &lt;new classname="javax.management.remote.JMXServiceURL"&gt;
+                  &lt;arg type="string"&gt;service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jmx&lt;/arg&gt;
+               &lt;/new&gt;
+            &lt;/arg&gt;
+            &lt;arg type="java.util.Map" /&gt;
+            &lt;arg type="javax.management.MBeanServer" /&gt;
+         &lt;/call&gt;
+      &lt;/object&gt;
+      &lt;register objectname="connectors:type=rmi,protocol=jrmp"&gt;
+         &lt;arg type="object" refobjectid="rmi" /&gt;
+      &lt;/register&gt;
+      &lt;call method="start" refobjectid="rmi" /&gt;
+   &lt;/startup&gt;
+
+   &lt;shutdown&gt;
+      &lt;call method="stop" refobjectid="rmi" /&gt;
+      &lt;call operation="stop" objectname="naming:type=rmiregistry" /&gt;
+      &lt;unregister objectname="connectors:type=rmi,protocol=jrmp" /&gt;
+      &lt;unregister objectname="naming:type=rmiregistry" /&gt;
+   &lt;/shutdown&gt;
+&lt;/configuration&gt;
+            
+            </pre></div>
+      </p><p>
+         Note the usage of the <span class="emphasis"><i>object</i></span> element. It is possible to assign an ID (in the example
+         is "rmi") to objects that gets created in the XML file, and refer to them afterwards using the
+         <span class="emphasis"><i>refobjectid</i></span> attribute. <br>
+         Note also the syntax to invoke the static call to the <tt>JMXConnectorServerFactory</tt>,
+         and the syntax to invoke non-JMX operations when calling "start" on the "rmi" object. <br>
+         Objects can be created by using the <span class="emphasis"><i>new</i></span> element, and constructor arguments specified
+         with the <span class="emphasis"><i>arg</i></span> element. Note how null arguments are passed to the
+         <tt>JMXConnectorServerFactory</tt> (the second and third argument of type Map and MBeanServer).
+      </p><p>
+         Let's now explain the meaning of the <span class="emphasis"><i>shutdown</i></span> section. <br>
+         If the <span class="emphasis"><i>startup</i></span> section defines how the MBeans should be created, registered and
+         put into operation (for example by calling "start" operations on them), the shutdown section defines
+         how the MBeans should be stopped from operating and eventually unregistered.
+      </p><p>
+         It remains the problem of how to make the configuration loader invoke the shutdown section.
+      </p><p>
+         This is done by specifying a port as attribute of the <span class="emphasis"><i>configuration</i></span> element;
+         the configuration loader will start a server socket on that port, so that from another JVM will be
+         possible to connect to that socket and invoke the shutdown command. <br>
+         For security reasons, the server socket will listen on the loopback interface of the host, so that
+         only JVMs started on the same host can invoke the shutdown section.
+      </p><p>
+         Below, an example of a class that invokes the shutdown section and a sample XML file that specifies
+         the port for the server socket.
+      </p><p>
+         <div class="example"><p><b>Example 6.4. Simple XML file that specifies the command port</b></p><pre class="programlisting">
+            
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;configuration port="9876"&gt;
+   &lt;startup&gt;
+      &lt;create classname="mx4j.tools.naming.NamingService" objectname="naming:type=rmiregistry"&gt;
+         &lt;arg type="int"&gt;1099&lt;/arg&gt;
+      &lt;/create&gt;
+      &lt;call operation="start" objectname="naming:type=rmiregistry" /&gt;
+   &lt;/startup&gt;
+
+   &lt;shutdown&gt;
+      &lt;call operation="stop" objectname="naming:type=rmiregistry" /&gt;
+      &lt;unregister objectname="naming:type=rmiregistry" /&gt;
+   &lt;/shutdown&gt;
+&lt;/configuration&gt;
+            
+            </pre></div>
+      </p><p>
+         <div class="example"><p><b>Example 6.5. Simple Java class that invokes "shutdown" to execute the shutdown section</b></p><pre class="programlisting">
+            
+public class Shutdown
+{
+   public static void main(String[] args) throws Exception
+   {
+      Socket socket = new Socket("127.0.0.1", 9876);
+      socket.getOutputStream().write("shutdown".getBytes());
+      socket.close();
+   }
+}
+            
+            </pre></div>
+      </p><p>
+         The XML configuration DTD is the following:
+      </p><p>
+         <div class="example"><p><b>Example 6.6. XML configuration DTD</b></p><pre class="programlisting">
+            
+&lt;!ELEMENT configuration (startup?, shutdown?)&gt;
+&lt;!ATTLIST configuration port CDATA #IMPLIED&gt;
+
+&lt;!ELEMENT startup (call*, create*, object*, register*)&gt;
+
+&lt;!ELEMENT shutdown (call*, unregister*)&gt;
+
+&lt;!ELEMENT call (arg*)&gt;
+&lt;!ATTLIST call classname CDATA #IMPLIED&gt;
+&lt;!ATTLIST call objectname CDATA #IMPLIED&gt;
+&lt;!ATTLIST call refobjectid CDATA #IMPLIED&gt;
+&lt;!ATTLIST call method CDATA #IMPLIED&gt;
+&lt;!ATTLIST call operation CDATA #IMPLIED&gt;
+&lt;!ATTLIST call attribute CDATA #IMPLIED&gt;
+
+&lt;!ELEMENT create (arg*)&gt;
+&lt;!ATTLIST create classname CDATA #REQUIRED&gt;
+&lt;!ATTLIST create objectname CDATA #IMPLIED&gt;
+&lt;!ATTLIST create loadername CDATA #IMPLIED&gt;
+
+&lt;!ELEMENT object (call | new)&gt;
+&lt;!ATTLIST object objectid CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT new (arg*)&gt;
+&lt;!ATTLIST new classname CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT register (arg*)&gt;
+&lt;!ATTLIST register objectname CDATA #IMPLIED&gt;
+
+&lt;!ELEMENT unregister EMPTY&gt;
+&lt;!ATTLIST unregister objectname CDATA #REQUIRED&gt;
+
+&lt;!ELEMENT arg (call | new | #PCDATA)&gt;
+&lt;!ATTLIST arg type CDATA #REQUIRED&gt;
+            
+            </pre></div>
+      </p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch05s10.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch06s03.html">Next</a></td></tr><tr><td align="left" width="40%">XSLTProcessor&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="index.html">Up</a></td><td align="right" width="40%">&nbsp;Dynamic MBeans</td></tr></table></div></body></html>

@@ -1,0 +1,74 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Jython MBean</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch06.html" title="Chapter 6. MX4J Tools"><link rel="previous" href="ch06s10.html" title="Mailer MBean"><link rel="next" href="ch07.html" title="Chapter 7. MX4J Examples"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Jython MBean</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch06s10.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 6. MX4J Tools</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch07.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10DDB"></a>Jython MBean</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10DDE"></a>Introduction</h3></div></div><p>
+         The JythonRunner MBean can be used to execute jython scripts. The main objective is
+         to use them for management tasks which are easiliy handled as scripts and that could be
+         modified and deployed at runtime.
+         The MBean's class is
+         <tt>mx4j.tools.jython.JythonRunner</tt>.
+      </p><p>
+         You can use it in two ways:
+         <div class="itemizedlist"><ul><li><p>
+                  By calling the runScript method
+               </p></li><li><p>
+                  By listening notifications, for instance from a Timer or Monitor
+               </p></li></ul></div>
+      </p><p>
+         The usage of the MBean requires that you have jython installed. You can get a copy
+         at
+         <a href="http://www.jython.org" target="_top">http://www.jython.org</a>. Jython is distributed
+         (as version 2.1) on a class file which is the installer and once execute will install the
+         jython distribution, e.g. at /usr/local/jython-2.1 or C:\Java\jython-2.1. Jython can be run in
+         two different ways depending on whether you want to use the jython standard library.
+
+         <p>If you want to use the standard librarie, add the jython.jar as in the installation dir to the classpath. e.g.
+            <p>java -cp /usr/local/jython-2.1/jython.jar:mx4j-jmx.jar:mx4j-tools.jar</p>
+
+            In this way jython will be able to find the install dir and load the libraries from there. You can get the same effect by
+            passing a python.path variable as:
+            <p>java -Dpython.path=/usr/local/jython-2.1 -cp jython.jar:mx4j-jmx.jar:mx4j-tools.jar</p>
+         </p>
+         <p>If you don't need the standard libraries (and that can be the case for many JMX tasks, it is enough to have the jython.jar
+            in your system classpath</p>
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10E02"></a>Configuration</h3></div></div><p>
+         The MBean has a few parameters which can be used to configure the MBean. This includes the
+         ObservedObjectName and Notification Name used to configure the MBean to listen for notifications.
+         The Script and ScriptFile parameters point to the content of the script. For simple scripts
+         you could just use the Script parameter. For morke comple scripts you are better of pointing to a file.
+         The ScriptFile is actually a URL and therefore can point to http locations
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10E07"></a>Built-in functions</h3></div></div><p>
+         To ease the script constructions some variables, class and functions are readily
+         available to your script. The most important one is
+         <span class="emphasis"><i>server</i></span> which point
+         to the current MBean server. The server variable IS a MBeanServer object and all methods
+         are valid. You can write scripts like:
+         <pre class="programlisting">
+            # write all the "test:name=test" mbean operations
+            [print operation for operation in server.getMBeanInfo(ObjectName("test:name=test")).operations]
+         </pre>
+         Aditionally all the javax.management.* class are imported making objects like ObjectName
+         or Attribute already available.
+      </p><p>
+         There are also some utility functions and classes:
+         <div class="itemizedlist"><ul><li><p>
+                  <tt>proxy</tt> The proxy class wraps a objectname making it easier
+                  to access (It is equivalent to the MBeanServerInvocationHandler class). You can directly retrieve and modify attributes and invoke mathods. For instance:
+                  <pre class="programlisting">
+                     #
+                     # Assume the MBean with ObjectName Test:name=jython has name and time attributes and a method start()
+                     #
+                     o = ObjectName("Test:name=jython")
+                     p = proxy(o)
+                     # you can access functions directly
+                     print p.name
+                     p.time = 12343
+                     # also works with functions
+                     p.start()
+                  </pre>
+               </p></li><li><p>
+                  <tt>mbeans(query)</tt> Returns a list of the mbeans in the server which
+                  are in the query. The query is of the form "*:*". It can be omited and the function will
+                  return all the mbeans
+               </p></li><li><p>
+                  <tt>instances(classname, query)</tt> Returns a list of the mbeans in the server which
+                  are instances of classname. The server accepts also an optional query method.
+               </p></li></ul></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch06s10.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch07.html">Next</a></td></tr><tr><td align="left" width="40%">Mailer MBean&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch06.html">Up</a></td><td align="right" width="40%">&nbsp;Chapter 7. MX4J Examples</td></tr></table></div></body></html>

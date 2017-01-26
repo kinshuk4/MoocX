@@ -1,0 +1,57 @@
+Just created SOFT:: Soft 0
+Just created SOFT:: Soft 1
+Just created SOFT:: Soft 2
+Just created SOFT:: Soft 3
+Just created SOFT:: Soft 4
+Just created SOFT:: Soft 5
+Just created SOFT:: Soft 6
+Just created SOFT:: Soft 7
+Just created SOFT:: Soft 8
+Just created SOFT:: Soft 9
+Just created WEAK:: Weak 0
+Just created WEAK:: Weak 1
+Just created WEAK:: Weak 2
+Just created WEAK:: Weak 3
+Just created WEAK:: Weak 4
+Just created WEAK:: Weak 5
+Finalizing Weak 5
+Finalizing Weak 4
+Finalizing Weak 3
+Finalizing Weak 2
+Finalizing Weak 1
+Finalizing Weak 0
+Just created WEAK:: Weak 6
+In queue: null
+Just created WEAK:: Weak 7
+In queue: null
+Just created WEAK:: Weak 8
+In queue: null
+Just created WEAK:: Weak 9
+In queue: null
+Finalizing Weak
+Finalizing Weak 9
+Finalizing Weak 8
+Finalizing Weak 7
+Finalizing Weak 6
+Just created PHANTOM:: null
+In queue: null
+Just created PHANTOM:: null
+In queue: null
+Just created PHANTOM:: null
+In queue: null
+Just created PHANTOM:: null
+In queue: null
+Just created PHANTOM:: null
+In queue: null
+Just created PHANTOM:: null
+In queue: null
+Finalizing Phantom 0
+Finalizing Phantom 5
+Finalizing Phantom 1
+Finalizing Phantom 4
+Finalizing Phantom 2
+Finalizing Phantom 3
+Just created PHANTOM:: null
+Just created PHANTOM:: null
+Just created PHANTOM:: null
+Just created PHANTOM:: null

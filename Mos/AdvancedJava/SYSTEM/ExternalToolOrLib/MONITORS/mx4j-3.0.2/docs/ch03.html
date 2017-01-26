@@ -1,0 +1,49 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 3. JSR 160 (JMX Remoting) Explained</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="index.html" title="MX4J English Documentation"><link rel="previous" href="ch02s13.html" title="The
+      javax.management.MBeanServerInvocationHandler class
+   "><link rel="next" href="ch03s04.html" title="How to use JSR 160"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter 3. JSR 160 (JMX Remoting) Explained</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch02s13.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch03s04.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><h2 class="title">Chapter 3. JSR 160 (JMX Remoting) Explained</h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch03.html#N10324">What is JSR 160 ?</a></dt><dd><dl><dt><a href="ch03.html#N10327">Introduction</a></dt><dt><a href="ch03.html#N1033C">MX4J's JSR 160 implementation</a></dt></dl></dd><dt><a href="ch03s04.html">How to use JSR 160</a></dt><dd><dl><dt><a href="ch03s04.html#N10373">Introduction</a></dt><dt><a href="ch03s04.html#N1037A">JMXServiceURLs</a></dt><dt><a href="ch03s04.html#N103A9">Creating a JMXConnectorServer</a></dt><dt><a href="ch03s04.html#N103DD">Creating a JMXConnector</a></dt><dt><a href="ch03s04.html#N10409">Remote Notifications</a></dt></dl></dd><dt><a href="ch03s10.html">JSR 160 Security</a></dt><dd><dl><dt><a href="ch03s10.html#N10463">Requiring user authentication to connect to a JMXConnectorServer</a></dt><dt><a href="ch03s10.html#N104B7">Running under SecurityManager and Subject Delegation</a></dt></dl></dd><dt><a href="ch03s13.html">Advanced JSR 160</a></dt><dd><dl><dt><a href="ch03s13.html#N10534">Intercepting calls between the JSR 160 JMXConnectorServer and the MBeanServer</a></dt></dl></dd><dt><a href="ch03s15.html">Standard JSR 160 JMXConnectors and JMXConnectorServers</a></dt><dd><dl><dt><a href="ch03s15.html#N10559">Overview of RMIConnector and RMIConnectorServer</a></dt><dt><a href="ch03s15.html#N1056C">Connecting to the RMIConnectorServer</a></dt><dt><a href="ch03s15.html#N105BB">ORB properties for JMXConnector and JMXConnectorServer over IIOP</a></dt><dt><a href="ch03s15.html#N105C8">RMI socket factories (over SSL) for the RMIConnectorServer over JRMP</a></dt></dl></dd><dt><a href="ch03s20.html">MX4J's JSR 160 JMXConnectors and JMXConnectorServers</a></dt><dd><dl><dt><a href="ch03s20.html#N105F7">The SOAP JSR 160 connector</a></dt><dt><a href="ch03s20.html#N10657">The HESSIAN and BURLAP JSR 160 connectors</a></dt></dl></dd><dt><a href="ch03s23.html">Using HTTP-based connectors over HTTPS</a></dt><dd><dl><dt><a href="ch03s23.html#N106A3">Configuration of the web container</a></dt><dt><a href="ch03s23.html#N106C4">Configuration of the keystore</a></dt><dt><a href="ch03s23.html#N106DE">Code examples</a></dt></dl></dd><dt><a href="ch03s27.html">Porting old MX4J remoting code to JSR 160</a></dt><dd><dl><dt><a href="ch03s27.html#N106F3">Introduction</a></dt><dt><a href="ch03s27.html#N106FA">Porting Examples</a></dt></dl></dd><dt><a href="ch03s30.html">MX4J Remote Tools and Utilities</a></dt><dd><dl><dt><a href="ch03s30.html#N10756">Remote MBean Proxying</a></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10324"></a>What is JSR 160 ?</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10327"></a>Introduction</h3></div></div><p>
+         The Java Management Extension (JMX) API is defined and under maintenance release of the Java Specification
+         Request (JSR) number 3.
+         <br>
+         JMX defines the API for management of Java applications, and those API are local to the application: remote
+         clients that would like to connect to a JMX-enabled remote application and manage or monitor it using JMX
+         could not do it in a standard way.
+         <br>
+         The MX4J project, the JMX reference implementation itself, and other JMX implementations provide custom
+         connectors, mostly RMI-based and HTTP-based, but those are not interoperable.
+         <br>
+      </p><p>
+         To fill this gap,
+         <a href="http://www.jcp.org/en/jsr/detail?id=160" target="_top">JSR 160</a> extends JSR 3 by providing a standard
+         API to connect to remote JMX-enabled applications.
+         <br>
+         Currently, JSR 160 has defined a mandatory connector based on RMI (that supports both RMI/JRMP and RMI/IIOP),
+         and an optional one based on sockets and Java serialization (JMXMP).
+      </p><p>
+         JSR 160 thus provides a standard way to connect to remote JMX-enabled applications using RMI; it is possible
+         to use MX4J JSR 160 implementation on client side, and have a JMX Remote Reference Implementation on server
+         side, or viceversa.
+         This allows the creation of Management Consoles based on Swing, for example, that will be able to interoperate
+         no matter which JMX implementation is used.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1033C"></a>MX4J's JSR 160 implementation</h3></div></div><p>
+         MX4J implements JSR 160. This means that MX4J ships the standard JSR 160 API, located in package
+         <tt>javax.management.remote</tt>, and the mandatory providers defined by the specification,
+         namely the
+         <span class="emphasis"><i>rmi</i></span> and
+         <span class="emphasis"><i>iiop</i></span> providers, located in package
+         <tt>javax.management.remote.rmi</tt>.
+         <br>
+         MX4J does not implement yet the optional
+         <span class="emphasis"><i>jmxmp</i></span> provider defined by the JSR 160 specification.
+         <br>
+         MX4J provides other four providers, not specified by the JSR 160 specification. This means that they will work
+         only if MX4J runs at both client and server side. These four providers are the
+         <span class="emphasis"><i>soap</i></span>,
+         <span class="emphasis"><i>local</i></span>,
+         <span class="emphasis"><i>hessian</i></span> and
+         <span class="emphasis"><i>burlap</i></span> providers.
+      </p><p>
+         To sum up, MX4J allows you to specify JMXServiceURLs (see next section) of the following kind:
+         <div class="itemizedlist"><ul><li>service:jmx:rmi://host</li><li>service:jmx:iiop://host</li><li>service:jmx:soap://host</li><li>service:jmx:local://host</li><li>service:jmx:hessian://host</li><li>service:jmx:burlap://host</li></ul></div>
+      </p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch02s13.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch03s04.html">Next</a></td></tr><tr><td align="left" width="40%">The
+      <tt>javax.management.MBeanServerInvocationHandler</tt> class
+   &nbsp;</td><td align="center" width="20%"><a accesskey="u" href="index.html">Up</a></td><td align="right" width="40%">&nbsp;How to use JSR 160</td></tr></table></div></body></html>

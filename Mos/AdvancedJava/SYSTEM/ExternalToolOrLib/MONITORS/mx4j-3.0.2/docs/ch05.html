@@ -1,0 +1,413 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 5. MX4J HTTP Adaptor</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="index.html" title="MX4J English Documentation"><link rel="previous" href="ch04s03.html" title="Interacting with the MX4J implementation"><link rel="next" href="ch05s10.html" title="XSLTProcessor"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter 5. MX4J HTTP Adaptor</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch04s03.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch05s10.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><h2 class="title">Chapter 5. MX4J HTTP Adaptor</h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch05.html#N1087B">HttpAdaptor</a></dt><dd><dl><dt><a href="ch05.html#N1087E">Introduction</a></dt><dt><a href="ch05.html#N1089A">Parameters and operations</a></dt><dt><a href="ch05.html#N10925">Security</a></dt><dt><a href="ch05.html#N1097A">Usage</a></dt><dt><a href="ch05.html#N1098E">Available requests</a></dt></dl></dd><dt><a href="ch05s10.html">XSLTProcessor</a></dt><dd><dl><dt><a href="ch05s10.html#N10AFD">Introduction</a></dt><dt><a href="ch05s10.html#N10B2D">Compatibility</a></dt><dt><a href="ch05s10.html#N10B45">Attributes</a></dt><dt><a href="ch05s10.html#N10B83">XSL Development</a></dt><dt><a href="ch05s10.html#N10B99">Internationalization</a></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N1087B"></a>HttpAdaptor</h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1087E"></a>Introduction</h3></div></div><p>
+			The HttpAdaptor offers a basic way to interface with an MX4J agent. It contains a simple HTTP 1.0 server,
+			able to translate HTTP requests to JMX requests. Obviously it has some limitations, like not being able to
+			manipulate data which cannot be obtained from Strings. As an advantage HTTP traffic is usually enabled through firewalls
+			and you can use your browser as a client.
+      </p><p>
+			The MX4J HttpAdaptor is built basically to serve XML data. Requests are made with normal http requests and they are
+			answered by constructing a XML tree containing the requested data. The request may also have variables which
+			may specify exactly the requested data. The XML tree can be later processed by defining a ProcessorMBean, which has the task to
+			take the XML tree and do something with it. The processor will also be responsible to serve requests not understood by
+			the server. In this way an appropriate processor can serve images and raw html. Currently there are two Processors defined:
+         <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>DefaultProcessorMBean:</i></span> It does not modify the XML tree limiting itself to publish the tree as text. Defining
+						the content-type as text/xml. This usually means that your browser will display the XML text. This processor won't server
+						any data besides the XML files.
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>XSLTProcessorMBean:</i></span> This processor takes the XML tree and transforms it to HTML by means of XSLT. This requires that
+						you use some JAXP-compliant XSLT. It has been tested mainly with
+                  <a href="http://xml.apache.org/xalan-j" target="_top">Xalan XSLT processor</a>.
+						The processor is also able to serve images and other files.
+               </p></li></ul></div>
+
+      </p><p>
+			As the processor is an MBean it means you can deploy and modify it on runtime. The HttpAdaptorMBean defines three methods to set the Processor.
+			If no processor is defined or an error is found, the DefaultProcessor will be used.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1089A"></a>Parameters and operations</h3></div></div><p>
+			The HttpAdaptor is an MBean defined by the interface HttpAdaptorMBean. It contains the following parameters.
+         <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>Port:</i></span> Defines the port in which the server will be listening to. By default is 8080.
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>Host:</i></span> Defines the host name in which the server will be listening to. By default is localhost. This means that
+						you can't access the server from another computer. This is good for security reasons, forcing you to explicitly open the server to the outside.
+						You can also use 0.0.0.0 which will open the server to all local interfaces
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>Alive:</i></span> Boolean property which tells whether the server is running or not.
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>AuthenticationMethod:</i></span> Sets the authentication method. Valid values are none, basic, digest. Please refer to the security chapter
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>Processor:</i></span> This sets the processor object to be used after the XML tree construction. If used the ProcessorName is set to null.
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>ProcessorName:</i></span> This sets the MBean's ObjectName to be used as XML processor. If used then Processor is set to null. The MBean has to implement the
+                  <tt>mx4j.tools.adaptor.http.ProcessorMBean</tt> interface
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>ProcessorNameString:</i></span> The same as before but the object name is passed as a string
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>ProcessorClass:</i></span> This will take a class name as string and instantiate a class object. The class has to implement the
+                  <tt>mx4j.tools.adaptor.http.ProcessorMBean</tt> interface, and you have to set the ProcessorName or ProcessorNameString property
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>SocketFactory:</i></span> Replaces the default socket factory with another, for example, the mx4j.tools.adaptor.http.ssl.SSLFactory
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>SocketFactoryName:</i></span> Replaces the default socket factory with another using an ObjectName, the pointed mbean has to have an
+                  <span class="emphasis"><i>public ServerSocket createServerSocket(int port, int backlog, String host) throws IOException</i></span> method
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>SocketFactoryNameString:</i></span> Same as previous but it takes a String object
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>StartDate:</i></span> Date and Time when the Adaptor was started
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>RequestsCount:</i></span> Total amount of requests served
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>Version:</i></span> HttpAdaptor's version
+               </p></li></ul></div>
+      </p><p>
+			The HttpAdaptor accept the following operations
+         <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>start()</i></span>: Starts the HttpAdaptor, notice that the server does not start by itself
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>stop()</i></span>: Stops the server
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>addCommandProcessor(String path,HttpCommandProcessor processor)</i></span>: It adds a command processor and assigns it to the path.
+						You can use this to create your own command processors which generate a customized XML tree. Notice that
+						if the path was assigned before this command will replace the previous definition
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>addCommandProcessor(String path,String classname)</i></span>: Same as previous but the processor object is
+						indicated with a classname, the operation will try to instantiate an object of the given class, check that implements
+						the
+                  <tt>mx4j.tools.adaptor.http.HttpCommandProcessor</tt> interface, and assign it to the indicated path
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>void removeCommandProcessor(String path)</i></span>: Removes a command processor assigned to the give path
+               </p></li></ul></div>
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N10925"></a>Security</h3></div></div><p>
+			The HttpAdaptor is in no way guaranteed to be secure. However basic authentication and SSL support are available.
+      </p><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N1092A"></a>Basic Authentication</h4></div></div><p>
+			The Basic Authentication method provides a weak form of protection. When it is set your browser should prompt you for a username
+			and password which are compared with the ones stored in the Adaptor. To add a username/password pair use the
+            <span class="emphasis"><i>addAuthorization</i></span> method.
+			As mentioned before the basic authentication is weak since your username and password are sent with a weak encoding (Base64). However it can
+			be prefectly used in secured networks or via enabling SSL.
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N10932"></a>SSL support</h4></div></div><p>
+			The HttpAdaptor can use SSL instead of normal sockets. For that is necessary three steps:
+            <div class="itemizedlist"><ul><li><p>Install JSSE:</p> JSSE is necessary to run the Adaptor with SSL support. It is possible to use either JSSE version 1.0.2 available
+                  <a href="http://java.sun.com/products/jsse/index-102.html" target="_top">here</a>,
+						or JDK 1.4. JSSE comes with 3 jar files which should be added to your classpath: jsse.jar, jcert.jar and jnet.jar. Another alternative
+						is to put those files at your JAVA_HOME/lib/ext dir. In case you are using JDK 1.4 you don't need to do this
+               </li></ul></div>
+            <div class="itemizedlist"><ul><li><p>Create server certificate:</p><p>Use the keytool command to create a server certificate. For example</p><p>
+                     <span class="emphasis"><i>keytool -genkey -keystore certs -keyalg RSA</i></span>
+                  </p><p>where certs is the keystore file name.
+					You will be prompted for a password for the keystore and the certificate distinguished name.
+					Notice that your browser will probably
+					complain about the vailidty of the key since it was signed by yourself.</p><font color="red">&lt;strong&gt;Note that if the key generation algorithm is not RSA but something else your browser may not accept it&lt;/strong&gt;</font></li></ul></div>
+            <div class="itemizedlist"><ul><li><p>Configure HttpAdaptor:</p> Finally you should change the default socket factory for a SSL factory. To do that
+					you should use the SocketFactory attribute passing a
+                  <tt>mx4j.tools.adaptor.http.ssl.SSLFactory</tt> object. The SSLFactory object should be previoulsy configured with
+					your keystore and key.
+               </li></ul></div>
+         </p><p>
+			After this you can start the HttpAdaptor as usual and point to https://host:port instead of http://host:port
+         </p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N1095C"></a>SSLFactory</h4></div></div><p>The SSLFactory contains several parameters you need to configure to find the certificate keystore. They are in the SSLFactory Management interface</p><div class="itemizedlist"><ul><li><span class="emphasis"><i>KeyStoreType:</i></span> Sets the keystore type. If you used the keytool command this is JKS
+            </li><li><span class="emphasis"><i>KeyStoreFileName:</i></span> Filename of the certificate file
+            </li><li><span class="emphasis"><i>KeyStorePassword:</i></span> Keystore password
+            </li><li><span class="emphasis"><i>KeyManagerAlgorithm:</i></span> Keymanagers's algorithm, by default is SunX509
+            </li><li><span class="emphasis"><i>KeyManagerPassword:</i></span> Keymanagers's password
+            </li><li><span class="emphasis"><i>SSLProtocol:</i></span> SSL's protocol, by default is SSLv3
+            </li></ul></div></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1097A"></a>Usage</h3></div></div><p>
+			To use the HttpAdaptor you should instantatiate the MBean and register it to the right server. Later you can set up the
+			desired parameters and invoke start to init the operation. Remember to add a JAXP-compliant parser such as xerces to the
+			CLASSPATH. If you want to use the XSLTAdaptor you should also add xalan.jar to the CLASSPATH. If you want to use SSL add
+			the JSSE jar files
+      </p><div class="example"><p><b>Example 5.1. Instantiating the HttpAdaptor</b></p><pre class="programlisting">
+import mx4j.tools.adaptor.http.HttpAdaptor;
+
+MBeanServer server = ...;
+HttpAdaptor adapter = new HttpAdaptor();
+ObjectName name = new ObjectName("Server:name=HttpAdaptor");
+server.registerMBean(adapter, name);
+adapter.setPort(XXX);
+adapter.setHost("XXX");
+adapter.start();
+
+or...
+server.createMBean("mx4j.tools.adaptor.http.HttpAdaptor", name, null);
+server.setAttribute(name, new Attribute("Port", new Integer(XXX)));
+server.setAttribute(name, new Attribute("Host", "XXX"));
+server.invoke(name, "start", null, null);
+         </pre></div><p>
+		If you wan to use a non-default Processor. You may instantiate and install it as follow
+         <div class="example"><p><b>Example 5.2. Installing a non-default Processor</b></p><pre class="programlisting">
+MBeanServer server = ...;
+ObjectName name = new ObjectName("Server:name=HttpAdaptor");
+ObjectName processorName = new ObjectName("Server:name=XSLTProcessor");
+server.createMBean("mx4j.tools.adaptor.http.HttpAdaptor", name, null);
+server.createMBean("mx4j.tools.adaptor.http.XSLTProcessor", processorName, null);
+server.setAttribute(name, new Attribute("ProcessorName", processorName));
+         </pre></div>
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1098E"></a>Available requests</h3></div></div><p>
+			The HttpAdaptor works by interpreting requests and executing some action. The Adaptor has a list of available requests
+			and they produce an XML ouput tree (Or an exception...). New request handlers can be added if necessary, creating
+			a
+         <tt>mx4j.tools.adaptor.http.HttpCommandProcessor</tt> implementation, and add it to the HttpAdaptor
+			using the addCommandProcessor and removeCommandProcessor.
+      </p><p>
+			The following is a list of the currently available requests, and the results and parameters required.
+         <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/serverbydomain</i></span> Returns a list of the MBeans available in the server grouped by domain. The result tree is as follows:
+                  <pre class="programlisting">
+&lt;Server&gt;
+	&lt;Domain name="Http"&gt;
+		&lt;MBean classname="mx4j.tools.adaptor.http.HttpAdaptor" description="HttpAdaptor MBean" objectname="Http:name=HttpAdaptor"&gt;&lt;/MBean&gt;
+		&lt;MBean classname="mx4j.tools.adaptor.http.XSLTProcessor" description="XSLT Processor" objectname="Http:name=XSLTProcessor"&gt;&lt;/MBean&gt;
+	&lt;/Domain&gt;
+	&lt;Domain name="JMImplementation"&gt;
+		&lt;MBean classname="javax.management.MBeanServerDelegate" description="" objectname="JMImplementation:type=MBeanServerDelegate"&gt;&lt;/MBean&gt;
+	&lt;/Domain&gt;&lt;Domain name="Test"&gt;
+&lt;/Server&gt;
+                     </pre>
+                  <p>The request can accept the following parameters:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>instanceof:</i></span> Filters the MBeans whether they
+								are instance of the class. For instance
+                        <span class="emphasis"><i>
+									http://host:port/serverbydomain?instanceof=javax.management.timer.Timer
+                        </i></span> will produce a list of all timers
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>querynames:</i></span> Filters the MBeans by objectname for instance
+                        <span class="emphasis"><i>
+									http://host:port/serverbydomain?querynames=*:*
+                        </i></span> will produce a list of all mbeans whether
+                        <span class="emphasis"><i>http://host:port/serverbydomain?querynames=Test:*</i></span> will only contain those MBeans in the Test domain
+                     </li></ul></div>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/server</i></span> Returns a list of the MBeans available in the server. The result tree is as follows:
+                  <pre class="programlisting">
+&lt;Server&gt;
+	&lt;MBean objectname="Http:name=HttpAdaptor"&gt;&lt;/MBean&gt;
+	&lt;MBean objectname="Http:name=XSLTProcessor"&gt;&lt;/MBean&gt;
+	&lt;MBean objectname="JMImplementation:type=MBeanServerDelegate"&gt;&lt;/MBean&gt;
+&lt;/Server&gt;
+                     </pre>
+                  <p>The request can accept the following parameters:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>instanceof:</i></span> Filters the MBeans whether they
+						are instance of the class. For instance
+                        <span class="emphasis"><i>
+							http://host:port/serverbydomain?instanceof=javax.management.timer.Timer
+                        </i></span> will produce a list of all timers
+                     </li></ul></div>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/mbean?objectname=XXX</i></span> Returns the description of the referred MBean.
+						It requires that the target objectname is passed on the request. The result tree for the request is as follows
+						http://host:port/mbean?objectname=Test:name=test1
+                  <pre class="programlisting">
+&lt;MBean classname="test.mx4j.tools.adaptor.http.HttpAdaptorXMLTest$TestClass" description="" objectname="Test:name=test1"&gt;
+	&lt;Attribute availability="RO" description="" isnull="false" name="Double" type="java.lang.Double" value="0.0"/&gt;
+	&lt;Attribute availability="RW" description="" isnull="false" name="Str" type="java.lang.String" value="t1"/&gt;
+	&lt;Attribute availability="RO" description="" isnull="false" name="True" type="boolean"  value="true"/&gt;
+	&lt;Constructor description="" name="test.mx4j.tools.adaptor.http.HttpAdaptorXMLTest$TestClass"&gt;
+		&lt;Parameter description="" id="0" name="" type="java.lang.String"/&gt;
+	&lt;/Constructor&gt;
+	&lt;Operation description="" impact="unknown" name="aMethod" return="java.lang.Boolean"&gt;
+		&lt;Parameter description="" id="0" name="" type="java.lang.String"&gt;
+		&lt;/Parameter&gt;
+	&lt;/Operation&gt;
+	&lt;Operation description="" impact="unknown" name="anotherMethod" return="void"&gt;
+		&lt;Parameter description="" id="0" name="" type="java.lang.String"&gt;&lt;/Parameter&gt;
+		&lt;Parameter description="" id="1" name="" type="int"&gt;&lt;/Parameter&gt;
+	&lt;/Operation&gt;
+	&lt;Notification description="test" name="name"&gt;
+		&lt;Type name="test1"&gt;&lt;/Type&gt;
+		&lt;Type name="test2"&gt;&lt;/Type&gt;
+		&lt;/Notification&gt;
+&lt;/MBean&gt;
+                     
+                  </pre>
+                  <p>The Attribute element may have an aggregation attribute for composite types array, collection and map</p>
+                  <p>The request can accept the following extra parameters:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>attributes:</i></span> if set to false as
+                        <span class="emphasis"><i>
+							http://host:port/mbean?objectname=Test:name=test1&amp;attributes=false
+                        </i></span> no attributes are included in the result tree
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>operations:</i></span> if set to false as
+                        <span class="emphasis"><i>
+							http://host:port/mbean?objectname=Test:name=test1&amp;operations=false
+                        </i></span> no operations are included in the result tree
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>constructors:</i></span> if set to false as
+                        <span class="emphasis"><i>
+							http://host:port/mbean?objectname=Test:name=test1&amp;constructors=false
+                        </i></span> no constructors are included in the result tree
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>notifications:</i></span> if set to false as
+                        <span class="emphasis"><i>
+							http://host:port/mbean?objectname=Test:name=test1&amp;notifications=false
+                        </i></span> no notifications are included in the result tree
+                     </li></ul></div>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/getattribute?objectname=XXX&amp;attribute=XXX&amp;format=ZZZ</i></span>
+						Gets the value of an attribute. This is an operation intended to get certain types
+						of attributes in a usable format, in particular arrays. If format is omited or not understood
+						the default value is returned like:
+                  <pre class="programlisting">
+&lt;MBean objectname="Test:name=test1"&gt;
+	&lt;Attribute classname="java.lang.String" isnull="false" name="Str" value="t1"/&gt;" +
+&lt;/MBean&gt;"
+                     </pre>
+						However if format=array and the attribute is actually an array the result is like
+                  <pre class="programlisting">
+&lt;MBean objectname="Test:name=test3"&gt;
+	&lt;Attribute classname="[Ljava.lang.String;" isnull="false" name="StrArray"&gt;
+		&lt;Array componentclass="java.lang.String" length="3"&gt;
+			&lt;Element element="a" isnull="false" index="0"/&gt;
+			&lt;Element element="b" isnull="false" index="1"/&gt;
+			&lt;Element element="c" isnull="false" index="2"/&gt;
+		&lt;/Array&gt;
+	&lt;/Attribute&gt;
+&lt;/MBean&gt;
+                     </pre>
+						If format=collection and the attribute is a collection the result is like
+                  <pre class="programlisting">
+&lt;MBean objectname="Test:name=test3"&gt;
+	&lt;Attribute classname="java.util.List" isnull="false" name="List"&gt;
+		&lt;Collection length="3"&gt;
+			&lt;Element elementclass="java.lang.String" element="a" index="0"/&gt;
+			&lt;Element elementclass="java.lang.String" element="b" index="1"/&gt;
+			&lt;Element elementclass="java.lang.String" element="c" index="2"/&gt;
+		&lt;/Collection&gt;
+	&lt;/Attribute&gt;
+&lt;/MBean&gt;
+                     </pre>
+						If format=map and the attribute is a map the result is like
+                  <pre class="programlisting">
+&lt;MBean objectname="Test:name=test3"&gt;
+	&lt;Attribute classname="java.util.Map" isnull="false" name="Map"&gt;
+		&lt;Map length="3"&gt;
+			&lt;Element elementclass="java.lang.String" element="a" keyclass="java.lang.Integer" key="0"/&gt;
+			&lt;Element elementclass="java.lang.String" element="b" keyclass="java.lang.Integer" key="1"/&gt;
+			&lt;Element elementclass="java.lang.String" element="c" keyclass="java.lang.Integer" key="2"/&gt;
+		&lt;/Map&gt;
+	&lt;/Attribute&gt;
+&lt;/MBean&gt;
+                     </pre>
+                  <p>The request requires the following parameters:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>objectname:</i></span> Target objectname
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>attribute:</i></span> Attribute's name
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>format:</i></span> Result format. The currently supported types are array, collection and map
+                     </li></ul></div>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/setattribute?objectname=XXX&amp;attribute=XXX&amp;value=XXX</i></span> Sets the value of one attribute. This is an operation request
+						rather that a data request. All operation requests are returned as a MBeanOperation tree, which looks as follow
+                  <pre class="programlisting">
+&lt;MBeanOperation&gt;
+	&lt;Operation objectname="Test:name=test1" operation="setattribute" result="success"/&gt;
+&lt;/MBeanOperation&gt;
+                     </pre>
+						or if there was an error it looks like
+                  <pre class="programlisting">
+&lt;MBeanOperation&gt;
+	&lt;Operation errorMsg="Attribute Number not found" objectname="Test:name=test1" operation="setattribute" result="error"/&gt;
+&lt;/MBeanOperation&gt;
+                     </pre>
+                  <p>The request requires the following parameters:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>objectname:</i></span> Target objectname
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>attribute:</i></span> Attribute's name
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>value:</i></span> Attribute's value
+                     </li></ul></div>
+                  <p>
+                     <font color="red">&lt;strong&gt;setattribute is deprecated in 1.1.1 and setattributes should be used instead &lt;/strong&gt;</font>
+                  </p>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/setattributes?objectname=XXX&amp;value_YYY=XXX&amp;value_YYY2=XXX2&amp;[set_XXX=Set | setall]</i></span> Sets the value of many attributes.
+						This is an operation request. The result will be a list of the attributes set.
+                  <pre class="programlisting">
+&lt;MBeanOperation&gt;
+	&lt;Operation objectname="Test:name=test1" operation="setattribute"&gt;
+		&lt;Attribute attribute="YYY" value="XXX" result="success"/&gt;
+		&lt;Attribute attribute="YYY2" value="XXX2" result="success"/&gt;
+	&lt;/Operation&gt;
+&lt;/MBeanOperation&gt;
+                     </pre>
+						or if there was an error it looks like
+                  <pre class="programlisting">
+&lt;MBeanOperation&gt;
+	&lt;Operation objectname="Test:name=test1" operation="setattribute"&gt;
+		&lt;Attribute attribute="YYY" errorMsg="Some error message" result="error"/&gt;
+		&lt;Attribute attribute="YYY2" value="XXX2" result="success"/&gt;
+	&lt;/Operation&gt;
+&lt;/MBeanOperation&gt;
+                     </pre>
+                  <p>The request requires the following parameters:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>objectname:</i></span> Target objectname
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>value_XXX:</i></span> Value for the atribute name XXX. The request can pass many parameters, but it depends on
+							the set_XXX parameters which values will be set
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>[set_XXX=Set | setall]:</i></span> Indicates which value is used. If setall is present it will set all attributes passed.
+							If only set_XXX is passed that will be set.
+                     </li></ul></div>
+                  <p>
+                     <font color="red">&lt;strong&gt;Notice that in case of one attribute failing the other will be set anyway&lt;/strong&gt;</font>
+                  </p>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/invoke?objectname=XXX&amp;operation=XXX&amp;type0=XXX&amp;value0=XXX...</i></span>
+						Invokes an operation on the target MBean
+                  <pre class="programlisting">
+&lt;MBeanOperation&gt;
+	&lt;Operation objectname="Test:name=test1" operation="invoke" result="success" return="true"/&gt;
+&lt;/MBeanOperation&gt;
+                     </pre>
+                  <p>The following parameters are required:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>objectname:</i></span> Target objectname
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>operation:</i></span> Name of the operation
+                     </li></ul></div>
+                  <p>If you want to invoke an operation which takes parameters, add the following parameters:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>typeX:</i></span> Type of the parameter number X. They are enumerated starting from 0
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>valueX:</i></span> Value of the parameter number X. They are enumerated starting from 0
+                     </li></ul></div>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/delete?objectname=XXX</i></span>
+						Removed the target MBean
+                  <pre class="programlisting">
+&lt;MBeanOperation&gt;
+	&lt;Operation objectname="Test:name=test1" operation="delete" result="success"/&gt;
+&lt;/MBeanOperation&gt;
+                     </pre>
+                  <p>The following parameter is required:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>objectname:</i></span> Target objectname
+                     </li></ul></div>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/create?class=XXX&amp;objectname=XXX&amp;type0=XXX&amp;value0=XXX...</i></span>
+						Creates a target MBean invoking the corresponding constructor
+                  <pre class="programlisting">
+&lt;MBeanOperation&gt;
+	&lt;Operation objectname="Test:name=test1" operation="invoke" result="success" return="true"/&gt;
+&lt;/MBeanOperation&gt;
+                     </pre>
+                  <p>The following parameters are required:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>classname:</i></span> Target objectname
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>objectname:</i></span> Target objectname
+                     </li></ul></div>
+                  <p>If you want to invoke create using a constructor which takes parameters, add the following parameters:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>typeX:</i></span> Type of the parameter number X. They are enumerated starting from 0
+                     </li><li style="list-style-type: opencircle"><span class="emphasis"><i>valueX:</i></span> Value of the parameter number X. They are enumerated starting from 0
+                     </li></ul></div>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/constructors?classname=mx4j.tools.adaptor.http.HttpAdaptor</i></span>
+						Queries the MBean server of the available constructors for a class name resulting on
+                  <pre class="programlisting">
+&lt;Class classname="mx4j.tools.adaptor.http.HttpAdaptor"&gt;
+	&lt;Constructor name="mx4j.tools.adaptor.http.HttpAdaptor"&gt;
+		&lt;Parameters ...&gt;
+		&lt;/Parameters&gt;
+	&lt;/Constructor&gt;
+&lt;/Class&gt;
+                     </pre>
+                  <p>The following parameter is required:</p>
+                  <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>classname:</i></span> Target classname
+                     </li></ul></div>
+                  <p>In case the class is not found an exception will be sent as</p>
+                  <pre class="programlisting">
+	&lt;Exception classname="mx4j.tools.adaptor.http.HttpAdaptor" errorMsg="class XXX not found"/&gt;
+                                       </pre>
+               </p></li><li style="list-style-type: opencircle"><p>
+                  <span class="emphasis"><i>http://host:port/empty</i></span>
+						The empty request returns an empty xmltree. Is basically used to create 'static' requests
+						made on pure xsl. The result tree is as
+                  <pre class="programlisting">
+&lt;empty/&gt;
+                     
+                  </pre>
+               </p></li></ul></div>
+      </p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch04s03.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch05s10.html">Next</a></td></tr><tr><td align="left" width="40%">Interacting with the MX4J implementation&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="index.html">Up</a></td><td align="right" width="40%">&nbsp;XSLTProcessor</td></tr></table></div></body></html>

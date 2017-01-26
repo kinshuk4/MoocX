@@ -1,0 +1,98 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 2. JMX 1.2 Explained</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="index.html" title="MX4J English Documentation"><link rel="previous" href="ch01s06.html" title="License"><link rel="next" href="ch02s04.html" title="Support for remote API"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter 2. JMX 1.2 Explained</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch01s06.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch02s04.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><h2 class="title">Chapter 2. JMX 1.2 Explained</h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><a href="ch02.html#N10085">
+      <tt>javax.management.ObjectName</tt> changes
+   </a></dt><dd><dl><dt><a href="ch02.html#N1008B">The
+         <tt>getInstance()</tt> methods
+      </a></dt><dt><a href="ch02.html#N100D1">The
+         <tt>quote()</tt> and
+         <tt>unquote()</tt> methods
+      </a></dt></dl></dd><dt><a href="ch02s04.html">Support for remote API</a></dt><dd><dl><dt><a href="ch02s04.html#N100F9">Overview</a></dt><dt><a href="ch02s04.html#N10105">The
+         <tt>javax.management.MBeanServer</tt> class inherits from
+         <tt>javax.management.MBeanServerConnection</tt>
+      </a></dt></dl></dd><dt><a href="ch02s07.html">The
+      <tt>javax.management.MBeanServerBuilder</tt> class
+   </a></dt><dd><dl><dt><a href="ch02s07.html#N10122">Introduction</a></dt><dt><a href="ch02s07.html#N1014C">How to use MX4J's
+         <tt>MBeanServer</tt> implementation with Sun's JMX Reference Implementation.
+      </a></dt><dt><a href="ch02s07.html#N10163">How to "decorate"
+         <tt>MBeanServer</tt> methods.
+      </a></dt><dt><a href="ch02s07.html#N10249">More complex
+         <tt>MBeanServer</tt> "decorations".
+      </a></dt><dt><a href="ch02s07.html#N1026F">Possible usages of MBeanServer "decorators"</a></dt></dl></dd><dt><a href="ch02s13.html">The
+      <tt>javax.management.MBeanServerInvocationHandler</tt> class
+   </a></dt><dd><dl><dt><a href="ch02s13.html#N1028D">Introduction</a></dt><dt><a href="ch02s13.html#N102B9">MBeanServerInvocationHandler usage</a></dt><dt><a href="ch02s13.html#N102FD">Porting examples for
+         <tt>mx4j.util.StandardMBeanProxy</tt>
+      </a></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N10085"></a>
+      <tt>javax.management.ObjectName</tt> changes
+   </h2></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1008B"></a>The
+         <tt>getInstance()</tt> methods
+      </h3></div></div><p>
+         JMX 1.2 introduced four overloaded static version of the
+         <tt>getInstance()</tt> method:
+         <br>
+         <br>
+         <code class="funcdef">
+            <b class="fsfunc">public static ObjectName getInstance(String name)</b>
+         </code>
+         <br>
+         <code class="funcdef">
+            <b class="fsfunc">public static ObjectName getInstance(ObjectName name)</b>
+         </code>
+         <br>
+         <code class="funcdef">
+            <b class="fsfunc">public static ObjectName getInstance(String name, Hashtable properties)</b>
+         </code>
+         <br>
+         <code class="funcdef">
+            <b class="fsfunc">public static ObjectName getInstance(String domain, String key, String value)</b>
+         </code>
+      </p><p>
+         The first version is the preferred way to create ObjectNames, and should be used instead of using the
+         <span class="emphasis"><i>new</i></span> Java keyword.
+         <br>
+         Creating a new ObjectName from a string is expensive because require parsing of the string.
+         <br>
+         JMX implementations may use caching techniques to speed up creation of ObjectNames from strings.
+         MX4J does this optimization both in this method and in the ObjectName's constructor; it is likely that other
+         implementations perform the optimization in getInstance(), but not in the ObjectName's constructor, so choosing
+         to use getInstance() ensure coherent behaviors.
+      </p><p>
+         The second version is mostly used to convert ObjectName subclasses to plain ObjectName.
+         <br>
+         This is useful in a secure environment where evil ObjectName subclasses can try to bypass security checks
+         done when
+         <tt>javax.management.MBeanPermission</tt>s are checked to see if access to
+         the MBean with the given ObjectName is allowed or not.
+      </p><p>
+         The third and the fourth version are just a replacement for the usage of the
+         <span class="emphasis"><i>new</i></span> Java keyword,
+         and offer mostly syntactic sugar to your code.
+      </p></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N100D1"></a>The
+         <tt>quote()</tt> and
+         <tt>unquote()</tt> methods
+      </h3></div></div><p>
+         JMX 1.2 introduced a way to "quote" the value of ObjectName's properties that is, to allow special
+         characters to be present in the properties values of an ObjectName.
+      </p><p>
+         A simple example of this feature is to specify an LDAP name as an ObjectName property value.
+         <br>
+         Since the comma is a reserved character that separates ObjectName properties, it would have been
+         impossible to specify an LDAP name as an ObjectName property.
+      </p><p>
+         Let's suppose to have a distinguished name of 'uid=guest,ou=project,o=company', and to build an
+         ObjectName with a property called 'dname' whose value is the distinguished name.
+         <br>
+         Without quoting, the ObjectName is:
+      </p><p>:dname=uid=guest,ou=project,o=company</p><p>
+         which leads to an invalid ObjectName.
+      </p><p>
+         Using quoting, instead, it becomes:
+      </p><p>:dname="uid=guest,ou=project,o=company"</p><p>
+         which leads to a valid ObjectName.
+      </p><p>
+         It is possible also to "unquote" the property value to obtain the original string.
+      </p><p>
+         The ObjectName class has no knowledge if a value should be quoted or not, so it is responsibility
+         of the developer to quote and unquote property values.
+         <br>
+         It is a good practice to do so in those cases where the property value is chosen by users, for example
+         by inputting it in a web form or in a swing gui.
+      </p><p>Refer to the javadoc of the ObjectName class for further information.</p></div></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch01s06.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch02s04.html">Next</a></td></tr><tr><td align="left" width="40%">License&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="index.html">Up</a></td><td align="right" width="40%">&nbsp;Support for remote API</td></tr></table></div></body></html>

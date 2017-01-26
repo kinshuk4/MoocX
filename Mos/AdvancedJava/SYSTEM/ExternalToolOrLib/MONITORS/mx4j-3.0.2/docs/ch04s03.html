@@ -1,0 +1,206 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Interacting with the MX4J implementation</title><link type="text/css" href="styles.css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.45" name="generator"><link rel="home" href="index.html" title="MX4J English Documentation"><link rel="up" href="ch04.html" title="Chapter 4. MX4J Extensions and utilities"><link rel="previous" href="ch04.html" title="Chapter 4. MX4J Extensions and utilities"><link rel="next" href="ch05.html" title="Chapter 5. MX4J HTTP Adaptor"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Interacting with the MX4J implementation</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch04.html">Prev</a>&nbsp;</td><th align="center" width="60%">Chapter 4. MX4J Extensions and utilities</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch05.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="N107CF"></a>Interacting with the MX4J implementation</h2></div></div><p>
+      The MX4J implementation exposes some internal functionality via a public API that can be used by MBeans and applications.
+      <br>
+      However using these API ties the MBean or the application to the MX4J implementation, making them non-portable across
+      other JMX implementations.
+   </p><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N107D6"></a>Internal logging redirection</h3></div></div><p>
+         MX4J has a flexible logging system that allows you to tune the logging priority and
+         to redirect MX4J internal logging to other logging
+         systems such as
+         <a href="http://jakarta.apache.org/commons" target="_top">Commons Logging</a> or
+         <a href="http://jakarta.apache.org/log4j" target="_top">Log4J</a>.
+      </p><p>
+         The MX4J logging system has six logging priorities;
+         from the lowest priority to the highest they are:
+         <div class="itemizedlist"><ul><li style="list-style-type: opencircle"><span class="emphasis"><i>trace</i></span></li><li style="list-style-type: opencircle"><span class="emphasis"><i>debug</i></span></li><li style="list-style-type: opencircle"><span class="emphasis"><i>info</i></span></li><li style="list-style-type: opencircle"><span class="emphasis"><i>warn</i></span></li><li style="list-style-type: opencircle"><span class="emphasis"><i>error</i></span></li><li style="list-style-type: opencircle"><span class="emphasis"><i>fatal</i></span></li></ul></div>
+         The default level is
+         <span class="emphasis"><i>warn</i></span>, and it can be set to a different value just by setting the system
+         property "mx4j.log.priority" to one of the values above.
+      </p><p>
+         For example, you can start the JVM with this command to have MX4J log at a
+         <span class="emphasis"><i>debug</i></span> level:
+      </p><p>
+         java -Dmx4j.log.priority=debug MyMainClass
+      </p><p>
+         The fatal level is never used by MX4J.
+      </p><p>
+         MX4J default logging is done on the console via
+         <tt>System.out</tt>, but can be redirected to other
+         logging systems using the MX4J logging API, or through the broadcaster MBean (see below).
+      </p><p>
+         For example, let's assume you want to redirect MX4J logging to Log4J. Below is the code needed to do so:
+      </p><p>
+         <div class="example"><p><b>Example 4.2. Logging redirection to Log4J</b></p><pre class="programlisting">
+               
+import org.apache.log4j.PropertyConfigurator;
+import mx4j.log.*;
+
+public class Main
+{
+   public static void main(String[] args) throws Exception
+   {
+      // Configure Log4J
+      PropertyConfigurator.configureAndWatch("log4j.properties");
+      // Or use the XML version below
+      // DOMConfigurator.configureAndWatch("log4j.xml");
+
+      // Redirect MX4J logging to Log4J
+      Log.redirectTo(new Log4JLogger());
+
+      // Normal code here
+      MBeanServer server = MBeanServerFactory.createMBeanServer();
+      ...
+
+      // Reset redirection, log in the normal way (to console)
+      Log.redirectTo(null);
+   }
+}
+            
+            </pre></div>
+      </p><p>
+         It is also shown how to reset logging redirection to the standard one, that logs on the console.
+      </p><p>
+         The prototype for the new Logger, in the example above
+         <tt>Log4JLogger</tt>, can be specified
+         either in the code or by setting the system property "mx4j.log.prototype" to the full qualified name of the
+         Logger subclass, for example:
+      </p><p>
+         java -Dmx4j.log.prototype=mx4j.log.Log4JLogger MyMainClass
+      </p><p>
+         In this case, using system properties, your MBean or application remains portable across JMX implementations.
+      </p><p>
+         It is possible to redirect logging to the MX4J broadcaster MBean, that will send notifications
+         to registered listeners. The MBeanServer mechanism is used to emit these notifications, so that every listener
+         can register itself along with a filter, to exclude notifications in which it's not interested in.
+         The example below shows the code necessary to redirect the logging system to the broadcaster MBean:
+      </p><p>
+         <div class="example"><p><b>Example 4.3. Logging redirection to the broadcaster MBean</b></p><pre class="programlisting">
+               
+import mx4j.log.*;
+
+public class Main
+{
+   public static void main(String[] args) throws Exception
+   {
+      MBeanServer server = MBeanServerFactory.createMBeanServer();
+
+      // Register the broadcaster logger mbean
+      ObjectName name = new ObjectName("Logger:type=broadcaster");
+      server.createMBean("mx4j.log.LoggerBroadcaster", name, null);
+
+      // The filter: only errors are logged
+      NotificationFilter filter = new NotificationFilter()
+      {
+         public boolean isNotificationEnabled(Notification notification)
+         {
+            if (notification.getType().equals("mx4j.logger.error")) {return true;}
+            return false;
+         }
+      };
+
+      // The listener: logs on System.err instead of System.out
+      NotificationListener listener = new NotificationListener()
+      {
+         public void handleNotification(Notification notification, Object handback)
+         {
+            System.err.println("[MX4J ERROR]: " + notification);
+         }
+      };
+
+      // Register the listener along with the filter
+      server.addNotificationListener(name, listener, filter, null);
+
+      // Starts the redirector
+      LoggerBroadcasterMBean redirector = (LoggerBroadcasterMBean)MBeanServerInvocationHandler.newProxyInstance(server, name, LoggerBroadcasterMBean.class, true);
+      redirector.start();
+
+      ...
+
+      // Stops the redirector
+      redirector.stop();
+   }
+}
+            
+            </pre></div>
+      </p><p>
+         It is also shown how to reset logging redirection to the standard one, that logs on the console.
+      </p><div class="section"><div class="titlepage"><div><h4 class="title"><a name="N1082E"></a>Log categories of the MX4J implementation</h4></div></div><p>
+            Various classes in the MX4J implementation log their activities.
+            <br>
+            Each class logs with a certain category, that organizes logging into a hierarchy of categories, following a
+            dotted scheme introduced by
+            <a href="http://jakarta.apache.org/log4j" target="_top">Log4J</a>.
+            <br>
+            The categories are simply the full qualified names of the classes that log their activities.
+         </p></div></div><div class="section"><div class="titlepage"><div><h3 class="title"><a name="N1083B"></a>MBeanServerInterceptor configuration</h3></div></div><p>
+         The MX4J implementation allows client code to add custom interceptors for the MBeanServer calls that may end up in a
+         call to an MBean instance.
+      </p><p>
+         When the MX4J implementation of the MBeanServer is created, a configurator for the MBeanServer-to-MBean interceptor chain is
+         also created, along with a default set of interceptors (that cannot be removed by the client code).
+         <br>
+         Each one of the default interceptors is also an MBean, so it can be monitored/managed as a normal MBean, and also the
+         configurator is an MBean, registered with ObjectName "JMImplementation:type=MBeanServerInterceptorConfigurator".
+      </p><p>
+         The interceptor configurator exposes a management API that can be invoked as usual via the MBeanServer.
+         <br>
+         The API allows client code to add and remove custom interceptors, even at runtime, to perform additional tasks
+         such as logging, performance timing, redirection and so on.
+      </p><p>
+         Writing a custom interceptor is simple, and requires the client code to implement the interface
+         <tt>mx4j.server.interceptor.MBeanServerInterceptor</tt> or to extend the class
+         <tt>mx4j.server.interceptor.DefaultMBeanServerInterceptor</tt>.
+      </p><p>
+         Once you have written your custom interceptor, you can add it to the interceptor chain using the API provided
+         by the
+         <tt>MBeanServerInterceptorConfigurator</tt>, via these methods:
+         <div class="itemizedlist"><ul><li><code class="funcdef">
+                  <b class="fsfunc">addInterceptor(MBeanServerInterceptor interceptor)</b>
+               </code></li><li><code class="funcdef">
+                  <b class="fsfunc">registerInterceptor(MBeanServerInterceptor interceptor, ObjectName name)</b>
+               </code></li></ul></div>
+      </p><p>
+         See the Javadoc API documentation relative to the class
+         <tt>mx4j.server.interceptor.MBeanServerInterceptorConfigurator</tt> and its management interface
+         for further details.
+         <br>
+         Below you can find a simple example of how to use the
+         <tt>MBeanServerInterceptorConfigurator</tt> API.
+      </p><p>
+         <div class="example"><p><b>Example 4.4. Using the interceptor configurator API</b></p><pre class="programlisting">
+               
+public class Main
+{
+   public static void main(String[] args) throws Exception
+   {
+      // Create an MBeanServer instance
+      // This will also create and configure an instance of the
+      // MBeanServerInterceptorConfigurator MBean
+      MBeanServer server = MBeanServerFactory.createMBeanServer();
+
+      // The name under which the configurator is registered
+      ObjectName name = new ObjectName("JMImplementation:type=MBeanServerInterceptorConfigurator");
+
+      // Create a custom interceptor
+      GetMBeanInfoLoggerInterceptor custom = new GetMBeanInfoLoggerInterceptor();
+
+      // Install the custom interceptor
+      server.invoke(name, "addInterceptor", new Object[] {custom}, new String[] {MBeanServerInterceptor.class.getName()});
+
+      // Now every call to getMBeanInfo will be logged
+      MBeanInfo info = server.getMBeanInfo(name);
+   }
+
+   public static class GetMBeanInfoLoggerInterceptor extends DefaultMBeanServerInterceptor
+   {
+      public MBeanInfo getMBeanInfo(MBeanMetaData metadata)
+      {
+         // Use whatever logging system is better for you...
+         System.out.println("Call to getMBeanInfo !");
+         return super.getMBeanInfo(metadata);
+      }
+   }
+}
+            
+            </pre></div>
+      </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch04.html">Prev</a>&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch05.html">Next</a></td></tr><tr><td align="left" width="40%">Chapter 4. MX4J Extensions and utilities&nbsp;</td><td align="center" width="20%"><a accesskey="u" href="ch04.html">Up</a></td><td align="right" width="40%">&nbsp;Chapter 5. MX4J HTTP Adaptor</td></tr></table></div></body></html>
