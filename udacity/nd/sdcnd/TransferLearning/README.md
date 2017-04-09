@@ -1,8 +1,13 @@
 Here is the index we will follow
 - Introduction
-- Introduction
-- Introduction
-- Introduction
-- Introduction
-- Introduction
-- Introduction
+- Bryan Catanzaro
+- GPU vs. CPU
+- Transfer Learning
+- Deep Learning History
+- ImageNet
+- AlexNet
+- VGG
+- GoogLeNet (Pronounced as Googla Net)
+- Resnet (By Microsoft)
+- AlexNet
+- AlexNet
