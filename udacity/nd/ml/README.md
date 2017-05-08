@@ -33,11 +33,11 @@ This repo stores all my class notes, exercises and projects for [Udacity's Machi
     4. [Deep Models for Text and Sequences](classes/deep-learning/deep-models-for-text-and-sequences.md)
 
 ## Projects
-1. Exploratory Project: [Titanic Survival](projects/titanic-survival-exploration/report.html)
-2. Model and Evaluation Project: [Boston Housing Prices](projects/boston-housing-prices/report.html)
-3. Supervised Learning Project: [Finding Donors for CharityML](projects/finding-donors/report.html)
-4. Unsupervised Learning Project: [Creating Customers Segment](projects/customer_segments/report.html)
-5. Reinforcement Learning Project: [Train a Smartcab to Drive](projects/smartcab/report.html)
+1. Exploratory Project: [Titanic Survival](projects/p0-titanic-survival-exploration/report.html)
+2. Model and Evaluation Project: [Boston Housing Prices](projects/p1-boston-housing-prices/report.html)
+3. Supervised Learning Project: [Finding Donors for CharityML](projects/p2-finding-donors/report.html)
+4. Unsupervised Learning Project: [Creating Customers Segment](projects/p3-customer_segments/report.html)
+5. Reinforcement Learning Project: [Train a Smartcab to Drive](projects/p4-smartcab/report.html)
 6. Deep Learning Project 1: Build a Digit Recognition Program
 6. Deep Learning Project 2: [Image Classification](projects/image-classification/report.html)
 7. Capstone Project: TBA

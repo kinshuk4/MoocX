@@ -2,6 +2,8 @@
 
 Links for learning machine learning
 
+## Lessons
+
 ## Resources
 
 ### Massive Open Online Course
