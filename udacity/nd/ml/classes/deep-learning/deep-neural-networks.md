@@ -22,8 +22,9 @@ Eg.
 So we want to keep using linear models. But we need to introduce some non-linearity into these models to better represent other functions. Multiplying `W` by linear functions, doesn't solve this problem.
 
 ## Linear Model Limitations
- - $y = x_1 + x_2$ can be represented well
- - $y = x_1 * x_2$ cannot be represented well
+ - $y = x1 + x2 can be represented well
+ - $y = x1 * x2 cannot be represented well
+
 But Benefits
  - Derivatives are constants
 
@@ -46,6 +47,8 @@ And the derivative from this function is also easy to compute.
 So using RELUs, we can introduce non-linearities into our model and build our first neural network.
 
 ![Neural Network with RELUs](images/deep-neural-networks/neural-network-relus.png)
+
+- H: number of RELU units
 
 But where are the neurons?
 
@@ -78,6 +81,14 @@ Optimization of the model consists in running forward-propagation and then back-
 
 ![Back-propagation](images/deep-neural-networks/back-propagation.png)
 
+__Forward-propagation__
+ - You will have data X flowing through your NN to produce Y.
+__Back-propagation__
+ - Your labelled data Y flows backward to calculate "errors" of our calculations.
+ - You will be calculating the gradients ("errors"), multiply it by a learning rate, and use it to update our weights.
+ - We will be doing this many times.
+
+
 ## Training a Deep Neural Network
 
 When training a neural network, we can choose to add more nodes or add more layers. Below is a 2-layer neural network with 1 hidden layer, which is not very deep yet.
@@ -95,8 +106,21 @@ Another advantage is that a lot of natural phenomena tend to have a hierarchical
 Finally, we add more layers by stacking RELUs and `WX + b` operations.
 
 ![Adding Hidden Layers](images/deep-neural-networks/adding-hidden-layers.png)
+Notes: 
+ - It is better go deeper than increasing the size of the hidden layers (by adding more nodes)
+ - It gets hard to train.
+ - We should go deeper by adding more hidden layers.
+ - You would reap parameter efficiencies.
+ - However you need large datasets.
+ - Also, deep models can capture certain structures well such as the following
 
-## Early Termination
+## Preventing Overfitting
+We normally train networks that are bigger than our data. To prvent overfitting we use following:
+ - Early Termination
+ - Regularization
+ - Dropout
+
+### Early Termination
 
 Early termination is a technique to prevent overfitting.
 
@@ -104,7 +128,7 @@ It consists of interrupting the training process when we stop gaining performanc
 
 ![Early Termination](images/deep-neural-networks/early-termination.png)
 
-## Regularization
+### Regularization
 
 Regularization is another technique to prevent overfitting on neural networks.
 
@@ -116,17 +140,23 @@ As an analogy, we can understand regularization as a Stretch vs Skinny Jeans. Sk
 
 ![Regularization skinny jeans](images/deep-neural-networks/regularization-skinny-jeans.png)
 
-In machine learning, regularization is implemented using L2 Regularization.
+**Regularization**
+ - Applying artificial constraints.
+ - Implicitly reduce number of free parameters while enabling us to optimize.
+ - In machine learning, regularization is implemented using L2 Regularization.
 
-It consists of adding a term to the loss function, which penalizes large weights. And it introduces another hyperparameter.
+**L2 Regularization**
+ - It consists of adding a term to the loss function, which penalizes large weights. And it introduces another hyperparameter.
+ - This is simple because we just add to our loss
 
 ![Regularization loss function](images/deep-neural-networks/regularization-loss-function.png)
 
+**L2 Regularization's Derivative**
 It is also good to note that its cheap to compute the derivative of this new term, meaning it doesn't incrase the cost of the computation of the derivative of the loss function.
 
 ![Regularization loss function](images/deep-neural-networks/regularization-derivative.png)
 
-## Dropout
+### Dropout
 
 Dropout is a recent technique that also prevents overfitting and improve the overall result of the neural network, in the same way an ensemble model work.
 
@@ -143,6 +173,8 @@ If dropout doesn't improve a neural network, it maybe wise to incrase the number
 ![Dropout Exmaple](images/deep-neural-networks/dropout-example.png)
 
 Like an ensemble model, when we evaluate the model, we don't want to deal with the randomness of the dropout affecting the activations. Because of this, we scale the activations that were not affected by 2 and take the average.
+
+**Dropout during Evaluation**
 
 ![Dropout Scale](images/deep-neural-networks/dropout-scale.png)
 
