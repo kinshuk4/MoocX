@@ -72,3 +72,4 @@ Additional References:
 - [Andrew Moore's slides on Non-Zero-Sum Games](http://www.autonlab.org/tutorials/nonzerosum.html)
 
 
+[UPDATE_FROM: https://github.com/ritchieng/machine-learning-nanodegree/tree/master/reinforcement_learning/game_theory]
