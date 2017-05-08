@@ -32,6 +32,9 @@ This repo stores all my class notes, exercises and projects for [Udacity's Machi
     3. [Convolutional Neural Networks](classes/deep-learning/convolutional-neural-networks.md)
     4. [Deep Models for Text and Sequences](classes/deep-learning/deep-models-for-text-and-sequences.md)
 
+## Tools
+1. [Numpy and Pandas](classes/numpy-and-pandas/numpy-and-pandas.md)
+
 ## Projects
 1. Exploratory Project: [Titanic Survival](projects/p0-titanic-survival-exploration/report.html)
 2. Model and Evaluation Project: [Boston Housing Prices](projects/p1-boston-housing-prices/report.html)
