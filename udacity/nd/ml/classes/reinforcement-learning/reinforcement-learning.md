@@ -39,3 +39,5 @@ Side Note: Reinforcement is a misused term, because all we care is to maximize r
 ## Summary
 
 ![Summary](images/rl-summary.png)
+
+[UPDATE_FROM: https://github.com/ritchieng/machine-learning-nanodegree/blob/master/reinforcement_learning/reinforcement_learning/reinforcement_learning.ipynb]
