@@ -123,3 +123,5 @@ There is a simplification of SGD called ADAGRAD, which works out the learning ra
 Although we have seen how to train a Logistic Regression SGD model, it is still a linear model, which might not be the best solution for non-linear problems. Because of this, we need to go deeper into deep learning.
 
 ![Recap](images/from-ml-to-dl/recap-deeper.png)
+
+[UPDATE_FROM: https://github.com/ritchieng/machine-learning-nanodegree/blob/master/deep_learning/introduction/Introduction_deep_learning.ipynb]
