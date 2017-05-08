@@ -3,8 +3,13 @@
 ## Linear Model Benefits
 
 Linear models provide various benefits:
-
+### Complexity
+If we have N inputs and K outputs, we would have:
+- (N+1)K parameters
 ![Linear Model Complexity](images/deep-neural-networks/linear-model-complexity.png)
+
+Eg.
+![Linear Model Complexity](images/deep-neural-networks/linear-model-complexity-eg.png)
 
 ![Linear Models are linear](images/deep-neural-networks/linear-models-are-linear.png)
 
@@ -15,6 +20,12 @@ Linear models provide various benefits:
 ![Linear Models are stable](images/deep-neural-networks/linear-models-are-stable-2.png)
 
 So we want to keep using linear models. But we need to introduce some non-linearity into these models to better represent other functions. Multiplying `W` by linear functions, doesn't solve this problem.
+
+## Linear Model Limitations
+ - $y = x_1 + x_2$ can be represented well
+ - $y = x_1 * x_2$ cannot be represented well
+But Benefits
+ - Derivatives are constants
 
 ![Linear Models are here to stay](images/deep-neural-networks/linear-models-stay.png)
 
