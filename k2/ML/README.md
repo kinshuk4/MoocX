@@ -13,10 +13,17 @@ Links for learning machine learning
 3. [Supervised Learning](../../udacity/nd/ml/classes/supervised-learning/supervised-learning.md)
     1. [Supervised Learning Tasks](../../udacity/nd/ml/classes/supervised-learning/supervised-learning.md)
     2. [Decision Trees](../../udacity/nd/ml/classes/supervised-learning/decision-trees.md)
+    3. Regression and Classification
     3. [Artificial Neural Networks](../../udacity/nd/ml/classes/supervised-learning/artificial-neural-networks.md)
+    4. Instance Based Learning
+    4. Ensemble B&B
     4. [Support Vector Machines](../../udacity/nd/ml/classes/supervised-learning/support-vector-machines.md)
+    5. Comp Learning Theory
+    5. VC Dimensions
     5. [Non Parametric Models](../../udacity/nd/ml/classes/supervised-learning/nonparametric-models.md)
     6. [Bayesian Methods](../../udacity/nd/ml/classes/supervised-learning/bayesian-methods.md)
+    6. Bayesian Learning
+    6. Bayesian Inference
     7. [Ensemble of Learners](../../udacity/nd/ml/classes/supervised-learning/ensemble-learners.md)
 4. [Unsupervised Learning](../../udacity/nd/ml/classes/unsupervised-learning/clustering.md)
     1. [Clustering](../../udacity/nd/ml/classes/unsupervised-learning/clustering.md)
