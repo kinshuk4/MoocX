@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+    <style>
+    .area_button{
+      position: absolute;
+      top: 175px;
+      left: 1100px;
+    }
+
+    </style>
+</head>
+<body>
+  <div id="chartContainer">
+    <h2>The Relationship Between Pollution And Traffic Index Data Visualization</h2>
+  <script type="text/javascript">
+  var svg = dimple.newSvg("#chartContainer", 1600, 660);
+  d3.csv("data.csv", function (data) {
+        // draw the main plot
+        var myChart = new dimple.chart(svg, data);
+        myChart.setBounds(50, 40, 960, 560);
+        var x = myChart.addMeasureAxis("x", "Pollution Index");
+        var y = myChart.addMeasureAxis("y", "Traffic Index");
+        myChart.addSeries("Country", dimple.plot.bubble);
+        //var myLegend = myChart.addLegend(1150, 200, 60, 300, "Area");
+        myChart.draw();
+
+        //debugger;
+        // function for update by area
+        function update(area) {
+          var remove = svg.selectAll("g");
+          remove.remove();
+          if (area === "All"){
+            var data_by_region = data;
+          }
+          else{
+            var data_by_region = dimple.filterData(data, "Area", area);
+          }
+
+
+          var newChart = new dimple.chart(svg, data_by_region);
+          newChart.setBounds(50, 40, 960, 560);
+          var x = newChart.addMeasureAxis("x", "Pollution Index");
+          var y = newChart.addMeasureAxis("y", "Traffic Index");
+          x.overrideMax = 90;
+          y.overrideMax = 240;
+          newChart.addSeries("Country", dimple.plot.bubble);
+          newChart.draw()
+        }
+
+        //add buttons
+        var buttons = d3.select("#chartContainer")
+                      .append("div")
+                      .attr("class", "area_button")
+                      .selectAll("div")
+                      .data(["All", "Asia", "Africa", "America", "Europe","Oceania"])
+                      .enter()
+                      .append("div")
+                      .text(function(d) {
+                          return d;
+                      });
+
+        debugger;
+
+        buttons.on("click", function(d) {
+          d3.select(".area_button")
+            .selectAll("div")
+            .transition()
+            .style("color", "black")
+            .style("background", "white");
+
+          d3.select(this)
+            .transition()
+            .duration(500)
+            .style("background", "yellow")
+            .style("color", "red");
+          /*debugger;*/
+          update(d)
+        });
+      });
+    </script>
+  </div>
+
+
+</body>
+</html>

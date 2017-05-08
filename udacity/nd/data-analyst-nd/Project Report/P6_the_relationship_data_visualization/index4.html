@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+    <style>
+    .area_button{
+      position: absolute;
+      top: 175px;
+      left: 1100px;
+    }
+
+    h2{
+      text-align: center;
+    }
+
+    .small_title{
+      font-size :13px;
+      font-weight: bold;
+    }
+
+    .intro{
+      margin:0px 10px 10px 10px;
+      font-size: 13px;
+    }
+
+    .end{
+      font-size: 13px;
+      margin-top:-15px;
+      margin-left: 10px;
+    }
+
+
+    </style>
+</head>
+<body>
+  <div id="chartContainer">
+  <h2>The Relationship Between Pollution And Traffic Index Data Visualization</h2>
+  <p class = "intro"><strong>Pollution Index</strong> is an estimation of the overall pollution in the city.
+     The biggest weight is given to air pollution,
+    than to water pollution/accessibility, two main pollution factors. Small weight is given
+    to other pollution types. <strong>Traffic Index</strong> is a composite
+    index of time consumed in traffic due to job commute, estimation of time consumption
+    dissatisfaction, CO2 consumption estimation in traffic and overall inefficiencies in the traffic system.</p>
+  <script type="text/javascript">
+
+  d3.csv("data.csv", function (data) {
+        // draw the main plot
+        var svg = dimple.newSvg("#chartContainer", 1500, 600);
+        var myChart = new dimple.chart(svg, data);
+        myChart.setBounds(70, 20, 750, 510);
+        var x = myChart.addMeasureAxis("x", "Pollution Index");
+        var y = myChart.addMeasureAxis("y", "Traffic Index");
+        //fix x and y axis
+        x.overrideMax = 100;
+        y.overrideMax = 250;
+        //change circle color
+        var colors = myChart.addSeries(["Country","Area"], dimple.plot.bubble);
+        colors.radius = 9;
+        myChart.assignColor("Asia", "#e6e600");
+        myChart.assignColor("Africa", "#262626");
+        //myChart.assignColor("Europe", "blue");
+        //myChart.assignColor("America", "red");
+        myChart.assignColor("Oceania", "#00b300");
+        var myLegend = myChart.addLegend(880, 200, 60, 300, "Area");
+        myChart.draw();
+        svg.selectAll(".dimple-gridlines-group")
+          .remove();
+
+        // add lengend text
+        myChart.legends = [];
+        svg.selectAll("title_text")
+          .data(["Click legend to","show/hide areas:"])
+          .enter()
+          .append("text")
+            .attr("x", 860)
+            .attr("y", function (d, i) { return 180 + i * 14; })
+            .style("font-family", "sans-serif")
+            .style("font-size", "10px")
+            .style("color", "Black")
+            .text(function (d) { return d; });
+
+        // Get a unique list of Owner values to use when filtering
+        var filterValues = dimple.getUniqueValues(data, "Area");
+        // Get all the rectangles from our now orphaned legend
+        myLegend.shapes.selectAll("rect")
+          // Add a click event to each rectangle
+          .on("click", function (e) {
+            // This indicates whether the item is already visible or not
+            var hide = false;
+            var newFilters = [];
+            // If the filters contain the clicked shape hide it
+            filterValues.forEach(function (f) {
+              if (f === e.aggField.slice(-1)[0]) {
+                hide = true;
+              } else {
+                newFilters.push(f);
+              }
+            });
+            // Hide the shape or show it
+            if (hide) {
+              d3.select(this).style("opacity", 0.2);
+            } else {
+              newFilters.push(e.aggField.slice(-1)[0]);
+              d3.select(this).style("opacity", 0.8);
+            }
+            // Update the filters
+            filterValues = newFilters;
+            // Filter the data
+            myChart.data = dimple.filterData(data, "Area", filterValues);
+            // Passing a duration parameter makes the chart animate. Without
+            // it there is no transition
+            myChart.draw(800);
+          });
+
+          // add sidebar 1
+          function add_sidebar1() {
+            var data_by_rank = dimple.filterData(data, "Rank1", "top10")
+            var newChart = new dimple.chart(svg, data_by_rank);
+            newChart.setBounds(1100, 40, 270, 200);
+            svg.append("text")
+              .attr("class","small_title")
+              .attr("x", 1230)
+              .attr("y", 20)
+              .attr("text-anchor", "middle")
+              .text("Top 10 countries with highest Pollution Index");
+            var x = newChart.addMeasureAxis("x", "Pollution Index");
+            var y = newChart.addCategoryAxis("y", "Country");
+            y.addOrderRule("Pollution Index");
+            newChart.addSeries(null, dimple.plot.bar);
+            newChart.ease = "linear";
+            newChart.draw(1000);
+          }
+          add_sidebar1();
+
+          //add siderbar2
+          function add_sidebar2() {
+            var data_by_rank = dimple.filterData(data, "Rank2", "top10")
+            var newChart = new dimple.chart(svg, data_by_rank);
+            newChart.setBounds(1100, 340, 270, 200);
+            svg.append("text")
+              .attr("class","small_title")
+              .attr("x", 1230)
+              .attr("y", 320)
+              .attr("text-anchor", "middle")
+              .text("Top 10 countries with highest Traffic Index");
+            var x = newChart.addMeasureAxis("x", "Traffic Index");
+            var y = newChart.addCategoryAxis("y", "Country");
+            y.addOrderRule("Traffic Index");
+            newChart.addSeries(null, dimple.plot.bar);
+            newChart.ease = "linear";
+            newChart.draw(1000);
+          }
+          add_sidebar2();
+
+
+          //change opacity
+          svg.selectAll('circle')
+            .attr("opacity", 0.6);
+
+    });
+    </script>
+
+  </div>
+  <p class="end">Source: numbeo.com</p>
+</body>
+</html>
