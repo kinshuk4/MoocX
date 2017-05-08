@@ -99,3 +99,5 @@ The image below shows a simplification of the solutions elaborated previously to
 ## Summary
 
 ![Summary](images/mdp-summary.png)
+
+[UPDATE_FROM: https://github.com/ritchieng/machine-learning-nanodegree/blob/master/reinforcement_learning/markov_decision_processes/mdp.ipynb]
