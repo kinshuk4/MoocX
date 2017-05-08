@@ -46,4 +46,6 @@ This repo stores all my class notes, exercises and projects for [Udacity's Machi
 
 - [Statistics Cheatsheet](statistics/cheatsheet.md)
 
-(credit - https://github.com/pedropb/machine-learning-nanodegree)
+credit
+ - https://github.com/pedropb/machine-learning-nanodegree
+ - https://github.com/ritchieng/machine-learning-nanodegree
