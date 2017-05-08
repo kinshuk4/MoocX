@@ -12,6 +12,15 @@ A solution to these problems is to use Unsupervised Learning. This is a good sol
 - There is lot of textual data available for our models to train upon
 - Similar words tend to appear in similar contexts
 
+**Semantic Ambiguity**
+ - We want same things to share the same weight.
+ - We need to learn how words are related to do this.
+ - And to do this, we need a lot of labelled data.
+ - Trend
+   - Similar words tend to occur in similar contexts.
+ - If the model can predict a word's context would treat "cat" and "kitty" similarly.
+
+
 ## Embeddings
 
 The idea to generalize on text is that by learning to sort the *things* that belong into some *context*, our model will understand what are those *things*.
@@ -40,12 +49,39 @@ There are 2 details about word2vec:
 
 ![comparing embeddings](images/dmft/comparing-embeddings.png)
 
-- when training, instead of comparing the softmax vector to the full corpus vocabulary, we can sample it and select, along with the target, some other words that are not the target. This doesn't impact the accuracy of the model, but greatly increase its performance.
 
-![word2vec detail](images/dmft/word2vec-detail.png)
+
+**t-SNE**
+One way we see embeddings are clustering is to use a nearest neighbour look-up.
+![cbow-nearest-neighbour](images/dmft/cbow-nearest-neighbour.png)
+
+Another way is to reduce dimensionality to 2d. Normally we would use PCA. But this would lose critical information.
+
+![cbow-nearest-neighbour-2d](images/dmft/cbow-nearest-neighbour-2d.png)
+
+We can preserve the neighbourhood structure using t-SNE.
+![cbow-nearest-neighbour-preserve](images/dmft/cbow-nearest-neighbour-preserve.png)
+
+**Further Readings**
+[Visualizing Data using t-SNE](http://jmlr.csail.mit.edu/papers/volume9/vandermaaten08a/vandermaaten08a.pdf)
 
 Finally, as a side-note, to visualize the embeddings vectors, we should use t-SNE instead of PCA, for dimensionality reduction. That is, because t-SNE preserves the similarity and distance between vectors, while PCA could deform it.
 
+**Word2Vec Important Notes**
+1. Comparing Embeddings.
+    - Normally we would use the L2 way of calculating the distance between 2 vectors.
+    - But it would be better to measure the closeness to use cosine because the length is not relevant.
+2. Instead of comparing our softmax results with our labelled data, we can sample the words that are not the targets.
+    - Pick only a handful of them and act other words are not there.
+    - This is called softmax where we make things faster with no performance issues.
+
+So, when training, instead of comparing the softmax vector to the full corpus vocabulary, we can sample it and select, along with the target, some other words that are not the target. This doesn't impact the accuracy of the model, but greatly increase its performance.
+
+![word2vec detail](images/dmft/word2vec-detail.png)
+
+**Word Analogies**
+![cbow-word-analogy-1](images/dmft/cbow-word-analogy-1.png)
+![cbow-word-analogy-2](images/dmft/cbow-word-analogy-2.png)
 
 ## Sequences of Varying Length
 
