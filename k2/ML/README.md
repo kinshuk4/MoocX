@@ -9,6 +9,7 @@ Links for learning machine learning
 2. [Model Evaluation and Validation](../../udacity/nd/ml/classes/model-evaluation-and-validation/evaluation-and-validation.md)
     1. [Evaluation and Validation](../../udacity/nd/ml/classes/model-evaluation-and-validation/evaluation-and-validation.md)
     2. [Managing Error and Complexity](../../udacity/nd/ml/classes/model-evaluation-and-validation/managing-error-and-complexity.md)
+3. [ML - Supervised vs Unsupervised vs Reinforcement Learning](../../udacity/free/ml-supervised-learning-ud675/sl0-ml-is-the-rox/ml_is_the_rox.ipynb)
 3. [Supervised Learning](../../udacity/nd/ml/classes/supervised-learning/supervised-learning.md)
     1. [Supervised Learning Tasks](../../udacity/nd/ml/classes/supervised-learning/supervised-learning.md)
     2. [Decision Trees](../../udacity/nd/ml/classes/supervised-learning/decision-trees.md)
