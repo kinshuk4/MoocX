@@ -48,3 +48,6 @@ done;
 #will change email after testing
 echo "$filename uploaded to $object" |mail -s "DB Backup to S3 successfull" #####@######.com
 
+#credit - 
+#https://gist.github.com/hobakill/af680fc4948d5aaea56c
+
