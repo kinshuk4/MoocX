@@ -11,6 +11,7 @@
 - https://github.com/LakshayNagpal/ud617-Intro-to-Hadoop-MapReduce
 - https://github.com/AnthonyAkentiev/ud617
 - https://github.com/psphicas/ud617
+- https://github.com/reetawwsum/Machine-learning-MOOC-notes/blob/master/Intro%20to%20Hadoop%20and%20MapReduce.txt
 
 
 # Random
