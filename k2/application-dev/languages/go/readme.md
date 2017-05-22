@@ -450,3 +450,32 @@ func main() {
 ## What's Next ?
 
 This tutorial only covers the most common parts of golang built-ins. To read more the best place is the [golang spec](https://golang.org/ref/spec). It's also the best place to look when there's a question regarding how go works.
+
+```go
+package main
+
+func main() {
+	var hello string
+	hello = "Hello World"
+
+	// hello := "Hello World"
+	// Can be used to declare and assign
+	// at the same time. Check note below.
+
+	println(hello)
+}
+```
+
+```go
+package main
+
+func main() {
+	sayHello()
+}
+
+func sayHello() {
+	println("Hello World")
+}
+```
+source
+https://gist.github.com/mnmtanish/2067f0f11616f71fce66
