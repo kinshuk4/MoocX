@@ -26,8 +26,6 @@ Sensors:
 
 We prefer low-variance Gaussians for locating cars.
 
-In [2]:
-
 ```
 # Program the Gaussian
 from math import *
@@ -46,14 +44,14 @@ print (f(10., 4., 8.))
 
 ### Kalman Filter
 
-Iterates two things, as with localisation:
+The Kalman Filter represents our distributions by guassians and iterates on two main cycles. Iterates two things, as with localisation:
 
 1. Measurement updates
-   - By updating belief by a multiplicative factor (multiplying the Gaussians)
-   - Uses Bayes Rule
+   - [requires product](https://classroom.udacity.com/courses/cs373/lessons/48739381/concepts/487235990923#) - By updating belief by a multiplicative factor (multiplying the Gaussians)
+   - Uses [Bayes Rule](https://classroom.udacity.com/courses/cs373/lessons/48739381/concepts/487221690923#)
 2. Prediction (Motion updates in localisation)
    - By performing a convolution (addition)
-   - Uses total Probability to keep track of where all of our probability 'goes' when we move
+   - Uses [total Probability](https://classroom.udacity.com/courses/cs373/lessons/48739381/concepts/486736290923#) to keep track of where all of our probability 'goes' when we move
 
 #### 1. Measurement cycle
 
