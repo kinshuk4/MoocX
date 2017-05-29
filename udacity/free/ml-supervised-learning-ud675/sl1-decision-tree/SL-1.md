@@ -42,7 +42,7 @@ Quiz 1: Define the types of supervised learning in the following examples
  - **Testing Set:** a set of inputs that the "candidate" concept is applied to. The testing set is used to determine whether or not the candidate concept is in fact the target concept. The testing set SHOULD NOT BE THE SAME as the training set/sample.
 	
 
-Decision Trees
+## Decision Trees
 
 Example: Do I go into a restaurant with my date or not?
 - Inputs: Features of the restaurant (Instances)
