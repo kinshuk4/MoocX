@@ -1,10 +1,25 @@
 # From Machine Learning to Deep Learning
 
-## Training your Logistic Classifier
+## Deep Learning: Introduction
+
+**Pedestrian Detection Example**
+
+- We can use a binary classifier of pedestrian and no pedestrian.
+- Then we slide a "window" across all possible locations in the image to detect if there is a pedestrian.
+
+**Web Search Ranking Example**
+
+- Take pair of query and webpage.
+- We then classify as relevant or not relevant.
+
+### Training your Logistic Classifier
 
 A Logistic Classifier is a function that outputs scores for a given input. It is trained by adapting the weights and the bias.
 
 ![Logistic Classifier](images/from-ml-to-dl/logistic-classifier.png)
+
+- Wx + b = Y
+- We take inputs as a vector x, and multiply it by the weights matrix W, the we add the bias vector b to produce y, output which is a matrix/vector of scores.
 
 When we train a classifier, we want to output probabilities, instead of scores. This probabilities will be checked against a threshold so that we have a binary classification.
 
@@ -12,9 +27,92 @@ When we train a classifier, we want to output probabilities, instead of scores. 
 
 To transform scores into probabilities we can use a softmax function as described below.
 
+**Softmax function**
+
+- We can turn scores (logits) into probabilities using a softmax function.
+
+  - The probabilities will all sum to 1.
+  - Probability will be low if it's a high score.
+  - Probability will be high if it's a low score.
+
+- ​
+
 ![Softmax Function](images/from-ml-to-dl/softmax.png)
 
+```python
+"""Softmax Function"""
+# Your softmax(x) function should 
+# return a NumPy array of the same shape as x.
+
+scores = [3.0, 1.0, 0.2]
+
+import numpy as np
+
+def softmax(x):
+    """Compute softmax values for each sets of scores in x."""
+    # TODO: Compute and return softmax(x)
+    # We sum across the row.
+    soft_max = np.exp(x) / np.sum(np.exp(x), axis=0)
+    return soft_max
+
+
+# Probabilities should sum to 1.
+print(softmax(scores))
+
+# Plot softmax curves
+import matplotlib.pyplot as plt
+x = np.arange(-2.0, 6.0, 0.1)
+scores = np.vstack([x, np.ones_like(x), 0.2 * np.ones_like(x)])
+
+plt.plot(x, softmax(scores).T, linewidth=2)
+plt.show()
+```
+
+Output:
+
+```
+[ 0.8360188   0.11314284  0.05083836]
+```
+
+![softmax_output](./images/from-ml-to-dl/softmax_output.png)
+
+```
+# Multiply scores by 10.
+scores = np.array([3.0, 1.0, 0.2])
+print(softmax(scores * 10))
+
+```
+
+```
+[  9.99999998e-01   2.06115362e-09   6.91440009e-13]
+
+```
+
+Probabilities get close to either 1.0 or 0.0.
+
+In [5]:
+
+```
+# Divide scores by 10.
+scores = np.array([3.0, 1.0, 0.2])
+print(softmax(scores / 10))
+
+[ 0.38842275  0.31801365  0.2935636 ]
+
+```
+
+- Probabilities get cose to the uniform distribution because since all the scores decrease in magnitude, the resulting softmax probabilities will be closer to each other.
+- We want to be confident over time from this to the above with more data.
+
+![lr](./images/from-ml-to-dl/lr.png)
+
+
+
 ## Cross Entropy
+
+**One-Hot Encoding**
+
+- We want the output to be 1 or 0. This is basically one-hot encoding.
 
 ![One Hot Encoding Problem](images/from-ml-to-dl/cross-entropy-intro.png)
 
@@ -38,6 +136,14 @@ This loss function is the average cross-entropy of all our data, so it is a big 
 
 ![Loss Function Representation](images/from-ml-to-dl/loss-function-representation.png)
 
+**Training loss**
+
+- How do we find weights w and bias b to have low distance for correct class and high distance for incorrect class.
+- We can do this using a training loss function.
+  - We want to minimize the following loss function.
+    ![loss_func](./images/from-ml-to-dl/loss_func.svg)
+- Minimize loss graph based on two weights by taking small steps called gradient descent.We take the derivative of the loss with respect to our parameters
+
 Now we turned our machine learning problem into a numerical optimization problem. We have to find the 2 weights that provide the minimal loss function. And we can do this using gradient descent.
 
 ![Gradient descent solution](images/from-ml-to-dl/gradient-descent-solver.png)
@@ -46,15 +152,36 @@ Now we turned our machine learning problem into a numerical optimization problem
 
 When handling big data, we have to be aware of rounding problems, while handling very big and small numbers simultaneously. As a good practice, we want our variables to have zero mean and equal variance, whenever possible.
 
-![Zero mean](images/from-ml-to-dl/zero-mean.png)
+**Numerical Stability**
 
-This well-conditioned variables make it easier for optimizers to find a solution for the problem.
+- Adding very small values to a large value would introduce problems.
 
-![Well conditioned variables](images/from-ml-to-dl/well-conditioned.png)
+- We would always want the following:
+
+  1. **Well conditioned**
+     Mean Xi = 0, Variance sigma(Xi) = sigma(Xj)
+     ![Zero mean](images/from-ml-to-dl/zero-mean.png)
+
+     1. - This well-conditioned variables make it easier for optimizers to find a solution for the problem.
+
+          ![Well conditioned variables](images/from-ml-to-dl/well-conditioned.png)
+
+        - Optimizer don't have to do a lot of searching
+
+          - We can do this with image.
+            - Take pixel value (0 to 255)
+            - Subtract 128 and divide by 128.
+
+  2. 1. **Random weight initialization**Draw weights randomly with a Gaussian distribution and standard deviation ![$\sigma$](https://render.githubusercontent.com/render/math?math=%5Csigma&mode=inline)We can start with small ![$\sigma$](https://render.githubusercontent.com/render/math?math=%5Csigma&mode=inline) (uncertain)
+        ​
+
+  ​
 
 On images, we can normalize the data by subtracting and dividing each channel by 128. This helps the optimizer to converge on a solution faster.
 
 ![Normalizing Images](images/from-ml-to-dl/normalizing-images.png)
+
+**What do we have now?**
 
 The same idea applies to the weight initialization for the logistic function. Using gaussian distributions and small standard deviations, select the weights. Small sigmas represent more uncertainty, while large sigmas, represent more bias.
 
