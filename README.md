@@ -5,7 +5,8 @@ Repo with code and notes from various platforms.
 My main organized content:
 - [My content](./k2e/README.md)
 
-Learning Sources
+## MOOCs
+
 - [coursera](./moocs/coursera/README.md)
 - [udacity](./moocs/udacity/README.md)
 - [edx](./moocs/edx/README.md)
@@ -14,3 +15,6 @@ Learning Sources
 - [khan-academy](./moocs/khan-academy/README.md)
 - [Companies - Mos](./Mos/README.md)
 - [misc](./misc/README.md)
+
+## University Individual Courses
+
