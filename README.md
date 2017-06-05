@@ -6,11 +6,11 @@ My main organized content:
 - [My content](./k2e/README.md)
 
 Learning Sources
-- [coursera](./coursera/README.md)
-- [udacity](./udacity/README.md)
-- [edx](./edx/README.md)
-- [udemy](./udemy/README.md)
-- [awseducate](./awseducate/README.md)
-- [khan-academy](./khan-academy/README.md)
+- [coursera](./moocs/coursera/README.md)
+- [udacity](./moocs/udacity/README.md)
+- [edx](./moocs/edx/README.md)
+- [udemy](./moocs/udemy/README.md)
+- [awseducate](./moocs/awseducate/README.md)
+- [khan-academy](./moocs/khan-academy/README.md)
 - [Companies - Mos](./Mos/README.md)
 - [misc](./misc/README.md)
