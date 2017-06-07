@@ -1,0 +1,482 @@
+---
+title: "[**Managerial Accounting: Tools for Facilitating and Guiding Business Decisions**](https://www.coursera.org/learn/managerial-accounting-tools/home/welcome) : *Module 2 Mini-Project*"
+subtitle: "[Improving Business Finances and Operations Specialization](https://www.coursera.org/specializations/business-operations) by University of Illinois at Urbana-Champaign"
+author: "[®γσ, Eng Lian Hu](http://englianhu.wordpress.com) <img src='figure/ShirotoNorimichi2.jpg' width='24'> 白戸則道®"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html:
+    toc: yes
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r load-pkgs, include = FALSE}
+suppressMessages(library('plyr'))
+pkgs <- c('plyr', 'dplyr', 'magrittr', 'knitr', 'stringr', 'tidyr', 'googleVis', 'DT', 'rCharts', 'formattable', 'lubridate', 'rvest', 'FinCal')
+suppressMessages(l_ply(pkgs, library, character.only = TRUE))
+rm(pkgs)
+
+## Set the googleVis options first to change the behaviour of plot.gvis, so that only the chart 
+##  component of the HTML file is written into the output file.
+op <- options(gvis.plot.tag = 'chart')
+```
+
+# 1. Introduction
+
+  - Section [1.1 Instructions]
+    + Section [1.1.1 Overview]
+    + Section [1.1.2 How to Use Peer Review]
+    + Section [1.1.3 Assignment Details]
+  - Section [1.2 Review Criteria]
+  - Section [1.3 Reminders]
+
+## 1.1 Instructions
+
+### 1.1.1 Overview
+
+  There are multiple steps to this mini-project. First, you will submit your answers to the questions in Parts 1, 2, and 3 based on the information in the Assignment Details section. Enter your answers directly in the spaces provided in the **My submission** tab. Please answer each question fully and concisely, including the steps of your calculations and/or citations as needed (you may use the [library guidelines to citations](http://www.library.illinois.edu/ugl/howdoi/citations.html) as a guide). Then, you will evaluate the submission of at least four of your peers based on the instructions provided.
+
+### 1.1.2 How to Use Peer Review
+
+1. **Submit your own assignment**. Click the **My submission** tab to begin working on your own assignment. You can save drafts of your work as you go, and you can come back later to continue working on your draft. When you are finished working, click the **Preview** button, verify your identity, and then **Submit** the assignment
+
+2. **Give feedback to your peers**. You are required to give feedback to at least four peers to complete this assignment. You can begin giving feedback to other students as soon as you submit your assignment. Click the **Review peers** tab to get started. Feel free to provide additional reviews beyond the four required!
+
+3. **Read feedback from your peers**. Your peers will also begin reviewing your project as soon as you submit it. You will receive an email notification of each new review. Only you will be able to see the feedback you receive. If you find someone’s review helpful, click the **This review is helpful** button to thank the reviewer.
+
+4. **Browse other projects**. You can browse through all of the submitted assignments, even if you don't plan to review each one. Click the like button if you think someone did a great job on their assignment.
+
+### 1.1.3 Assignment Details
+
+  Cut Here, Inc. is considering a new video rendering system for their in-house studio. Currently, there are two options. Each option involves a significant investment in an asset that has a multi-year useful life. The key benefits of each option are cash savings, which Cut Here equates to cash inflows (i.e., compared to the status quo scenario, in which it incurs significant costs in terms of labor, time, etc.).
+
+  The following cash flow information is available for each option:
+
+```{r data1, echo = FALSE, results = 'asis'}
+dat <- data_frame(Category = c('Immediate Outflow', 'Cash Savings', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6'), `Option A` = c(100000, NA, 10000, 50000, 20000, 70000, 80000, 10000), `Option B` = c(250000, NA, 1000, 2000, 3000, 1000, 20000, 390000)) %>% mutate(`Payback A` = c(-`Option A`[1:2], cumsum(`Option A`[-c(1:2)]) - `Option A`[1]), `Payback B` = c(-`Option B`[1:2], cumsum(`Option B`[-c(1:2)]) - `Option B`[1]))
+
+dat[1:3] %>% formattable %>% as.htmlwidget
+```
+
+*table 1.1.3.1: Cash flow of Cut Here Inc. beyond 6 years.*
+
+**Your Deliverable:**
+
+**Part 1**: Use the following measures to assess the two options from a financial perspective. That is, compute the following measures for each option.
+
+  - Payback
+  - Accounting rate of return
+  - Net present value
+  - Internal rate of return
+
+**Part 2**: Based on what you calculated in Part 1, which option would you recommend to Cut Here management?
+
+**Part 3**: Describe some of the strengths and weaknesses of your analysis (i.e., specific measures, etc.). Also, what other considerations might influence your recommendation?
+
+## 1.2 Review criteria
+
+  You will give a quantitative assessment of all parts of the submission. Then, you will provide qualitative feedback for the submission as a whole.
+
+  The following represents a guide for the quantitative assessment of **Part 1-3**:
+
+  - **0 points: No answer, completely irrelevant answer, inadequate material, and/or evidence does not fit the argument**.
+  - **5 points: Insufficient answer, incomplete, lacks supporting evidence**. An insufficientresponse is incomplete or incorrect. For calculations, the response fails to provide supporting calculations/steps.
+  - **7 points: Passing, meets expectations**. A passing response addresses/answers the question, but some of the answer is not thoroughly explained. For calculations, the supporting calculations/steps are not clear.
+  - **9 points: Well above average, exceeds expectations**. An above average response addresses/answers the entire question and most of the answer is thoroughly explained. For calculations, most of the supporting calculations/steps are clear, but there are some minor deficiencies.
+  - **10 points: Superior performance, excellent**. An excellent response answers the entire question, and thoroughly explains the answer. For calculations, all supporting calculations/steps are clearly presented.
+
+  Recommendations for Fair Peer Review:
+
+  - The score should not be based on whether or not you agree with the answer, rather on whether the answer is complete and well-supported.
+  - Both content and organization are important components of a response. Good writing is confident and clearly focused with relevant details to enrich the content. Good writing also follows instructions, such as word limits, and offers requested information.
+  - A clear and concise answer is preferable to a long response that lacks coherence.
+  - Focus should be on content; try not to unduly penalize responses for spelling or grammar.
+
+## 1.3 Reminders
+
+**Using the Forums**
+
+  Your fellow students are a great resource, and we encourage you to sharpen your ideas against them in the forums. You can post your arguments in the forums and receive feedback before submitting your assignment.
+
+**Honor Code**
+
+  Please remember that you have agreed to the Honor Code, and your submission should be entirely yours. Our definition of plagiarism follows from standard literature: passing off someone else's work as your own, whether from your peers or Wikipedia. If you need to quote material, remember to cite your source, for example: "But, as expressed by Spinoza, all things excellent are as difficult as they are rare (Baruch Spinoza, "Ethica" source: thinkexist.com)."
+
+# 2. Case Study
+
+  - Section [2.1 Part 1]
+  - Section [2.2 Part 2]
+  - Section [2.3 Part 3]
+
+## 2.1 Part 1
+
+>  Cut Here, Inc. is considering a new video rendering system for their in-house studio. Currently, there are two options. Each option involves a significant investment in an asset that has a multi-year useful life. The key benefits of each option are cash savings, which Cut Here equates to cash inflows (i.e., compared to the status quo scenario, in which it incurs significant costs in terms of labor, time, etc.).
+
+>  Use the cash flow information provided in the Assignment Details section of the **Instructions** tab.
+
+>  Then, use the following measures to assess the two options from a financial perspective. That is, compute the following measures for each option.
+
+>  - Payback
+>  - Accounting rate of return
+>  - Net present value
+>  - Internal rate of return
+
+### 2.1.1 Payback
+
+```{r data2.1.1, echo = FALSE, results = 'asis'}
+dat <- rbind(data.frame(dat), data.frame(Category = 'Total (in 6 Year)', t(colSums(dat[-c(1:2), -1]))))
+
+dat %>% formattable(
+    list(
+        `Option.A` = color_tile('white', 'darkgoldenrod'), 
+        `Option.B` = color_tile('white', 'darkgoldenrod'), 
+        `Payback.A` = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        `Payback.B` = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x)))
+    )
+) %>% as.htmlwidget
+```
+
+*table 2.1.1: Payback cash flow of Cut Here Inc. beyond 6 years.*
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8Ldmh1Qethw" frameborder="0" allowfullscreen></iframe>
+
+  - **Payback A** has turned to be positive return at `r dat %>% .[-nrow(.),] %>% filter(Payback.A >= 0) %>% .[1, 1]`, therefore we using last negative figure `r dat %>% .[-nrow(.),] %>% filter(Payback.A < 0) %>% .[nrow(.), 1]` + `r dat %>% .[-nrow(.),] %>% filter(Payback.A < 0) %>% .[nrow(.), 4] %>% abs %>% as.character` ÷ `r dat %>% .[-nrow(.),] %>% filter(Payback.A > 0) %>% .[1, 2] %>% abs %>% as.character` = `r dat %>% .[-nrow(.),] %>% filter(Payback.A < 0) %>% .[nrow(.), 1] %>% str_split(' ') %>% .[[1]] %>% .[2] %>% as.numeric + abs(dat %>% .[-nrow(.),] %>% filter(Payback.A < 0) %>% .[nrow(.), 4] / dat %>% .[-nrow(.),] %>% filter(Payback.A > 0) %>% .[1, 2])` years.
+  
+  - **Payback B** has turned to be positive return at `r dat %>% .[-nrow(.),] %>% filter(Payback.B >= 0) %>% .[1, 1]`, therefore we using last negative figure `r dat %>% .[-nrow(.),] %>% filter(Payback.B < 0) %>% .[nrow(.), 1]` + `r dat %>% .[-nrow(.),] %>% filter(Payback.B < 0) %>% .[nrow(.), 5] %>% abs %>% as.character` ÷ `r dat %>% .[-nrow(.),] %>% filter(Payback.B > 0) %>% .[1, 3] %>% abs %>% as.character` = `r dat %>% .[-nrow(.),] %>% filter(Payback.B < 0) %>% .[nrow(.), 1] %>% str_split(' ') %>% .[[1]] %>% .[2] %>% as.numeric + abs(dat %>% .[-nrow(.),] %>% filter(Payback.B < 0) %>% .[nrow(.), 5] / dat %>% .[-nrow(.),] %>% filter(Payback.B > 0) %>% .[1, 3])` years.
+
+### 2.1.2 Accounting Rate of Return
+
+```{r data2.1.2, echo = FALSE, results = 'asis'}
+arr <- data.frame(Category = c('Average Net Value', 'Average ARR'), 'Option.A' = c(unlist(dat[1, 'Option.A']/6), sum(dat[-c(1:2), 'Option.A'])/6), 'Option.B' = c(unlist(dat[1, 'Option.B']/6), sum(dat[-c(1:2), 'Option.B'])/6))
+rownames(arr) = NULL
+
+dat %<>% .[-nrow(.), ]
+
+arr <- rbind(arr, data.frame(c(Category = 'Ratio', c(arr[2, 2:3] - arr[1, 2:3]) / dat[1, 2:3]))) %>% tbl_df
+
+arr$Option.A[1] <- round(arr$Option.A[1], 2)
+arr$Option.B[1] <- round(arr$Option.B[1], 2)
+arr$Option.A[3] <- paste0(round(arr$Option.A[3] *100, 2), '%')
+arr$Option.B[3] <- paste0(round(arr$Option.B[3] *100, 2), '%')
+
+dat1b <- data.frame(Category = c('Total Outflow', 'Total Saving'), rbind(dat[1, 2:3], colSums(dat[-c(1:2), 2:3])))
+dat1c <- data.frame(Category = 'Year', Option.A = 6, Option.B = 6)
+dat1b <- rbind(dat1b, dat1c)
+
+arr <- rbind(dat1b, arr) %>% tbl_df
+rm(dat1b, dat1c)
+
+arr %>% formattable %>% as.htmlwidget
+```
+
+*table 2.1.2: ARR cash flow of Cut Here Inc.*
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OJqPU65kBzI" frameborder="0" allowfullscreen></iframe>
+
+$$\frac{Outflow - \sum_{n = 6}^{i = 1,2,3...}Saving}{Outflow}$$
+
+*equation 2.1.1: Accounting Rate of Return*
+
+  - *ARR* for Option A = `r tail(arr$Option.A, 1)`
+  - *ARR* for Option B = `r tail(arr$Option.B, 1)`
+
+### 2.1.3 Net present value
+
+```{r data2.1.3, echo = FALSE, results = 'asis'}
+npv <- suppressWarnings(
+  dat[1:3] %>% mutate(
+    NPV.A.13 = round(`Option.A` / 1.13^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.09 = round(`Option.B` / 1.09^c(0, 0, seq(1, 6)), 2), 
+    NPV.A.18 = round(`Option.A` / 1.18^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.11 = round(`Option.B` / 1.11^c(0, 0, seq(1, 6)), 2), 
+    NPV.A.25 = round(`Option.A` / 1.25^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.13 = round(`Option.B` / 1.13^c(0, 0, seq(1, 6)), 2), 
+    NPV.A.28 = round(`Option.A` / 1.28^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.15 = round(`Option.B` / 1.15^c(0, 0, seq(1, 6)), 2), 
+    NPV.A.16 = round(`Option.A` / 1.16^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.16 = round(`Option.B` / 1.16^c(0, 0, seq(1, 6)), 2)))
+
+dat1b <- data.frame(Category = c('Total in 6 Years', 'Difference'), rbind(data.frame(t(data.frame(colSums(npv[-c(1:2), -1])))), t(data.frame(colSums(npv[-c(1:2), -1]))) - data.frame(npv[1, -1])))
+rownames(dat1b) <- NULL
+
+npv <- rbind(data.frame(npv), dat1b) %>% tbl_df
+npv %>% formattable(
+    list(
+        Option.A = color_tile('white', 'darkgoldenrod'), 
+        Option.B = color_tile('white', 'darkgoldenrod'), 
+        NPV.A.13 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.09 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.A.18 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.11 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.A.25 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.13 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.A.28 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.15 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.A.16 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.16 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x)))
+    )
+) %>% as.htmlwidget
+```
+
+*table 2.1.3: NPV cash flow of Cut Here Inc.*
+
+*What is 'Internal Rate Of Return - IRR'*
+
+  Internal rate of return (IRR) is a metric used in capital budgeting measuring the profitability of potential investments. Internal rate of return is a discount rate that makes the net present value (NPV) of all cash flows from a particular project equal to zero. IRR calculations rely on the same formula as NPV does.
+
+  Read more: [Internal Rate Of Return (IRR) Definition | Investopedia](http://www.investopedia.com/terms/i/irr.asp#ixzz4DoApl4CU)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kDPmQ6dNxTk" frameborder="0" allowfullscreen></iframe>
+
+  From *table 2.1.3*, we know that the annual return rate for 16% as below. You can also know 13% (`NPV.A.13` and `NPV.B.13`) from the table.
+
+  - *NPV* for Option A = `r as.character(tail(npv$NPV.A.16, 1))` - `r as.character(npv$NPV.A.16[1])` = `r as.character(tail(npv$NPV.A.16, 1) - npv$NPV.A.16[1])`.
+  - *NPV* for Option B = `r as.character(tail(npv$NPV.B.16, 1))` - `r as.character(npv$NPV.B.16[1])` = `r as.character(tail(npv$NPV.B.16, 1) - npv$NPV.B.16[1])`.
+
+### 2.1.4 Internal Rate of Return
+
+  To calculate IRR using the formula, one would set NPV equal to zero and solve for the discount rate r, which is here the IRR. Because of the nature of the formula, however, IRR cannot be calculated analytically, and must instead be calculated either through trial-and-error or using software programmed to calculate IRR.
+
+  Read more: [Internal Rate Of Return (IRR) Definition | Investopedia](http://www.investopedia.com/terms/i/irr.asp#ixzz4DoApl4CU) or [Internal Rate of Return (IRR)](http://www.investinganswers.com/financial-dictionary/investing/internal-rate-return-irr-2130) for further details.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/y0eelK0RM0w" frameborder="0" allowfullscreen></iframe>
+
+**What is the 'IRR Rule'**?
+  
+  A measure for evaluating whether to proceed with a project or investment. The IRR rule states that if the internal rate of return (IRR) on a project or investment is greater than the minimum required rate of return – the cost of capital – then the decision would generally be to go ahead with it. Conversely, if the IRR on a project or investment is lower than the cost of capital, then the best course of action may be to reject it.
+
+**BREAKING DOWN 'IRR Rule'**
+  The higher the IRR on a project and the greater the amount by which it exceeds the cost of capital, the higher the net cash flows to the investor. In general terms, a company that has to choose one, among several similar projects with equivalent degrees of risk, may go with the one that provides the highest IRR.
+
+  The IRR rule is one among a number of rules used to evaluate projects in capital budgeting. However, it may not always be rigidly enforced. For example, a company may prefer a project with a lower IRR over one with a higher IRR because the former provides other intangible benefits such as being part of a bigger strategic plan or impeding competition. A company may also prefer a larger project with a lower IRR to a much smaller project with a higher IRR, because of the higher cash flows generated by the larger project.
+
+Read more: [IRR Rule Definition | Investopedia](http://www.investopedia.com/terms/i/internal-rate-of-return-rule.asp#ixzz4F3PzfePC)]
+
+  - *IRR* for Option A = 28% (We can know the from the row **balance** inside *table 2.1.3* is nearest to 0 compare to other rates)^[You can apply FinCal::irr() in package [FinCal](https://cran.r-project.org/web/packages/FinCal/index.html) to calculate the IRR.] 
+  - *IRR* for Option B = 9% (We can know the from the row **balance** inside *table 2.1.3* is nearest to 0 compare to other rates)^[You can apply FinCal::irr() in package [FinCal](https://cran.r-project.org/web/packages/FinCal/index.html) to calculate the IRR.]
+
+## 2.2 Part 2
+
+>  Based on what you calculated in Part 1, which option would you recommend to Cut Here management?
+
+  - *Payback* for project A is 3.29 Years and 5.57 years for project B. Means that the cost invested on project A will be even on 3.29 years and begin make money after that.
+  - *Accounting Rate of Return* for project A is 23.33% and project B is 11.13%. Since the average return for project A across 6 years around 23.33% and it is better than project B.
+  - *NPV* for project A is favor and profitable investment, but for project B is not a profitable investment since a big portion of return will be cash in in the 6th years.
+  - *IRR* for project A is higher than project B, therefore it is more preferable to investors. The higher the IRR on a project and the greater the amount by which it exceeds the cost of capital, the higher the net cash flows to the investor.^[You can refer to [2.1.4 Internal Rate of Return] for more details.]
+  
+  A health cashflow need to be smoothly and project A can make it, while the project B will faced cash flow problem and might looking for loan from bank before 6th year (if that is an opprtunity cost for company which is the company has no extra cash).
+  
+  From the project A, we can conclude that it is profitable from a short term period. The project B might probably a very huge project, for example a telecomunication company might invest a huge fund but there will be a profitable project for long term. Who knows year 7 will generates millions return? For example, George Soros and a lot of hedge fund will using few years time to observe and make an unexpected high return during financial crisis once.
+  
+  As a businessman, project A will be faster to make profit, and will not face a tigh cashflow problem compare to project B, and it is worth to invest unless the businessman has sufficient fund for cashflow before year 6, then it will be different story.
+
+## 2.3 Part 3
+
+### 2.3.1 Payback Time
+
+  - **Advantages**
+    + Payback time is measuring about the time to recover the cost invested on a project prior to make profit.
+    + Risk indicator, the longer time taken to get the money back from investment, the higher risk of uncertainty.
+  - **Disadvantages**
+    + Doesn't measure the time value of money.
+    + Doesn't shows the cash flow.
+    + Doesn't shows the profitability rate.
+
+### 2.3.2 Accounting Rate of Return
+
+  - **Advantages**
+    + Accounting based report to calculate the rate of return
+  - **Disadvantages**
+    + Normally apply quarterly or annually.
+    + Cash basis might not accurate.
+
+### 2.3.3 Net Present Value
+
+  - **Advantages**
+    + Time value of money take into account. It is useful especially for long-term project.
+    + Cash basis.
+    + Allow to compare the future cash flow onto today's value.
+    + NPV tell us how much will payback accross the years after counting the time value of money.
+  - **Disadvantages**
+    + Normally annum rate basis might not accurate as daily basis.
+    + Assumption can lead to different results.
+    + Inflation rate might need to consider.
+    + Uncertainty.
+
+### 2.3.4 Internal Rate of Return
+
+  - **Advantages**
+    + Measure if the investment is worth or not before take action.
+    + Time value of money take into account. It is useful especially for long-term project.
+  - **Disadvantages**
+    + Uncertainty.
+    + Inflation rate might need to consider.
+
+### 2.3.5 Other Factors
+
+  With merely consider of cashflow issue, invest in project A is better than project B. However it is depends on the size of invested project as well.
+  
+  Secondly, Kodak and FujiFilm, Nokia and Siemens are samples in their industry which was dropped in business revenue after launch of Apple iPhone with multiple functions not only phone calls but also includes digital camera, photo, video, online and also apps. The decision making, and research and development need to be considered as well.
+  
+  Thirdly, the turnover of staffs might be another factor. Since the training cost for replace existing skilled staffs might be a sunk cost paid on the resigned/sacked employees. Jack Welch is a management guru who always emphasize on quality. Research and development is the core of business of GE to keep as one of leading company in the World.
+
+![Jack Welch](figure/jack-welch.jpg)
+
+![Jack Welch Quote](figure/jack-welch-quotes.jpg)
+
+  Fourthly, the risk of political barriers and social, environment etc. are other risks that we need to consider.
+
+```{r, echo = FALSE, results = 'asis'}
+## Set options back to original options
+options(op)
+```
+
+# 3. Conclusion
+
+  [2.3 Part 3] has concludes the assignment. However there has a lot of factors we need to take into consideration but not merely on accounting figures.
+
+  You might refer to below reference as well.
+
+```
+## Cumulative Cash Flow
+
+                  Option A  Option B  Option A  Option B
+Immediate outflow $100,000  $250,000  $100,000  $250,000
+Cash Savings
+Year 1            10,000    1,000     (90,000)  (249,000)
+Year 2	          50,000    2,000     (40,000)	(247,000)
+Year 3	          20,000    3,000     (20,000)	(244,000)
+Year 4	          70,000    1,000     50,000    (243,000)
+Year 5            80,000    20,000    130,000   (223,000)
+Year 6            10,000    390,000   140,000   167,000
+
+## Part 1
+
+Payback	Option A:
+Payback = 3+(20,000/70,000) = 3.29	Years
+
+Option B:
+Payback = 6 + (167,000/223,000) = 6.75	Years
+
+ARR	Option A:
+ARR = 140,000/100,000 = 140%
+
+Option B:
+ARR = 167,000/250,000= 0.67%
+
+NPV
+Assuming the discount rate = 0
+
+Present Value (in thousands unit)
+      Option A      Option B     Option A Option B
+T=0   -100/(1+0)^0  -250/(1+0)^0 (100)	  (250)
+T=1   10/(1+0)^1    1/(1+0)^1    10       1
+T=2   50/(1+0)^2    2/(1+0)^2    50       2
+T=3   20/(1+0)^3    3/(1+0)^3    20       3
+T=4   70/(1+0)^4    1/(1+0)^4    70       1
+T=5   80/(1+0)^5    20/(1+0)^5   80       20
+T=6   10/(1+0)^6    390/(1+0)^6  10       390
+NPV                              140      167
+
+IRR
+
+Option A:
+IRR = -100,000+(10,000/(1+r)^1)+(50,000/(1+r)^2)+(20,000/(1+r)^3)+(70,000/(1+r)^4)+(80,000/(1+r)^5)+(10,000/(1+r)^6)=0
+= 0.2781 = 27.81%
+
+Option B:
+IRR = -250,000+(1,000/(1+r)^1)+(2,000/(1+r)^2)+(3,000/(1+r)^3)+(1,000/(1+r)^4)+(20,000/(1+r)^5)+(390,000/(1+r)^6)=0
+= 0.0909 = 9.09%
+
+## Part 2
+
+According to the above, it would recommend Option A to Cut Here.
+
+## Part 3
+
+Strength Weakness
+
+  - Payback Simple and easily understand The Present Value of money does not include for the consideration
+  - ARR Simple and easily understand The Present Value of money does not include for the consideration
+  - The cash flow of each year does not include for the consideration
+  - NPV "The Present Value of money includes for the consideration"	The size of the project does not include for consideration.
+  - "The cash flow of each year includes for the consideration"
+  - IRR "The Present Value of money includes for the consideration"	Difficult for the determination and understand
+  - "The cash flow of each year includes for the consideration"	Only base on one assumption
+  - As there is no interest rate given to compute the NPV and IRR, so the value of those cannot be deteremine accurately.
+```
+
+  As mentioned in section [Speech and Blooper], I need to self improve in financial statement analysis section but also products my research [Analyse the Finance and Stocks Price of Bookmakers](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers).
+
+# 4. Appendices
+
+  - Section [4.1 Documenting File Creation]
+  - Section [4.2 Versions' Log]
+  - Section [4.3 Speech and Blooper]
+  - Section [4.4 References]
+
+## 4.1 Documenting File Creation
+
+  It's useful to record some information about how your file was created.
+  
+  - File creation date: 2016-07-08
+  - File latest updated date: `r Sys.Date()`
+  - `r R.version.string`
+  - R version (short form): `r getRversion()`
+  - [**rmarkdown** package]() version: `r packageVersion('rmarkdown')`
+  - [**tufte** package](https://github.com/rstudio/tufte) version: `r packageVersion('tufte')`
+  - File version: 1.0.0
+  - Author Profile: [®γσ, Eng Lian Hu](https://beta.rstudioconnect.com/englianhu/ryo-eng/)
+  - GitHub: [Source Code](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/tree/master/2%20Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions)
+  - Additional session information:
+
+```{r info, echo = FALSE, results = 'asis'}
+lubridate::now()
+devtools::session_info()$platform
+Sys.info()
+```
+
+## 4.2 Versions' Log
+
+  - *July 08, 2016*: [version: 1.0.0](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/2%20Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/Module-02-Assignment.Rmd)
+
+## 4.3 Speech and Blooper
+
+  I do appreciate that [University of Illinois at Urbana–Champaign](http://illinois.edu/) provides the [Improving Business Finances and Operations](https://www.coursera.org/specializations/business-operations) specialization via [Coursera](http://www.coursera.org). I used to study [Certified Accounting Technician (CAT)](http://www.accaglobal.com/ie/en/student/exam-support-resources/foundation-level-study-resources.html) course at [PAAC](http://www.paac.edu.my/index.php?p=location) more more decade. Now I need to review the finance and accounting course prior to conduct my research [Analyse the Finance and Stocks Price of Bookmakers](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers).
+  There are few books that I need to read for further understanding.
+  - [Managerial Accounting](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/2%20Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/data/Managerial%20Accounting.pdf)
+  - [**Financial Statement** A Step-by-Step Guide to Understanding and Creating Financial Reports *by Thomas R. Ittelson 2009*](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers/blob/master/data/finance.pdf)
+
+## 4.4 References
+
+  1. NA

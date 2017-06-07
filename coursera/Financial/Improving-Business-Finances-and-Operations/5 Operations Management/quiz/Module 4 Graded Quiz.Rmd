@@ -1,0 +1,101 @@
+---
+title: "Module 4 Graded Quiz"
+author: "®γσ, Eng Lian Hu"
+date: "June 12, 2016"
+output: word_document
+---
+
+# Module 4 Graded Quiz
+
+10 questions
+
+*Correct 1/1 points*
+
+1. What type of statistical process control (SPC) chart is used to monitor the number of defects per sample of constant size?
+
+- A. p-chart
+- B. X-bar chart
+- C. R-chart
+- **D. c-chart**
+
+*Correct 1/1 points*
+
+2. Which of the following is not an element of quality management programs?
+
+- **A. Centralized decision-making authority**
+- B. Continuous improvement
+- C. Committed leadership
+- D. Employee participation
+
+*Correct 1/1 points*
+
+3. Which of the following is an indirect benefit of improved quality?
+
+- **A. Improved image**
+- B. Reduced cost of inspection
+- C. Reduced scrap
+- D. Reduced rework
+
+*Correct 1/1 points*
+
+4. Designating a process to be capable using process capability analysis indicates it:
+
+- **A. Meets customer specifications**
+- B. Is ISO 9000 certified
+- C. Has good management support
+- D. Is ISO 14000 certified
+
+*1 point*
+
+5. Costs of quality may be divided into costs associated with:
+
+- A. Customers, developers, and maintenance3
+- B. Prevention, appraisal, and failure
+- **C. Planning, control, and improvement**1
+- D. People, process, and product2
+
+*Correct 1/1 points*
+
+6. Which one of the following would not be categorized as a prevention cost incurred for producing good quality?
+
+- A. Additional cost for robust product design
+- B. Employee training for continuous improvement
+- **C. Cost incurred for testing**
+- D. Labor hours for preventive maintenance of equipment
+
+*1 point*
+
+7. What type of statistical process control (SPC) chart is used to monitor fraction defective?
+
+- A. R-chart2
+- B. X-bar chart3
+- **C. c-chart**1
+- D. p-chart
+
+*Correct 1/1 points*
+
+8. Included in the focus of the gaps model of service quality is the:
+
+- A. Customer-provider-government regulator trio
+- **B. Difference between customer expectations and perceptions**
+- C. Tangible dimension of service quality
+- D. Constant need to provide value for dollars spent
+
+*Correct 1/1 points*
+
+9. Proactive quality management includes the notion of:
+
+- A. Needing to find out who is responsible for the quality problem
+- B. Minimizing additional costs of quality improvement
+- C. Getting the service to the customer as inexpensively as possible
+- **D. Frontline employee empowerment**
+
+*Correct 1/1 points*
+
+10. Which one of the following is true about statistical process control (SPC) charts?
+
+- A. Designers always set upper and lower limits for statistical process control (SPC) charts.
+- B. Statistical process control (SPC) chart limits are set outside the specification limits.
+- **C. Statistical process control (SPC) charts do not always prevent poor quality output.**
+- D. Control limits for statistical process control (SPC) charts should equal specification limits to prevent any output outside specification.
+

@@ -1,0 +1,466 @@
+---
+title: "[Financial Evaluation and Strategy: Corporate Finance](https://www.coursera.org/learn/corporate-finance/home/welcome) : *Module 3*"
+subtitle: "[Improving Business Finances and Operations Specialization](https://www.coursera.org/specializations/business-operations) by University of Illinois at Urbana-Champaign"
+author: "[®γσ, Eng Lian Hu](http://englianhu.wordpress.com) <img src='figure/ShirotoNorimichi2.jpg' width='24'> 白戸則道®"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html:
+    toc: yes
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r load-pkgs, include = FALSE}
+suppressMessages(library('plyr'))
+pkgs <- c('BBmisc', 'plyr', 'dplyr', 'magrittr', 'knitr', 'DT', 'formattable', 'lubridate', 'FinCal', 'networkD3')
+suppressMessages(l_ply(pkgs, library, character.only = TRUE))
+rm(pkgs)
+
+## Set the googleVis options first to change the behaviour of plot.gvis, so that only the chart 
+##  component of the HTML file is written into the output file.
+op <- options(gvis.plot.tag = 'chart')
+```
+
+# 1. Introduction
+
+  - Section [1.1 Overview]
+  - Section [1.2 Review criteria]
+  - Section [1.3 Instructions]
+  - Section [1.4 Reminders]
+
+## 1.1 Overview
+
+**Instructions**
+
+  The purpose of this assignment is to give you the opportunity to apply the concepts you have learned in this module and to discuss some of the key ideas of the module in your own words. Follow the instructions provided and respond to each question. This a required activity for this module. The activity is peer reviewed, so after you submit your responses, you will review submissions by fellow learners in the course.
+
+## 1.2 Review criteria
+
+  For [Assignment #3](https://www.coursera.org/learn/corporatefinance/lecture/rIpmd/assignment-3-discussion), you will be responsible for evaluating the submissions of THREE of your peers. Before evaluating, please see the video I prepared with my discussion of the answers to [Assignment #3](https://www.coursera.org/learn/corporatefinance/lecture/rIpmd/assignment-3-discussion).
+
+  [Assignment #3](https://www.coursera.org/learn/corporatefinance/lecture/rIpmd/assignment-3-discussion) is worth 100 points total. Points are only given for correct/reasonable answers in the manner specified below, incorrect/unreasonable answers get zero points. Points should be allocated as follows:
+
+**Question 1**
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 1 paragraph)
+
+**Question 2**
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures.
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 1 paragraph).
+
+**Question 3**
+
+  - 10 points for figuring out what is the NPV.
+  - 5 points for an incomplete answer.
+
+**Question 4**
+
+  - 10 points a reasonable answer that is based on the arguments that we discussed in the lectures.
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 1 paragraph).
+
+**Question 5**
+
+  - 10 points for the correct cash flows.
+  - 5 points for an answer that is partially correct.
+
+**Question 6**
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures.
+  - 5 points for an incomplete answer.
+
+**Question 7**
+
+  - 20 points for a complete answer that is correct. To get 20 points the student should set up the decision tree correctly, and calculate the correct NPV.
+  - 15 points for a good answer that has calculation mistakes. For example if the student sets up the right decision tree but makes a calculation mistake to get the NPV.
+  - 10 points for an incomplete answer.
+
+**Question 8**
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures.
+  - 5 points for an incomplete answer.
+
+**Question 9**
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures.
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 1 paragraph).
+
+**Recommendations for Fair Peer Review:**
+
+  For questions that require calculations only, the score should be based on whether or not the answer provided is correct.
+
+  For subjective questions, the score should not be based on whether or not you agree with the answer, rather on whether the answer is complete and well-supported.
+
+  Both content and organization are important components of a response. Good writing is confident and clearly focused with relevant details to enrich the content. Good writing also follows instructions, such as word limits, and offers requested information.
+
+  A clear and concise answer is preferable to a long response that lacks coherence. Focus should be on content; try not to unduly penalize responses for spelling or grammar.
+
+## 1.3 Instructions
+
+  There are multiple steps to this assignment.
+
+  First, you will submit your answers to each of the questions based on the information in the Assignment Details section. Enter your answers directly in the spaces provided in the **My submission** tab. You may save a draft of your work as you go, and you can come back later to continue working on your draft. When you are finished working, click the **Preview** button, verify your identity, and then Submit the assignment. Please answer each question fully and concisely.
+
+  Then, you will evaluate the submissions of **at least THREE** of your peers based on the instructions provided. You may begin giving feedback to other students as soon as you submit your assignment, click the **Review peers** tab to begin. Feel free to provide additional reviews beyond the three required!
+
+  **Assignment 3 is described in [Video Lesson 3-13](https://www.coursera.org/learn/corporatefinance/lecture/L5mWx/assignment-3-overview), you should watch this video before doing the assignment.**
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gnjLwjPF7gQ" frameborder="0" allowfullscreen></iframe>
+
+  The discussion of the assignment solution is provided in Video Lesson 3-14. Do the assignment on your own first, before viewing the assignment discussion video! Please view the assignment discussion video before completing the review of your peers.
+
+## 1.4 Reminders
+
+**Using the Forums**
+
+  Your fellow students are a great resource, and we encourage you to sharpen your ideas against them in the forums. You can post your arguments in the Module 1 Forum and receive feedback before submitting this assignment. Additionally, make sure to pay attention to posts from the instructors, which are intended to spur conversation on topics related to the week's theme.
+
+**Honor Code**
+
+  Please remember that you have agreed to the Honor Code, and your submission should be entirely yours. Our definition of plagiarism follows from standard literature: passing off someone else's work as your own, whether from your peers or Wikipedia. If you need to quote material, remember to cite your source, for example: "But, as expressed by Spinoza, all things excellent are as difficult as they are rare (Baruch Spinoza, "Ethica" source: thinkexist.com)."
+
+# 2. Case Study
+
+  - Section [2.1 Question 1]
+  - Section [2.2 Question 2]
+  - Section [2.3 Question 3]
+  - Section [2.4 Question 4]
+  - Section [2.5 Question 5]
+  - Section [2.6 Question 6]
+  - Section [2.7 Question 7]
+  - Section [2.8 Question 8]
+  - Section [2.9 Question 9]
+
+## 2.1 Question 1
+
+**Question**:
+
+> Explain why is it that a company that takes all projects that have positive NPV will end up maximizing shareholder value. Why is market efficiency an important condition behind the equivalence of NPV and shareholder value maximization ? (1 paragraph)
+
+**Answer**:
+
+```
+  - NPV is a measurement on the return of the investment on a project.
+  - Normally, the stocks price of the business group will increse once a company announced acquisation of a profitable (positive NPV) project.
+  - Basically it is consider as efficient market since the postive valued project will cause increasing of stocks price.
+```
+
+```{r data2-1, echo = FALSE, results = 'asis'}
+npv <- suppressMessages(data_frame(Category = c('Immediate Outflow', 'Cash Savings', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6'), Option.A = c(-100000, NA, 10000, 50000, 20000, 70000, 80000, 10000), Option.B = c(-250000, NA, 1000, 2000, 3000, 1000, 20000, 390000)) %>% mutate(
+    NPV.A.13 = round(`Option.A` / 1.13^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.09 = round(`Option.B` / 1.09^c(0, 0, seq(1, 6)), 2), 
+    NPV.A.18 = round(`Option.A` / 1.18^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.11 = round(`Option.B` / 1.11^c(0, 0, seq(1, 6)), 2), 
+    NPV.A.25 = round(`Option.A` / 1.25^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.13 = round(`Option.B` / 1.13^c(0, 0, seq(1, 6)), 2), 
+    NPV.A.28 = round(`Option.A` / 1.28^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.15 = round(`Option.B` / 1.15^c(0, 0, seq(1, 6)), 2), 
+    NPV.A.16 = round(`Option.A` / 1.16^c(0, 0, seq(1, 6)), 2), 
+    NPV.B.16 = round(`Option.B` / 1.16^c(0, 0, seq(1, 6)), 2)))
+
+dat1b <- data.frame(Category = c('Total in 6 Years', 'Difference'), rbind(data.frame(t(data.frame(colSums(npv[-c(1:2), -1])))), t(data.frame(colSums(npv[-c(1:2), -1]))) + data.frame(npv[1, -1])))
+rownames(dat1b) <- NULL
+
+npv <- rbind(data.frame(npv), dat1b) %>% tbl_df
+npv %>% formattable(
+    list(
+        Option.A = color_tile('white', 'darkgoldenrod'), 
+        Option.B = color_tile('white', 'darkgoldenrod'), 
+        NPV.A.13 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.09 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.A.18 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.11 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.A.25 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.13 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.A.28 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.15 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.A.16 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+        NPV.B.16 = formatter(
+            'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+            x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x)))
+    )
+) %>% as.htmlwidget
+```
+
+*table 2.1.1: Example of NPV of project A and project B of a company.*
+
+  Kindly refer to **2.1.3 Net present value** inside [**Managerial Accounting: Tools for Facilitating and Guiding Business Decisions** : *Module 2 Mini-Project*](http://englianhu.github.io/2016/07/Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/Module-02-Assignment.html#net-present-value)^[Please refer to [Alternative link](http://rpubs.com/englianhu/194583) if primary link is corrupted] for a case study on return of investment on two options.
+
+**What is 'Net Present Value - NPV'**?
+
+  Net Present Value (NPV) is the difference between the present value of cash inflows and the present value of cash outflows. NPV is used in [capital budgeting](http://www.investopedia.com/terms/c/capitalbudgeting.asp) to analyze the profitability of a projected [investment](http://www.investopedia.com/terms/i/investment.asp) or project. 
+
+  The following is the formula for calculating NPV: 
+
+$NPV = \sum_{t=1}^{T}\frac{C_{t}}{(1+r)^t}-C_{o}$
+
+  Net Present Value (NPV)
+
+where
+
+$C_{t} = net\ cash\ inflow\ during\ the\ period\ t$
+
+$C_{o} = total\ initial\ investment\ costs$
+
+$r = discount\ rate,\ and$
+
+$t = number\ of\ time\ periods$
+
+  A positive net present value indicates that the projected earnings generated by a project or investment (in present dollars) exceeds the anticipated costs (also in present dollars). Generally, an investment with a positive NPV will be a profitable one and one with a negative NPV will result in a net loss. This concept is the basis for the Net Present Value Rule, which dictates that the only investments that should be made are those with positive NPV values.
+
+  When the investment in question is an acquisition or a merger, one might also use the Discounted Cash Flow (DCF) metric.
+
+  Apart from the formula itself, net present value can often be calculated using tables, spreadsheets such as Microsoft Excel or Investopedia’s own NPV calculator.
+
+  Read more: [Net Present Value (NPV) Definition | Investopedia](http://www.investopedia.com/terms/n/npv.asp#ixzz4FiDGwChs )
+
+## 2.2 Question 2
+
+**Question**:
+
+> Does the NPV rule (take all positive NPV projects) guarantees that a company will make socially responsible investments ? You may need to recap lecture 1 to answer this question. (1 paragraph)
+
+**Answer**:
+
+```
+  - For some business, NPV assures shareholder value maximization but will generate conflicts between stakeholders and social resposibility.
+  - For example: gambling, tobacco, heroin, opium, wine and brothel business will generate social issues but it will generate profit to company.
+```
+
+## 2.3 Question 3
+
+**Question**:
+
+> What is the present value of a growing perpetuity that generates a cash flow of 35 next year and grows at a rate of 7% a year forever, if the discount rate is 5% a year? (Hint : it is not a negative number !)
+
+**Answer**:
+
+```
+  - 35 ÷ (5% - 7%) = -1,750
+  - In theory, if the growth rate is higher than the discount rate, the growing perpetuity would have an infinite value.
+```
+
+![*Equation 2.3.1: Present Value of Growing Perpetuity*](figure/PV.gif)
+
+  The present value of a growing perpetuity formula is the cash flow after the first period divided by the difference between the discount rate and the growth rate.
+
+  A growing perpetuity is a series of periodic payments that grow at a proportionate rate and are received for an infinite amount of time. An example of when the present value of a growing perpetuity formula may be used is commercial real estate. The rental cash flows could be considered indefinite and will grow over time.
+
+  It is important to note that the discount rate must be higher than the growth rate when using the present value of a growing perpetuity formula. This is due to the present value of a growing perpetuity formula being an infinite geometric series as explained in one of the following sections. **In theory, if the growth rate is higher than the discount rate, the growing perpetuity would have an infinite value**.
+
+  Kindly refer to [Present Value of Growing Perpetuity](http://www.financeformulas.net/Present_Value_of_Growing_Perpetuity.html) for more information.
+
+## 2.4 Question 4
+
+**Question**:
+
+> Explain why the IRR rule (take projects with IRR greater than the discount rate) is equivalent to the NPV rule (take projects with positive NPV). What are the conditions that you need to check to make sure that you can compute IRR ? (1 paragraph)
+
+**Answer**:
+
+  We can know from *table 2.1.1* where :
+  
+  - IRR of `Option.A` = `r paste0(round(irr(npv[[2]][c(1, 3:8)]) * 100, 2), '%')`
+  - IRR of `Option.B` = `r paste0(round(irr(npv[[3]][c(1, 3:8)]) * 100, 2), '%')`
+  
+  A positive in row `Difference`: A positive net present value indicates that the projected earnings generated by a project or investment (in present dollars) exceeds the anticipated costs (also in present dollars). **Generally, an investment with a positive NPV will be a profitable one and one with a negative NPV will result in a net loss**. This concept is the basis for the Net Present Value Rule, which dictates that the only investments that should be made are those with positive NPV values.
+
+  Read more: [Net Present Value (NPV) Definition | Investopedia](http://www.investopedia.com/terms/n/npv.asp#ixzz4FoSMAE4m)
+
+  Kindly refer to **2.1.3 Net present value** inside [**Managerial Accounting: Tools for Facilitating and Guiding Business Decisions** : *Module 2 Mini-Project*](http://englianhu.github.io/2016/07/Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/Module-02-Assignment.html#net-present-value)^[Please refer to [Alternative link](http://rpubs.com/englianhu/194583) if primary link is corrupted] for a case study on return of investment on two options.
+
+## 2.5 Question 5
+
+**Question**:
+
+> Leather Goods Inc. wants to expand its product line into wallets. The required initial outlay is $700,000. They expect to sell 150,000 units per year, and their planning horizon is 5 years. The price of wallets is estimated to be equal to $12 for the entire period, and the costs of production are $9 per unit for the entire period. However, the company expects the wallet project to erode $200,000 of the yearly sales of the existing products of the company. In addition, they estimate that competitors, who produce similar wallets, will erode $100,000 of the firm’s current sales if the wallet project does not go through. If the wallet project does go through, erosion from competitors is going to be equal to 50,000. Assume no salvage value (the project is worth zero after the end of 5 years), no taxes, no working capital and straight line depreciation. Draw a time line with the relevant cash flows for the wallet project. There is no need to compute IRR or NPV.
+
+**Answer**:
+
+```{r Q5A, echo = FALSE, results = 'asis'}
+dat5A <- data_frame(Time = 0:5, NPV = c(-700000, 450000, 450000, 450000, 450000, 450000))
+
+dat5A %>% formattable %>% as.htmlwidget
+```
+
+  *table 2.5.1: NPV of Leather Goods Inc.*
+
+  - 150,000 units x (\$12 - \$9) = \$450,000 per year
+
+```{r Q5B, echo = FALSE, results = 'asis'}
+dat5B <- data_frame(`Old (no wallet project)` = c('Wallet cash flows = 0', 'Erosion of existing cash flows = 0', 'Erosion of existing cash flows from competitors = -$100,000'), 
+                    `New (wallet project)` = c('Wallet cash flow = +$450,000', 'Erosion of existing cash flows = -$200,000', 'Erosion of existing cash flows from competitors = -$50,000'), 
+                    `Old - New` = c('Wallet cash flows = +$450,000', 'Erosion of existing cash flows = -$200,000', 'Erosion of existing cash flows from competitors = +$50,000'))
+
+dat5B %>% formattable %>% as.htmlwidget
+```
+
+  *table 2.5.2: Summary of Leather Goods Inc.'s projects*
+
+  - Wallet project reduces erosion from competitors.
+  - `Old - New` has incremental cash flow $300,000.
+
+```{r Q5C, echo = FALSE, results = 'asis'}
+dat5A %>% mutate(new.NPV = c(-700000, 300000, 300000, 300000, 300000, 300000)) %>% formattable %>% as.htmlwidget
+```
+
+  *table 2.5.3: Summary of Leather Goods Inc.'s new cash flow statement.*
+
+## 2.6 Question 6
+
+**Question**:
+
+> You are considering whether to enroll in a full time MBA at an annual after-tax cost of 200,000 including tuition and all living expenses. The program lasts two years. You estimated that after the program ends, you will be able to increase your lifetime, after-tax earnings by 700,000. Is the MBA a positive NPV investment for you?
+
+**Answer**:
+
+```
+  - Total Cost : $200,000 x 2 years = $400,000
+  - Life-time Earnings = $700,000
+  - NPV : $700,000 - $400,000 = $300,000 (since the student might pursuite for MBA degree after Bachelor degree)
+  - Due to question doesn't mention the person is an employee or student. Might be there is a student or an employee? Here I rejected the answer from Lecturer Heitor Almeida.
+```
+
+## 2.7 Question 7
+
+**Question**:
+
+> You work for a pharmaceutical company that is developing a new drug to reduce cholesterol. Based on current information, the drug’s NPV is estimated to be 200 million dollars. You are trying to decide whether it is worth undertaking additional research before launching the drug. Specifically, you want to find out whether the drug can also be sold to pregnant women. Right now the drug is not approved to be used for that group. This R&D will cost 10 million dollars, and will last for one year. If the research turns out to be positive, you can increase the drug’s NPV to 250 million (in one year). But if the research turns out negative results you have to go back to the original plan. In that case the NPV of the drug is still 200 million (next year). The probability of success is 30%, and the discount rate is 10%. Should you launch the drug today, or should you do additional research and wait until next year?
+
+**Answer**:
+
+```
+  - Trade-off
+  - Waiting will cost 10M (R&D cost) and reduce the NPV if the research is not sucessful.
+  - The NPV will be increased from 200M to 250M if the research is sucessful.
+```
+
+```{r Q2-7, echo = FALSE, results = 'asis'}
+structure(list(name = "10M investment", 
+          children = list(structure(list(name = "30% (Success - NPV = 250M)", size = 3938L), .Names = c("name", "size")), 
+          structure(list(name = "70% (Failure - NPV = 200M)", size = 3812L), .Names = c("name", "size"))))) %>% diagonalNetwork(fontSize = 24, height = 'auto', width = 'auto', opacity = 1.6)
+```
+
+  *figure 2.7.1: diagram of investment and NPV of the project.*
+
+  - **Launch the drugs today** : NPV = 200
+  - **Launch the drugs tomorrow** : $NPV = -10 + (30\% x 250 + 70\% x 200)/(1 + 10\%)$ = `r -10 + (0.3 * 250 + 0.7 * 200) / (1 + 0.1)`
+
+## 2.8 Question 8
+
+**Question**:
+
+> Consider the gold mine problem we discussed in the lecture notes. Your task is to show that if the cost of closing the gold mine is zero (we called this cost the “decomissioning cost”), then it will never make sense to wait a year to get more information about gold prices. There is no need to do math, a logical argument should suffice. But you can do math if you would like to.
+
+**Answer**:
+
+```{r Q2-8A, echo = FALSE, results = 'asis'}
+structure(list(name = "Profit", 
+          children = list(structure(list(name = "Profit", size = 3938L), .Names = c("name", "size")), 
+          structure(list(name = "Loss", size = 3812L), .Names = c("name", "size"))))) %>% diagonalNetwork(fontSize = 24, height = 'auto', width = 'auto', opacity = 1.6)
+```
+
+  *figure 2.8.1: diagram of profit and loss upon closing the gold mining business now.*
+
+```{r Q2-8B, echo = FALSE, results = 'asis'}
+structure(list(name = "0 (no loss)", 
+          children = list(structure(list(name = "Profit", size = 3938L), .Names = c("name", "size")), 
+          structure(list(name = "0 (no loss)", size = 3812L), .Names = c("name", "size"))))) %>% diagonalNetwork(fontSize = 24, height = 'auto', width = 'auto', opacity = 1.6)
+```
+
+  *figure 2.8.2: diagram of profit and loss upon closing the gold mining business next year.*
+
+  - If the cost of closing the mine is zero, then you would never wait.
+  - The main benefit of waiting is zero loss if the gold price goes down.
+  - Since the question doesn't mention cost of setup gold mining business. Therefore we unable say close with zero loss and reopen is a good option.
+
+## 2.9 Question 9
+
+**Question**:
+
+> Explain why the option to wait is more valuable when investments are irreversible. (1 paragraph)
+
+**Answer**:
+
+  - Irreversible investment is very risky. Once the fund is invested, it can not be get the payback until completed the project.
+  - Therefore for the irreversible investment, better waiting and observe and evaluate prior to inject the fund into the pool.
+
+# 3. Conclusion
+
+  Below is the answer provided by lecturer. Kindly compare and watch as reference.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/P_-k7lAXlW8" frameborder="0" allowfullscreen></iframe>
+
+# 4. Appendices
+
+  - Section [4.1 Documenting File Creation]
+  - Section [4.2 Versions' Log]
+  - Section [4.3 Speech and Blooper]
+  - Section [4.4 References]
+
+## 4.1 Documenting File Creation
+
+  It's useful to record some information about how your file was created.
+  
+  - File creation date: 2016-07-23
+  - File latest updated date: `r Sys.Date()`
+  - `r R.version.string`
+  - R version (short form): `r getRversion()`
+  - [**rmarkdown** package](https://github.com/rstudio/rmarkdown) version: `r packageVersion('rmarkdown')`
+  - [**tufte** package](https://github.com/rstudio/tufte) version: `r packageVersion('tufte')`
+  - File version: 1.0.0
+  - Author Profile: [®γσ, Eng Lian Hu](https://beta.rstudioconnect.com/englianhu/ryo-eng/)
+  - GitHub: [Source Code](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/tree/master/4%20Financial%20Evaluation%20and%20Strategy%20-%20Corporate%20Finance)
+  - Additional session information:
+
+```{r info, echo = FALSE, results = 'asis'}
+lubridate::now()
+devtools::session_info()$platform
+Sys.info()
+```
+
+## 4.2 Versions' Log
+
+  - *July 23, 2016*: [version: 1.0.0](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/4%20Financial%20Evaluation%20and%20Strategy%20-%20Corporate%20Finance/Module-03-Assignment.Rmd)
+
+## 4.3 Speech and Blooper
+
+  I do appreciate that [University of Illinois at Urbana–Champaign](http://illinois.edu/) provides the [Improving Business Finances and Operations](https://www.coursera.org/specializations/business-operations) specialization via [Coursera](http://www.coursera.org). I used to study [Certified Accounting Technician (CAT)](http://www.accaglobal.com/ie/en/student/exam-support-resources/foundation-level-study-resources.html) course at [PAAC](http://www.paac.edu.my/index.php?p=location) more more decade. Now I need to review the finance and accounting course prior to conduct my research [Analyse the Finance and Stocks Price of Bookmakers](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers).
+  
+  There are few books below that I need to read for further understanding.
+  
+  - [Managerial Accounting](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/2%20Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/data/Managerial%20Accounting.pdf)
+  - [**Financial Statement** A Step-by-Step Guide to Understanding and Creating Financial Reports *by Thomas R. Ittelson 2009*](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers/blob/master/data/finance.pdf)
+  - [**Corporate Finance (3rd Edition)** *by Ivo Welch 2014*](http://book.ivo-welch.info/ed3/)
+
+## 4.4 References
+
+  1. [**Corporate Finance (3rd Edition)** *by Ivo Welch 2014*](http://book.ivo-welch.info/ed3/)
+  2. [**Financial Evaluation and Strategy:** *Corporate Finance : Module 2*](http://englianhu.github.io/2016/07/Financial%20Evaluation%20and%20Strategy%20-%20Corporate%20Finance/Module-02-Assignment.html), [**Alternative link**](http://rpubs.com/englianhu/198073)
+  3. [**Managerial Accounting: Tools for Facilitating and Guiding Business Decisions** : *Module 2 Mini-Project*](http://englianhu.github.io/2016/07/Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/Module-02-Assignment.html), [**Alternative link**](http://rpubs.com/englianhu/194583)
+

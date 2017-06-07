@@ -1,0 +1,412 @@
+---
+title: "[Financial Evaluation and Strategy: Corporate Finance](https://www.coursera.org/learn/corporate-finance/home/welcome) : *Module 2*"
+subtitle: "[Improving Business Finances and Operations Specialization](https://www.coursera.org/specializations/business-operations) by University of Illinois at Urbana-Champaign"
+author: "[®γσ, Eng Lian Hu](http://englianhu.wordpress.com) <img src='figure/ShirotoNorimichi2.jpg' width='24'> 白戸則道®"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html:
+    toc: yes
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r load-pkgs, include = FALSE}
+suppressMessages(library('plyr'))
+pkgs <- c('BBmisc', 'plyr', 'dplyr', 'magrittr', 'knitr', 'DT', 'formattable', 'lubridate')
+suppressMessages(l_ply(pkgs, library, character.only = TRUE))
+rm(pkgs)
+
+## Set the googleVis options first to change the behaviour of plot.gvis, so that only the chart 
+##  component of the HTML file is written into the output file.
+op <- options(gvis.plot.tag = 'chart')
+```
+
+# 1. Introduction
+
+  - Section [1.1 Overview]
+  - Section [1.2 Review criteria]
+  - Section [1.3 Reminders]
+
+## 1.1 Overview
+
+  The purpose of this assignment is to give you the opportunity to apply the concepts you have learned in this module and to discuss some of the key ideas of the module in your own words. Follow the instructions provided and respond to each question. This is a required activity for this module. The activity is peer reviewed, so after you submit your responses, you will review submissions by fellow learners in the course.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XSPZHzbjwyY" frameborder="0" allowfullscreen></iframe>
+
+## 1.2 Review criteria
+
+  For [Assignment #2](https://www.coursera.org/learn/corporatefinance/lecture/gJxul/assignment-2-discussion), you will be responsible for evaluating the submissions of THREE of your peers. Before evaluating, please see the video I prepared with my discussion of the answers to [Assignment #2](https://www.coursera.org/learn/corporatefinance/lecture/gJxul/assignment-2-discussion).
+
+  [Assignment #2](https://www.coursera.org/learn/corporatefinance/lecture/gJxul/assignment-2-discussion) is worth 100 points total. Points are only given for correct/reasonable answers in the manner specified below, incorrect/unreasonable answers get zero points. Points should be allocated as follows:
+
+### 1.2.1 Question 1
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 1 paragraph)
+
+### 1.2.2 Question 2
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 1 paragraph)
+
+### 1.2.3 Question 3
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 2 paragraph)
+
+### 1.2.4 Question 4-a
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 2 paragraph)
+
+### 1.2.5 Question 4-b
+
+  - 10 points for a reasonable answer that is based on the arguments that we discussed in the lectures
+  - 5 points for an incomplete answer or a correct answer that is too long (longer than 2 paragraph)
+
+### 1.2.6 Question 5-a
+
+  - 10 points for the correct cash flows
+  - 5 points for an answer that is partially correct
+
+### 1.2.7 Question 5-b
+
+  - 10 points for the correct cash flows
+  - 5 points for an answer that is partially correct
+
+### 1.2.8 Question 5-c
+
+  - 10 points for the correct cash flows
+  - 5 points for an answer that is partially correct
+
+### 1.2.9 Question 5-d
+
+  - 10 points for correctly explaining what happens at the end of the second year
+  - 5 points for an answer that is partially correct
+
+### 1.2.10 Question 5-e
+
+  - 10 points for a reasonable answer that correctly discusses the trade-off in light of the answers from a) to d)
+  - 5 points for an incomplete answer, for example if either the benefit or the cost of changing the system is not well explained
+
+### 1.2.11 Recommendations for Fair Peer Review:
+
+  - For questions that require calculations only, the score should be based on whether or not the answer provided is correct.
+  - For subjective questions, the score should not be based on whether or not you agree with the answer, rather on whether the answer is complete and well-supported.
+  - Both content and organization are important components of a response. Good writing is confident and clearly focused with relevant details to enrich the content. Good writing also follows instructions, such as word limits, and offers requested information.
+  - A clear and concise answer is preferable to a long response that lacks coherence.
+  - Focus should be on content; try not to unduly penalize responses for spelling or grammar.
+
+## 1.3 Reminders
+
+### 1.3.1 Using the Forums
+
+  Your fellow students are a great resource, and we encourage you to sharpen your ideas against them in the forums. You can post your arguments in the forums and receive feedback before submitting your assignment.
+
+### 1.3.2 Honor Code
+
+  Please remember that you have agreed to the Honor Code, and your submission should be entirely yours. Our definition of plagiarism follows from standard literature: passing off someone else's work as your own, whether from your peers or Wikipedia. If you need to quote material, remember to cite your source, for example: "But, as expressed by Spinoza, all things excellent are as difficult as they are rare (Baruch Spinoza, "Ethica" source: thinkexist.com)."
+
+# 2. Case Study
+
+  - Section [2.1 Question 1]
+  - Section [2.2 Question 2]
+  - Section [2.3 Question 3]
+  - Section [2.4 Question 4-a]
+  - Section [2.5 Question 4-b]
+  - Section [2.6 Question 5-a]
+  - Section [2.7 Question 5-b]
+  - Section [2.8 Question 5-c]
+  - Section [2.9 Question 5-d]
+  - Section [2.10 Question 5-e]
+
+## 2.1 Question 1
+
+**Question**:
+
+> You are the CFO of a small manufacturing company, and you just figured out that your company will need to raise 30 million dollars to finance an expansion plan. The company will likely not need the 30 million now, but only in a few years as capital expenditure needs grow. You are considering two options. Option 1 is to wait until the future capital expenditure needs arise to borrow money. The second option is to borrow now, and retain the funds in the balance sheet. Discuss the trade-off that you would need to consider before making this decision (1 paragraph maximum).
+
+**Answer**:
+
+### Option 1
+
+**borrow money when needed**:
+
+  - **Advantage**: 
+    + Company can save the interest paid for the loan.
+  - **Disadvantage**: 
+    + Need to think of financing problem when needed.
+  
+### Option 2
+
+**borrow money now for future use**:
+
+  - **Advantage**: 
+    + Company can budget a portion for other short term investment provided receivable/payback prior to start the 30 million dollars project.
+    + Ease on the cash flow of company due to sufficient cash.
+    + The fund might be spared for emergency use when needed. Provided it may not affect the launching of planed project.
+  - **Disadvantage**: 
+    + Need to bear the interest paid to bank(s) / bonds.
+    + Need to bear the depreciation of time value of money (NPV) if the mentioned fund just put idle. 
+
+## 2.2 Question 2
+
+**Question**:
+
+> Explain why an increase in accounts receivable is a short-term investment in the business. (1 paragraph maximum)
+
+**Answer**:
+
+  - Receivable debt increase the sales for company.
+  - For example, a sportsbook hedge fund invest (place bets) on a credit market company,(let say Maxbet or Crown etc.) the return from the staking on the credit market can increase the profit. (Normally cash market company set a low staking limit for customers compare to credit market)
+  - It consider as short-term investment, let say placed GBP100,000 on multiple soccer matches with average odds price 1.25, the return of GBP120,000 is a profitable investment.
+  - **It might consider as an investment for trust, because the credit line might expend the future sales based on the credence.**
+
+## 2.3 Question 3
+
+**Question**:
+
+> You are the CFO of a small retailing business that has strong seasonality in sales. Your business consistently generates negative cash flow in the first two quarters, though cash flow is positive if you consider the year as a whole (sales are strong in the third and fourth quarters). Which options does the CFO have to manage this company’s short term finances ? (2 paragraphs maximum)
+
+**Answer**:
+
+  - Bank loan for 3 quaters (if avaiable, since interest rate paid for annual bank loan will be higher) since the cash flow is positive from 3rd quater.
+  - Sufficient cash might make the operation running smoothly in first two quarters. (to offset the financial problems like overhead cost and fixed cost etc for first two quarters)
+
+## 2.4 Question 4-a
+
+**Question**:
+
+> You are the CFO of a medium-sized Agribusiness, and you have negotiated favorable terms to pay for supplies of seeds and equipment. Your suppliers allow you to pay for most these necessary inputs at the end of harvest, after you have sold your main crops. After harvest, your business needs to restock on seeds and equipment for next year's harvest. As as a result of this business model, your Agribusiness carries a significant amount of accounts payable throughout the year.
+
+> Explain why this business model creates liquidity risk for the company. (1 paragraph maximum)
+
+**Answer**:
+
+  - Liquidity risk might be facing since some suppliers might ask for payment before harvested.
+  - CFO needed to ask for the delay of payment after harvested since the company faced shortage of cash.
+  - The credit line business might create a win-win situation for suppliers and also the company. Suppliers can get profit the business even though it is not receive immediate but reacivable annually. Meanwhile, the company can operate the business smoothly with sufficient fund to harvest and generates profit upon sales.
+
+## 2.5 Question 4-b
+
+**Question**:
+
+> You are the CFO of a medium-sized Agribusiness, and you have negotiated favorable terms to pay for supplies of seeds and equipment. Your suppliers allow you to pay for most these necessary inputs at the end of harvest, after you have sold your main crops. After harvest, your business needs to restock on seeds and equipment for next year's harvest. As a result of this business model, your Agribusiness carries a significant amount of accounts payable throughout the year.
+
+> Explain how you can use a bank credit line to help manage the liquidity risk that you identified in part a. (1 paragraph maximum)
+
+**Answer**:
+
+  - As mentioned in [2.4 Question 4-a], since the company faced financial liquidity problem before harvest. Therefore a credit line business/agreement required to offset the liquidity problem since the company harvest once a year and there is a portion of cash might reserved for 12 months expenditure. Insuffient fund to pay for the renwal of equiments and also seeds.
+  - Credit line not only overcome the short term financial problem but also a long term business co-operation for both parties.
+
+## 2.6 Question 5-a
+
+**Question**:
+
+> You are the CFO of a company that is considering whether it is worthwhile to speed up the collection of accounts receivable to reduce the cash conversion cycle. This is the current situation in your company
+
+>  - Expected annual sales = 1 billion
+>  - 80% of these sales are received immediately, 20% after one year
+
+> You are considering whether it is worth to demand quicker payment from your costumers. You estimate that you can collect 90% of annual sales immediately if you lower prices by a certain amount. As a result of these discounts, your expected annual sales will decrease by 2%, to 980 million a year.
+
+> To solve this question, assume that there are no costs and no taxes. Thus, sales are equal to profits. In addition, there are no existing receivables to collect at the beginning of the first year.
+
+> In the current situation (80% collected immediately), what are the cash flows at the beginning and at the end of the first year?
+
+**Answer**:
+
+```{r 5-a, echo = FALSE, results = 'asis'}
+dat5a <- data_frame(Categoty = c('Cash flow from Sales', 'Cash Flow from Receivables'), `Immediate ($ in mil)` = c(1000 * 0.8, 0), `Year End ($ in mil)` = c('', 1000 * 0.2))
+
+dat5a %>% formattable %>% as.htmlwidget
+```
+
+*table 2.6.1: cash flow stament of company.*
+
+  From above table, 80% of sales receive the payment immediately after sales but the rest of 20% need to wait until year end but receivables.
+
+## 2.7 Question 5-b
+
+**Question**:
+
+> You are the CFO of a company that is considering whether it is worthwhile to speed up the collection of accounts receivable to reduce the cash conversion cycle. This is the current situation in your company
+
+>  - Expected annual sales = 1 billion
+>  - 80% of these sales are received immediately, 20% after one year
+
+> You are considering whether it is worth to demand quicker payment from your costumers. You estimate that you can collect 90% of annual sales immediately if you lower prices by a certain amount. As a result of these discounts, your expected annual sales will decrease by 2%, to 980 million a year.
+
+> To solve this question, assume that there are no costs and no taxes. Thus, sales are equal to profits. In addition, there are no existing receivables to collect at the beginning of the first year.
+
+> If you decide to implement the change (90% collected immediately), what are the cash flows at the beginning and at the end of the first year?
+
+**Answer**:
+
+```{r 5-b, echo = FALSE, results = 'asis'}
+dat5b <- data_frame(Categoty = c('Cash flow from Sales', 'Cash Flow from Receivables'), `Immediate ($ in mil)` = c(980 * 0.9, 0), `Year End ($ in mil)` = c('', 980 * 0.1))
+
+dat5b %>% formattable %>% as.htmlwidget
+```
+
+*table 2.7.1: cash flow stament of company.*
+
+  From the table, we know the sales is decreased from \$1 bil to \$980 mil, therefore 90% of sales is \$`r 980 * 0.9` mil and the rest of receivables are \$`r 980 * 0.1` mil after launching the quiker demand for payment. There might due to some distributors/customers might not be able to pay the money immediately.
+  
+  - The immediate cash from sales is more than previous \$`r 1000 * 0.8` mil. The company can use the fund for further investment.
+  - Although the total sales in annual report will be \$980 mil which is less than previous 1 bil, the NPV and the inflation rates might need to take consideration.
+  - Some companies might prefer higher direct cash from sales since there might use the cash for other investment provided the return of investment (ROI) is greater than ROI of \$20 mil.
+
+## 2.8 Question 5-c
+
+**Question**:
+
+> Now consider what happens in the folllowing year. To do so, assume that sales are expected to remain stable irrespective of which collection system you use. That is, sales are 1,000 a year in the current system and 980 a year in the new system.
+
+> At the end of the first year, you will collect receivables that were generated in the beginning of the first year, and make new sales for the second year. Notice that the beginning of the second year coincides with the end of the first year (think December 31 – January 1.)
+
+> Compute the cash flows for the second year in the two cases (80% and 90% collection systems).
+
+**Answer**:
+
+```{r 5-c1, echo = FALSE, results = 'asis'}
+dat5c1 <- data_frame(Categoty = c('Cash flow from Sales', 'Cash Flow from Receivables', 'Total Cash flow'), `Immediate ($ in mil)` = c(1000 * 0.8, 0, 1000 * 0.8), `Year End ($ in mil)` = c(1000 * 0.8, 1000 * 0.2, 1000), `Next Year End ($ in mil)` = c('', 1000 * 0.2, ''))
+
+dat5c1 %>% formattable %>% as.htmlwidget
+```
+
+*table 2.8.1: cash flow stament of company on 80%-20%.*
+
+  From the table showing above, we can know the immediate cash from sales is \$800 mil, and the breakdown for the Year End will be \$`r 1000 *0.2` mil. Therefore the \$`r 1000 *0.2` mil will be only showing at the end of year since it is not immediate cash from sales.
+
+```{r 5-c2, echo = FALSE, results = 'asis'}
+dat5c2 <- data_frame(Categoty = c('Cash flow from Sales', 'Cash Flow from Receivables', 'Total Cash flow'), `Immediate ($ in mil)` = c(980 * 0.9, 0, 980 * 0.9), `Year End ($ in mil)` = c(980 * 0.9, 980 * 0.1, 980), `Next Year End ($ in mil)` = c('', 980 * 0.1, ''))
+
+dat5c2 %>% formattable %>% as.htmlwidget
+```
+
+*table 2.8.2: cash flow stament of company on 90%-10%.*
+
+  Similar theory applied to *table 2.8.1*.
+  
+## 2.9 Question 5-d
+
+**Question**:
+
+> What will happen at the end of the second year?
+
+**Answer**:
+
+```{r 5-d1, echo = FALSE, results = 'asis'}
+dat5d1 <- data_frame(Categoty = c('Cash flow from Sales', 'Cash Flow from Receivables', 'Total Cash flow'), `Immediate ($ in mil)` = c(1000 * 0.8, 0, 1000 * 0.8), `Year End ($ in mil)` = c(1000 * 0.8, 1000 * 0.2, 1000), `Next Year End ($ in mil)` = c(1000 * 0.8, 1000 * 0.2, 1000))
+
+dat5d1 %>% formattable %>% as.htmlwidget
+```
+
+*table 2.9.1: cash flow stament of company on 80%-20%.*
+
+  From the table showing above, we can know the immediate cash from sales is \$800 mil, and the breakdown for the Year End will be \$`r 1000 *0.2` mil. Therefore the \$`r 1000 *0.2` mil will be only showing at the end of year since it is not immediate cash from sales. Similar with second year, the immediate cash from sales on second year, the receivables will only showing in year end but not immediate cash from sales.
+
+```{r 5-d2, echo = FALSE, results = 'asis'}
+dat5d2 <- data_frame(Categoty = c('Cash flow from Sales', 'Cash Flow from Receivables', 'Total Cash flow'), `Immediate ($ in mil)` = c(980 * 0.9, 0, 980 * 0.9), `Year End ($ in mil)` = c(980 * 0.9, 980 * 0.1, 980), `Next Year End ($ in mil)` = c(980 * 0.9, 980 * 0.1, 980))
+
+dat5d2 %>% formattable %>% as.htmlwidget
+```
+
+*table 2.9.2: cash flow stament of company on 90%-10%.*
+
+  Similar theory applied to *table 2.9.1*.
+  
+
+## 2.10 Question 5-e
+
+**Question**:
+
+> Now you should be ready to discuss the trade-off that the CFO will face when making the decision to speed up collection or not. What do you gain if you make this decision? What do you lose?
+
+> Important note: To make a decision about the collection system we need the concept of Net Present Value (NPV). We will develop this concept in Module 3 and finish this problem after we have learned how to calculate and use NPV.
+
+**Answer**:
+
+```{r 5-e1, echo = FALSE, results = 'asis'}
+dat5e1 <- data_frame(Categoty = c('Cash flow from Sales', 'Cash Flow from Receivables', 'Total Cash flow'), `Immediate ($ in mil)` = c(1000 * 0.8, 0, 1000 * 0.8), `Year End ($ in mil)` = c(1000 * 0.8, 1000 * 0.2, 1000), `Next Year End ($ in mil)` = c(1000 * 0.8, 1000 * 0.2, 1000))
+
+dat5e1 %>% formattable %>% as.htmlwidget
+```
+
+*table 2.10.1: cash flow stament of company on 80%-20%.*
+
+```{r 5-e2, echo = FALSE, results = 'asis'}
+dat5e2 <- data_frame(Categoty = c('Cash flow from Sales', 'Cash Flow from Receivables', 'Total Cash flow'), `Immediate ($ in mil)` = c(980 * 0.9, 0, 980 * 0.9), `Year End ($ in mil)` = c(980 * 0.9, 980 * 0.1, 980), `Next Year End ($ in mil)` = c(980 * 0.9, 980 * 0.1, 980))
+
+dat5e2 %>% formattable %>% as.htmlwidget
+```
+
+*table 2.10.2: cash flow stament of company on 90%-10%.*
+
+  Lets compare the *table 2.10.1* and *table 2.10.2*, the cash flow from the ealier table shows low immediate cash flow. Normally a receivables might effect the cash flow statement especially long term receivables. Receivables showing on statement is not immediate cash but succession of getting money back from sales.
+
+# 3. Conclusion
+
+  Below is the video and explanation by lecturer where you can refer to.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gQZIlCYAYGk" frameborder="0" allowfullscreen></iframe>
+
+  Immediate cash from sales will only records in daily cashbook but the year end annual report will summarize the total but no breakdown of the timing of both sales and also receivables.
+
+  Here I also attach with the review on module 2.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/L1MwXCsFOVs" frameborder="0" allowfullscreen></iframe>
+
+# 4. Appendices
+
+  - Section [4.1 Documenting File Creation]
+  - Section [4.2 Versions' Log]
+  - Section [4.3 Speech and Blooper]
+  - Section [4.4 References]
+
+## 4.1 Documenting File Creation
+
+  It's useful to record some information about how your file was created.
+  
+  - File creation date: 2016-07-23
+  - File latest updated date: `r Sys.Date()`
+  - `r R.version.string`
+  - R version (short form): `r getRversion()`
+  - [**rmarkdown** package](https://github.com/rstudio/rmarkdown) version: `r packageVersion('rmarkdown')`
+  - [**tufte** package](https://github.com/rstudio/tufte) version: `r packageVersion('tufte')`
+  - File version: 1.0.0
+  - Author Profile: [®γσ, Eng Lian Hu](https://beta.rstudioconnect.com/englianhu/ryo-eng/)
+  - GitHub: [Source Code](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/tree/master/4%20Financial%20Evaluation%20and%20Strategy%20-%20Corporate%20Finance)
+  - Additional session information:
+
+```{r info, echo = FALSE, results = 'asis'}
+lubridate::now()
+devtools::session_info()$platform
+Sys.info()
+```
+
+## 4.2 Versions' Log
+
+  - *July 23, 2016*: [version: 1.0.0](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/4%20Financial%20Evaluation%20and%20Strategy%20-%20Corporate%20Finance/Module-02-Assignment.Rmd)
+
+## 4.3 Speech and Blooper
+
+  I do appreciate that [University of Illinois at Urbana–Champaign](http://illinois.edu/) provides the [Improving Business Finances and Operations](https://www.coursera.org/specializations/business-operations) specialization via [Coursera](http://www.coursera.org). I used to study [Certified Accounting Technician (CAT)](http://www.accaglobal.com/ie/en/student/exam-support-resources/foundation-level-study-resources.html) course at [PAAC](http://www.paac.edu.my/index.php?p=location) more more decade. Now I need to review the finance and accounting course prior to conduct my research [Analyse the Finance and Stocks Price of Bookmakers](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers).
+  
+  There are few books below that I need to read for further understanding.
+  
+  - [Managerial Accounting](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/2%20Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/data/Managerial%20Accounting.pdf)
+  - [**Financial Statement** A Step-by-Step Guide to Understanding and Creating Financial Reports *by Thomas R. Ittelson 2009*](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers/blob/master/data/finance.pdf)
+  - [**Corporate Finance (3rd Edition)** *by Ivo Welch 2014*](http://book.ivo-welch.info/ed3/)
+
+## 4.4 References
+
+  1. [**Corporate Finance (3rd Edition)** *by Ivo Welch 2014*](http://book.ivo-welch.info/ed3/)

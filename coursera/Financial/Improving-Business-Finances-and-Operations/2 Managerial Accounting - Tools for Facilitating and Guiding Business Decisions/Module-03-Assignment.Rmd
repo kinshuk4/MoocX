@@ -1,0 +1,438 @@
+---
+title: "[**Managerial Accounting: Tools for Facilitating and Guiding Business Decisions**](https://www.coursera.org/learn/managerial-accounting-tools/home/welcome) : *Module 3 Mini-Project*"
+subtitle: "[Improving Business Finances and Operations Specialization](https://www.coursera.org/specializations/business-operations) by University of Illinois at Urbana-Champaign"
+author: "[®γσ, Eng Lian Hu](http://englianhu.wordpress.com) <img src='figure/ShirotoNorimichi2.jpg' width='24'> 白戸則道®"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html:
+    toc: yes
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r load-pkgs, include = FALSE}
+suppressMessages(library('plyr'))
+pkgs <- c('plyr', 'dplyr', 'magrittr', 'knitr', 'stringr', 'tidyr', 'googleVis', 'DT', 'rCharts', 'formattable', 'lubridate', 'rvest', 'FinCal', 'purrr')
+suppressMessages(l_ply(pkgs, library, character.only = TRUE))
+rm(pkgs)
+
+## Set the googleVis options first to change the behaviour of plot.gvis, so that only the chart 
+##  component of the HTML file is written into the output file.
+op <- options(gvis.plot.tag = 'chart')
+```
+
+# 1. Introduction
+
+  - Section [1.1 Instructions]
+    + Section [1.1.1 Overview]
+    + Section [1.1.2 How to Use Peer Review]
+    + Section [1.1.3 Assignment Details]
+      + [Part 1: Cost Variances]
+      + [Part 2: Revenue Variances]
+  - Section [1.2 Review Criteria]
+  - Section [1.3 Reminders]
+
+## 1.1 Instructions
+
+### 1.1.1 Overview
+
+  There are multiple steps to this mini-project. First, you will submit your answers to the questions in Parts 1, 2, and 3 based on the information in the Assignment Details section. Enter your answers directly in the spaces provided in the **My submission** tab. Please answer each question fully and concisely, including the steps of your calculations and/or citations as needed (you may use the [library guidelines to citations](http://www.library.illinois.edu/ugl/howdoi/citations.html) as a guide). Then, you will evaluate the submission of at least four of your peers based on the instructions provided.
+
+### 1.1.2 How to Use Peer Review
+
+1. **Submit your own assignment**. Click the My submission tab to begin working on your own assignment. You can save drafts of your work as you go, and you can come back later to continue working on your draft. When you are finished working, click the Preview button, verify your identity, and then Submit the assignment
+
+2. **Give feedback to your peers**. You are required to give feedback to at least four peers to complete this assignment. You can begin giving feedback to other students as soon as you submit your assignment. Click the Review peers tab to get started. Feel free to provide additional reviews beyond the four required!
+
+3. **Read feedback from your peers**.Your peers will also begin reviewing your project as soon as you submit it. You will receive an email notification of each new review. Only you will be able to see the feedback you receive. If you find someone’s review helpful, click the **This review is helpful** button to thank the reviewer.
+Browse other projects. You can browse through all of the submitted assignments, even if you don't plan to review each one. Click the **like** button if you think someone did a great job on their assignment.
+
+### 1.1.3 Assignment Details
+
+#### 1.1.3.1 Part 1: Cost Variances
+
+  Flatland, Inc. produces small machine parts for industrial use in a single plant. The plant manager recently received the following performance report for his plant for the most recent month.
+
+```{r data-1-1-3-1, echo = FALSE, results = 'asis'}
+dat1.1 <- data_frame(
+  Category = factor(c('Units', 'Sales', 'Less variables costs:', 'Direct materials', 'Direct labor', 'Manufacturing overhead', 'Total variable costs', 'Contribution margin', 'Fixed manufacturing overhead', 'Operating profit')), 
+  
+  Actual = as.numeric(c(5500, 132000, '', 22275, 20805, 15860, -58940, 73060, -26500, 46560)), 
+  
+  Budgeted = as.numeric(c(6000, 120000, '', 23400, 21000, 16500, -60900, 59100, -25000, 34100)))
+
+dat1.1 %>% formattable(
+  list(
+    Actual = formatter(
+      'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+      x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x))), 
+    Budgeted = formatter(
+      'span', style = x ~ style(color = ifelse(x > 0, 'green', 'red')), 
+      x ~ icontext(ifelse(x > 0, 'ok', 'remove'), ifelse(x, x, x)))
+    )
+  ) %>% as.htmlwidget
+```
+
+*table 1.1.3.1: financial statememt of Flatland Inc.*
+
+  There were no beginning or ending inventories. The standard (budgeted) information available is as follows:
+
+  - Direct materials: 1.5 kilograms per unit
+  - Direct labor: 1/2 DL hour per unit
+  - Labor wages: $7 per hour
+
+The following actual data were collected:
+
+  - Direct materials used: 8,250 kilograms
+  - Direct labor hours worked: 2,850 hours
+
+Additional information:
+
+  - You should ignore income taxes.
+  - Fixed costs include allocations of various costs, including managers' and VPs' salaries, and depreciation.
+
+**Required:**
+
+1. For both direct material and direct labor costs, calculate the spending, efficiency, and activity variances. Please provide supporting calculations, label your variances by name, and designate them as favorable or unfavorable. Note: If the given information is insufficient for answering any part of the above question, please denote that clearly, and identify the piece of information you are missing.
+
+2. Provide a brief statement demonstrating your knowledge of the difference between a favorable and an unfavorable variance.
+
+3. Provide at least two potential explanations for each of the variances (i.e., six) that you calculate. If you were to investigate these variances, who would you speak to in order to collect information relevant to your investigation?
+
+#### 1.1.3.2 Part 2: Revenue Variances
+
+  The XTRA Appliance Manufacturing Corporation manufactures two models of vacuum cleaners, the Standard and the Super. The following information was gathered about the two products:
+
+```{r data-1-1-3-2, echo = FALSE, results = 'asis'}
+dat1.2 <- data_frame(Category = c('Budgeted sales in units', 'Budgeted selling price (unit)', 'Budgeted CM per unit', 'Actual sales in units', 'Actual selling price (units)'), Standard = c(3200, 300, 210, 3500, 325), Super = c(800, 850, 550, 1500, 840))
+
+dat1.2 %>% formattable %>% as.htmlwidget
+```
+
+*table 1.1.3.2: products' budget statememt of XTRA Appliance Manufacturing Corporation.*
+
+**Required:**
+
+1. Calculate the revenue variances (sales price, sales mix, and sales activity) for both the Standard and Super models. Please provide supporting calculations, label your variances by name, and designate them as favorable or unfavorable. Note: If the given information is insufficient for answering any part of the above question, please denote that clearly, and identify the piece of information you are missing.
+
+2. Provide at least two potential explanations for each of the variances (i.e., six) that you calculate. If you were to investigate these variances, who would you speak to in order to collect information relevant to your investigation?
+
+### 1.2 Review criterialess
+
+  You will give a quantitative assessment of all parts of the submission. Then, you will provide qualitative feedback for the submission as a whole.
+
+The following represents a guide for the quantitative assessment of **Part 1-3**:
+
+  - **0 points: No answer, completely irrelevant answer, inadequate material, and/or evidence does not fit the argument**.
+ - **5 points: Insufficient answer, incomplete, lacks supporting evidence**. An insufficientresponse is incomplete or incorrect. For calculations, the response fails to provide supporting calculations/steps.
+  - **7 points: Passing, meets expectations**. A passing response addresses/answers the question, but some of the answer is not thoroughly explained. For calculations, the supporting calculations/steps are not clear.
+  - **9 points: Well above average, exceeds expectations** An above average response addresses/answers the entire question and most of the answer is thoroughly explained. For calculations, most of the supporting calculations/steps are clear, but there are some minor deficiencies.
+  - **10 points: Superior performance, excellent**. An excellent response answers the entire question, and thoroughly explains the answer. For calculations, all supporting calculations/steps are clearly presented.
+
+Recommendations for Fair Peer Review:
+
+  - The score should not be based on whether or not you agree with the answer, rather on whether the answer is complete and well-supported.
+Both content and organization are important components of a response. Good writing is confident and clearly focused with relevant details to enrich the content. Good writing also follows instructions, such as word limits, and offers requested information.
+  - A clear and concise answer is preferable to a long response that lacks coherence.
+  - Focus should be on content; try not to unduly penalize responses for spelling or grammar.
+
+### 1.3 Reminders
+
+**Using the Forums**
+
+  Your fellow students are a great resource, and we encourage you to sharpen your ideas against them in the forums. You can post your arguments in the forums and receive feedback before submitting your assignment.
+
+**Honor Code**
+
+  Please remember that you have agreed to the Honor Code, and your submission should be entirely yours. Our definition of plagiarism follows from standard literature: passing off someone else's work as your own, whether from your peers or Wikipedia. If you need to quote material, remember to cite your source, for example: "But, as expressed by Spinoza, all things excellent are as difficult as they are rare (Baruch Spinoza, "Ethica" source: thinkexist.com)."
+
+# 2. Case Study
+
+  - Section [2.1 Part 1: Cost Variances]
+    + Section [2.1.1 Answer 1]
+    + Section [2.1.2 Answer 2]
+    + Section [2.1.3 Answer 3]
+  - Section [2.2 Part 2: Revenue Variances]
+
+## 2.1 Part 1: Cost Variances
+
+**Question**:
+
+>  Using the information provided in the Assignment Details section of the **Instructions** tab, respond to the following:
+
+> 1. For both direct material and direct labor costs, calculate the spending, efficiency, and activity variances. Please provide supporting calculations, label your variances by name, and designate them as favorable or unfavorable. Note: If the given information is insufficient for answering any part of the above question, please denote that clearly, and identify the piece of information you are missing.
+
+> 2. Provide a brief statement demonstrating your knowledge of the difference between a favorable and an unfavorable variance.
+
+> 3. Provide at least two potential explanations for each of the variances (i.e., six) that you calculate. If you were to investigate these variances, who would you speak to in order to collect information relevant to your investigation?
+
+**Answer**:
+
+### 2.1.1 Answer 1
+
+```{r data-2-1-1, echo = FALSE, results = 'asis'}
+dat2.1 <- data_frame(
+  Category = c('Units', 'Direct materials', 'Direct labor :', 'Hours', 'Wages'), 
+  Actual = c('5,500 units', '8,250 kg', '', '2,850 hrs', '$20,805'), 
+  Standard = c('5,500 units', '8,250 kg', '', '2,750 hrs', '$19,250'), 
+  Budgeted = c('6,000 units', '9,000 kg', '', '3,000 hrs', '$21,000'), 
+  Var = c('500 units', '-', '', '100 hrs', '$1,555'), 
+  Diff = c('Unfavorable', 'Favorable', '', 'Unfavorable', 'Unfavorable'))
+
+dat2.1 %>% formattable(
+  list(
+    Diff = formatter(
+      'span', style = x ~ style(color = ifelse(x == 'Favorable', 'green', 'red')), 
+      x ~ icontext(ifelse(x == 'Favorable', 'ok', 'remove'), ifelse(x == 'Favorable', 'Favorable', 'Unfavorable')))
+    )
+  ) %>% as.htmlwidget
+```
+
+*table 2.2.1: financial statement of Flatland Inc.*
+
+  By refer to [1.1.3.1 Part 1: Cost Variances], we calculate and get below answer:
+
+  - **Produced Units**: Budgeted 6,000 units produced but only 5,500 units produced in real operations.
+  - **Cost of Materials**: *5,500 units x 1.5 kg per unit = 8,250 kg* is similar with *6,000 units x 1.5 kg per unit = 9,000 kg* in cost per unit. Therefore consider favorable since the cost is similar with budgets.
+  - **Labor Cost**: 1/2 hour can produce 2 units, therefore 5,500 units should be used only 2,750 hours but not 2,850 hours.
+  - Since \$7 labor paid per hour, therefore additional 100 hours (2850 - 2750 = 100) used for produced 5,500 units and extra \$1,555 (20805 - 19250 = 1555) spent.
+
+```{r data-2-1-2, echo = FALSE, results = 'asis'}
+dat2.2 <- data_frame(
+  Category = c('Units', 'Sales', 'Less variables costs:', 'Direct materials', 'Direct labor', 'Manufacturing overhead', 'Total variable costs', 'Contribution margin', 'Fixed manufacturing overhead', 'Operating profit'), 
+  
+  Actual = c('8,250 kg / 5,500 Units = 1.5 kg', '$132,000 / 5,500 units = $24 per unit', '', '$22,275 / 5,500 units = $4.05 per unit', '$20,805 / 5,500 units = $3.782727 per unit ($20,805 / 2,850 hrs = $7.3 per hr)', '$15,860 / 5,500 units = $2.883636 per unit', '$4.05 + $3.782727 + $2.883636 = $10.71636 per unit', '$24 - $10.71636 = $13.28364', '$26,500 / 5,500 units = $4.818182 per unit', '$13.28364 - $4.818182 = $8.465458'),
+  
+  Standard = c('8,250 kg / 5,500 Units = 1.5 kg', '$132,000 / 5,500 units = $24 per unit', '', '$22,275 / 5,500 units = $4.05 per unit', '$19,250 / 5,500 units = $3.5 per unit (5,500 units / 2 unit per hr * $7 per hr = $19,250)', '$15,860 / 5,500 units = $2.883636 per unit', '$4.05 + $3.5 + $2.883636 per unit = $10.43364 per unit', '$24 - $10.43364 = $13.56636 per unit', '$26,500 / 5,500 units = $4.818182 per unit', '$13.56636 - $4.818182 = $8.748178 per unit'), 
+
+  Budgeted = c('9,000 kg / 6,000 units = 1.5 kg', '$120,000 / 6,000 units = $20 per unit', '', '$23,400 / 6,000 units = $3.9 per unit', '$21,000 / 6,000 units = $3.5 per unit', '$16,500 / 6,000 units = $2.75 per unit', '$3.9 + $3.5 + $2.75 = $10.15 per unit', '$20 - $10.15 = $9.85 per unit', '-$25,000 / 6,000 units = $4.166667 per unit', '$9.85 - $4.166667 = $5.683333 per unit'))
+
+dat2.2 %>% formattable %>% as.htmlwidget
+```
+
+*table 2.2.2: per unit basis statement of Flatland Inc.*
+
+  Based on the comparison of column `Actual` and `Standard` inside *table 2.2.2*, we know the operating profit reduced due to labor cost per unit increase but the rest keep unchanged. Provided the question mentioned only below elements:
+  
+  - 1/2 hour produced a unit
+  - labor paid is \$7 per hours
+  - 8,250 kg raw materials used to produced 5,500 units.
+  - A unit use 1.5 kg raw materials
+
+### 2.1.2 Answer 2
+
+  - The terms of **favorable** is the actual cost or expense is less than standard or budget. The revenue better than budget is consider as **favorable** as well since as long as the statement is more benefit and profitable than budget/standard.
+  - When the actual result is worst than budget or standard, then it will be calsiffied as **unfavorable**.
+
+### 2.1.3 Answer 3
+
+  - Based on *table 2.2.1* and *table 2.2.2*, the labor cost per hour has increase to \$7.3 per hour from \$7 per hour. Therefore 0.3 ÷ 7 = `r paste0(round(0.3/7 * 100, 2), '%')` additional cost.
+  - For the raw materials, the actual cost is same with standard.
+  - The labor cost increased might be due to unskill staffs which reduced the productivity. However fortunately the cost of materials do not increase means the staffs have not missed use or waste the materials for production.
+
+## 2.2 Part 2: Revenue Variances
+
+**Question**:
+
+>  Using the information provided in the Assignment Details section of the Instructions tab, respond to the following:
+
+> 1. Calculate the revenue variances (sales price, sales mix, and sales activity) for both the Standard and Super models. Please provide supporting calculations, label your variances by name, and designate them as favorable or unfavorable. Note: If the given information is insufficient for answering any part of the above question, please denote that clearly, and identify the piece of information you are missing.
+
+> 2. Provide at least two potential explanations for each of the variances (i.e., six) that you calculate. If you were to investigate these variances, who would you speak to in order to collect information relevant to your investigation?
+
+**Answer**:
+
+### 2.2.1 Answer 1
+
+```{r 2-2-1, echo = FALSE, results = 'asis'}
+dat2.3 <- dat1.2[1:3, ]
+dat2.3[1:3, 3] <- as.numeric(c(dat1.2$Standard[4:5], ''))
+dat2.3$Category %<>% str_replace_all('Budgeted ', '')
+names(dat2.3)[2:3] <- paste0(names(dat2.3)[2], c('.Budget', '.Actual'))
+
+dat2.3 %<>% mutate(Var = Standard.Actual - Standard.Budget, Diff = factor(ifelse(Var >= 0, 'Favorable', 'Unfavorable')))
+
+dat2.3a <- data.frame(Category = 'Revenue', dat2.3[1, 2:4] * dat2.3[2, 2:4]) %>% mutate(Diff = factor(ifelse(Var >= 0, 'Favorable', 'Unfavorable')))
+
+dat2.3 %<>% rbind(dat2.3a)
+dat2.3 %<>% llply(str_replace_na, '') %>% data.frame %>% tbl_df
+rm(dat2.3a)
+
+dat2.3 %>% formattable(
+  list(
+    Diff = formatter(
+      'span', style = x ~ style(color = ifelse(x == 'Favorable', 'green', 'red')), 
+      x ~ icontext(ifelse(x == 'Favorable', 'ok', 'remove'), ifelse(x == 'Favorable', 'Favorable', 'Unfavorable')))
+    )
+  ) %>% as.htmlwidget
+```
+
+*table 2.2.1.1: financial statement of standard models.*
+
+```{r 2-2-2, echo = FALSE, results = 'asis'}
+dat2.4 <- data_frame(Category = dat1.2$Category[1:3], Super.Budget = dat1.2$Super[1:3], Super.Actual = as.numeric(c(dat1.2$Super[4:5], '')))
+dat2.4$Category %<>% str_replace_all('Budgeted ', '')
+
+dat2.4 %<>% mutate(Var = Super.Actual - Super.Budget, Diff = factor(ifelse(Var >= 0, 'Favorable', 'Unfavorable')))
+
+dat2.4a <- data.frame(Category = 'Revenue', dat2.4[1, 2:4] * dat2.4[2, 2:4]) %>% mutate(Diff = factor(ifelse(Var >= 0, 'Favorable', 'Unfavorable')))
+
+dat2.4 %<>% rbind(dat2.4a)
+dat2.4 %<>% llply(str_replace_na, '') %>% data.frame %>% tbl_df
+rm(dat2.4a)
+
+dat2.4 %>% formattable(
+  list(
+    Diff = formatter(
+      'span', style = x ~ style(color = ifelse(x == 'Favorable', 'green', 'red')), 
+      x ~ icontext(ifelse(x == 'Favorable', 'ok', 'remove'), ifelse(x == 'Favorable', 'Favorable', 'Unfavorable')))
+    )
+  ) %>% as.htmlwidget
+```
+
+*table 2.2.1.2: financial statement of super models.*
+
+  - Above two tables summarized from *table 1.1.3.2*
+  - Only `Budgeted CM per unit` but no `Actual CM per unit` figure provided.
+
+### 2.2.2 Answer 2
+
+```{r 2-2-3, echo = FALSE, results = 'asis'}
+dat2.5 <- data_frame(Category = c('Standard', 'Super', 'Total'), Budget.Unit = c('3,200', '800', '4,000'), Budget.Prc = c('80%', '20%', '100%'), Actual.Unit = c('3,500', '1,500', '5,000'), Actual.Prc = c('70%', '30%', '100%'))
+
+dat2.5 %>% formattable %>% as.htmlwidget
+```
+
+*table 2.2.2.1: summary of the production and sales strategy.*
+
+  According to the above, the sales mix of Standard and Super changes from *80%/20%* (Budget) to *70%/30%* (Actual).
+
+  - With changed the sales combination, there was benefit to the total revenue (Standard and Super) from `r paste0('$', as.numeric(as.character(dat2.3$Standard.Budget[4])) + as.numeric(as.character(dat2.4$Super.Budget[4])))` to `r paste0('$', as.numeric(as.character(dat2.3$Standard.Actual[4])) + as.numeric(as.character(dat2.4$Super.Actual[4])))`.
+
+  - Due to insufficient information provided, the CM could not be determined in order to measure the effectiveness of both sales and expenses between the actual and budgeted.
+
+  - The allocation of the direct and indirect costs, fixed cost, customer behavior and market demand are all the factor to influent for both sales and profit margin of the products.
+
+```{r, echo = FALSE, results = 'asis'}
+## Set options back to original options
+options(op)
+```
+
+# 3. Conclusion
+
+```
+## Part 1:
+
+                              Actual    Budgeted
+Units                         5,500     6,000     Unfavorable
+Sales                         $132,000  $120,000
+Less: Var. costs
+Direct materials              $22,275   $23,400
+Direct labor                  $20,805   $21,000
+Manufacturing overhead        $15,860   $16,500
+Total variable costs          $(58,940) $(60,900)
+Contribution margin           $73,060   $59,100
+Fixed manufacturing overhead  $(26,500) $(25,000)
+Operating profit              $46,560   $34,100
+Operating profit (%)          35.27%    28.42%
+
+
+1. Standard for producing 5,500 units
+                  Standard  Actual    Var
+Direct materials  8,250 kg  8,250 kg  -       Favorable
+Direct labor:
+Hours             2,750 hr  2,850 hr  100 hrs Unfavorable
+Wages             $19,250   $20,805   $1,555  Unfavorable
+
+Remark:
+  - Direct material: Standard is 1.5kg /unit
+  - Direct labour  : standard is 1/2 hr per unit at wages $7/hr
+
+
+2. If the actual revenue, cost or expenses is better than the standard or budget, those will be classified as favorable.
+
+  - If the actual revenue, cost or expenses is worst than the standard or budget, those will be classified as unfavorable.
+
+
+3. For direct material, the actual cost per unit aligned with the standard but the direct labour cost did not.
+
+  - The actual direct labour cost was $7.3 vs standard $7 per hour. It was over $0.3 (4.29%) to standard. The differences might due to the experience and skills of the labour. In addition, the effectiveness of the machinery might also as a factor to decrease the productiveness.
+
+
+
+## Part 2.
+
+                      Standard  Super
+                      Budgeted  Actual      Var	Budgeted  Actual    Var
+Sales (units)         3,200     3,500       300 Favorable 800       1,500       700   Favorable
+CM (unit)             $210      $550
+Selling price (unit)  $300      $325        $25 Favorable $850      $840        $(10) Unfavorable
+Revenue               $960,000  $1,137,500      Favorable $680,000  $1,260,000
+
+Remark:	No actual CM per unit was provided.
+
+Sales (Units)
+          Budget      Actual
+Standard  3,200 80%   3,500 70%
+Super     800   20%   1,500 30%
+Total     4,000 100%  5,000 100%
+
+Remark:	According to the above, the sales mix of Standard and Super changes from 80%/20% (Budget) to 70%/30% (Actual).
+
+  - With changed the sales mix, there was benefit to the total revenue (Standard and Super) from $1,640,000 to $2,397,500.
+
+  - However, as there was insufficient information provided, so the CM could not be determined in order to measure the effectiveness of both sales and expenses between the actual and budgeted.
+
+  - The allocation of the direct/in direct cost, fixed cost, customer behavior and market demand are all the factor to influent for both sales and profit margin of the products.
+```
+
+  As mentioned in section [Speech and Blooper], I need to self improve in financial statement analysis section but also products my research [Analyse the Finance and Stocks Price of Bookmakers](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers).
+
+# 4. Appendices
+
+  - Section [4.1 Documenting File Creation]
+  - Section [4.2 Versions' Log]
+  - Section [4.3 Speech and Blooper]
+  - Section [4.4 References]
+
+## 4.1 Documenting File Creation
+
+  It's useful to record some information about how your file was created.
+  
+  - File creation date: 2016-07-23
+  - File latest updated date: `r Sys.Date()`
+  - `r R.version.string`
+  - R version (short form): `r getRversion()`
+  - [**rmarkdown** package]() version: `r packageVersion('rmarkdown')`
+  - [**tufte** package](https://github.com/rstudio/tufte) version: `r packageVersion('tufte')`
+  - File version: 1.0.0
+  - Author Profile: [®γσ, Eng Lian Hu](https://beta.rstudioconnect.com/englianhu/ryo-eng/)
+  - GitHub: [Source Code](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/tree/master/2%20Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions)
+  - Additional session information:
+
+```{r info, echo = FALSE, results = 'asis'}
+lubridate::now()
+devtools::session_info()$platform
+Sys.info()
+```
+
+## 4.2 Versions' Log
+
+  - *July 08, 2016*: [version: 1.0.0](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/2%20Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/Module-03-Assignment.Rmd)
+
+## 4.3 Speech and Blooper
+
+  I do appreciate that [University of Illinois at Urbana–Champaign](http://illinois.edu/) provides the [Improving Business Finances and Operations](https://www.coursera.org/specializations/business-operations) specialization via [Coursera](http://www.coursera.org). I used to study [Certified Accounting Technician (CAT)](http://www.accaglobal.com/ie/en/student/exam-support-resources/foundation-level-study-resources.html) course at [PAAC](http://www.paac.edu.my/index.php?p=location) more more decade. Now I need to review the finance and accounting course prior to conduct my research [Analyse the Finance and Stocks Price of Bookmakers](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers).
+  There are few books that I need to read for further understanding.
+  - [Managerial Accounting](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/2%20Managerial%20Accounting%20-%20Tools%20for%20Facilitating%20and%20Guiding%20Business%20Decisions/data/Managerial%20Accounting.pdf)
+  - [**Financial Statement** A Step-by-Step Guide to Understanding and Creating Financial Reports *by Thomas R. Ittelson 2009*](https://github.com/scibrokes/analyse-the-finance-and-stocks-price-of-bookmakers/blob/master/data/finance.pdf)
+
+## 4.4 References
+
+  1. NA

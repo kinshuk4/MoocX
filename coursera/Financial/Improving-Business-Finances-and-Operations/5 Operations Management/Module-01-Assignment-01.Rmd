@@ -1,0 +1,109 @@
+---
+title: "[Operations Management](https://www.coursera.org/learn/operations-management/home/welcome) : Module 1 Assignment 1"
+subtitle: "[Improving Business Finances and Operations Specialization](https://www.coursera.org/specializations/business-operations) by University of Illinois at Urbana-Champaign"
+author: "[®γσ, Eng Lian Hu](http://englianhu.wordpress.com) <img src='figure/ShirotoNorimichi.jpg' width='24'> 白戸則道®"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html:
+    toc: yes
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+# 1. Introduction
+
+**Instruction**
+
+  Apply the operations strategy framework to **IKEA**:
+
+1.	Identify order qualifiers and winners, and tradeoffs based on its product offerings.
+2.	Identify the operations capabilities that match its order winners and qualifiers.
+3.	Develop operations strategy choices that would help each company achieve the operations capabilities you have identified.
+
+  [IKEA](http://www.ikea.com/) is a Swedish furniture supplier that sells much more than furniture through its stores in 41 countries and relies on self-service in the store and self-assembly at home. Their website has links that include, for example, the [concept and design of IKEA](http://www.ikea.com/ms/en_US/this-is-ikea/the-ikea-concept/index.html), which you may find useful in identifying the order qualifiers and winners that the company offers its target customers and from which you can infer the trade-offs that Ikea is making and the operations capabilities that it is pursuing.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MJ6YL3IekYs" frameborder="0" allowfullscreen></iframe>
+
+# 2. Operational Concepts
+
+## Part 1
+
+  Refer to the concept of order qualifiers and winners (price, product features, etc.) that we have studied, and identify three order qualifiers and winners for customers of Ikea. In addition, consider what trade-offs the company is making – what aspects (price, product features, etc.) that the broader market for their products may care for is Ikea not providing? Support your response with facts, and clearly state the sources for the facts, which may include your experience as a customer of the company.
+
+- Solid material used for the furniture and modern design.
+- Worth to buy since the quality of the product is good/high and not too expensive due to customer need to carry, and assemble the goods ownself **DIY** (Do It Yourself).
+- The showroom inside Ikea exhibit plenty of fixed/assembled furnitures where customers can look (view the design and layout, as well as collocation and decoration) and experience (touch to know the quality and handcraft of the furniture. For example: solid wooden chair) prior to buy.
+
+## Part 2
+
+  Based on the information about their market and order qualifiers and winners for their customers, identify what operations capabilities (cost efficiency, conformance quality, etc.) Ikea is pursuing or should be pursuing. Please connect the capabilities that you mention with the order qualifiers and winners that you have identified.
+
+- **From the view of users experience:** Self service business strategy, customers can easily scan the price of products inside showroom, and then the staffs will get the packed stocks (compacted package, easily carrying and store a space) inside the store. Where the store size is very huge and the location of the IKEA showroom is inside a shopping mall. Customers can shopping for diversified products other than only furniture. The environment is relax and different furnitures has been segmented along the corridor from the entry until exit (similar concept with a Muzium to let audience easily experience all exhibited goods segment-by-segment) as well as spared with a cafe for tea break.
+- **From the view of business strategy:** Huge volume resource purchase from different suppliers around the World (For example, China Mainland and some other place which produce a lot of woods, steels etc). Huge volume purchasing power might save the cost. IKEA has thier own supply chain management (I am not sure if they have similar supply chain management system with Walmart, which is suppliers can directly know the inventory volume and information via dashboard and manage to refill the stocks by themselves) with supplier and inventory management system. Besides, **IKEA** has own website which has been localized for users to browse over the latest news, products, company background, contact as well as service provided. Customers can easily browse over website to place a order on favorite products and select the nearest **IKEA** branch to delivery which is very convenience without driving a car to go to buy it but just a iPhone/iPad will do. **IKEA** has their in-house own designer. For a normal furniture company, there is totally unable to affort it therefore nowadays there has a lot of furniture mall which gather all independent furniture firms together to compete with IKEA. 
+- **The business principle of IKEA**: The founder of **IKEA** used to be number 1 richest enterprenuer in the World but he keep to run his business emperor as limited company silently but never apply to be public listed company. The founder's mindset is dictatorship and monopoly his business emperor which you can know from [Stichting INGKA Foundation](https://en.wikipedia.org/wiki/Stichting_INGKA_Foundation). The advantage of non public listed company as below:
+  - No need to explore a lot of information to public. Neither the management of company, the latest business plan, financial report and also asset. A lot of red tape affairs on shareholders, security firm as well as federal bank.
+  - No impact of news and from hedge fund cause to volatile of the stocks price movement which will affect the reputation, the corperate's cashflow chain, and the stimulation of staffs on working which will directly impact to business operation. The most threaten of a public listed company is that a certain portion of shares need to be sold to public. There will be a risk from hedge fund/speculators or acquisation from other business group to **IKEA** since the founder is a businessperson who put his effort from tip-to-toe on furniture business but not financial market.
+  - The dictatorship might easier for the founder to make any decision and implement without voting from shareholders. The flexibility, agility and reactivity will be very high/fast to do any business decision when facing any big problem. For example: political effect issue, financial decision issue or any other issues.
+  - No need to distribute the bonus shares nor dividends to shareholders where the company can reserved the money for urgent use and business expansion. A healthy cashflow might good to company.
+
+## Part 3
+
+  Referring to the operations strategy implementation decision areas (e.g., location, employee salaries and incentives, etc.) that we have studied, explain the decisions that you would make to achieve the operations capabilities you have selected, e.g., where would you locate their facilities? Please provide the reasoning for your choices, e.g., how would store location decision impact the operations capability of quick delivery?
+
+- For the location, **IKEA** has two branches locate in Malaysia Klang Velley area. It is city town which has a certain population living around and complete public facility and transport. There has online order service which has describe in **part 1**.
+- Due to the cost of low cost on high volume raw material supplied, inventory management, scan the price ownself and DIY (self assemble goods strategy), believed that the salary wages might probably renumeration compare to other furniture retailers. A government pension fee, government security fee, basic annual leave, shift allowance and performance binus etc.
+
+# 3. Conclusion
+
+  Due to my am not a staff of **IKEA** and went there few years once. Here I only give some own opinion and recall the story of the **IKEA** about the business operatonal concept of **IKEA**. Kindly correct me if there has any wrong.
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/K6dGq4fiHoA" frameborder="0" allowfullscreen></iframe>
+
+# 4. Appendices
+
+  - Section [4.1 Documenting File Creation]
+  - Section [4.2 Versions' Log]
+  - Section [4.3 Speech and Blooper]
+  - Section [4.4 References]
+
+## 4.1 Documenting File Creation
+
+  It's useful to record some information about how your file was created.
+  
+  - File creation date: 2016-06-04
+  - File latest updated date: `r Sys.Date()`
+  - `r R.version.string`
+  - R version (short form): `r getRversion()`
+  - [**rmarkdown** package]() version: `r packageVersion('rmarkdown')`
+  - [**tufte** package](https://github.com/rstudio/tufte) version: `r packageVersion('tufte')`
+  - File version: 1.0.0
+  - Author Profile: [®γσ, Eng Lian Hu](https://beta.rstudioconnect.com/englianhu/ryo-eng/)
+  - GitHub: [Source Code](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/tree/master/5%20Operations%20Management)
+  - Additional session information:
+
+```{r info, echo = FALSE, results = 'asis'}
+lubridate::now()
+devtools::session_info()$platform
+Sys.info()
+```
+
+## 4.2 Versions' Log
+
+  - *May 28, 2016*: [version: 1.0.0](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/5%20Operations%20Management/Assignment-Module-1.Rmd)
+
+## 4.3 Speech and Blooper
+
+  Firstly, I do appreciate that [University of Illinois at Urbana–Champaign](http://illinois.edu/) provides the management course via [Coursera](http://www.coursera.org). I like reading the legend of business tycoons (for example: Konosuke Matsushita, Peter Drucker, Bill Gates, Warrent Buffet, George Soros, Jim Rogers, Lee Kah Sheng, Henry Fok Ying Tung, Peter Lynch, Lim Goh Tong etc) to know how was their mindset and business strategy since I was a computer science student in Tunku Abdul Rahman College. I used to read the legend of **Ingvar Kamprad** and just recall it.
+  
+  [宜家为何"永远不会上市"?](http://www.xcf.cn/tt2/201506/t20150609_750676.htm) roughly eleborate the background of the **IKEA**. There has another business legend from China which has own electronical business emperor although backcrupcy and had been jailed since few years ago. You might read [揭秘资本大鳄黄光裕的发家史--国美电器](http://blog.sina.com.cn/s/blog_5c4026610100babx.html) for further details.
+
+## 4.4 References
+
+  - [宜家为何"永远不会上市"?](http://www.xcf.cn/tt2/201506/t20150609_750676.htm)
+

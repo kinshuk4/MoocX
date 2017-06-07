@@ -1,0 +1,139 @@
+---
+title: "Lesson 1-1 Practice Quiz"
+author: "®γσ, Eng Lian Hu"
+date: "June 11, 2016"
+output: word_document
+---
+
+# Lesson 1-1 Practice Quiz
+
+5 questions
+
+*Correct 1/1 points*
+
+1. Based on the lecture, the two main purposes of managerial accounting are to...
+
+- Discover and implement accounting rules
+- Manage and train accounting employess
+- Create and publish financial statements
+- **Facilitate and guide/influence decisions**
+```
+Correct Response 
+That is correct! The two main purposes of managerial accounting are to (1) facilitate and (2) guide/influence decisions made by managers and employees.
+```
+
+*1 point*
+
+2. Based on the lecture, which of the following groups uses managerial accounting to help the organization achieve its goals?
+
+- **Investors and potential investors**1
+- Competitors
+- Suppliers, customers, other partners
+- Managers and employees
+
+*1 point*
+
+3. What are the industry rules and regulations that need to be followed for managerial accounting?
+
+- Guided managerial accounting rules
+- **Generally accepted accounting principles**1
+- There are no industry rules or regulations for managerial accounting
+- Office of standards and boards
+
+*Correct 1/1 points*
+
+4. Which of the following organizations benefit from using managerial accounting?
+
+- Multinational corporations
+- Not for profit groups
+- Small convenient shops
+- **All of the above**
+```
+Correct Response 
+That is correct! Managerial accounting benefits any type of organization that relies on managers' and employees' decisions. So, all organizations benefit from managerial accounting.
+```
+
+*Correct 1/1 points*
+
+5. According to the lecture, which of the following is NOT a contemporary issue in managerial accounting?
+
+- Social considerations
+- Ethics
+- **Competitors**
+- Global organizations
+```
+Correct Response 
+That is correct! The contemporary issues identified are global organizations, social considerations, ethics, and the organization's value chain and strategic alliances.
+```
+
+*Correct 1/1 points*
+
+6. Based on the lecture, which of the following individuals or groups is NOT mentioned as being interested in the financial statement information of an organization?
+
+- Investors and potential investors
+- Creditors and potential creditors
+- Tax authorities
+- **Academics**
+```
+Correct Response 
+That is correct! While academics teach and conduct research related to financial accounting using financial statements, the discussion focused on users in the organization's business environment.
+```
+- Regulatory agencies
+
+*1 point*
+
+7. Which of the following is the best way to describe managerial accounting information?
+
+- General, aggregated financial information
+- **Balance sheet, income statement and statement of cash flow**
+- Detailed and specialized for a specific decision, setting, etc.
+- System to manage accounting information for investors and creditors
+
+*Correct 1/1 points*
+
+8. What type of information is relevant for managerial accounting?
+
+- Financial
+- Non-financial
+- Quantitative
+- Qualitative
+- **All of the above**
+```
+Correct Response 
+That is correct! Managerial accounting information includes all information used to facilitate or guide/influence the decisions of managers and employees. This, it includes all types of information.
+```
+
+1 point
+
+9. What are the industry rules and regulations that need to be followed for managerial accounting?
+
+- There are no industry rules or regulations for managerial accounting
+- Office of standards and boards
+- **Guided managerial accounting rules**
+```
+Incorrect Response 
+Unfortunately that is incorrect. Because it is often customized, there are no principles or rules that govern the content or format of the information.
+```
+- Generally accepted accounting principles
+
+*Correct 1/1 points*
+
+10. Managerial accounting is important because it helps facilitate and guide/influence the decision making process of the organization.
+
+- **True**
+```
+Correct Response 
+That is correct!
+```
+- False
+
+*1 point*
+
+11. The purpose of managerial accounting is to report the financial information of the organizations to investors and creditors.
+
+- True
+```
+Incorrect Response 
+Unfortunately, that is incorrect. The purpose of managerial accounting is to report to managers and employees. Thus, the correct answer is "false."
+```
+- False

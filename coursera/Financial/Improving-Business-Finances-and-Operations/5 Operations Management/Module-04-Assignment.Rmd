@@ -1,0 +1,341 @@
+---
+title: "[Operations Management](https://www.coursera.org/learn/operations-management/home/welcome) : Module 4 Assignment"
+subtitle: "[Improving Business Finances and Operations Specialization](https://www.coursera.org/specializations/business-operations) by University of Illinois at Urbana-Champaign"
+author: "[®γσ, Eng Lian Hu](http://englianhu.wordpress.com) <img src='figure/ShirotoNorimichi.jpg' width='24'> 白戸則道®"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html:
+    toc: yes
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r load-pkgs, include = FALSE}
+suppressMessages(library('plyr'))
+pkgs <- c('dplyr', 'magrittr', 'knitr', 'openxlsx', 'stringr', 'tidyr', 'googleVis', 'DT', 'rCharts', 'formattable')
+suppressMessages(l_ply(pkgs, library, character.only = TRUE))
+rm(pkgs)
+
+## Set the googleVis options first to change the behaviour of plot.gvis, so that only the chart 
+##  component of the HTML file is written into the output file.
+op <- options(gvis.plot.tag = 'chart')
+```
+
+# 1. Introduction
+
+## 1.1 Instructions
+
+**Instructions**
+
+  The purpose of this assignment is to give you the opportunity to apply the concepts you have learned in this module and to discuss some of the key ideas of the module in your own words. Follow the instructions provided and respond to each question. This a required activity for this module.
+
+  Submit your answers to each of the questions based on the information provided below. Enter your answers directly in the spaces provided in the My submission tab. You may save a draft of your work as you go, and you can come back later to continue working on your draft. When you are finished working, click the Preview button, verify your identity, and then click Submit for review to submit the assignment. Please answer each question fully and concisely.
+
+  The discussion of the assignment solution is provided in the Module 4 Assignment Solution video. Do the assignment on your own first, before viewing the assignment discussion video!
+
+  For this assignment you will need the data in these spreadsheets:
+
+- [Module4_Assignment_Table1.xlsx](https://d396qusza40orc.cloudfront.net/operationsmanagement/spreadsheets/Module4_Assignment_Table1.xlsx)
+- [Module4_Assignment_RawData.xlsx](https://d396qusza40orc.cloudfront.net/operationsmanagement/spreadsheets/Module4_Assignment_RawData.xlsx)
+- [Module4_Assignment_Table2.xlsx](https://d396qusza40orc.cloudfront.net/operationsmanagement/spreadsheets/Module4_Assignment_Table2.xlsx)
+
+## 1.2 Summary
+
+  Customers of Health Freaks Natural Foods Supplies have recently complained about underweight bags of their breakfast cereal. The 500-gram bags are manually filled at the end of the mixing line using a pourer and an electronic weighing scale that adjusts for the empty weight of the super thick bags made from biodegradable natural material used for the packaging. The quality control manager for the plant, Jim Stokowski, has begun looking into the issue. He has collected data from the filling process over five days.
+  
+  For each of the two shifts that the line is in operation, Jim has sampled ten bags each at five regular intervals; so, $5 days \times 2 shifts \times 5 sampling times \times 10 bags$. As Jim did not want to rule out any potential factor including variation in weight of empty bags as an issue at this stage of his investigation, he carefully weighed just the cereal after tearing open the bags and recorded the data. For each of the fifty 10-bag samples, Jim computed the sample-average and recorded the smallest and largest values in each sample.
+  
+  That data is located in the [Module4_Assignment_Table1.xlsx](https://d396qusza40orc.cloudfront.net/operationsmanagement/spreadsheets/Module4_Assignment_Table1.xlsx) spreadsheet. The raw data from which these averages and sample-smallest and largest values were extracted are also available to you in the [Module4_Assignment_RawData.xlsx](https://d396qusza40orc.cloudfront.net/operationsmanagement/spreadsheets/Module4_Assignment_RawData.xlsx) spreadsheet. Jim's hunch is that the more recently started second shift may have some issues.
+
+  Based on this data, for Parts 1-4, please check whether the process is in statistical control, computing the limits for R and X-bar charts for shift 1 and shift 2 (control chart constants for R and X-bar charts are provided in in the [Module4_Assignment_Table2.xlsx](https://d396qusza40orc.cloudfront.net/operationsmanagement/spreadsheets/Module4_Assignment_Table2.xlsx) spreadsheet) and comparing the sample averages and ranges for each shift with their respective limits. You need not draw the two sets of R and X-bar control charts.
+
+  Then, for Part 5, based on the information that you have here and your data analysis, how would you characterize the performance of the process in the two shifts, and what would you do next?
+
+```{r read-data, echo = FALSE, results = 'asis'}
+#'@ dat <- read.xlsx('./5 Operations Management/data/Module4_Assignment_RawData.xlsx', startRow = 3) %>% tbl_df
+#'@ dat1 <- read.xlsx('./5 Operations Management/data/Module4_Assignment_Table1.xlsx', startRow = 2) %>% tbl_df
+#'@ dat2 <- read.xlsx('./5 Operations Management/data/Module4_Assignment_Table2.xlsx') %>% tbl_df
+
+dat <- read.xlsx('./data/Module4_Assignment_RawData.xlsx', startRow = 3) %>% tbl_df
+dat1 <- read.xlsx('./data/Module4_Assignment_Table1.xlsx', startRow = 2) %>% tbl_df
+dat2 <- read.xlsx('./data/Module4_Assignment_Table2.xlsx') %>% tbl_df
+
+names(dat) <- c('Rotate', 'Sample', paste0('X', 1:10))
+names(dat1)[2] <- 'Sample'
+dat0 <- str_split_fixed(dat$Rotate, ' ', 3) %>% data.frame %>% .[seq(1, nrow(.), 5), c(1, 3)] %>% tbl_df
+Day <- factor(rep(as.character(dat0$X1), each = 5))
+Shift <- factor(rep(as.character(dat0$X3), each = 5))
+
+dat <- data.frame(No = seq(nrow(dat)), Day, Shift, dat[-1]) %>% tbl_df
+dat <- ldply(split(dat, dat$Shift), function(x) data.frame(x[1:4], Sample2 = seq(nrow(x)), x[5:ncol(x)])) %>% tbl_df %>% .[-1]
+
+dat1 <- data.frame(Day, Shift, dat1[-1]) %>% tbl_df %>% mutate(Standard = 500, Diff = Average - Standard, Range = Largest - Smallest)
+dat1 <- data.frame(No = seq(nrow(dat1)), ldply(split(dat1, dat1$Shift), function(x) {
+    data.frame(x[1:3], Sample2 = seq(nrow(x)), x[4:ncol(x)])
+    })[-1]) %>% tbl_df
+
+dat2 <- rbind(dat2[-1, 1:4], dat2[-1, 5:8]) %>% mutate(Sample.Size = as.numeric(Sample.Size)) %>% mutate(Average = (`Factor.for.LCL.for.R.(D3)` + `Factor.for.UCL.for.R.(D4)`) / 2, Range = `Factor.for.UCL.for.R.(D4)` - `Factor.for.LCL.for.R.(D3)`)
+
+rm(dat0, Day, Shift)
+```
+
+```{r dt1, echo = FALSE, results = 'asis'}
+dat %>% datatable(
+  caption = "Table 1.2.1 : Daily Data of the Weight of Breakfast Cereal", 
+  escape = FALSE, filter = "top", rownames = FALSE, 
+  extensions = list("ColReorder" = NULL, #'@ "RowReorder" = NULL, "Buttons" = NULL, 
+                    "Responsive" = NULL, "FixedColumns" = list(leftColumns = 1)), 
+  options = list(dom = 'BRrltpi', autoWidth = TRUE, 
+                 lengthMenu = list(c(10, 50, 100, -1), c('10', '50', '100', 'All')), 
+                 ColReorder = TRUE, rowReorder = TRUE, 
+                 buttons = list('copy', 'print', 
+                                list(extend = 'collection', 
+                                     buttons = c('csv', 'excel', 'pdf'), 
+                                     text = 'Download'), I('colvis'))))
+```
+
+*Table 1.2.1 : Daily data of the weight of breakfast cereal.*
+
+```{r dt2, echo = FALSE, results = 'asis'}
+dat1 %>% datatable(
+  caption = "Table 1.2.2 : R Chart and X-bar of the Weight of Breakfast Cereal", 
+  escape = FALSE, filter = "top", rownames = FALSE, 
+  extensions = list("ColReorder" = NULL, #'@ "RowReorder" = NULL, "Buttons" = NULL, 
+                    "Responsive" = NULL, "FixedColumns" = list(leftColumns = 1)), 
+  options = list(dom = 'BRrltpi', autoWidth = TRUE, 
+                 lengthMenu = list(c(10, 50, 100, -1), c('10', '50', '100', 'All')), 
+                 ColReorder = TRUE, rowReorder = TRUE, 
+                 buttons = list('copy', 'print', 
+                                list(extend = 'collection', 
+                                     buttons = c('csv', 'excel', 'pdf'), 
+                                     text = 'Download'), I('colvis'))))
+```
+
+*Table 1.2.2 : R Chart and X-bar of the weight of breakfast cereal.*
+
+```{r dt3, echo = FALSE, results = 'asis'}
+dat2 %>% datatable(
+  caption = "Table 1.2.3 : Control Chart of the Weight of Breakfast Cereal", 
+  escape = FALSE, filter = "top", rownames = FALSE, 
+  extensions = list("ColReorder" = NULL, #'@ "RowReorder" = NULL, "Buttons" = NULL, 
+                    "Responsive" = NULL, "FixedColumns" = list(leftColumns = 1)), 
+  options = list(dom = 'BRrltpi', autoWidth = TRUE, 
+                 lengthMenu = list(c(10, 50, 100, -1), c('10', '50', '100', 'All')), 
+                 ColReorder = TRUE, rowReorder = TRUE, 
+                 buttons = list('copy', 'print', 
+                                list(extend = 'collection', 
+                                     buttons = c('csv', 'excel', 'pdf'), 
+                                     text = 'Download'), I('colvis'))))
+```
+
+*Table 1.2.3 : Control chart of the weight of breakfast cereal.*
+
+```{r summary1, echo = FALSE}
+summary(dat[-c(1:3)]) %>% rbind(., paste0('Total  :', colSums(dat[-c(1:3)]))) %>% formattable %>% as.htmlwidget
+```
+
+*Table 1.2.4a : Data summary of daily weight control*
+
+```{r summary2, echo = FALSE}
+summary(dat1[-c(1:3)]) %>% rbind(., paste0('Total  :', colSums(dat1[-c(1:3)]))) %>% formattable %>% as.htmlwidget
+```
+
+*Table 1.2.4b : Data summary of daily weight control*
+
+```{r plot-1, echo = FALSE, results = 'asis'}
+## tidy data for plot graphs
+d1 <- gather(dat, Sampling, Weight, X1:X10) %>% unite(Day.Shift, Day, Shift, sep = '.') %>% arrange(No)
+
+p1 <- nPlot(Weight ~ Sample2, group = 'Day.Shift', type = 'scatterChart', data = d1)
+p1$xAxis(axisLabel = 'Weight (in grams)')
+p1$show("iframesrc", cdn = TRUE)
+```
+
+*Graph 1.2.1 : Data plot of the observations.*
+
+```{r plot-2, echo = FALSE, results = 'asis'}
+p2 <- hPlot(x = 'Sample2', y = 'Weight', data = d1, type = 'scatter', group = 'Day.Shift', size = 'Sampling')
+p2$show("iframesrc", cdn = TRUE)
+```
+
+*Graph 1.2.2 : Data plot of the observations.*
+
+```{r plot-3, echo = FALSE, results = 'asis'}
+## Clear objects
+rm(p1, p2)
+
+d2 <- llply(split(dat, dat$Shift), function(x) gather(x, Sampling, Weight, X1:X10))
+d2 <- cbind(d2[[1]],d2[[2]][ncol(d2[[2]])]) %>% tbl_df
+names(d2)[(ncol(d2)-1):ncol(d2)] <- c('Weight.1', 'Weight.2')
+
+gvisScatterChart(dat[-c(1:4)], 
+                       options = list(
+                         title = "R and X-bar Control Charts", 
+                         legend = "right", pointSize = 10,
+                         titleTextStyle = "{color:'red', fontName:'Courier', fontSize:16}", 
+                         backgroundColor = "#D3D3D3",                          
+                         vAxis = "{gridlines:{color:'red', count:3}}",
+                         hAxis = "{title:'Country', titleTextStyle:{color:'blue'}}",
+                         series = "{pointShape: 'circle'}, {color: 'blue',targetAxisIndex:1}", 
+                         legend = "bottom", curveType = "function", gvis.editor = "Edit me!"
+                         )) %>% plot
+```
+
+*Graph 1.2.3 : R and X-bar control charts.*
+
+  You can casually change above chart type by click the **Edit Me!**.
+
+# 2. Operational Concepts
+
+## Part 1
+
+  Compute the limits for the R chart for shift 1. Interpret the control chart by comparing the sample ranges to the control limits.
+
+```{r summary, echo = FALSE}
+CL <- ddply(dat1, .(Shift), summarize, Average = mean(Average), Smallest = min(Smallest), Largest = max(Largest), Range = mean(Range), `%` = Range / Average * 100)
+
+CL %>% formattable %>% as.htmlwidget
+```
+
+*Table 2.1.1 : Data summary of R and X-bar control charts.*
+
+$$Center Line (Shift 1) = \sum_{i=1,2..}^{n}\frac{Largest_{i} - Smallest_{j}}{n}$$
+
+  Therefore, the **Center Line** for *Shift 1* = `r CL$Range[1]` grams. The article mentions that **10-bag samples per sampling**^[For the daily sample size, you can see from *Table 1.2.1* has column `X1` until `X10`. total sample size $n$, you can just subset/filter the column `Shift` inside *Table 1.2.1* and *Table 1.2.2* which is (5 times sampling per day * 5 weekdays) 25 observations.], therefore :
+
+```{r LCL-UCL, echo = FALSE}
+dat2 %>% filter(Sample.Size == 10) %>% formattable %>% as.htmlwidget
+```
+
+*Table 2.1.2 : 10 sample size of LCL and UCL.*
+
+- **Upper Control Limit** = Factor.for.UCL.for.R.(D4) x center line = `r unlist(dat2[9, 4]) * CL$Range[1]`
+- **Lower Control Limit** = Factor.for.LCL.for.R.(D3) x center line = `r unlist(dat2[9, 3]) * CL$Range[1]`
+
+  Here we summarise it as **`r CL$Range[1]`** grams is the center line for total 25 sample size and the weight range will falling between **`r unlist(dat2[9, 3]) * CL$Range[1]`** grams and **`r unlist(dat2[9, 4]) * CL$Range[1]`** grams.
+
+## Part 2
+
+  Compute the limits for the R chart for shift 2. Interpret the control chart by comparing the sample ranges to the control limits.
+
+  By refer to above *Table 2.1.1* and *Table 2.1.2*, we know that :
+
+- **Center Line** = `r CL$Range[2]`
+- **Upper Control Limit** = Factor.for.UCL.for.R.(D4) x center line = `r unlist(dat2[9, 4]) * CL$Range[2]`
+- **Lower Control Limit** = Factor.for.LCL.for.R.(D3) x center line = `r unlist(dat2[9, 3]) * CL$Range[2]`
+
+  Therefore we conclude that based on the 25 sample size, **Center Line** for *Shift 2* = **`r CL$Range[2]`** grams and the weight of cereal bags are vary within the range **`r unlist(dat2[9, 3]) * CL$Range[2]`** grams to **`r unlist(dat2[9, 4]) * CL$Range[2]`** grams.
+
+## Part 3
+
+  Compute the limits for the X-bar chart for shift 1. Interpret the control chart by comparing the sample means to the control limits.
+
+- **Mean of Means** = `r CL$Average[1]`
+- **Center Line** = `r CL$Range[1]`
+- **Upper Control Limit** = Mean of Means + Factor.for.X-bar.(A2) x center line = `r CL$Average[1] + unlist(dat2[9, 2]) * CL$Range[1]`
+- **Lower Control Limit** = Mean of Means - Factor.for.X-bar.(A2) x center line = `r CL$Average[1] - unlist(dat2[9, 2]) * CL$Range[1]`
+
+  The average of weight of all 25 samples will be **`r CL$Average[1]`** grams and from the lowest **`r CL$Average[1] - unlist(dat2[9, 2]) * CL$Range[1]`** grams to the higest **`r CL$Average[1] + unlist(dat2[9, 2]) * CL$Range[1]`** grams.
+
+```{r plot-4, echo = FALSE, results = 'asis'}
+d3 <- data.frame(dat1[1:25, c('Sample2', 'Average', 'Range')], dat1[26:nrow(dat1), c('Average', 'Range')]) %>% tbl_df
+names(d3) <- c('Sample', 'Mean.1', 'Range.1', 'Mean.2', 'Range.2')
+
+gvisComboChart(d3, options = list(
+                         title = "Cereal Bags (Weights in Grams)", 
+                         legend = "right", pointSize = 5,
+                         titleTextStyle = "{color:'red', fontName:'Courier', fontSize:16}",
+                         backgroundColor = "#D3D3D3", curveType = "function",
+                         vAxis = "{gridlines:{color:'red', count:3}}",
+                         hAxis = "{title:'Country', titleTextStyle:{color:'blue'}}",
+                         series = "{pointShape: 'circle'}, 
+                                    {color: 'blue',targetAxisIndex:1}", 
+                         legend = "bottom", curveType = "function", gvis.editor = "Edit me!"
+                         )) %>% plot
+```
+
+*Graph 2.3.1 : Weights of cereal bags.*
+
+  Base from *Graph 2.3.1*, we observed the average and the range of cereal bags's weights. From *Table 1.2.1* we can count that `r dat %>% filter(Shift == 1) %>% .[-c(1:3)] %>% as.matrix %>% .[. < CL$Average[1]] %>% length` among `r dat %>% filter(Shift == 1) %>% .[-c(1:3)] %>% as.matrix %>% length` samples have lower weight than center line.
+
+## Part 4
+
+  Compute the limits for the X-bar chart for shift 2. Interpret the control chart by comparing the sample means to the control limits.
+
+- **Mean of Means** = `r CL$Average[2]`
+- **Center Line** = `r CL$Range[2]`
+- **Upper Control Limit** = Mean of Means + Factor.for.X-bar.(A2) x center line = `r CL$Average[2] + unlist(dat2[9, 2]) * CL$Range[2]`
+- **Lower Control Limit** = Mean of Means - Factor.for.X-bar.(A2) x center line = `r CL$Average[2] - unlist(dat2[9, 2]) * CL$Range[2]`
+
+  The average of weight of all 25 samples will be **`r CL$Average[2]`** grams and from the lowest **`r CL$Average[2] - unlist(dat2[9, 2]) * CL$Range[2]`** grams to the higest **`r CL$Average[2] + unlist(dat2[9, 2]) * CL$Range[2]`** grams.
+
+  Base from *Graph 2.3.1*, we observed the average and the range of cereal bags's weights. From *Table 1.2.1* we can count that `r dat %>% filter(Shift == 2) %>% .[-c(1:3)] %>% as.matrix %>% .[. < CL$Average[2]] %>% length` among `r dat %>% filter(Shift == 2) %>% .[-c(1:3)] %>% as.matrix %>% length` samples have lower weight than center line.
+
+## Part 5
+
+  Based on the information that you have here and your data analysis, how would you characterize the performance of the process in the two shifts, and what would you do next?
+
+  From *Table 2.1.1*, we can observe that the ranges of both shift 1 and also shift 2 are almost similar but they are quite high which are `r unlist(CL['%'])[1]` and `r unlist(CL['%'])[2]`. However shift 2 has `r unlist(CL['%'])[2]` different range base on mean value `r CL$Average[2]` is consider greater under-fills compare to shift 1.
+
+```{r, echo = FALSE, results = 'asis'}
+## Set options back to original options
+options(op)
+```
+
+# 3. Conclusion
+
+  As concluded in **Part 5**, from *Table 2.1.1*, we can observe that the ranges of both shift 1 and also shift 2 are almost similar but they are quite high which are `r unlist(CL['%'])[1]` and `r unlist(CL['%'])[2]`. However shift 2 has `r unlist(CL['%'])[2]` different range base on mean value `r CL$Average[2]` is consider greater under-fills compare to shift 1.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/15WBkXwjWME" frameborder="0" allowfullscreen></iframe>
+  
+# 4. Appendices
+
+  - Section [4.1 Documenting File Creation]
+  - Section [4.2 Versions' Log]
+  - Section [4.3 Speech and Blooper]
+  - Section [4.4 References]
+
+## 4.1 Documenting File Creation
+
+  It's useful to record some information about how your file was created.
+  
+  - File creation date: 2016-06-12
+  - File latest updated date: `r Sys.Date()`
+  - `r R.version.string`
+  - R version (short form): `r getRversion()`
+  - [**rmarkdown** package]() version: `r packageVersion('rmarkdown')`
+  - [**tufte** package](https://github.com/rstudio/tufte) version: `r packageVersion('tufte')`
+  - File version: 1.0.0
+  - Author Profile: [®γσ, Eng Lian Hu](https://beta.rstudioconnect.com/englianhu/ryo-eng/)
+  - GitHub: [Source Code](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/tree/master/5%20Operations%20Management)
+  - Additional session information:
+
+```{r info, echo = FALSE, results = 'asis'}
+lubridate::now()
+devtools::session_info()$platform
+Sys.info()
+```
+
+## 4.2 Versions' Log
+
+  - *June 12, 2016*: [version: 1.0.0](https://github.com/englianhu/Coursera-Improving-Business-Finances-and-Operations/blob/master/5%20Operations%20Management/Module-04-Assignment.Rmd)
+
+## 4.3 Speech and Blooper
+
+  Same as pevious assignments in Operations Management, I do appreciate that [University of Illinois at Urbana–Champaign](http://illinois.edu/) provides the management course via [Coursera](http://www.coursera.org).
+  
+  I initially don't know how to calculate the reorder point and reorder size from the video solution. However I had searched and read the relevant articles to know the concepts and the formulas. I am a newbie in marketing, cost measurement and inventory management as well as whole operating chain. Keep up learning and hope to learn some management skills and knowledges from **Operations Management**.
+  
+  - *Graph 1.2.1* and *Graph 1.2.2* which plot by using `rCharts::nPlot()` and `rCharts::hPlot()` occurred some unonymous errors since it is working fine if run via chunk but show nothing when knitted.
+  - `googleVis::gvisLineChart()` only shows **Edit me!** but no graph in local but published is working fine.
+
+## 4.4 References
+
+  - [NA]()
+

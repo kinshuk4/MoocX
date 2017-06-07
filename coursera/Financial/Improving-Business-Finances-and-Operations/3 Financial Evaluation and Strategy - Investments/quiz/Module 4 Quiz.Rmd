@@ -1,0 +1,118 @@
+---
+title: "Module 4 Quiz"
+author: "®γσ, Eng Lian Hu"
+date: "June 11, 2016"
+output: word_document
+---
+
+# Module 4 Quiz
+
+12 questions
+
+*1 point*
+
+1. True or False: Valuing a firm using discounted cash flow techniques (i.e., the income approach) involves adding projected cash flows over a forecast period (such as 5 to 10 years into the future) to an estimated terminal value of the firm at the end of the forecast period and appropriately discounting both to reflect a value today.
+
+- **True**
+- False
+
+*1 point*
+
+2. Which of the following is NOT part of the formula for the required return for equity (assuming you are using a CAPM model)?
+
+- **Beta of the stock**
+- Market risk premium
+- Risk-free rate
+- Volatility of the stock
+
+*1 point*
+
+3. Suppose debt is 20% of a firm’s capital structure and equity is 80%. The required return on the firm’s debt is 5%, and the required return on the firm’s equity is 12%. Suppose there is zero corporate tax. What is the firm’s weighted average cost of capital (WACC)?
+
+- 5%
+- **5.6%**
+- 8.5%
+- 10%
+- 10.6%
+- 12%
+
+*1 point*
+
+4. True or False: Empirical research suggests that there is strong persistence in the earnings growth rates of U.S. firms.
+
+- **True**
+- False
+
+*1 point*
+
+5. An asset can have a high price-to-earnings ratio because:
+
+- It is expected to have a high growth rate in cash flows.
+- **It is viewed as having low risk (i.e., has a low discount rate).**
+- Both are possible reasons for an asset having a high price-to-earnings ratio.
+- Neither are possible reasons for an asset having a high price-to-earnings ratio.
+
+*1 point*
+
+6. Suppose an asset provides annual risk-free cash flows of $200 at the end of each year in perpetuity. The risk-free rate is 5%. What is the value of this perpetuity?
+
+- $200
+- $1,000
+- **$2,000**
+- $4,000
+- $8,000
+- $10,000
+- $20,000
+
+*1 point*
+
+7. An increase in the financial or operating leverage of a firm should:
+
+- Increase the CAPM beta of the firm’s stock
+- **Have no effect on the CAPM beta of the firm’s stock**
+- Decrease the CAPM beta of the firm’s stock
+
+*1 point*
+
+8. Market multiple techniques to value a firm:
+
+- Use ratios like price-to-earnings or market-to-book from a competitor to value a firm
+- Are useful to obtain an estimate of the potential market value of a private company before its initial public offering (IPO)
+- **Are only as good as is the match between the firm to value and its comparison firm**
+- Can result in biased valuation estimates if firms have different accounting conventions
+- All of these responses are true.
+- None of these responses are true.
+
+*1 point*
+
+9. True or False: The accounting deduction for depreciation represents actual cash flow leaving the firm.
+
+- **True**
+- False
+
+*1 point*
+
+10. Future liabilities or revenues tied to fixed quantities that are known in advance should be discounted at a:
+
+- **Low discount rate**
+- High discount rate
+
+*1 point*
+
+11. The stock betas of individual industries estimated over a five-year period are:
+
+- **Positively related to what the industry betas were five years earlier, but not perfectly so (i.e., the betas change somewhat over time)**
+- Exactly the same as those estimated five years earlier (i.e., don’t change over time)
+- Unrelated to what the industry betas were five years earlier
+
+*1 point*
+
+12. Suppose an asset provides annual risk-free cash flows at the end of each year in perpetuity. The risk-free rate is 5%. The first cash flow is $200, and the cash flows grow at 4% per year. What is the value of this perpetuity?
+
+- $200
+- **$1,000**
+- $2,000
+- $4,000
+- $8,000
+- $10,000
+- $20,000
