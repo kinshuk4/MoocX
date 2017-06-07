@@ -1,0 +1,59 @@
+<center> <h2>Programming for Everybody - Week 6</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 6.1 - Strings*
+
+**A. Introduction to Strings**
+
+- you can look inside strings like you would lists
+    - characters are index starting at 0
+- you can also do slicing
+- the ```len()``` function returns the number of characters (including spaces)
+- we can loop through strings
+    - bits of strings can be accessed with the index
+
+```{r eval=F, engine='python'}
+fruit = "banana"
+for letter in fruit:
+    print letter
+```
+
+**B. Looping**
+
+- find largest letter, smallest letter
+- count certain letters
+- you can concatenate with ```+```
+
+**C. String Methods***
+
+- ```str1.lower()``` returns a lower-case COPY of the string
+- ```str1.upper()``` returns an upper-case COPY of the string (doesn't modify the string)
+- you can use ```dir(<objectname>)``` to return all the methods built into certain types
+- the ```find()``` function returns the index of a substring within another string
+    - note that it only finds the first instance, and that indexing starts at 0
+    - returns a "-1" if it doesn't find it
+    - find takes an optional second argument telling it where to start looking
+- the ```replace()``` function is like a search and replace operation
+
+```{r eval=F, engine='python'}
+greet = 'Hello Bob'
+nstr = greet.replace('Bob','Jane') ##returns a COPY with replacement
+```
+
+- ```lstrip()``` and ```rstrip()``` strip whitespace from the left and right, respectively
+- ```strip()``` removes all the outer whitespace
+- you can search prefixes (case matters!) using the ```startswith``` METHOD
+- Python is good at "ripping data into pieces"
+- searching a bunch of stuff in text is called "parsing"
+
+####*Video 6.2 - Bonus: Monash Museum of Computing History*
+
+**A. Notes**
+
+- located in Sydney, Australia
+- it's a danger with computing students...that they will focus too much only on "the latest"
+- the first computers were people (and, more specifically, women)
+- history can be quickly forgotten
+    - we may end up spending effort solving sub-problems whose solutions were embedded in past technologies
+
+

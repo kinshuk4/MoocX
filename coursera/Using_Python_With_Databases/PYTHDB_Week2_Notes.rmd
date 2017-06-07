@@ -1,0 +1,118 @@
+<center> <h2>Using Databases with Python - Week 2</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 2.1 - Database Introduction*
+
+**A. Notes**
+
+- using DBs prevents "locking-in" your analysis to your data pulling workflow
+- relational DBs model data by storing rows and columns in tables
+- relational DBs were "applying cleverness to how we store data on disk drives"
+- "Oracle exists because smart people figured this out before anyone else could"
+- the underlying foundation relies on really powerful mathematics
+- terms:
+    - database = contains many tables
+    - relation = contains tuples and attributes
+    - tuple (or row) = a set of fields from one row
+- "model everything as a connection"
+
+**B. Structured Query Language**
+
+- SQL = "the language we use to issue commands to the database"
+    - create a table
+    - retrive some data
+    - insert data
+    - delete data
+- "database application layer":
+    - SQL is a decorative language, intended for application-level programmers
+    - you could abstract away from the complexity of the database
+    - essentially an API into the database
+- standard = your apps could be portable across applications
+- SQL is "beautiful", but if you learn it first "you'd be ruined"
+- SQL is a great way to "write programs about beautiful data"
+    - Python is better for dealing with imperfections, rough data
+- CRUD = "Created, read, update, delete"
+
+####*Video 2.2 - Using Datbase*
+
+**A. Notes**
+
+- two roles:
+    - application developer
+    - DB administrator
+- developers don't talk to the production DB directly
+- a DBA is responsible for design, implementation, etc.
+- Python might be used to take in input files and put them in the DB and/or create output files for Excel, R, etc.
+- with a "contract" like SQL, the DB software can make the best use of itself
+- "database model" = structure or format of a database
+- the DB will figure out the best way to do things based on your commands expresed in SQL
+- Oracle made "a bet on relational DBs" at a time when others doubted it
+- MySQL is very fast and scalable...MARIA is an open-source copy of MySQL
+- SqlServer - from Microsoft
+- others:
+    - HSQL, Postgress (openSource oracle imitation), SQLite
+- SQLite is an "embedded database"
+    - not like other DBs that we have to talk to over a network connection
+    - your car has SQLite (lots of copies)
+    - built into Python already
+
+####*Video 2.3 - Single Table CRUD*
+
+**A. Notes**
+
+- SQLite browser:
+    - directly manipulate files
+    - SQLlite is embedded in Python and a number of other languages
+- creating one table:
+
+```{r, eval=FALSE}
+CREATE TABLE Users(
+    name VARCHAR(128),
+    email VARCHAR(128)
+)
+```
+
+- VARCHAR = "variable-length character"
+- knowing maximum size, type really helps the DB to get to the data fast
+- if you're explicit, it helps SQLlite to get to the data fast
+- INSERT inserts a row into the db
+
+```
+INSERT INTO users (name,email) VALUES ('Kristin', 'kf@umich.edu')
+```
+
+- DELETE deletes a row in a table based on a selection criteria
+
+```
+DELETE FROM Users WHERE email='jaylamb20@gmail.com'
+```
+
+- updates allow the updating of a field with a where clause. such as:
+
+```
+UPDATE Users SET name='Charles' WHERE email='csev@umich.edu'
+```
+
+- retrieved records with the ```SELECT``` command
+- takes the form of ```SELECT * FROM Users```
+- on the end of your SELECT, you can use ORDER BY field name
+- this is the basics....this really gets powerful when you start doing joins
+
+####*Video 2.4 - Email Database Demo*
+
+**A. Notes**
+
+- you create a connection and get a "cursor" object back.
+- ```fetchone``` method will bring one row into memory
+- ```.commit()``` says "all this stuff you've been doing in memory, now write that to disk"
+
+####*Video BONUS: Elizabteh Fong - the Early Years of SQL*
+
+**A. Notes**
+
+- NIST is in charge of organizing industrial standards
+- pre-SQL: file-base, hierarchical
+- standardization isn't on capabilities, but language for interfacing and communication
+- if you standardize too early, you drive a lot of innovation away
+- if you do it too late, there are too many choices and you've missed an opportunity
+- SQL as an NIST "success story"

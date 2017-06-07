@@ -1,0 +1,12 @@
+<center> <h2>Data Manipulation At Scale - Reading List</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Recommended Readings*
+
+**A. Introduction**
+
+- [eScience: The Fourth Paradigm](http://research.microsoft.com/en-us/collaboration/fourthparadigm/)
+- Chris Anderson, [The End of Theory: The Data Deluge makes the Scientific Method Obsolete](http://archive.wired.com/science/discoveries/magazine/16-07/pb_theory), Wired magazine
+- [responses to Chris Anderson](http://edge.org/discourse/the_end_of_theory.html)
+
+

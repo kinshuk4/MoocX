@@ -1,0 +1,99 @@
+<center> <h2>Interactive Python - Week 8</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 8.1 - Sets*
+
+**A. Notes**
+
+- we need collections of rocks and missiles
+- sets = Python data structure for collections
+- types:
+    - list = ordered sequence
+    - dictionary = key-value mapping
+    - set = unordered collection of data with no duplicates
+- if you won't have dups and don't care about ordering, sets are way faster than lists
+- set([1,2,3])
+- sets are unordered
+- if you define a set and put duplicates in it, python will automatically not add those dups to the set
+- use ```my_set.add('thing')``` to add something
+    - again, if this thing already exists it will not add
+- use ```my_set.remove('thing')``` to remove that thing from the set
+- use the ```in``` operator to test if something is in a target set
+
+**B. Applications**
+
+- the ```difference_update(set)``` takes a set of things to be removed and removes all those things from the set on which the method is called
+
+####*Video 8.2 - Collisions for Sprites*
+
+**A. Collisions for Sprites**
+
+- we need to detect and manage collisions between big groups of objects
+- assume everything is a circle
+- if distance between centers > sum of the two circles' radii, you know there hasn't been a collision
+- consider putting a ```collide``` method in the Sprite class
+    - pass it other sprite names as an argument
+    - return true or false
+- stuff:
+    - sprite1.collide(sprite2)
+    - self.pos, self.radius
+    - other_sprite.get_radius
+    - other_sprite.get_position()
+
+**B. Our Game**
+
+- 1 ship, set of rocks, set of missiles
+- ship collides with rock --> you die and lose a life
+- missile collides with rock --> points!
+- "rock.collide(ship)"
+- algorithm:
+    1. check each sprite
+    2. If it collided with missile, remove it!
+
+**C. Implementing Group Collide**
+
+- remove:
+
+```{r eval=FALSE}
+
+# use a copy!
+for s in list(myset):
+    #some conditional logica
+    myset.remove(s)
+```
+
+- missiles and rocks are sets
+- maybe a ```group-group-collide``` to test collisions of some sprites or some missiles
+- use the group_collide function inside!
+- return the number of collisions from this function...to update the scoring
+
+####*Video 8.3 - Sprite Animation*
+
+**A. Animation**
+
+- flip book - sequence of drawings on pages of book. flip through images, appear to move
+- relies on phenomenon known as "persistenc of vision"
+- create the illusion that continuous motion is being seen rather than a series of discontinuous images being exchanges in succession
+- tumbling asteroid --> draw each sub-image briefly in sequence
+    - just increment the horizontal component by sub-image horizontal size
+
+####*Video 8.4 - Programming Tips*
+
+**A. Sets can be confusing**
+
+- declare one as ```x=set([1,2,5])```
+- in math, we use curly braces for sets
+    - in python, curly braces are dictionaries
+- other methods:
+    - ```s.intersection(t)``` produces a new set that is the intersection of s and t
+    - ```s.intersection_update(t)``` changes s to be the intersection of s and t
+- the two above are called "mutation methods"
+- still need to be careful with aliasing
+- if you have t=s, changing s changes t
+
+####*Video 8.5 - RiceRocks*
+
+**A. The Finale!**
+
+- save the explosions for the end
+

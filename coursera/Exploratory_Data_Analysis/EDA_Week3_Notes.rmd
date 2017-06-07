@@ -1,0 +1,503 @@
+<center> <h2>Exploratory Data Analysis - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1 Hierarchical Clustering (pt 1)*
+
+**A. Intro to Hierarchical Clustering**
+
+- the basic idea: how do we define "close" and "far"
+- how do we group things?
+- how do we visualize the grouping?
+- how do we interpret the grouping?
+
+**B. Importance**
+
+- cluster analysis is really really important
+- widely used across many fields
+
+**C. Hierarchical clustering**
+
+- An agglomerative approach
+    - find closest two things
+    - put them together
+    - find next closest
+- requires:
+    - a defined distance
+    - a merging approach (what do you do once you say two things are "close")
+- produces
+    - a tree shwing how close things are to each other
+    - tree = "dendrogram"
+    
+**D. How do we Define close?**
+
+- Most important step (GIGO!!)
+- Distance or similarity
+    - continuous - euclidean distance
+    - continuous - correlation similarity
+    - binary - "Manhattan distance"
+- pick a distance/similarity that makes sense for your problem
+
+**E. Examples - Euclidean**
+
+- square root of squared differences
+
+**F. Hierarchical Clustering - Example**
+
+```{r cluster1}
+## set the seed
+set.seed(1234)
+
+## no margins
+par(mar = c(0, 0, 0, 0))
+
+## simulate some data
+x <- rnorm(12, mean = rep(1:3, each = 4), sd = 0.2)
+y <- rnorm(12, mean = rep(c(1, 2, 1), each = 4), sd = 0.2)
+plot(x, y, col = "blue", pch = 19, cex = 2)
+text(x + 0.05, y + 0.05, labels = as.character(1:12))
+```
+
+
+####*Video 3.2 Hierarchical Clustering (pt 2)*
+
+**A. Distance**
+
+- before you can do clustering, you need to calculate distance
+
+```{r dist, eval=FALSE}
+dataFrame <- data.frame(x=x, y=y)
+
+## build matrix of distances (default is Euclidean)
+dist(dataFrame)
+```
+
+**B. The Dendrogram**
+
+```{r dendro}
+## Again, creat the dataframe
+dataFrame <- data.frame(x = x, y = y)
+
+## get the lower-diagonal matrix of pairwise distances
+distxy <- dist(dataFrame)
+
+## execute hierarchical clustering
+hClustering <- hclust(distxy)
+
+## plot the dendrogram
+plot(hClustering)
+```
+
+- to determine how many clusters there are, you need to "cut the tree"
+
+####*Video 3.3 Hierarchical Clustering (pt 3)*
+
+**A. Prettier Dendrograms**
+
+- a function written by the professor
+
+```{r prettier dendro}
+
+myplclust <- function(hclust, lab = hclust$labels, lab.col = rep(1, length(hclust$labels)), 
+    hang = 0.1, ...) {
+    ## modifiction of plclust for plotting hclust objects *in colour*!  Copyright
+    ## Eva KF Chan 2009 Arguments: hclust: hclust object lab: a character vector
+    ## of labels of the leaves of the tree lab.col: colour for the labels;
+    ## NA=default device foreground colour hang: as in hclust & plclust Side
+    ## effect: A display of hierarchical cluster with coloured leaf labels.
+    y <- rep(hclust$height, 2)
+    x <- as.numeric(hclust$merge)
+    y <- y[which(x < 0)]
+    x <- x[which(x < 0)]
+    x <- abs(x)
+    y <- y[order(x)]
+    x <- x[order(x)]
+    plot(hclust, labels = FALSE, hang = hang, ...)
+    text(x = x, y = y[hclust$order] - (max(hclust$height) * hang), labels = lab[hclust$order], 
+        col = lab.col[hclust$order], srt = 90, adj = c(1, 0.5), xpd = NA, ...)
+}
+
+dataFrame <- data.frame(x = x, y = y)
+distxy <- dist(dataFrame)
+hClustering <- hclust(distxy)
+myplclust(hClustering, lab = rep(1:3, each = 4), lab.col = rep(1:3, each = 4))
+```
+
+**B. Even Prettier Dendrograms**
+
+- the [R graph gallery](http://gallery.r-enthusiasts.com/) is a good place to start
+
+**C. Merging Points**
+
+- one approach: averaging or "center of gravity"
+- another : complete distance
+- both approaches are worth trying (could get different results)
+
+**D. heatmap()**
+
+- try this:
+
+```{r heatmap}
+dataFrame <- data.frame(x = x, y = y)
+set.seed(143)
+dataMatrix <- as.matrix(dataFrame)[sample(1:12), ]
+heatmap(dataMatrix)
+```
+
+- creates a heatmap-esque hierarchical clustering
+- good for quickly organizing high-dimensional table (or matrix) data
+
+**E. Notes and Further Resources**
+
+- The picture may be unstable
+- do some robustness/sensitivity checks:
+    - change a few points
+    - have different missing values
+    - pick a different distance
+    - change the merging strategy
+    - change the scale of points for one variable
+- ...but given that you don't change these things, hierarchical clustering IS deterministic
+- Roger: best use of H-clustering is probably best jsut for exploratory analysis
+
+####*Video 3.4 K-Means Clustering (pt 1)*
+
+**A. Basic Idea**
+
+- great for summarizing high-dimensional data
+- "can we find things that are close together?"
+- a partitioning approach:
+    - fix a number of clusters
+    - get "centroids" of each cluster
+    - assign things to closest centroid
+    - recalculate centroids
+- Requires:
+    - a defined distance metric
+    - a number of clusters
+    - an initial guess as to cluster centroids
+- Produces:
+    - final estimate of cluster centroids
+    - an assignement of each point to clusters
+
+**B. Clustering Example**
+
+```{r kmeansex}
+set.seed(1234)
+par(mar = c(0, 0, 0, 0))
+x <- rnorm(12, mean = rep(1:3, each = 4), sd = 0.2)
+y <- rnorm(12, mean = rep(c(1, 2, 1), each = 4), sd = 0.2)
+plot(x, y, col = "blue", pch = 19, cex = 2)
+text(x + 0.05, y + 0.05, labels = as.character(1:12))
+```
+
+- the process:
+    1. initialize the cluster centroids (need to guess how many there will be)
+    2. assign points to closest centroid
+    3. Given these grouping, move centroid to group center of mass
+    4. Repeat the assignment
+- if you keep doing this, the centroids will be drawn to certain areas of attraction and you will (hopefully) eventually settle in on a few well-defined clusters
+    - one useful criterion for stopping might be if the proportion of nodes switching falls below some pre-specified threshold
+
+####*Video 3.5 K-Means Clustering (pt 2)*
+
+**A. kmeans()**
+
+- an e xample of kmeans
+
+```{r kmeansrun}
+## the data
+dataFrame <- data.frame(x,y)
+
+## get the kmeans clustering (with three centroids)
+kmeansObj <- kmeans(dataFrame, centers = 3)
+
+## print out the cluster assignments
+kmeansObj$cluster
+
+## reset graphing params
+par(mar = rep(0.2, 4))
+
+## plot the results, coloring by cluster assignment
+plot(x, y, col = kmeansObj$cluster, pch = 19, cex = 2)
+
+## plot the centroids (stored in kmeansObj$centers), using a plus sign (pch=3)
+points(kmeansObj$centers, col = 1:3, pch = 3, cex = 3, lwd = 3)
+```
+
+**B. Plotting clusters with heatmaps
+
+```{r kmeanheatmap}
+## set the seed
+set.seed(1234)
+
+## create some data
+dataMatrix <- as.matrix(dataFrame)[sample(1:12), ]
+
+## run k-means on this sample
+kmeansObj2 <- kmeans(dataMatrix, centers = 3)
+
+## set graphing params
+par(mfrow = c(1, 2), mar = c(2, 4, 0.1, 0.1))
+
+## create "image" plots
+
+## original data
+image(t(dataMatrix)[, nrow(dataMatrix):1], yaxt = "n")
+
+## clustered data
+image(t(dataMatrix)[, order(kmeansObj$cluster)], yaxt = "n")
+```
+
+- good for looking at high-dimensional matrix/table data
+
+**C. Notes and further resources**
+
+- K-means requires a number of clusters
+    - pick by eye/intuition
+    - pick by cross validation/information theory
+    - [Determining the number of clusters](http://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set)
+- IMPORTANT: k-means is NOT deterministic
+    - different # of clusters
+    - different # of iterations
+    
+####*Video 3.6 Dimension Reduction (pt 1)*
+
+**A. PCA and Singular Value Decomposition**
+
+- Let's get some random matrix data:
+
+```{r rando}
+set.seed(12345)
+par(mar = rep(0.2, 4))
+dataMatrix <- matrix(rnorm(400), nrow = 40)
+image(1:10, 1:40, t(dataMatrix)[, nrow(dataMatrix):1])
+```
+
+- print heatmap
+
+```{r heatmap2}
+par(mar = rep(0.2, 4))
+heatmap(dataMatrix)
+```
+
+- note no real pattern in the plot above
+- what if we add a pattern?
+
+```{r pattern}
+set.seed(678910)
+for (i in 1:40) {
+    # flip a coin
+    coinFlip <- rbinom(1, size = 1, prob = 0.5)
+    # if coin is heads add a common pattern to that row
+    if (coinFlip) {
+        dataMatrix[i, ] <- dataMatrix[i, ] + rep(c(0, 3), each = 5)
+    }
+}
+
+par(mar = rep(0.2, 4))
+image(1:10, 1:40, t(dataMatrix)[, nrow(dataMatrix):1])
+```
+
+**B. Related Problems**
+
+- You have multivariate data
+    - find a new set of multivariate variables that are uncorrelated and explain as much variance as possible
+    - if you put all the variables together in one matrix, find the best matrix created with fewer variables (lower rank) that explains the original data
+- the first goal is *statistical* and the second is *data compression*
+
+**C. Related Solutions - PCA/SVD**
+
+- SVD
+    - If X is a matrix with each variable in a collumn and each observation in a row then the SVD is a "matrix decomposition" of X=UDV^T^
+    - where the columns of U are orthogonal (left singular vectors), the columns of V are orthogonal (right singular vectors) and D is a diagonal matrix (singular values)
+    - orthogonal = "independent of each other"
+    
+- PCA
+    - The principal components are equal to the right singular values if you first scale (subtract the column mean, divide by the column standard deviation) 
+    - i.e. you just normalize the data then run SVD
+
+####*Video 3.7 Dimension Reduction (pt 2)*
+
+**A. Components of the Singular Value Decomposition (SVD) - u and v**
+
+- so lets run SVD and plot the results
+
+```{r svd, eval=FALSE}
+## run SVD on scaled values of the matrix
+svd1 <- svd(scale(dataMatrixOrdered))
+
+## graphing params
+par(mfrow = c(1, 3))
+
+## heatmap of the original data
+image(t(dataMatrixOrdered)[, nrow(dataMatrixOrdered):1])
+
+## plot first left singular vector ("u")
+## this "picked up the mean shift right away"
+plot(svd1$u[, 1], 40:1, , xlab = "Row", ylab = "First left singular vector", 
+    pch = 19)
+
+## plot first right singular vector ("v")
+plot(svd1$v[, 1], xlab = "Column", ylab = "First right singular vector", pch = 19)
+```
+
+**B. COmponents of the SVD - Variance explained**
+
+- the "D" matrix (diagonal elements only) gives you the "variance explained"
+- think of each singular value in this as "the % of total variation in the dataset explained by that component"
+- plot the proportion of variance explained:
+
+```{r varexplained}
+par(mfrow = c(1, 2))
+plot(svd1$d, xlab = "Column", ylab = "Singular value", pch = 19)
+
+## plot as "proportion of variance explained"
+## Almost half of the variation in the data explained by the first component
+plot(svd1$d^2/sum(svd1$d^2), xlab = "Column", ylab = "Prop. of variance explained", 
+    pch = 19)
+```
+
+- SVD and PCA will be very very close
+- if you print the principal components vs. the SVD elements you'll get something like a 45 degree lie
+
+####*Video 3.8 Dimension Reduction (pt 3)*
+
+**A. One Issue: Missing Values**
+
+- you can't run PCA, SVD with missing values
+
+**B. One solution: use the "impute" package**
+
+- you could use K Nearest Neighbor to impute missing values
+
+```{r knnimputation}
+library(impute)  ## Available from http://bioconductor.org
+
+## the data
+dataMatrix2 <- dataMatrixOrdered
+
+## set some random sample to be NA
+dataMatrix2[sample(1:100,size=40,replace=FALSE)] <- NA
+
+## use KNN imputation to replace the NA values
+dataMatrix2 <- impute.knn(dataMatrix2)$data
+
+## now we can run SVD again
+svd1 <- svd(scale(dataMatrixOrdered)); svd2 <- svd(scale(dataMatrix2))
+par(mfrow=c(1,2)); plot(svd1$v[,1],pch=19); plot(svd2$v[,1],pch=19)
+```
+
+- imputation will change things a bit
+
+**C. Face Example**
+
+- you can use heatmapping to take an image (represented as a matrix) and do stuff with it
+
+```{r daface, eval=FALSE}
+load("data/face.rda")
+image(t(faceData)[, nrow(faceData):1])
+
+svd1 <- svd(scale(faceData))
+
+## first 5-10 singular vectors capture most of the variation
+plot(svd1$d^2/sum(svd1$d^2), pch = 19, xlab = "Singular vector", ylab = "Variance explained")
+```
+
+**D. Face example - create approximations**
+
+- we can use more and more singular vectors to get better representations of the image
+- try this:
+
+```{r facesteps,eval=FALSE}
+# 1 row with 4 plots
+par(mfrow = c(1, 4))
+
+## image plot of just first singular vector
+image(t(approx1)[, nrow(approx1):1], main = "(a)")
+
+## image plot of first 5 singular vectores
+image(t(approx5)[, nrow(approx5):1], main = "(b)")
+
+## image plot using first 10 singular vectors
+image(t(approx10)[, nrow(approx10):1], main = "(c)")
+
+## the original data set
+image(t(faceData)[, nrow(faceData):1], main = "(d)")  ## Original data
+```
+
+- in the above, note that the first 10 singular vectors give you a pretty good representation of the entire dataset....maybe you don't need to store all the data
+
+**E. Notes and further resources**
+
+- scale matters
+    - if one variable is much larger than another because of units, PCA/SVD will be attracted to that
+- PC's/SV's might mix several real patterns
+- SVD can be computationally intensive for very large matrices
+- other alternatives:
+    - factor analysis
+    - independent components analysis
+    - latent semantic analysis
+
+####*Video 3.9 Working with Color in R Plots (pt 1)*
+
+**A. Why care?**
+
+- judicious and appropriate use of color can make the data come alive
+
+**B. What's covered**
+
+- the default color schemes for most plots in R are horrendous
+- recently there have been developments to improve the handling/specification of colors in plots/graphs/etc
+- topographic data: ```heat.colors()``` and ```topo.colors()```
+
+####*Video 3.10 Working with Color in R Plots (pt 2)*
+
+**A. Color Utilities in R**
+
+- the ```grDevices``` package has two functions:
+    - colorRamp
+    - colorRampPalette
+- The functions take palettes of colors and help to interpolate between the colors
+- the function ```colors()``` lists the names of colors you can use in any plotting function
+
+**B. COlor Paletta Utilities in R**
+
+- ```colorRamp```: Take a palette of colors and return a function that takes values between 0 and 1, indicating the extremes of the color palette
+    - so if you store this in a function, then feed it, say, pal (0.75) it will give you some color 75% of the way toward the high end of the color range you'd defined
+- ```colorRampPalette```: Take a palette of colors and return a function using integer interpolation
+    - this will just pick colors at discrete steps between the two extremes you've given
+    - very similar
+
+####*Video 3.11 Working with Color in R Plots (pt 3)*
+
+**A. RColor BRewer Package**
+
+- one package on CRAN that contains interesting/useful color palettes
+- There are 3 typres of palettes
+    - sequential (ordered data)
+    - diverging (distance from a center)
+    - qualitative (non-ordered data)
+- Palette information can be used in conjunction with the colorRamp() and colorRampPalette()
+- [colorbrewer paletts](http://colorbrewer2.org/)
+    - to get 3 colors from a given palette, call ```cols <- brewer.pal(3,"BuGn")
+    
+**B. The smoothScatter function**
+
+- relies on the colorbrewer
+- creates a 2D histogram
+- useful for plotting a TON of points
+- high-density region = darker
+
+####*Video 3.12 Working with Color in R Plots (pt 4)*
+
+**A. Some Other Plotting Notes**
+
+- the ```rgb``` function can be used to produce any color via red, green, blue proportions
+    - Color transparency can be added via the alpha parameter to rgb
+    - this is a cheap and dirty way to replicate smoothscatter
+- the ```colorspace``` package can be used for a different control over colors
+
+**B. Summary**
+
+- careful use of colors in plots/maps/etc. can make it easier for the reader to get what you're trying to say (why make it harder?)
+- the RColorBrewer package is an R package that provides color palettes for sequential, categorical, and diverging data
+- the colorRamp and colorRampPalette functions can be used in conjunction with color palettes to connect data to colors
+- Transparency can sometimes be used to clarify plots with many points

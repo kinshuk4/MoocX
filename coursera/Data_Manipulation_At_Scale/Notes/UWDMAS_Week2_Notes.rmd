@@ -1,0 +1,477 @@
+<center> <h2>Data Manipulation At Scale - Week 2</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 2.1.1 - How do we store data?*
+
+**A. Notes**
+
+- non-volatile media:
+    - magnetic disk
+    - solid state
+    - power goes out, data are still there
+- structures:
+    - nested folders
+    - key-value pairs
+    - spreadsheets
+
+**B. What is a Data Model?**
+
+- three components:
+    1. Structures
+    2. Constraints (what is legal?)
+    3. Operations
+
+**C. What is a database?**
+
+- a collection of information organized to afford efficient retrieval
+    - doesn't have to have anything to do with tables/relations
+- "When people use the word database, fundamentally what they are saying is that the data should be self-describing and it should have a schema. That's all the word database means."
+
+####*Video 2.1.2 - From Data Models to Databases*
+
+**A. Notes**
+
+- what problem do databases solve?
+    - sharing (support concurrent access by multiple readers and writers
+    - data model enforcement (make sure all applications see clean, organized data)
+    - scale (work with datasets too large to fit in memory)
+    - flexibility (use the data in new, unanticipated ways)
+- constraints are easier to enforce at the database than in the application layer
+- DBs provide a complexity-hiding interface
+- DBs try to anticipate a broad range of interactions
+
+**B. Questions to Consider**
+
+- how is the data physically organized on disk?
+- what kinds of queries are efficiently supported by this organization, what kinds are not?
+- how hard is it to update data, add new?
+- organization that makes read easy might not make write easy
+
+####*Video 2.1.3 - Pre-relational Databases*
+
+**A. Notes**
+
+- historical example: file-oriented network databases
+    - records with addresses, basically
+- historical example: hierarchical databases
+    - master level with detail underneath
+    - modularizing segments minimizes the risk of the "re-write all the programs" issue
+    - however, developer still needs to know the entire hierarchy
+    - updates are easier, at least
+
+####*Video 2.1.4 - Motivating Relational Databases*
+
+**A. Notes**
+
+- Curt Monash:
+    - "Relational Database Management Systems were invented to let you use one set of data in multiple ways, including ways that are unforeseen at the time the database is built and the 1st applications are written"
+- RDBMS is about "insulating applicatiosn from changes", not SQL
+- everything is a table
+- every row in a table has the same columns (number and type
+- relationships are implict: no pointers to addresses
+
+**B. database Philosophy**
+
+- "Codd made realtions: all else is the work of man"
+- "everything is a relation"
+
+####*Video 2.1.5 - Relational Databases: Key Ideas*
+
+**A. Notes**
+
+- pre-relational, if your data changed your app broek
+- early RDBMS were buggy and slow
+    - "Activities of users at terminals and most application programs shold remain unaffected when the internal representation of data is changed and even when some aspects of the external representations are changed"
+- key idea: programs that manipulate tabular data exhibit an algebraic structure allowing reasoning and manipulation independently of physical data representation
+- "physical data independence"
+    - programs don't have to chase files and addresses around
+- key idea: an algebra of tables:
+    - select (get interesting rows)
+    - project (throw out useless columns)
+    - join, union, difference, cross-product
+- if you understand DBs, you should understand relational algebra (and vice versa)
+
+####*Video 2.2.1 - Algebraic Optimization*
+
+**A. Notes**
+
+- algebraic laws:
+    1. (+) identity --> x + 0 = x
+    2. (/) identity --> x/1 = x
+    3. (*) distributs
+    4. (*) commutes
+- symbolic reasoning is more expensive that evaluation for small operations, but has huge time/cost savings at scale
+- cost-based optimization:
+    - relational DBs choose an equivalent expression with less cost
+- algebraic closure:
+    - operations acting on tables return tables
+
+####*Video 2.2.2 - Where We Are*
+
+**A. Notes**
+
+- overview of data science
+    - found that an important aspect is data cleaning
+- overview of relational databases
+    - the original problem: physical data independence
+- secret sauce: an algebra of tables
+- this will come up over and over and over
+- relational algebra extends beyond commercial SQL databases
+
+**B. relational Algebra Operators**
+
+- Union, intersection, difference
+- selection, projection, join
+- duplicate eliminate
+- grouping and aggregation
+- sorting
+- symbols:
+    - union = $\cup$
+    - intersection = $\cap$ 
+    - difference = -
+    - selection = s
+    - projection = $\sqcap$
+    - join = $\join$
+    - duplicate elimination = d
+    - grouping and aggregation = g
+    - sorting = t
+
+####*Video 2.2.3 - Where We Are*
+
+**A. Sets vs Bags**
+
+- sets --> collection with no duplicates
+- bags --> sets whre duplicates are permitted
+- set semeantics = standard relational algebra
+- bag semantics = extended relational algebra
+- rule of thumb:
+    - every paper will assume set semantics
+    - every commercial implementation will assume bag semantics
+
+**B. Union**
+
+- $R1 \cup R2$
+- set semantics in SQL:
+
+```{r eval=FALSE}
+SELECT * FROM R1
+UNION
+SELECT * FROM R2
+```
+
+- bag semantics in SQL:
+
+```{r eval=FALSE}
+SELECT * FROM R1
+UNION ALL
+SELECT * FROM R2
+```
+
+**C. Difference**
+
+- $R1 - R2$
+    - "everythingi n R1, removing things also in R2
+
+```{r eval=FALSE}
+SELECT * FROM R1
+EXCEPT
+SELECT * FROM R2
+```
+
+**D. Intersection**
+
+- $R1 \cap R2 = R1 - (R1-R2)$
+
+**E. Selection**
+
+- returns all tuples which satisfy a conditional
+- the condition can be =, <, <=, >, >=, <>
+    - any boolean function
+- you can use AND, OR, NOT as well
+- tables in, tables out
+
+####*Video 2.2.4 - relational Algebra Operators: Project, Cross Product*
+
+**A. Projection**
+
+- eliminates columns
+- in set semantics, dups must be removed
+- bag semantics are more efficient for a project because removing duplicates is expensive
+
+**B. Cross Product**
+
+- each tuple in R1 with each tuple in R2
+- R1 x R2
+- traditionally rare in practice, but can come up in analytics
+- "find all pairs of similar images/tweets/songs"
+    - compute the corss product, then compute a similarity function f(x1,x2) for every possible fair
+    - brute force...create all the psoibilities then score them
+
+####*Video 2.2.5 - relational Algebra Operators (cont.)*
+
+**A. Notes**
+
+- cross product is all combos of LHS with RHS
+
+**B. Equi-join**
+
+- a join with an equality condition
+- for every record in R1, find a corresponding record in R2 that satisfies some condition
+
+```{r eval=FALSE}
+SELECT *
+FROM R1 JOIN R2
+ON R1.A = R2.B
+
+#or
+SELECT *
+FROM R1, R2
+WHERE R1.A = R2.B
+```
+
+- you do NOT need foreign keys to perform a join
+- the two queries above have different syntax but the same semantics
+- the optimizer will get to the same place
+
+####*Video 2.2.6 - Relational Algebra Operators: Outer Join*
+
+**A. Notes**
+
+- outer join:
+    - include tuples with no matches in the output
+    - use NUL values for missing attributes
+- left outer join, right outer join, full outer join
+    - basically "match if you find a match, otherwise still include R1 and full with NULL"
+- normal join:
+    - drop records with no match
+    
+####*Video 2.2.7 - Relational Algebra Operators: Theta-Join*
+
+**A. Theta Join**
+
+- A join that involves a predicate
+    - SQLite cannot express full outer joins
+- doesn't have to be an equality condition
+- could be like "similarity_condition < threshold"
+- "give me all hospitals within five miles of a school":
+
+```{r eval=FALSE}
+#SQL
+
+SELECT DISTINCT h.name
+FROM Hospitals h Schools s
+WHERE distance(h.location, s.location) < 5
+```
+    
+- theta-join = difficult, arbitrary
+- band join/range join = "find tuples from one table falling within some interval in another table"
+
+####*Video 2.3.1 - From SQL to RA*
+
+**A. Notes**
+
+- SQL:
+
+```{r eval=FALSE}
+SELECT DISTINCT x.name, z.name
+FROM Product x, Purchase y, Customer z
+WHERE x.pid = y.pid and y.cid = y.cid and x.price > 100 and z.city = 'Seattle'
+```
+
+- When you see multiple products, gotta be thinking joins
+this is two joins, then a filter (selection), then a projection, then removal of duplicates
+
+**B. Cost**
+
+- cost relies on number of tuples
+- almost always want to apply selection/filtering first
+- databases autmatically do this optimization
+- query optimization is all about finding "cheaper, equivalent operations"
+
+####*Video 2.3.2 - Thinking in RA: Logical Query Plans*
+
+**A. Exentended RA: Operators on BAGS**
+
+- duplicate elimination --> DISTINCT
+- grouping g --> GROUP BY
+- sorting t --> ORDER BY
+
+**B. Logical Query PLan**
+
+- the ```HAVING``` clause is still just a selection
+- think of the result of every operator as a temporary table
+    - even if it doesn't live on disk that way
+
+####*Video 2.3.3 - Practical SQL: Binning Timeseries*
+
+**A. Interpreting Complicat SQL**
+
+- clauses can have nested queries
+- algebraic closure --> tables in, tables out
+- we can query derived results the same way we query base tables
+- sorting accomplished with ```ORDER BY```
+- software engineering:
+    - consider seperating blocks of logic
+    - nesting of queries is perfectly fine
+
+####*Video 2.3.4 - Practical SQL: Genomic Intervals*
+
+**A. More Crazy SQL Stuff**
+
+- you can actually loop in SQL!
+    - see ```CASE WHEN```
+- anything applying a condition to attributes in multiple tables is a join condition, even if not explicitly in the ```ON``` statement
+- some analytics can be done directly in SQL
+    - analytics in the database should be in your bag of tricks
+    - try to get away from the "pull stuff out of the DB and work with it" workflow
+- databases not "the ultimate solution to datascience", but not unimportant
+
+####*Video 2.3.5 - User-Defined Functions*
+
+**A. User-Defined Functions**
+
+- UDF, colloq.
+- as a user, you can write a function, register it in the database, call it from SQL, set permissions on it
+- scalar functions...appears anywhere
+- aggregate functions..appears in SELECT clause only
+- table functions...appear in FROM clause
+    - typically most complicated
+
+####*Video 2.3.6 - Support for User-Defined Functions*
+
+**A. User-Defined Function Support**
+
+- PostgreSQL
+    - SQL, PL/pgSQL, Python, C/C++, R
+- Microsoft SQL Server
+- Oracle
+    - SQL, PL-SQL, Java, C/C++, Python, others
+- none in SQLite
+- extensible = "you can add your own functions and stuff"
+- UDFs are abstractions
+- some UDFs (carry overs from imperative language): 
+    - looping constructs
+    
+**B. Using Imperative Languages**
+
+- don't put your joins in the application, but you can put your loops
+- the R extension for PostgreSQL is exciting
+
+####*Video 2.4.1 - Optimization: Physical Query Plans*
+
+**A. Notes**
+
+- SQL is like a "decorative language on top of the algebraic optimization"
+- but what logical expressions are used to execute this?
+    - maybe rather than checking every possible pair, put all of one tuple into a hashtable and lookup the potential match in the table
+- Microsoft SQL Server will "explain" a query, giving you the underlying logic and algebra
+
+####*Video 2.4.2 - Optimization: Choosing Physical Plans*
+
+**A. Notes**
+
+- underneath the query...physical plan, logical plan
+- there is some overhead involved in constructing the hashtable
+    - small problems might be better solved with nested loops
+- "you just express the query and the database does the rest"
+- PostgreSQL will also give you an algebraic description
+- algebraic optimization matters!
+    - different physical plans for the same query do change the execution time
+- see "Picasso Query Plan Diagrams"
+- the choice of plan is important and non-trivia
+- leaving complexity like this up to the programmer is a potential loss
+    - hiding this is a huge win
+
+####*Video 2.4.3 - Declarative Languages*
+
+**A. Equivalent Logical Expressions: different costs**
+
+- key idea: declaritive languages
+    - specify the answer you want but not how you get it
+    - this is probably preferable to programming directly in relational algebra
+- your query is translated by the DB into an efficient logic
+
+**B. SQL is the "WHAT" not the "HOW"**
+
+- see:
+
+```{r eval=FALSE}
+#Combos of products and customers where customer is in Seattle and price more than 100
+SELECT DISTINCT x.name, z.name
+FROM Product x, Purchase y, Customer z
+WHERE x.pid = y.pid and y.cid = z.cid and
+        x.price > 100 and z.city = 'Seattle'
+```
+
+####*Video 2.4.4 - Declarative Languages: More Examples*
+
+**A. Relational Algebra**
+
+- remember that we "project" out the columns we want to keep
+- even with relational algebra, lots of physical details are still open
+- [RDF](https://en.wikipedia.org/wiki/RDF_query_language) = edges (predicates) connecting nodes (subject, object)
+    - you can access the same relation multiple times in one query
+
+####*Video 2.4.5 - Views: Logical Data Independence*
+
+**A. Notes**
+
+- physical data independence insulated applications from physical changes in the data (i.e. moving stuff on disk)
+- Read --> Codd (1970) - [A Relational Model of Data for Large Shared Data Banks](https://www.seas.upenn.edu/~zives/03f/cis550/codd.pdf)
+- logical data independence provided by "views"
+
+**B. What are Views?**
+
+- A view is just a query with a name
+- we can use the views just like a real table
+- every query returns a table (algebraic closure)
+- views can be permissioned
+    - expose data selectively
+- The cool thing: the user's query gets composed with yours and the entire thing is sent to the algebraic optimizer in the DB
+- syntax:
+
+```{r eval=FALSE}
+CREATE VIEW StorePrice AS
+SELECT x.store, y.price
+FROM Purchase x, Product y
+WHERE x.pid = y.pid
+```
+
+####*Video 2.4.6 - Indexes*
+
+**A. How to use a View?**
+
+- a "high end" store is a store that sold some product over 1000. For each customer, find all the high end stores that they visit. Return a set of (customer-name, high-end-store) pairs
+- stack views on top of views
+
+```{r eval=FALSE}
+SELECT DISTINCT z.name, u.store
+FROM Customer z, Purchase u, StorePrice v
+WHERE z.cid = u.customer
+AND u.store = v.store
+AND v.price > 1000
+```
+
+- DB doesn't care whether you stack views or not:
+    - this is "free abstractraction"
+    - make things easier for the user without any cost
+- materialization = cachign the results of a view
+
+**B. Key Idea: Indexes**
+
+- databases are especially, but not exclusively, effective at "Needle in Haystack" problems:
+    - extracting small resutls from big datasets
+    - transparently provide "old style" scalability
+    - your query will always finish, regardless of dataset size (limited by disk, not memory)
+- Indexes are easily built and automatically used when appropriate
+
+```{r eval=FALSE}
+CREATE INDEX seq_idx ON sequence(seq):
+SELECT seq
+    FROM sequence
+WHERE seq = 'GATTAG'
+```
+- DBs use indexes, the memory hierarchy effectively
+
+
+

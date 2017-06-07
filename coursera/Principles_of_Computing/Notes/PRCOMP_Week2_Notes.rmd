@@ -1,0 +1,130 @@
+<center> <h2>Principles of Computing - Week 2</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 2.1 - The Importance of Testing*
+
+**A. Notes**
+
+- testing is an integral part of programming
+- thinking about how you could test the program will make development easier
+- approach to testing:
+    - don't write then test
+    - do things more slowly
+    - write a bit of code...test...repeat
+    - "test as you go" leads to great time savings
+
+####*Video 2.2 - Testing*
+
+**A. Notes**
+
+- Think of [testing](https://class.coursera.org/principlescomputing1-004/wiki/view?page=testing_methodogy) as a key component of programming
+- you can use ```poc_simpletest``` module to run lots and lots of tests
+- debugging at the end is really hard
+
+####*Video 2.3 - Plotting*
+
+**A. Notes**
+
+- plotting is visualizing the structure of data
+- in this calss, we'll use plotting to examine program performance
+
+**B. An Example**
+
+- see [here](http://www.codeskulptor.org/#poc_plot_example.py)
+- in this class, we'll use the ```simpleplot``` module in CodeSkulptor
+- could use a list comprehension to get tuples of xy coordinates
+
+```{r eval=FALSE}
+"""
+Example of creating a plot using simpleplot
+    
+Input is a list of point lists (one per function)
+Each point list is a list of points of the form 
+[(x0, y0), (x1, y1, ..., (xn, yn)]
+"""
+
+import simpleplot
+
+
+# create three sample functions
+
+def double(num):
+    """
+    Example of linear function
+    """
+    return 2 * num
+
+def square(num):
+    """
+    Example of quadratic function
+    """
+    return num ** 2
+
+def exp(num):
+    """
+    Example of exponential function
+    """
+    return 2 ** num
+
+def create_plots(begin, end, stride):
+    """ 
+    Plot the function double, square, and exp
+    from beginning to end using the provided stride
+    
+    The x-coordinates of the plotted points start
+    at begin, terminate at end and are spaced by 
+    distance stride
+    """
+    
+    # generate x coordinates for plot points
+    x_coords = []
+    current_x = begin
+    while current_x < end:
+        x_coords.append(current_x)
+        current_x += stride
+        
+    # compute list of (x, y) coordinates for each function
+    double_plot = [(x_val, double(x_val)) for x_val in x_coords]
+    square_plot = [(x_val, square(x_val)) for x_val in x_coords]
+    exp_plot = [(x_val, exp(x_val)) for x_val in x_coords]
+    
+    # plot the list of points
+    simpleplot.plot_lines("Plots of three functions", 600, 400, "x", "f(x)",
+                         [double_plot, square_plot, exp_plot], 
+                         True, ["double", "square", "exp"])
+    
+create_plots(0, 2, .1)
+```
+
+- we might want to avoid programs where run time is exponentially related to size of inputs
+
+####*Video 2.4 - Grids*
+
+**A. Notes**
+
+- a grid is a partition of a region into disjoint cells
+- [notes on grids](https://class.coursera.org/principlescomputing1-004/wiki/view?page=grids)
+- in this class, we work only on rectangular grids composed of squares
+- we have 0-based indexing in Python
+- [example function](http://www.codeskulptor.org/#poc_grid_traversal.py)
+
+**B. Working an Example**
+
+- a grid is like a list of lists
+- ```traverse_grid``` will march down the rows and columns (or potentially 
+
+####*Video 2.5 - 2048*
+
+**A. Notes**
+
+- the objective of the project is to get students used to writing non-trivial scale programs
+- they'll give us the GUI
+- they suggest going and playing the game a bit
+- try testing on rectangular non-square grid
+- resist the urge to make a big if/elif block for handling directions
+- maybe consider building a dictionary with the direction as keys and the offsets as 
+**B. Doing the Assignment**
+
+- the template shows how to implement the game...follow them
+- there are lots of specific instructions
+- 

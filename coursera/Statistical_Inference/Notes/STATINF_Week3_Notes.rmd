@@ -1,0 +1,150 @@
+<center> <h2>Statistical Inference - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1 - T confidence intervals*
+
+**A. T Confidence Intervals**
+
+- Using t scores is more appropriate than normals for small samples
+- T intervals will be wider than the normals (t approaches normaly as df approaches infinity)
+
+**B. Gosset's t distribution**
+
+- Invented by a guy working for Guiness brewery
+- T is only indexed by degrees of freedom and is centered at 0
+- T quantiles are much bigger than normals, esp for low degrees of freedom
+
+**C. Notes about the t interval**
+
+- The t interval assumes data are iid normal, but it's robust to this assumption
+- Paired observations are often analyzed using the t interval by taking differences
+- For skewed distributions, the spirit of the t interval assuptions are violated
+- For binary data, other intervals are available
+- Using t is not recommended for skewed distributions because it doesn't make sense to center at the mean
+
+**D. Sleep Data**
+
+- Gosset's sleep data are foudn in ```data(sleep```
+- t confidence interval uses n-1 df and multiplies by s/sqrt(n)
+- you can just use t.test(difference)
+- You want a paired test in this case
+- "If we did this for a bunch of samples, 95% of the intervals would contain the true mean"
+
+**E. Independent group t confidence intervals**
+
+- Independent t tests would be better for A-B testing
+- Randomization removes the need to do a paired test
+- There's no matching between the two groups
+- You're testing the hypothesis that the mean difference is 0
+- Pooled variance estimate (like "portfolio variance") gives more weight to the group with more observations
+- using dcast() from ```reshape2```, you can convert a vector from a long format to a short format or vice versa
+- consider using a "violin plot" to compare differences
+- the t confidence interval will change, depending on whether or not you assume the same variance between the two samples being compared
+
+**F. Unequal Variances**
+
+- When in doubt, just assume unequal variances
+
+**G. Comparing Other Kinds of Data**
+
+- For binomial data, there'es lots of ways to compare two groups
+    - Relative risk, risk difference, odds ratio
+    - Chi-squared tests, normal approximations, exact tests
+- For count data, there's also Chi-squared tests and exact tests
+- Biostatistics Boot Camp 2 covers many special cases
+
+####*Video 3.2 - Hypothesis Testing*
+
+**A. Hypothesis Testing**
+
+- This is about making decisions using data
+- The null hypothesis is assume true and stiatistical evidence is required to reject it
+- Type I error: Rejecting the null when you shouldn't (try to minimize this)
+- Type II error: Failing to reject the null when you should
+
+**B. Discussion**
+
+- As Type I error increases, Type 2 decreases
+- We fix alpha to be low, so if we reject the null hypothesis there is a low probability that we have made an error
+- Statistical significance is not the same as scientific significance
+
+**C. More Notes**
+
+- The Z test requires the assumptions of the Central Limit Theorem
+- If n is small, you'd use the t distribution
+- The probability of rejecting the null hypothesis when it is false is called *power*
+- Power is used to calculate sample size for experiments
+
+**D. Two sided tests**
+
+- What if we would reject the null hypothesis if in fact the mean was too large or too small
+- This would be a test with just a "not-equal" null hypothesis
+- Split the probability 5% into 2.5% in each tail
+- This makes the test statistic larger
+-It's harder to say it isn't 0 than to just say it's greater than/less than some value
+- Usually you'd just use a function like t.test()
+
+**E. Connection with Confidence Intervals**
+
+- Hypothesis testing and confidence intervals are essentially the same thing
+
+**F. Two Group Intervals**
+
+- group t test would be useful for testing, say the hypothesis that two means are equal
+```{r echo=FALSE, eval=FALSE}
+wideCW14 <- subset(wideCW, Diet %in% c(1,4))
+t.test(gain ~ Diet, paired=FALSE, var.equal=TRUE, data=wideCW14)
+```
+
+- The t stat would be the different in the weight gain between the two diets
+- You can just look at the p-value (much easier)
+
+**G. Exact Binomial Test**
+
+- Did not understand this example at all. I don't feel that the null was well explained
+- You can get exact test results by inverting a two-sided hypothesis test
+
+####*Video 3.3 - p-Values*
+
+**A. p-values**
+
+- These are the most common measures of statistical significance
+- They are very controversial
+
+**B. What is a p-value?**
+
+- This is the probability of obtaining even more extreme data if the null hypothesis is true
+- Define the hypothetical distribution of a statistic when "nothing is going on" (null hypothesis)
+- Calculate the summary/statistic wit hthe data we have (test statistic)
+- Compare what we calculated to our hypothetical distribution and see if the value is "extreme"
+- A small p value is saying that "the probability of observing a test statistic as large as what we say, given that the null hypothesis is true, is very small"
+
+
+**C. P-Values**
+
+- The p-value is the probability under the null hypothesis of obtaining evidence as extreme or more extreme than that obtained
+- pt(2.5, 15, lower-tail=FALSE)
+- setting lower.tail=FALSE says we're testing a "greater than" hypothesis
+
+**D. The Attained Significance Level**
+
+- The smallest value for alpha that you still reject the null hypothesis is called the *attained significance level*
+- By reporting a p-value, you can choose to run hypothesis test at any significance level you want
+- If the p-valeu is less than alpha, you reject the null hypothesis
+- For the two sided hypothesis test, double the smaller of the two one-sided hypothesis test p-values
+- Most software reports two-sided t-tests
+
+**E. Revisiting an earlier example**
+
+- Try to reduce probability of gender for a child to a coin flip
+- "The proposed procedure for getting a two side p-value for the exact binomal test is:"
+    - Doubling the smaller of the two one sided p-values
+    
+**F. Poisson Example**
+
+- R does "strictly greater than" for the upper tail, so you need to drop your test level by one.
+- ppois(9,5,lower.tail=FALSE) - "The probability of obtaining 10 or more infections for 100 person-days at risk if the infection rate is 5 per 100 person-days"
+- 
+
+
+

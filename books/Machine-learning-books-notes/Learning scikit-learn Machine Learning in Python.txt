@@ -1,0 +1,246 @@
+Summary
+=======
+
+Learning Algorithm:
+1. Stochastic Gradient Descent
+2. Support Vector Machines
+3. Naive Bayes
+4. Decision Trees
+5. Random Forest
+6. SGDRegressor
+7. Principal Component Analysis
+8. K-means
+9. Affinity Propagation
+10. Mean Shift
+11. Gaussian Mixture Models (GMM)
+
+Datasets:
+1. Iris
+2. The Olivetti faces
+3. Twenty Newsgroups
+4. Titanic Dataset
+5. Boston Housing
+6. Handwritten Digits
+
+Function:
+1. cross_validation.train_test_split()
+2. preprocessing.StandardScaler()
+3. clf.decision_function()
+4. metrics.accuracy_score()
+5. metrics.classification_report()
+6. metrics.confusion_matrix()
+
+Library:
+Panda
+Ipython (Parallel Processing)
+
+====================================================================================================================
+
+Chapter 1
+=========
+Machine Learning - A Gentle Introduction
+
+Machine Learning - subfield of Artificial Intelligence
+
+Any machine learning problem has three concepts:
+1. We will have to learn to solve a task T. For e.g build a spam filter that learns to classify e-mails as spam or ham.
+2. We will need some experience E to learn to perform the task. For the spam filter, experience comes as a set of e-mails, manually classified by a human as spam or ham.
+3. We will need a measure of performance P to know how well we are solving the task. The percentage of e-mails that our spam filtering is correctly classifying as spam or ham could be P for our spam-filtering task.
+
+Application 1:
+-------------
+Scenario - Predict the Iris flower species using only two attributes - sepal width and sepal length
+
+Supervised learning - Classification
+
+Learning Algorithm:
+Stochastic Gradient Descent (Linear Classification) Multiclass via One vs. All scenario.
+
+Dataset:
+Iris
+
+Functions:
+cross_validation.train_test_split()
+preprocessing.StandardScaler()
+
+Splitting your dataset into training and testing is very important.
+Feature Scaling is performed into to avoid features with larget values may weight too much on the final results.
+
+In 'One vs. All' scenario, our prediction procedure combines the result of the three binary classifiers and selects the class in which it is more confident.
+clf.decision_function()
+
+Performance Measure:
+Accuracy Score (Don't use this during learning over skew classes) metrics.accuracy_score()
+Precision (These three only works in binary classification) metrics.classification_report()
+Recall
+F1 Score
+Confusion Matrix (The confusion matrix gives us useful information to know what types of errors the classifier is making)
+
+Along with splitting your dataset into training and testing set, perform cross validation on training set.
+
+Always have balance between underfitting and overfitting.
+
+===============================================================================================================
+
+Chapter 2
+=========
+Supervised Learning
+
+Application 2:
+-------------
+Scenario - Image recognition with Support Vector Machines
+a. Identifying individuals.
+b. Identifying person with glasses.
+
+Supervised Learning - Classification
+
+Dataset:
+The Olivetti faces
+
+Learning Algorithm:
+Support Vector Machines (SVM)
+
+Support Vector Machines (SVM) are supervised learning methods that try to obtain these hyperplanes in an optimal way, by selecting the ones that pass through the widest possible gaps between instances of different classes.
+
+The main advantage of this approach is that it will probably lower the generalization error, making this model resistant to overfitting, something that actually has been verified in several, different, classification tasks.
+
+SVM is very good algorithm which give very good output with large number of features, but calculation intensive.
+
+Always look at confusion matrix, and plot the culprit classes to reason about the model behaviour.
+
+Application 3:
+-------------
+Scenario - Predicting categories of new unseen text documents.
+
+Supervised Learning - Classification
+
+Learning Algorithm:
+Naive Bayes
+
+Dataset:
+Twenty Newsgroups
+
+sklearn.feature_extraction.text module to extract features from text documents.
+1. CountVectorizer
+2. HashingVectorizer
+3. TfidfVectorizer
+
+Always change the params of the pre defined functions to alter the performance of the classifier.
+
+Application 4:
+-------------
+Scenario - Predicting whether a Titanic's Passenger would have survived
+
+Supervised Learning - Classification
+
+Learning Algorithm:
+Decision Trees
+Random Forest
+
+Dataset:
+Titanic Dataset
+http://biostat.mc.vanderbilt. edu/wiki/pub/Main/DataSets/titanic.txt
+
+Feature selection is an extremely important step while creating a machine learning solution.
+For e.g As we know during Titanic incident, class, age, and sex played very important role in survival of the passengers; thus they made our features.
+
+Hence, it is based on our knowledge of a problem's domain.
+
+In case of missing features, substitute with the mean or the median.
+
+For converting the string labels to integer labels
+sklearn.preprocessing import LabelEncoder
+
+But, this will introduce ordering in our samples. Hence, use One Hot Encoding.
+sklearn.preprocessing import OneHotEncoder
+
+In order to visualise decision tree,
+pydot and Graphviz
+
+Main disadvantage of decision trees are they don't consider the same feature twice.
+To overcome this issue, comes RandomForestClassifier
+Algorithms that consider several classifiers answering the same question are called Ensemble Methods.
+
+Application 5:
+-------------
+Scenario - Predicting price of house
+
+Supervised Learning - Regression
+
+Learning Algorithm:
+SGDRegressor
+Linear Regression
+Support Vector Machines
+ExtraTreeRegressor (Random Trees)
+
+Use them with regularization
+
+Dataset:
+Boston Housing
+
+Try different model on same dataset and keep on looking at the performance to build the optimal model for future use.
+
+=======================================================================================================================
+
+Chapter 3
+=========
+Unsupervised Learning
+
+Application 6:
+-------------
+Scenario - Reduce the dimension of features.
+
+Learning Algorithm:
+Prinicipal Component Analysis - Reduces the dimension of features while preserving as much variance as possible.
+1. Helps in visualisation
+2. Helps in feature selection
+
+Dataset:
+Handwritten digits
+
+Application 7:
+-------------
+Scenario - Clustering handwritten digits
+
+Learning Algorithm:
+K-means (# of clusters has to be fed)
+Affinity Propagation (# of clusters is not fed)
+Mean Shift
+Gaussian Mixture Models (GMM)
+
+Dataset:
+Handwritten digits
+
+Use 'adjusted Rand index' to evaluate performance of a clustering algorithm if clustering is done on training data with target values known.
+
+===============================================================================================================
+
+Chapter 4
+=========
+Advanced Features
+
+1. Feature Extraction
+Libaray:
+Panda
+
+2. Feature Selection
+
+3. Model Selection
+Selecting hyperparams for our learning algorithm.
+GridSearchCV
+
+Use iPython Parallel to run the tasks in parallel.
+
+===============================================================================================================
+
+More types of learning:
+-----------------------
+• Semi-supervised learning methods are the middle ground between supervised and unsupervised learning. They combine small amounts of annotated data with huge amounts of unlabeled data. Usually, unlabeled data can reveal the underlying distribution of elements and obtain better results in combination with a small, labeled dataset.
+
+• Active learning is a particular case within semi-supervised methods. Again, it is useful when labeled data is scarce or hard to obtain. In active learning, the algorithm actively queries a human expert to answer the label of certain unlabeled instances, and thus learn the concept over a reduced set of labeled instances.
+
+• Reinforcement learning proposes methods where an agent learns from feedback (rewards or reinforcements) after performing actions within an environment. The agent learns to perform a task by trying to maximize the cumulative reward. These methods have been very successful in robotics and video games.
+
+• Sequential classification (very commonly used in Natural Language Processing (NLP)) assigns a sequence of labels to a sequence of items; for example, the parts of speech of the words in a sentence.
+
+================================================================================================================

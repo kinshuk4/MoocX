@@ -1,0 +1,29 @@
+.print PART_H
+-- Given a term-freq vector, compute similarity as dot product --
+SELECT SUM((A.count*B.count)) as similarity 
+FROM (
+    (SELECT term, count, 'test' as dummy
+    FROM frequency
+    WHERE docid = '10080_txt_crude') A
+    INNER JOIN (SELECT term,count, 'test' as dummy
+    FROM frequency
+    WHERE docid = '17035_txt_earn') B
+    ON (A.term = B.term)
+)
+GROUP BY A.dummy
+;
+.print
+
+.print PART_I
+-- Given a search query, find most similar documents --
+SELECT docid, SUM(count) as matches
+FROM frequency
+WHERE term = 'washington' OR term='taxes' OR term='treasury'
+GROUP BY docid
+HAVING SUM(count) > 4
+ORDER BY matches DESC
+;
+
+
+
+

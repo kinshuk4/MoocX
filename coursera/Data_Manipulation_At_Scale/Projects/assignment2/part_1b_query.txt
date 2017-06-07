@@ -1,0 +1,14 @@
+.print PART_A
+.print
+
+SELECT count(*) FROM (
+    SELECT docid
+    FROM frequency
+    WHERE docid = "10398_txt_earn"
+) x;
+
+SELECT count(*) FROM (
+    SELECT docid
+    FROM frequency
+    WHERE docid = "10398_txt_earn"
+) x;

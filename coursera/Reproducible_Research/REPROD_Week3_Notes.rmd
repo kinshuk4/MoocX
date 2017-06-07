@@ -1,0 +1,211 @@
+<center> <h2>Reproducible Research - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1 Communicating Results*
+
+**A. Starting**
+
+- people are busy --> they accept your findings in some kind of hierarchical order
+- see link for "getting responses from busy people"
+
+**B. Hierarchy of Information: Research Paper**
+
+- Title/Author List
+- Abstract
+- Body/results
+- Supplementary Materials/gory details
+- Code/Data/really gory details
+
+**C. Hierarchy of Information: Email Presentation**
+
+- subjectline
+    - include one
+    - summarize findings in one sentence?
+- email body
+    - a brief description of the problem / context
+    - 1-2 paragraphs max
+    - if action needs to be taken, suggest some options and make them concrete
+    - try to make questions yes/no
+- attachments
+    - R Markdown
+    - knitr
+    - stay concise
+    - maybe link to GitHub if they want the nitty-gritty
+    
+####*Video 3.2 RPubs*
+
+**A. What is RPubs?**
+
+- [Rpubs](rpubs.com) lets you publish knitr documents to the website
+    - you can share your documents with people
+    - make an accoutn to publish
+- here's how it works:
+    - knit it into html to make sure your stuff looks ok
+    - there is a publish button on the html output in RStudio's browser
+    - click that publish button, you can give a description, pick a url if you'd like
+- you can host slides, basic HTML-ized RMD
+    - people can comment, share on social networks, etc.
+- the service is free ... but also totally public
+- super easy to delete stuff if you need to
+
+####*Video 3.3 - 3.5 Reproducible Research Checklist*
+
+**A. Starting the List**
+
+1. Start with good science
+    - GIGO
+    - coherent, focused question simplifies the problem
+    - have good collaborators. This will reinforce good practices (you check each other)
+    - something that's interesting to you will (hopefully) motivate good habits. You'll be more invested in finding a strong result.
+2. Don't Do Things By Hand
+    - don't edit spreadsheets of data to "clean it up"
+    - don't fix raw values in QA/QC --> put this in the program
+    - spreadsheet editing is not reproducible
+    - things done by hand (if you must) need to be precisely documented
+    - don't fall into the trap of saying "we're just going to this once..."
+3. Don't Point and Click
+    - avoid the GUI...not replicable!
+    - the exception: GUIs that produce a log file or script which includes equivalent commands
+    - easy-to-use, interactive software can lead to non-reproducible analyses
+4. Teach a Computer
+    - teaching a computer almost guarantees reproducibility
+    - this will mean you have to write everything down, and it forces you to have solid rules (no fuzziness) about what to do
+    - downloading dat in R? use download.file(), specifying URL and destination on your hard drive
+5. Use Some Version Control
+    - add changes in small chunks (don't just do one massive commit)
+    - you can use git with GitHub, bitbucket, SourceForge
+    - VC will help to slow you down, make you think about what you're doing at each step. Forces you to track what you're doing
+    - it forces you to ask: "What have I done so far?"
+6. Keep Track of Your Software Environment
+    - computer architecture, operating system, software toolchain 
+    - OS can be really really important
+    - supporting software/infrastructure
+    - external dependencies
+    - version numbers (for everything, ideally)
+    - you can use the sessionInfo() function in R to learn a bunch of stuff about your session
+7. Don't Save Ouput
+    - avoid saving data analysis output (tables, figures, summaries, processed data, etc.) except perhaps temporarily
+    - if a stray output file cannot be easily connected with the project, it's not reproducible!
+    - save the data and code that generated the output, rather than the output itself
+    - intermediate files are ok, but document them
+8. If you generate randoms, set your seed
+    - random generators actually generate pseudo-random numbers based on an initial seed
+    - use set.seed(integer) in R to specify the random number generator to use
+    - this means that if you re-run the analysis, the set of randoms will always be reproduced exactly
+    - whenever you generate random numbers for a non-trivial purpose, always set the seed
+9. Think about the Entire Pipeline
+    - raw data --> processed data --> analysis --> report
+    - how you got the end result is just as important as the result itself
+
+**B. Summary**
+
+- just make sure you do things carefully, document every step, and think about Reproducibility from the very beginning
+
+####*Video 3.6-3.10 Evidence-based Data Analysis (pt 1-5*
+
+**A. Replication and Reproducibility**
+
+- replication focuses on the validity of the scientific claim
+- reproducibility focuses on validity of the analysis (not necessarily the claim)
+    - more about "can we trust the analysis"
+
+**B. Background and Underlying Trends**
+
+- not all studies can be replicated
+- technology increasing data collection throughput
+    - data are more complex and high-dimensional
+- off-label uses of existing data
+
+**C. The Result**
+
+- heavy computational requirements thrust on people without adequate training in statistics and computing
+- errors are more easily introduced into long analysis pipelines
+- knowledge transfer is inhibited by really complicated analysis
+
+**D. What is Reproducible Research?**
+
+- there's actually tons of stuff between measured data and the published article
+
+**E. What problem does Reproducibility Solve?**
+
+- get transparency, data vailability, software/methods, better transfer of knowledge
+- we DO NOT get validity/correctness
+    - you can be reproducible but wrong
+- doesn't adress the question "can we trust this analysis?"
+
+**F. Problems with Reproducibility**
+
+- the premise is that the system is self-correcting
+- but what if the long-run is too long?
+- assumes everyone plays by the same rules, and wants to achieve the same goals (i.e. scientific discovery)
+
+**G. An Analogy from Asthma**
+
+- environmental intervention affects "the most upstream part of the anti-Asthma process"
+- review typically doesn't happen until after the paper is published
+- reproducible research is all the way downstream...only done after publication
+- RD Peng is the associate editor for reproducibility at *Biostatistics*
+    - you can get an "R" distinction on your artical if it's reproducible
+
+**H. Who reproduces Research?**
+
+- for this to be effective, someone has to do something
+    - re-run the analysis; check results match
+    - check the code for bugs/errors
+    - try alternate approaches; check sensitivity
+- who is "someone"? What are their goals?
+- the people who think you are wrong are most likely to try to reproduce your work
+
+**I. The Story So Far**
+
+- transparency is good
+- lots of dicussion about how to get people to share data
+
+**J. Evidence-Based Data Analysis**
+
+- a true data analysis involves string together lots of things (tools, methods)
+- some methods may be standard for a given field, but others are ad hoc
+- we should be using thoroughly-studied (via statistical research), mutually agreed upon methods to analyze data whenever possible
+- there should be evidence to justify the application of a given method
+- "the most important thing in a smoother is the bandwidth"
+- create analytic pipliens from evidence-based components - standardize it
+    - use a "Deterministic Statistical Machine"
+- analysis with a "transparent box"
+- reduce the "researcher degrees of freedom"
+    - this is the idea that you can tinker with a bunch of parameters to get whatever you want
+
+**K. Case Study: Estimating Acute Effects of Ambient Air Pollution Exposure**
+
+- you get some particulate matter data, mortality data
+- Can we encode everything we've found in statistical/epidemiological research into a single package?
+    - this would be the "deterministic statistical machine"
+- model selection: "Estimate degrees of freedom to adjust for unmeasured confounders"
+- sensitivity analysis --> unmeasured confounder adjustment, influential points
+- why don't people working with pollution data impute missing values?
+    - you typically have 1 observed vs. 5 missing
+    - "you're adding a lot of noise for a small reduction in bias"
+    
+**L. WHere to Go From Here**
+
+- one DSM is not enough, we need many!
+- create a curated library of machines providing state-of-the-art analysis pipelines
+    - packages that encode data analysis pipelines for given problems, technologies, questions
+- CRAN/[CPAN](http://www.cpan.org/)/CTAN
+- "cochrane collaboration" - meta analyses of medical research
+
+**M. Summary**
+
+- reproducible research is important, but doesn't necessarily solve the question of whether an analysis is trustworthy
+- evidence-based data analysis owuld provide a standardized, best practices for given scientific studies
+- RR is a downstream concern
+    - using deterministic statistical machine (DSM) would go a long way towards guaranteeing reproducibility starting upstream
+    
+####*VIdeo 3.11 Introduction to Peer Assessment 2*
+
+**A. Summary**
+
+- do a data analysis on storm events (very cool!)
+- there's a link to a sample on the link next to this lecture
+
+
+    

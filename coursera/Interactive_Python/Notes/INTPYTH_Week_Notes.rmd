@@ -1,0 +1,77 @@
+
+#### *Video 1.7 Programming Tips*
+
+**A. Error Messages**
+
+- "NameError"
+    - Expect to get a "missing name" error when you call things that don't exist in the program
+    - You will also get "missing name" if you call something from a module you haven't imported yet
+    - If you pass in a string but forget quotes, Python is going to look for a named variable (rather than treating your input as a string like you intended)
+- "AttributeError"
+    - remember that Python names are case-sensitive!
+    - attributes are "the stuff after the period"
+    - e.g. ```math.pi```
+- "TypeError"
+    - you might get this if you don't pass in values for all of a function's arguments
+    - you might also get this if you aren't passing in values of the right type. For example, if you pass a function a string when it expects a number, [you're gonna have a bad time](https://www.youtube.com/watch?v=d8T0mZuJ5s0)
+- "SyntaxError"
+    - this might be caused by forgetting the ```:``` on the line where you call ```def``` or some control statement
+    - might get this if you fail to indent
+    - Could happen if you call things that don't exist
+    - could happen if you use the ```=``` operator in a logical instead of the ```==```
+
+
+**B. Code Style and Formatting**
+
+- don't make your functions too long
+    - you can provide more information in a "doc string"
+    - use triple quotes, ```"""```, to create multi-line strings. Check it out:
+    
+```{r eval=FALSE, engine='python'}
+import math
+
+def area_triangle_sss(side1,side2,side3):
+    """
+    Return area of a triangle, given the lengths of its three sides
+    """
+    
+    ## Heron's formula
+    semi_perim = (side1 + side2 + side3)   /   2.0
+    
+    ## Python will let you stack lines, like below
+    return math.sqrt(semi_perim*
+                         (semi_perim-side1)*
+                         (semi_perim-side2)*
+                         (semi_perim-side3))
+```
+
+**C. Conditionals**
+
+- with no ```else``` condition, your ifs might just return the special value ```None```
+- In a big program, this can make it difficult to determine where things went wrong
+- It's better to create some customer ```else``` condition that tells hwich specific part resulted in no value
+
+#### *Video 1.8 Rock-paper-scissors-lizard-Spock*
+
+**A. The Rules**
+
+- Scissors cuts paper
+- paper covers rock
+- rock crushes lizard
+- lizard poisons Spock
+- Spock smashes scissors
+- scissors decapitates lizard
+- lizard eats paper
+- paper disproves spock
+- Spock vaporizes rock
+- rock crushes scissors
+
+**B. Determining the Winner**
+
+- Code Clinic: interactivepython@online.rice.edu
+    - This is a "last resort" email address to which you can send questions about your code
+    - answered by staff and TAs
+    - professional help desk helping with this
+    - Use this only if you've done all the other stuff (documentation, Wikipedia, etc.)
+    - Only send CodeSkulptor URLs to the current project
+- 

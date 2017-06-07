@@ -1,0 +1,338 @@
+Programming in Scala
+====================
+
+Chapter 1
+=========
+A Scalable Language
+
+The name Scala stands for "scalable language." You can apply Scala to a 
+  wide range of programming tasks, from writing small scripts to building large 
+  systems.
+
+Scala is a blend of object-oriented and functional programming concepts in a 
+  statically typed language.
+
+1.1 A LANGUAGE THAT GROWS ON YOU
+--------------------------------
+Growing new types
+Growing new control constructs
+
+Java comes with a rich, thread-based concurrency library. Scala programs can use
+  it like any other Java API. However, Akka is an additional Scala library that 
+  implements an actor model similar to Erlang's.
+
+1.2 WHAT MAKES SCALA SCALABLE?
+------------------------------
+Combination of object-oriented and functional programming
+
+Scala is object-oriented
+Traits are like interfaces in Java, but they can also have method implementations 
+  and even fields.
+
+Scala is functional
+Functional programming is guided by two main ideas:
+1. The first idea is that functions are first-class values.
+2. The second main idea of functional programming is that the operations of a 
+  program should map input values to output values rather than change data in 
+  place
+
+1.3 WHY SCALA?
+--------------
+Scala is compatible
+Scala programs compile to JVM bytecodes. Their run-time performance is usually 
+  on par with Java programs. Scala code can call Java methods, access Java fields,
+  inherit from Java classes, and implement Java interfaces.
+
+Scala is concise
+
+Scala is high-level
+
+Scala is statically typed
+
+1.4 SCALA'S ROOTS
+-----------------
+Scala's design has been influenced by many programming languages and ideas in 
+  programming language research.
+
+Chapter 2
+=========
+First Steps in Scala
+
+STEP 1. LEARN TO USE THE SCALA INTERPRETER
+------------------------------------------
+All of Java's primitive types have corresponding classes in the scala package.
+
+STEP 2. DEFINE SOME VARIABLES
+-----------------------------
+Scala has two kinds of variables, vals and vars. A val is similar to a final 
+  variable in Java. Once initialized, a val can never be reassigned. A var, by 
+  contrast, is similar to a non-final variable in Java.
+
+STEP 3. DEFINE SOME FUNCTIONS
+-----------------------------
+Function definitions start with def.
+If the function is recursive, you must explicitly specify the function's result 
+  type.
+
+Scala's Unit type is similar to Java's void type
+
+STEP 4. WRITE SOME SCALA SCRIPTS
+--------------------------------
+Command line arguments to a Scala script are available via a Scala array named 
+  args. In Scala, arrays are zero based, and you access an element by specifying 
+  an index in parentheses.
+
+STEP 5. LOOP WITH WHILE; DECIDE WITH IF
+---------------------------------------
+Note that Java's + +i and i++ don't work in Scala. To increment in Scala, you 
+  need to say either i = i + 1 or i += 1.
+
+STEP 6. ITERATE WITH FOREACH AND FOR
+------------------------------------
+Scala enables you to program imperatively, but as you get to know Scala better, 
+  you'll likely often find yourself programming in a more functional style.
+
+Chapter 3
+=========
+Next Steps in Scala
+
+STEP 7. PARAMETERIZE ARRAYS WITH TYPES
+--------------------------------------
+When you define a variable with val, the variable can't be reassigned, but the 
+  object to which it refers could potentially still be changed.
+
+If a method takes only one parameter, you can call it without a dot or parentheses.
+
+Scala doesn't technically have operator overloading, because it doesn't actually 
+  have operators in the traditional sense. Instead, characters such as +, -, *, 
+  and / can be used in method names.
+
+When you apply parentheses surrounding one or more values to a variable, Scala 
+  will transform the code into an invocation of a method named apply on that 
+  variable.
+
+Scala achieves a conceptual simplicity by treating everything, from arrays to 
+  expressions, as objects with methods.
+
+STEP 8. USE LISTS
+-----------------
+Scala array is a mutable sequence of objects that all share the same type. 
+  An Array[String] contains only strings, for example. Although you can't change 
+  the length of an array after it is instantiated, you can change its element 
+  values. Thus, arrays are mutable objects.
+
+For an immutable sequence of objects that share the same type you can use Scala's 
+  List class.
+
+:: is a method of its right operand
+
+WHY NOT APPEND TO LISTS?
+The time it takes to append to a list grows linearly with the size of the list, 
+  whereas prepending with :: takes constant time.
+
+STEP 9. USE TUPLES
+------------------
+Like lists, tuples are immutable, but unlike lists, tuples can contain different 
+  types of elements.
+
+STEP 10. USE SETS AND MAPS
+--------------------------
+Scala also provides mutable and immutable alternatives for sets and maps, but 
+  uses the same simple names for both versions.
+
+STEP 11. LEARN TO RECOGNIZE THE FUNCTIONAL STYLE
+------------------------------------------------
+If code contains any vars, it is probably in an imperative style. If the code 
+  contains no vars at all—i.e., it contains only vals—it is probably in a 
+  functional style. One way to move towards a functional style, therefore, is 
+  to try to program without vars.
+
+If a function isn't returning any interesting value, which is what a result 
+  type of Unit means, the only way that function can make a difference in the 
+  world is through some kind of side effect.
+
+A BALANCED ATTITUDE FOR SCALA PROGRAMMERS
+-----------------------------------------
+Prefer vals, immutable objects, and methods without side effects. Reach for 
+  them first. Use vars, mutable objects, and methods with side effects when you 
+  have a specific need and justification for them.
+
+STEP 12. READ LINES FROM A FILE
+-------------------------------
+Use scala.io.Source library to read lines from a file.
+
+Chapter 4
+=========
+Classes and Objects
+
+4.1 CLASSES, FIELDS, AND METHODS
+--------------------------------
+One important characteristic of method parameters in Scala is that they are vals, 
+  not vars.
+
+In the absence of any explicit return statement, a Scala method returns the last 
+  value computed by the method.
+
+A side effect is generally defined as mutating state somewhere external to the 
+  method or performing an I/O action.
+
+A method that is executed only for its side effects is known as a procedure.
+
+4.2 SEMICOLON INFERENCE
+-----------------------
+Semicolon is required if you write multiple statements on a single line
+
+4.3 SINGLETON OBJECTS
+---------------------
+A singleton object definition looks like a class definition, except instead of 
+  the keyword class you use the keyword object.
+
+When a singleton object shares the same name with a class, it is called that 
+  class's companion object.
+
+A singleton object that does not share the same name with a companion class is 
+  called a standalone object.
+
+One difference between classes and singleton objects is that singleton objects 
+  cannot take parameters, whereas classes can.
+
+4.4 A SCALA APPLICATION
+-----------------------
+To run a Scala program, you must supply the name of a standalone singleton object 
+  with a main method that takes one parameter, an Array[String], and has a result 
+  type of Unit.
+
+One difference between Scala and Java is that whereas Java requires you to put a 
+  public class in a file named after the class—for example, you'd put class 
+  SpeedRacer in file SpeedRacer.java—in Scala, you can name .scala files anything 
+  you want, no matter what Scala classes or code you put in them.
+
+4.5 THE APP TRAIT
+-----------------
+To use the trait, you first write "extends App" after the name of your singleton 
+  object. Then instead of writing a main method, you place the code you would 
+  have put in the main method directly between the curly braces of the singleton 
+  object.
+
+Chapter 5
+=========
+Basic Types and Operations
+
+5.1 SOME BASIC TYPES
+--------------------
+Scala's basic types have the exact same ranges as the corresponding types in Java.
+
+5.2 LITERALS
+------------
+You start and end a raw string with three double quotation marks in a row (""").
+
+5.3 STRING INTERPOLATION
+------------------------
+Its most common use case is to provide a concise and readable alternative to 
+  string concatenation.
+
+Scala provides two other string interpolators by default: raw and f.
+
+5.4 OPERATORS ARE METHODS
+-------------------------
+Operators are actually just a nice syntax for ordinary method calls.
+
+ANY METHOD CAN BE AN OPERATOR
+
+In Scala, you can leave off empty parentheses on method calls.
+The convention is that you include parentheses if the method has side effects, 
+  such as println(), but you can leave them off if the method has no side effects, 
+  such as toLowerCase invoked on aString
+
+5.5 ARITHMETIC OPERATIONS
+-------------------------
+
+5.6 RELATIONAL AND LOGICAL OPERATIONS
+-------------------------------------
+The && and || operations short-circuit as in Java: expressions built from these 
+  operators are only evaluated as far as needed to determine the result.
+
+If you want to evaluate the right hand side no matter what, use & and | instead.
+
+5.7 BITWISE OPERATIONS
+----------------------
+
+5.8 OBJECT EQUALITY
+-------------------
+
+5.9 OPERATOR PRECEDENCE AND ASSOCIATIVITY
+-----------------------------------------
+
+5.10 RICH WRAPPERS
+------------------
+Operators in Scala are method calls, and that implicit conversions to rich 
+  variants exist for Scala's basic types that add even more useful methods.
+
+Chapter 6
+=========
+Functional Objects
+
+6.1 A SPECIFICATION FOR CLASS RATIONAL
+--------------------------------------
+
+6.2 CONSTRUCTING A RATIONAL
+---------------------------
+
+IMMUTABLE OBJECT TRADE-OFFS
+1. Immutable objects are often easier to reason about than mutable ones, because 
+  they do not have complex state spaces that change over time.
+2. You can pass immutable objects around quite freely, whereas you may need to 
+  make defensive copies of mutable objects before passing them to other code.
+3. There is no way for two threads concurrently accessing an immutable to corrupt 
+  its state once it has been properly constructed, because no thread can change 
+  the state of an immutable.
+4. Immutable objects make safe hash table keys.
+
+The main disadvantage of immutable objects is that they sometimes require that a 
+  large object graph be copied, whereas an update could be done in its place.
+
+The Scala compiler will compile any code you place in the class body, which isn't 
+  part of a field or a method definition, into the primary constructor.
+
+6.3 REIMPLEMENTING THE TOSTRING METHOD
+--------------------------------------
+
+6.4 CHECKING PRECONDITIONS
+--------------------------
+The require method takes one boolean parameter. If the passed value is true, 
+  require will return normally. Otherwise, require will prevent the object 
+  from being constructed by throwing an IllegalArgumentException.
+
+6.5 ADDING FIELDS
+-----------------
+
+6.6 SELF REFERENCES
+-------------------
+
+6.7 AUXILIARY CONSTRUCTORS
+--------------------------
+In Scala, constructors other than the primary constructor are called auxiliary 
+  constructors.
+
+In Scala, every auxiliary constructor must invoke another constructor of the same 
+  class as its first action. 
+
+6.8 PRIVATE FIELDS AND METHODS
+------------------------------
+
+6.9 DEFINING OPERATORS
+----------------------
+
+6.10 IDENTIFIERS IN SCALA
+-------------------------
+Camel-case names of fields, method parameters, local variables, and functions 
+  should start with a lower case letter, for example: length, flatMap, and s. 
+  Camel-case names of classes and traits should start with an upper case letter, 
+  for example: BigInt, List, and UnbalancedTreeMap.
+
+6.11 METHOD OVERLOADING
+-----------------------
+
+6.12 IMPLICIT CONVERSIONS
+-------------------------
+You can create an implicit conversion that converts types when needed.

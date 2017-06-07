@@ -1,0 +1,320 @@
+Supervised Learning:
+1. Classification
+2. Regression
+
+Part 1
+======
+Classification
+
+===================================================================================================================
+
+Chapter 1
+=========
+Machine Learning Basics
+
+Machine learning is turning data into information.
+It lies intersection of Computer Science, Engineering, & Statistics.
+
+Why statistics is important?
+Because some solutions are not deterministic.
+
+Get all the data you needed, and sort the features later.
+
+The inner learning of machine learning algorithms are done via Knowledge Representation.
+
+You should spend some time getting to know your data, and the more you know about it, the better you’ll be able to build a successful application.
+
+Things to look in datasets:
+Are the features nominal or continuous? 
+Are there missing values in the features? 
+If there are missing values, why are there missing values? 
+Are there outliers in the data? 
+Are you looking for a needle in a haystack, something that happens very infrequently?
+
+You’re going to have to try different algorithms and see how they perform.
+
+The relative performance of two algorithms may change after you process the input data.
+
+Steps in developing Machine Learning Application
+------------------------------------------------
+1. Collect data
+2. Prepare the input data
+3. Analyse the input data
+4. Train the algorithm
+5. Test the algorithm
+6. Save the model and use it.
+
+Why Python for Machine Learning?
+--------------------------------
+1. Executable Pseudo-code
+2. Python is popular
+3. Free to use.
+4. Concentrate on core machine learning ideas.
+
+Why numpy?
+----------
+For fast matrix-matrix calculations.
+
+====================================================================================================================
+
+Chapter 2
+=========
+Classifying with k-Nearest Neighbors
+
+Recommendation system using K-Nearest Neighbors.
+Actually coding the K-Nearest Neighbors Algorithm.
+
+Application:
+Recommending dates from dating sites
+
+Application:
+Handwriting Recognition System
+
+Cons:
+1. Very slow
+2. Memory consuming
+3. Every feature should be equal in importance.
+4. Doesn't help in figuring out the underlying structure of the data.
+
+====================================================================================================================
+
+Chapter 3
+=========
+Splitting datasets one feature at a time: Decision Trees
+
+Also known as Expert Systems.
+The machine learning will take place as the machine creates these rules from the dataset.
+Actually coding the Decision Tree Algorithm using Entropy as Information Gain.
+
+Cons:
+Prone to overfitting.
+
+Using Matplotlib to see the Decision Tree.
+
+Using Pickle for model persistence.
+
+Application:
+Predicting contact lens type
+
+==================================================================================================================
+
+Chapter 4
+=========
+Classifying with Probability theory: Naive Bayes
+
+Using probability theory in Machine Learning.
+
+Application:
+Document classification with Naive Bayes.
+
+Set of word model - Looking at specific words for presence or absence.
+
+Application:
+Classifying spam email.
+
+Read RSS feeds with Feedparser
+
+==================================================================================================================
+
+Chapter 5
+=========
+Logistic Regression
+
+Finding an equation and the weights of the variables to predict the class of the input.
+
+Optimization Algorithms:
+------------------------
+1. Gradient Descent
+2. Stochastic Gradient Descent
+
+How to fill missing value in datasets:
+--------------------------------------
+Here are some options:
+1. Use the feature’s mean value from all the available data.
+2. Fill in the unknown with a special value like -1, but 0 is better choice while using for classification problems, however make sure no other feature takes 0 as a value for a sample.
+3. Ignore the instance.
+4. Use a mean value from similar items.
+5. Use another machine learning algorithm to predict the value.
+
+Dataset:
+Horse Colic
+
+=================================================================================================================
+
+Chapter 6
+=========
+Support Vector Machines
+
+Finding maximum margin from the hyperplane to the data points.
+Using SMO as an optimisation algorithm.
+Using kernels for non-linear datasets.
+
+Using SVM for handwritten digits recognition.
+
+=================================================================================================================
+
+Chapter 7
+=========
+Improving classification with the AdaBoost meta-algorithm
+
+Ensemble/Meta-algorithms are a way of combining other algorithms.
+Two ways to approach this:
+1. Bagging
+Creating multiple random datasets from a single dataset, and perform learning on each dataset through a different classifier; and for the new input, take the majority vote from the classifier.
+
+2. Boosting
+In boosting, different classifiers are trained sequentially.
+For e.g AdaBoost (Adaptive Boosting)
+
+SVM & AdaBoost are the most powerful supervised learning algorithms.
+
+Classification Imbalance
+------------------------
+Precision, Recall, F1 score, and ROC curve.
+Confusion Matrix
+
+===============================================================================================================
+
+Part 2
+======
+Forecasting numeric value with Regression
+
+Chapter 8
+=========
+Predicting numeric values: Regression
+
+Linear Regression:
+Using a best fit line as a model to predict.
+
+It tends to underfit the data.
+
+Dataset:
+Abalone
+
+If feature size is larger than samples n > m
+Use Ridge Regression
+Ridge Regression regularise the weights for the input. Thus, reducing the effect of individual features.
+
+Always perform cross validation on params.
+
+By visualising the model, one can identify which feature are important, and thus stop collecting unimportant feature for future.
+
+Bias/Variance tradeoff
+----------------------
+High bias - Underfit
+High Variance - Overfit
+
+Dataset:
+Lego dataset via Google API
+
+One can look at the coefficients and understand the learning model to check for errors.
+
+==========================================================================================================
+
+Chapter 9
+=========
+Tree-based Regression
+
+CART (Classification and Regression Trees) Algorithm
+----------------------------------------------------
+Similiar to decision tree, but for Regression
+
+One of the advantage of decision trees over other machine learning algorithms is that humans can understand the results.
+
+Types of trees
+1. Decision trees
+2. Model trees
+
+Using Tkinter to create GUI in Python.
+
+=========================================================================================================
+
+Part 3
+======
+Unsupervised Learning
+
+Chapter 10
+==========
+Grouping unlabeled items using k-means clustering
+
+k-means Clustering Algorithm
+----------------------------
+
+The performance of k-means depends upon which distance measure we use for assigning the samples to the centroid.
+Distances:
+1. Euclidean
+2. Pearson
+3. Tanimoto
+
+But, running the clustering algorithm can lead to converging on local minima, rather than global one.
+
+Application:
+Covering large number of places in a single night.
+
+=========================================================================================================
+
+Chapter 11
+==========
+Association analysis with the Apriori Algorithm
+
+Looking for hidden relationships in large datasets is known as Association Analysis.
+1. Frequent itemset
+2. Association rules
+
+Association consists of two key concepts:
+1. Support
+2. Confidence
+
+Application:
+Voting Records
+
+=======================================================================================================
+
+Chapter 12
+==========
+Efficiently finding frequent itemsets with FP-growth
+
+FP-growth algorithm deals with finding frequent itemsets better than Apriori algorithm by creating a FP-tree data structure.
+
+Data mining technique.
+
+Application:
+Twitter timeline
+
+========================================================================================================
+
+Part 4
+======
+Additional tools
+
+Chapter 13
+==========
+Using Principal Component Analysis to simplify data
+
+Dimensionality Reduction via PCA
+
+It is used to remove noise from the data, and reduce the computation time.
+
+======================================================================================================
+
+Chapter 14
+==========
+Simplifying data with the Singular Value Decomposition
+
+Application:
+Recommendations System
+
+Using SVD for collobarotive based recommendation system.
+
+======================================================================================================
+
+Chapter 15
+==========
+Big Data and Map Reduce
+
+MapReduce is a software framework for spreading a single computing job across multiple computers.
+Using Hadoop for MapReduce.
+
+Mrjob for map reduce in python.
+
+=====================================================================================================

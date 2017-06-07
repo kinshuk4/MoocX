@@ -1,0 +1,596 @@
+<center> <h2>Interactive Python - Week 6</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 6.1 - Object-Oriented Programming (pt 1)*
+
+**A. Notes**
+
+- OOP = object containing data that has methods to do stuff
+    - writing things an OOP way involves creating your own object types and methods
+- Python convention is to capitalize classes 
+
+```{r eval=FALSE}
+class Character:
+    def __init__(self, name, initial_health):
+        self.name = name
+        self.health = initial_health
+        self.inventory = []
+        
+    def __str__(self):
+        s  = "Name: " + self.name
+        s += " Health: " + str(self.health)
+        s += " Inventory: " + str(self.inventory)
+        return s
+    
+    def grab(self, item):
+        self.inventory.append(item)
+        
+    def get_health(self):
+        return self.health
+    
+def example():
+    me = Character("Bob", 20)
+    print str(me)
+    me.grab("pencil")
+    me.grab("paper")
+    print str(me)
+    print "Health:", me.get_health()
+    
+example()
+
+```
+
+- ```__str__(self):``` should build up and then return a string with summary information
+- defining your own types and methods can make big programs much simpler and more powerful
+
+####*Video 6.2 - OOP (pt 2)*
+
+**A. Continued**
+
+```{r eval=FALSE, engine='python'}
+
+# ball physics code for generic 2D domain
+# the functions inside() and normal() encode the shape of the ennvironment
+
+import simplegui
+import random
+import math
+
+# Canvas size
+width = 600
+height = 400
+
+# Ball traits
+radius = 20
+color = "White"
+
+# math helper function
+def dot(v, w):
+    return v[0] * w[0] + v[1] * w[1]
+
+class RectangularDomain:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.border = 2
+
+    # return if bounding circle is inside the domain    
+    def inside(self, center, radius):
+        in_width = ((radius + self.border) < center[0] < 
+                    (self.width - self.border - radius))
+        in_height = ((radius + self.border) < center[1] < 
+                     (self.height - self.border - radius))
+        return in_width and in_height
+
+    # return a unit normal to the domain boundary point nearest center
+    def normal(self, center):
+        left_dist = center[0]
+        right_dist = self.width - center[0]
+        top_dist = center[1]
+        bottom_dist = self.height - center[1]
+        if left_dist < min(right_dist, top_dist, bottom_dist):
+            return (1, 0)
+        elif right_dist < min(left_dist, top_dist, bottom_dist):
+            return (-1, 0)
+        elif top_dist < min(bottom_dist, left_dist, right_dist):
+            return (0, 1)
+        else:
+            return (0, -1)
+
+    # return random location
+    def random_pos(self, radius):
+        x = random.randrange(radius, self.width - radius - self.border)
+        y = random.randrange(radius, self.height - radius - self.border)
+        return [x, y]
+
+    # Draw boundary of domain
+    def draw(self, canvas):
+        canvas.draw_polygon([[0, 0], [self.width, 0], 
+                             [self.width, self.height], [0, self.height]],
+                             self.border*2, "Red")
+        
+class CircularDomain:
+    def __init__(self, center, radius):
+        self.center = center
+        self.radius = radius
+        self.border = 2
+        
+    # return if bounding circle is inside the domain    
+    def inside(self, center, radius):
+        dx = center[0] - self.center[0]
+        dy = center[1] - self.center[1]
+        dr = math.sqrt(dx ** 2 + dy ** 2)
+        return dr < (self.radius - radius - self.border)
+
+    # return a unit normal to the domain boundary point nearest center
+    def normal(self, center):
+        dx = center[0] - self.center[0]
+        dy = center[1] - self.center[1]
+        dr = math.sqrt(dx ** 2 + dy ** 2)
+        return [dx / dr, dy / dr]
+    
+    # return random location
+    def random_pos(self, radius):
+        r = random.random() * (self.radius - radius - self.border)
+        theta = random.random() * 2 * math.pi
+        x = r * math.cos(theta) + self.center[0]
+        y = r * math.sin(theta) + self.center[1]
+        return [x, y]
+        
+    # Draw boundary of domain
+    def draw(self, canvas):
+        canvas.draw_circle(self.center, self.radius, self.border*2, "Red")
+    
+class Ball:
+    def __init__(self, radius, color, domain):
+        self.radius = radius
+        self.color = color
+        self.domain = domain
+        
+        self.pos = self.domain.random_pos(self.radius)
+        self.vel = [random.random() + .1, random.random() + .1]
+        
+    # bounce
+    def reflect(self):
+        norm = self.domain.normal(self.pos)
+        norm_length = dot(self.vel, norm)
+        self.vel[0] = self.vel[0] - 2 * norm_length * norm[0]
+        self.vel[1] = self.vel[1] - 2 * norm_length * norm[1]
+    
+
+    # update ball position
+    def update(self):
+        self.pos[0] += self.vel[0]
+        self.pos[1] += self.vel[1]
+        if not self.domain.inside(self.pos, self.radius):
+            self.reflect()
+
+    # draw
+    def draw(self, canvas):
+        canvas.draw_circle(self.pos, self.radius, 1, 
+                           self.color, self.color)
+        
+
+# generic update code for ball physics
+def draw(canvas):
+    ball.update()
+    field.draw(canvas)
+    ball.draw(canvas)
+
+field = RectangularDomain(width, height)
+# field = CircularDomain([width/2, height/2], 180)
+ball = Ball(radius, color, field)
+        
+frame = simplegui.create_frame("Ball physics", width, height)
+
+frame.set_draw_handler(draw)
+
+frame.start()
+
+```
+
+- OOP is much more flexible, enables you to quickly make substantive changes
+
+####*Video 6.3 - Working With Objects*
+
+**A. Using one class to create objects**
+
+```{r eval=FALSE}
+
+# Particle class example used to simulate diffusion of molecules
+
+import simplegui
+import random
+
+# global constants
+WIDTH = 600
+HEIGHT = 400
+PARTICLE_RADIUS = 5
+COLOR_LIST = ["Red", "Green", "Blue", "White"]
+DIRECTION_LIST = [[1,0], [0, 1], [-1, 0], [0, -1]]
+
+# definition of Particle class
+class Particle:
+    
+    # initializer for particles
+    def __init__(self, position, color):
+        self.position = position
+        self.color = color
+        
+    # method that updates position of a particle    
+    def move(self, offset):
+        self.position[0] += offset[0]
+        self.position[1] += offset[1]
+        
+    # draw method for particles
+    def draw(self, canvas):
+        canvas.draw_circle(self.position, PARTICLE_RADIUS, 1, self.color, self.color)
+    
+    # string method for particles
+    def __str__(self):
+        return "Particle with position = " + str(self.position) + " and color = " + self.color
+
+
+# draw handler
+def draw(canvas):
+    for p in particle_list:
+        p.move(random.choice(DIRECTION_LIST))
+    
+    for p in particle_list:
+        p.draw(canvas)
+
+
+# create frame and register draw handler
+frame = simplegui.create_frame("Particle simulator", WIDTH, HEIGHT)
+frame.set_draw_handler(draw)
+
+# create a list of particles
+particle_list = []
+for i in range(100):
+    p = Particle([WIDTH / 2, HEIGHT / 2], random.choice(COLOR_LIST))
+    particle_list.append(p)
+
+# start frame
+frame.start()
+```
+
+- be sure to declae objects as your new method
+- when we say ```print``` an object, Python looks for the ```__str__``` method of that class
+- if you try to call a method that a class doesn't actually have, you'll get an AttributeError
+- advice for efficient BlackJack: use the mini-project template
+    - play it at the console first, then go to canvas
+- functions vs methods:
+    - functions are defined outside of classes
+    - methods are defined inside of and part of classes
+
+####*Video 6.4 - Classes for Blackjack*
+
+**A. Rules**
+
+- programming as an art, not a science
+    - make some "design decisions"
+- highest hand with 21 or less wins.
+    - dealer wins ties
+- dealer cards --> 1 down, 1 up
+- players --> all up (?)
+
+**B. Implementation**
+
+- types you need:
+    - card(rank, suit, image)
+    - hand(collection of cards)
+    - deck(collection of cards)
+- a type is the data inside it and the behaviors of that type
+- OO design --> primary objective is to facilitate code reuse
+    - card class could be used for other games (like poker)
+- abstraction --> separate how the object is implemented from how you use it
+    - again, you want something that people can interface with for building their own stuff
+
+**C. Overloading**
+
+- overloading is a situation where you allow declarations of a class with different numbers of arguments
+    - this is not supported in Python
+
+####*Video 6.5 - Tiled images*
+
+**A. Notes**
+
+- the idea here is that if you have a bunch of regular-size icons you want (say cards), you can load a single image file and then subset out the card you want
+- ```canvas.draw_image(tiled_image, card_pos, CARD_SIZE, ...)```
+- order the cards in a specific image in this tiled image...we lean heavily on that order
+
+**B. Code Example**
+
+```{r eval=FALSE}
+
+# demo for drawing using tiled images
+
+import simplegui
+
+# define globals for cards
+RANKS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K')
+SUITS = ('C', 'S', 'H', 'D')
+
+# card sprite - 950x392
+CARD_CENTER = (36.5, 49)
+CARD_SIZE = (73, 98)
+card_image = simplegui.load_image("http://commondatastorage.googleapis.com/codeskulptor-assets/cards.jfitz.png")
+
+
+
+# define card class
+class Card:
+    def __init__(self, suit, rank):
+        self.rank = rank
+        self.suit = suit
+
+    def draw(self, canvas, loc):
+        i = RANKS.index(self.rank)
+        j = SUITS.index(self.suit)
+        card_pos = [CARD_CENTER[0] + i * CARD_SIZE[0],
+                    CARD_CENTER[1] + j * CARD_SIZE[1]]
+        canvas.draw_image(card_image, card_pos, CARD_SIZE, loc, CARD_SIZE)
+
+# define draw handler        
+def draw(canvas):
+    one_card.draw(canvas, (155, 90))
+
+# define frame and register draw handler
+frame = simplegui.create_frame("Card draw", 300, 200)
+frame.set_draw_handler(draw)
+
+# createa card
+one_card = Card('S', '6')
+
+frame.start()
+```
+
+**C. Using Dropbox**
+
+- you're not required to do this...but it's fun
+- just put the stuff on there and grab the "share" URL/link
+- IMPORTANT: won't work with the normal url
+    - you have to replace "www" with "dl"
+    - e.g. "https:dl.dropbox.com/..."
+- once the image is loaded once, it is cached
+- to test this...make sure you run it on a different computer!
+    - it might work on your computer just because you can download it while signed in to DropBox
+    
+####*Video 6.6 - Visualizing Objects*
+
+**A. Notes**
+
+```{r eval=FALSE}
+
+##################
+# Object creation and use
+# Mutation with Aliasing
+
+class Point1:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def set_x(self, newx):
+        self.x = newx
+    
+    def get_x(self):
+        return self.x
+
+p = Point1(4, 5)
+q = Point1(4, 5)
+r = p
+
+p.set_x(10)
+
+print p.get_x()
+print q.get_x()
+print r.get_x()
+
+
+##################
+# Object shared state
+# Mutation of shared state
+
+class Point2:
+    def __init__(self, coordinates):
+        self.coords = coordinates
+    
+    def set_coord(self, index, value):
+        self.coords[index] = value
+    
+    def get_coord(self, index):
+        return self.coords[index]
+
+coordinates = [4, 5]
+p = Point2(coordinates)
+q = Point2(coordinates)
+r = Point2([4, 5])
+
+# this line will change the "shared state" of coordinates, affecting p and 1
+p.set_coord(0, 10)
+
+print p.get_coord(0)
+print q.get_coord(0)
+print r.get_coord(0)
+
+
+##################
+# Objects not sharing state
+
+class Point3:
+    def __init__(self, coordinates):
+        self.coords = list(coordinates)
+    
+    def set_coord(self, index, value):
+        self.coords[index] = value
+    
+    def get_coord(self, index):
+        return self.coords[index]
+
+coordinates = [4, 5]
+p = Point3(coordinates)
+q = Point3(coordinates)
+r = Point3([4, 5])
+
+p.set_coord(0, 10)
+
+print p.get_coord(0)
+print q.get_coord(0)
+print r.get_coord(0)
+```
+
+- ```__init__()``` method being called implicitly when we initialize an object
+
+####*Video 6.7 - Programming Tips*
+
+**A. Common Mistakes using Objects and Classes**
+
+```{r eval=FALSE}
+###################
+# Broken code
+
+class ball:
+    def ball(pos, rad):
+        position = pos
+        radius = rad
+        return ball
+    
+    def get_position():
+        return position
+
+b = ball([0,0], 10)
+
+print get_position(b)
+
+
+
+###################
+# Fixed code
+
+class Ball:
+    def __init__(self, pos, rad):
+        self.position = pos
+        self.radius = rad
+    
+    def get_position(self):
+        return self.position
+
+b = Ball([0,0], 10)
+
+print b.get_position()
+
+
+##################
+# Example while
+
+def countdown(n):
+    """Print the values from n to 0."""
+
+    i = n
+    while i >= 0:
+        print i
+        i -= 1
+
+countdown(5)
+
+
+##################
+# Collatz
+
+def collatz(n):
+    """Prints the values in the Collatz sequence for n."""
+
+    i = n
+    while i > 1:
+        print i
+        
+        if i % 2 == 0:
+            i = i / 2
+        else:
+            i = 3 * i + 1
+           
+colnatz(1000)
+
+
+#################
+# Timeout
+
+i = 1
+while i > 0:
+    i += 1
+	
+print "Done!"
+```
+
+- functions use the syntax ```function(object)```, methods take syntax ```object.method()```
+- remember that all methods must have the argument "self"
+- always include an ```__init__``` and probably a ```__str__```
+    - ```__init__()``` does not need a ```return``` statement...it will implicitly just return an object of that class
+- reference internal variables as ```self.variable_name``` when defining your class
+- Python convention is to capitalize classes
+
+**B. Better Looping**
+
+- For looping is a bit rigid
+- a sometimes-better construction is the ```while``` loop
+- don't write infinite loops, yo
+
+####*Video 6.8 - Blackjack*
+
+**A. Notes**
+
+- values of hands:
+    - numbers = number
+    - face card = 10
+    - Ace = 1 or 11
+- no aces --> easy
+- multiple aces --> you never count more than one ace as 11!
+- dealing with Aces
+    - when computing the value of the player's hand, take the max of (value with ace as 11, value with ace as 1), assuming ace as 11 not bust
+
+```{r eval=FALSE}
+If the hand has no Aces
+    return hand_value
+else
+    if hand_value + 10 <= 21
+        return hand_value + 10
+    else
+        return hand_value
+```
+
+- for the dealer, you'll need to use a while loop
+- something like:
+
+```{r eval=FALSE}
+while dealer_hand.get_value() < 17:
+    dealer_hand.hit()
+```
+
+- in our version, dealer wins ties
+- keep things very simple here...follow the project description
+- List of prime numbers in a range:
+
+```{r eval=FALSE}
+## the "Sieve of Eatosthenes"
+# Computes primes less than n
+
+n = 1000
+numbers = range(2,n)
+
+results = []
+while len(numbers) != 0:
+    
+    # Add the first number in numbers to the end of results
+    results.append(numbers[0])
+    print results
+    
+    # Remove every number in numbers that is evenly divisible by...
+    #	the number that you ahd just added to results
+    to_remove = [value for value in numbers if (value % numbers[0])==0]
+    for value in to_remove:
+        numbers.remove(value)
+    
+print results
+print len(results)
+```

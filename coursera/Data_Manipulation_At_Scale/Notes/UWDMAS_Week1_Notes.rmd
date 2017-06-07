@@ -1,0 +1,471 @@
+<center> <h2>Data Manipulation At Scale - Week 1</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 0.1.1 - Course Logistics*
+
+**A. Notes**
+
+- a "guided tour" of important trends and technologies
+
+**B. Prereqs**
+
+- assumptions:
+    - some prior programming experience in some language
+    - "muscle memory" with basic college stats
+    - some exposure to databses and database concepts
+- one assignment will require writing SWL
+- two assignments will require writing Python
+- one (optional) assignment will involve processing ~1TB of data using AWS
+    - you will pay for these resources, should you choose to complete the assignment
+- one assignment will involve solving a prediction problem on kaggle.com using whatever tools you wish
+- some understanding of distirbuted systems will be helpful, but not required
+
+**C. Objectives**
+
+- come out of this being able to talk intelligently about the data science landscape
+- hands-on experience in data manipulation, analysis and prediction
+- you will be an "advanced beginner" in a variety of data science topics
+
+**D. Course Philosophy**
+
+- the skills needed by a data scientist span a variety of different areas:
+    - statistics
+    - programming
+    - databses
+    - systems
+    - visualization
+- the traditional ("vertical") organization of topics is not ideal:
+    - it is difficult to acquire introductor-level knoweldge in all areas
+    - cross-cutting concepts and abstractions are obscured
+    - the "one ML course, one SQL course, on DataViz course" approach might not be the best
+- goal: expose and simplify the underlying commonalties between these areas
+
+**E. Non-goals**
+
+- you won't be an expert in anything
+- you won't be an expert in R, Python, Matlab
+
+**F. Quizzes and Assignments**
+
+- short "finger exercise" quizzes after msot video segments
+- a set of full-length offlien assignments
+- some assignment will be graeded via peer assignments
+
+
+####*Video 1.1.1 - Appetite Whetting: Politics*
+
+**A. Notes**
+
+- what Nate Silver did was (mathematically) fairly simple
+- what required exceptionally deep technical work:
+    - quantifying uncertainty
+    - conveying the results to the public
+- "simple methods plus lots of good data" > sophisticated methods
+- "the decision was made to have Hadoop do the aggregate generation and anything not real-time, but then have Vertica to answer sort of "speed-of-thought" queries about all the data"
+    - Hadoop not really made for real-time stuff
+- SQL sometimes gets a bad name...don't believe it
+
+####*Video 1.1.2 - Appetite Whetting: Extreme Weather*
+
+**A. Notes**
+
+- Hurricane Sandy:
+    - Twitter data used to show where power was going out
+- a sort of "real-time flow" of data visualizations being produced
+- repurposing data is a theme in good data science
+
+####*Video 1.1.3 - Appetite Whetting: Digital HUmanities*
+
+**A. Notes**
+
+- Lampos et al (2013) "The Expression of Emotions in 20th Century Books"
+- methodology:
+    - 1) convert all digitized books in the 20th century into ngrams (Google)
+    - 2) Label each 1-gram (word) with a mood score (WordNet)
+    - 3) count the occurences of each mood word
+- used occurrences of "the" to capture level of prose created:
+    - we've started using more technical language, captions, other utterances
+- by virtue of data-driven methods, all science is becoming data science:
+    - linguistics, journalism, history, etc. are all becoming "hard sciences"
+- journalism amenable to data science techniques
+
+####*Video 1.1.4 - Appetite Whetting: Bibliometrics*
+
+**A. Notes**
+
+- "how important are scientific papers relative to each other?"
+- a particular website is important if a lot of other important websites point to it
+    - this is the logic of PageRank
+- whenever you have a graph, it might make sense to run pagerank on it
+- consider putting the graph of citations through clustering, build a Sankey chart to potentialy reveal the emergence of new types of science
+
+####*Video 1.1.5 - Appetite Whetting: Food, Music, Public Health*
+
+**A. Notes**
+
+- food example:
+    - "analyze the co-occurrence graph of ingredients in recipes to analyze the underlying principles of food pairing"
+- once you have a graph, you can do lots of stuff:
+    - find community structure (i.e. do clustering)
+    - analyze degree distribution
+- lots and lots and lots of stuff can benefit from data-driven methods
+- a theme we'll see a lot:
+    - repurposing data (no need to re-invent the wheel)
+- Google Flu Trends:
+    - "lots of media attention to this year's flu season skewed Google's search engine traffic"
+    - people were searching for flu even if they didn't have it
+    - maybe a biiit of Goodhart's law here
+
+####*Video 1.1.6 - Appetite Whetting: Public Health, Earthquakes, Legal*
+
+**A. Notes**
+
+- "web-scale pharmacovigilance: listening to signals from the crowd"
+    - looking for side effects from certain drugs
+- they said basically: "When you search for drug X how likely were you to also search for Y symptom"?
+- when you make a prediction, you have to also communicate uncertainty (how confident you are
+    - [these dudes](http://www.nature.com/news/italian-court-finds-seismologists-guilty-of-manslaughter-1.11640) should have, maybe
+- important points:
+    - graph analytics
+    - databases
+    - visualization
+    - large datasets
+    - ad hoc/fast
+    - repurposing other data
+    
+####*Video 1.2.1 - Characterizing Data Science*
+
+**A. Notes**
+
+- "data science, as it's practiced, is a blend of Red-Bull-fueld hacking and espresso-inspired statistics"
+- data science as some mix of math/stats, hacking skills, and substantive expertise
+- hacking-substance intersection as "danger zone":
+    - data science practitioners who lack any math or stats knowledge can misapply techniques and draw false conclusions
+
+**B. What do data scientists do?**
+
+- they need to find nuggets of truth in data and then explain it to business leaders
+- DJ Patil: "data scientists tend to be hard scientists, particularly physicists, rather than comptuer science majors
+
+**C. Mike Driscoll's Three sexy skills of data geeks**
+
+- statistics
+- data munging
+- visualization
+
+####*Video 1.2.2 - Characterizing data Science (cont.)*
+
+**A. Notes**
+
+- "data science refers to ....and preservation of large collections of information"
+    - don't forget to make your information available to others
+
+**B. three Types of Tasks**
+
+- preparing to run a model
+- running the model
+- communicating the results
+
+**C. data Science is about Data Products**
+
+- "data-driven apps"
+    - spellchecker
+    - Machine Translator
+- interactive visualizations
+    - Google flu application
+    - Global Burden of Disease
+- Online databases
+    - enterprise data warehouse
+    - Sloan Digital Sky Survey
+- better data tend to trump better techniques
+    - feature engineering matters!
+- don't just produce the "answer" (i.e. a paper), but a product that others can use
+
+####*Video 1.2.3 - Distinguishing Data Science from Other Fields*
+
+**A. Notes**
+
+- business intelligence
+    - a data warehouse
+    - reporting dashboard
+    - not very adaptable to other changes
+    - BI engineers aren't actually analyzing the data
+- statistics
+    - statisticians will not be comfortable with datasets outside of memory
+    - statistics was created for a "data-poor regime"
+- Data(base) Management
+    - focus only on the relational data model (rows and columns)
+    - graphs, text, images, audio...probably not for these people
+- Visualization
+    - not concerned with massive scale
+- Machine Learning
+    - actually choosing the model/algorithm is a fairly small portion of the time in the data process
+    - cleaning the data is way more time-consuming and important
+
+**B. MOOCs**
+
+- lots and lots of courses that touch one or more of these areas
+
+####*Video 1.2.4 - Four Dimensions of Data Scientists*
+
+**A. Notes**
+
+- are data scientists being asked to do "everything"?
+- what "data science" means:
+    - if you're a DBA, you need to learn to deal with unstructured data
+    - if you're a statistician, you need to learn to deal with data that don't fit in memory
+    - if you're a software engineer, you need to learn statistical modeling and how to communicate results
+    - if you're a business analyst, you need to learn about algorithms and tradeoffs at scale
+- it's not safe to "throw your trust over the wall" to an algorithm
+
+**B. Dimensions of Data Science MOOCs**
+
+- Breadth
+    - tension between tools and abstractions
+    - e.g. Hadoop is an implementation of an abstraction called MapReduce
+    - ```glm(...)``` in R is an implementation of logistic regression
+- Depth
+    - tension between structures and statistics
+- scale
+    - tension between desktop and cloud
+    - e.g. R vs. Hadoop, local files vs. S3/Azure
+    - "the whole world changes when you move to even two machines"
+- Target
+    - tension between hackers and analysts
+    - you have programmers who want to learn math or analysts who want to learn development-grade programming
+- this course:
+    - cheat towars abstractions, structure, cloud, analysts
+
+####*Video 1.3.1 - Tools vs Abstractions*
+
+**A. Notes**
+
+- MapReduce introduced by a team at Google at 2004
+    - focused on scale-up parallelism
+    - maybe a breakaway from commercial RDBMS reimge
+- Hadoop = open-source MapReduce
+    - Pig is relational algebra for Hadoop
+    - DryadLINQ: relational algebra in Hadoop
+    - HIVE: SQL on Hadoop
+    - Hbase: indexing for Hadoop
+    - schemas/indexing for Hadoop
+    - transactions in HBase (plus VoltDB, other NewSQL systems)
+- permanent contributiosn of Hadoop:
+    - fault tolerance
+    - schema-on-read
+    - user-defined functions that don't suck
+- fault tolerance:
+    - when working with lots and lots of machines, you need to deal with the risk of one or more failing mid-query
+- schema-on-read:
+    - lots of data don't come with predefiend schema
+    - MapReduce gives a starting-point schema to unstructured data
+- user-defined functions that don't suck
+    - this was aweful for the commercial DBs
+    - better to let people write their own stuff
+
+**B. Why Focus on Abstractions?**
+
+- focusing on tools gives you just a snapshot in time of what is important
+- focusing on abstractions helps you to pick up on what is novel/new
+
+
+####*Video 1.3.2 - Desktop Scale vs. Cloud Scale*
+
+**A. Notes**
+
+- the abstractions of data science:
+    - matrices and linear algebra --> "everything is a matrix"
+    - relations and relational algebra
+    - objects and methods --> "you can model the world this way"
+    - files and scripts
+    - data frames and functions --> "this is R's data model"
+- professor argues that the first two abstractiosn are the best candidates
+
+**B. Data Access Hitting a Wall**
+
+- current practice based on data download will not scale to the datasets of tomorrow
+- think about GREP ("search a file for a pattern")
+    - you can GREP 1 MB in a second
+    - you can GREP 1 GB in a minute
+    - you can GREP 1 TB in 2 days
+    - you can GREP 1 PB in 3 years
+- at some point, you need indices to limit search parallel data search and analysis
+- this is where databses can help
+- this problem requries a different stack of technologies
+
+####*Video 1.3.3 - Hackers vs. Analysts*
+
+**A. Notes**
+
+- we need at a minimum two types of people:
+    - people with deep analytical skills
+    - managers/analysts with the know-how to use the analysis of big data to make effective decisions
+- it no longer requires a PHD in computer science to work with data at scale
+
+####*Video 1.3.4 - Structs vs. Stats*
+
+**A. Notes**
+
+- importance of data manipulation vs. deeper mathematics
+- Aaron Kimball --> "80% of analytics is sums and averages"
+
+**B. Three Tasks in Data Science Projects**
+
+- preparing to run a model
+- running the model --> probably the easiest part, in practice
+- interpreting the results
+- "...no greater barrier to effective data management will exist than the variety of incompatible formats, non-aligned data structures, and inconsistent data semantics"
+    - data ontologists needed
+- there is an increasing alignment between what's going on in business and in science
+
+####*Video 1.3.5 - Structs vs. Stats continued*
+
+**A. DBs and Statistical Packages**
+
+- many analysts download data to use in Excel/Matlab/R
+- use matrix/vector operations
+- the way these typically start is to read data off of disk onto memory and starting doing "stuff" to it
+    - or maybe take a sample of the full data that will fit in RAM
+- if you can figure out how to perform your task in the DB or in a parallel way, you can work with a bigger share of your data
+
+**B. Can you do (sparse) Matrix Multiply in SQL?**
+
+- yes, absolutely!
+- imagine two matrices A and B
+- try this:
+
+```{r eval=FALSE}
+SELECT A_row_number, B.column_number.SUM(A.value * B.value)
+FROM A, B
+WHERE A.column_number = B.row_number
+GROUP BY A.row_number, B.column_number
+```
+
+- Christian Grant - MADskills
+
+####*Video 1.4.1 - A Fourth Paradigm of Science*
+
+**A. History of Science**
+
+- for thousands of years, scientific inquiry has been emprical
+- paradigms:
+    - empirical (last few thousand years)
+    - theoretical (last few hundred years)
+    - computational (last few decades)
+    - eScience (last decade)
+    
+**B. eScience**
+
+- "Computational inquiry involves simulation of physical phenomena within the computer. eScience involves the analysis of large, noisy, heterogeneous datasets - datasets that may have been originally collected for an unrelated purpose." 
+- eScience = "download the world"
+- the cost of data acquisition has dropped precipitously thanks to advances in technology:
+    - don't just go collect data for your hypothesis
+    - "download the world" and let lots of other scientists query it for their own purposes
+- the cost of finding, integrating, and analyzing data, then communication results, is the new bottleneck
+
+####*Video 1.4.2 - Data-Intensive Science Examples*
+
+**A. Notes**
+
+- life sciences:
+    - high-throughput machines that can process a LOT of genomic data
+    - "downloding the world" to be queried later
+    
+**B. eScience is about the "analysis" of data**
+
+- the automated or semi-automated extraction of knowledge from massive volumes of data
+    - simply too much of it to look at
+    - it's not just a matter of volume
+- the Three V's of Big Data
+    - volume, variety, velocity
+- More V's
+    - veracity: can we trust the data?
+    
+**C. Summary**
+
+- Science is in the midst of a generational shift from a data-poor enterprise to a data-rich enterprise
+- data analysis has replaced data acquisition as the new bottleneck to discovery
+- what does this have to do with business?
+- business is beginning to look a lot like science:
+    - acquire data aggressively and keep it around
+    - hire data scientists
+    - make emprical decisions
+
+####*Video 1.4.3 - Big Data and the 3 Vs*
+
+**A. Notes**
+
+- Volume
+    - the size of the data
+- velocity
+    - the latency of data processing relative to the growing demand for interactivity
+- variety
+    - the diversity of sources, formats, quality, structures
+    - a lot of time poured into this part
+    
+**B. Examples**
+
+- astronomy: few sources, insanely large data volume to sift through
+- ocean sciences: manageable data volume (relatively), but many many many sources
+
+####*Video 1.4.4 - Big Data Definitions*
+
+**A. Notes**
+
+- enterprise analogy to the ocean sciences situation (many sources, not many data):
+    - hundreds of spreadsheets, not much actual data
+- Michael Franklin, Berkeley:
+    - "Big Data is any data that is expensive to manage and hard to extract value from"
+- big is relative
+- examples where 1 GB is "big" data:
+    - you have 10,000 100 kB spreadsheets of unknown quality that you are asked to analyze and integrate
+    - you have a social network graph with 6M individuals and 134M relationships and are asked to build a recommender system to suggest new contacts for people
+    
+**B. History of Big Data**
+
+- Erik Larson, 1989, Harper's magazine
+- "...data have a way of being used for purposes other than originally intended"
+- original source of the 3 Vs:
+    - Doug Laney, "3-D Data Management: Controlling Data Volume, Velocity and Variety", Gartner, 2001
+    - "through 2003/04, no greater barrier to effective data management will exist than the variety of incompatible data formats, non-aligned data sttructures, and inconsistent data semantics"
+    
+####*Video 1.4.5 - Big data Sources*
+
+**A. Notes**
+
+- John Mashey.. "Big data as the Next Wave of InfraStress"
+- there is a huge bottleneck in I/O:
+    - you can go buy a 3TB hard drive for about $300 at Best Buy, but the rate of reading/writing hasn't changed much in recent years so it could still take very long to make the data stored on it useful
+- disk capacities grow incredible fast, disk latencies not keeping pace
+- Hardware is sometimes left out of the data science discussion...it shouldn't be
+
+**B. Where Do Big Data Come From?**
+
+- "data exhaust" from customers
+    - log of interactions between customers and your e-commerce website
+- new and pervasive sensors
+    - able to measure new data sources
+    - HydroSense, EltectriSense from UWashington
+- the ability to "keep everything"
+    - download the world and query it later
+    
+####*Video A.1 - Twitter Assignment: Getting Started*
+
+**A. Course Virtual machine*
+
+- get the virtual machine running, download the course git repo
+- make sure you have Python and Git
+    - get the Python `oauth2 package
+- create a Twitter Dev account, a dummy app
+- copy your API key and secret into the files downloaded from the GitHub repo
+    - after you do this, twitter stream will pull the twitter 1% stream "forever"
+    - you can always break out with CRTL + C at the command line
+- use the function to create a sample file
+    - let it run for three minutes and "pipe it into a file"
+- at the command line:
+    - run the program and pipe results to a file --> ```python twitterstream.py > output.json```
+- you could (optionally) modify the function to search for specific terms
+- piping the top 20 lines into another file:
+    - CMD: ```head -n 20 output.json > assignment1_submission.json```
+- 
+- 

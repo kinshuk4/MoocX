@@ -1,0 +1,191 @@
+<center> <h2>A System View of Communications: From Signals to Packets (pt 1) - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1.1 - Trade-Off Between Bit Rate and Bit Error Rate*
+
+**A. Notes**
+
+- the bit rate is inversely proportional to the bit rate
+- shorter bit time = higher bit rate...but also higher bit error rate
+    - if you decrease training time, you get higher error
+- my thinking: this is an empirical question
+- thresholding:
+    - to record a 1, needs to get above the threshold
+    - smaller bit time means the waveform has less time to get above threshold
+- we rarely have all bit errors or perfect accuracy
+- "In what cases do we get a bit error and what cases do we not get a bit error?"
+    - using eye diagrams
+    
+####*Video 3.1.2 - Intersymbol Interference*
+
+**A. Notes**
+
+- for non-excessive bit times, the bit stream before a given bit will have an impact on its error
+    - you should be more accurate at guessing a bit following the same bit (stays above/below the threshold)
+- the preceding bit matters
+- as you shorten the bit time, more of the preceding bits matter in determining the channel response to a given bit
+- the past determines the response
+- as you shoretn bit time, you get a wider variety of bit times
+
+**B. Intersymbol Interference**
+
+- the response to a "zero" or "one" bit depends upon what bits were transmitted before it, because of the time it takes for the channel to respond to a transition
+- this is referred to as \textbf{intersymbol interference}
+    - bits = "symbols"
+- the smaller the bit time (SPB) in comparison with the time it takes for the chhanel to respond to a transition, the greater the ISI
+    - more past symbols interfere with the current symbol
+    - we observe a larger variety of responses to a "zero" or "one" bit
+
+**C. Settling time**
+
+- time it takes for the channel to reach 90% of its final value
+- $n_{s} = \frac{ln 0.1}{ln a} - 1$
+- larger value of a (in exponential step response) = larger settling time
+
+**D. Minimizing ISI**
+
+- we generally want intersymbol interference (ISI) to be as small as possible
+    - this makes the response to each bit become more predictable
+- to reduce ISI, we can:
+    - make the channel faster (reduce settling time, n~s~)
+    - Make the bit time longer (increase SPB)
+- longer bit time reduces how many bits can influence the current bit
+- lower settling time = less ISI
+
+####*Video 3.1.3 - Eye Diagrams*
+
+**A. Eye Diagrams**
+
+- an eye diagram summarizes the effect of intersymbol interference by showing all responses to "zeros" and "ones" simultaneously
+- we generate an eye diagram by overlaying plots of teh channel response for two bit times
+- a good system = "eyes wide open"
+- created by iteratively plotting the responses of bits over each other on one plot
+- high bit time = nice open eye diagram
+- more ISI = the eye looks closed
+    - this accompanies very small bit time
+    - "closed eye" = response to a zero looks very similar to response to a 1
+    <img src="http://m.eet.com/media/1166738/295165-tmw_eye_freescale_fig4.jpg">
+- as the SPB rises, the eye diagram looks "noisier" with eyes that look more "closed"
+- "the eye diagram is a way of visualizing the effect of ISI"
+
+####*Video 3.1.4 - Lab 5*
+
+**A. Notes**
+
+- we can achieve better performance if we increase bit duration
+- for the eye diagram, ignore the training sequence
+    - need to trim it off
+- "the wider the eye, the larger the difference between signal levels used to signify 0 and 1"
+- a larger SPB gives us a wider eye (i.e. better performance)
+
+```{r eval=FALSE}
+tx_bs=rand(1,1280)>0.5;      % generate a random bit sequence
+SPB=20;                      % bit time in samples
+
+% transmitter %
+tx_wave = format_bitseq(tx_bs,SPB);  % create waveform following protocol
+
+% channel %
+rx_wave = txrx(tx_wave);             % simulate channel
+
+% receiver %
+start_ind = find_start(rx_wave);     % find start bit
+
+figure(1);
+% Place your code below that
+
+% Create Index
+indx = [0:(2*SPB)];
+
+for i = start_ind:SPB:(1280+SPB)
+    disp(i)
+end;
+
+%   1. Creates the eye diagram of rx_wave, plotting "2*SPB+1" samples in each trace.  
+%      Hint: use for loop.
+%   2. To superimpose all the traces on the same plot. 
+%      Hint: use command hold on.  
+
+
+        
+% code to label plot -- do not modify
+title('Eye Diagram, SPB = 20');
+xlabel('Sample index')
+ylabel('Amplitude');
+grid on;
+      
+```
+
+####*Video 3.2.1 - Equalization*
+
+**A. Notes**
+
+- bit rate goes up when bit time goes down
+    - but smaller bit time implies a higher bit error rate
+- we define some "maximum rate of BER that is tolerable"
+    - setting this sets some upper bound on bit rate (lower bound on bit time)
+- Equalization = trying to decrease the lower bound on the bit time
+
+**B. Equalization**
+
+- shut eye = not enough time for the channel to respond to a bit
+- we should be able to use the eye diagram at the receving end and translate it into the eye diagram from the transmitter
+    - truing to undo the effects of the channel
+- a "channel equalizer" tries to offset what the channel did
+- a \textbf{channel equalizer} attempts to compensate for the effects of the channel
+
+####*Video 3.2.2 - Developing the Equalizer*
+
+**A. Steps**
+
+- we modeled the channel by assuming it is LTI and has a known step response
+- it's very difficult to reverse the process
+
+**B. Equivalent Models**
+
+- a model of the channel is a way of predicting channel output given channel input
+- given the same input, equivalent models make the same prediction for the output, but are expressed in a different way
+- why more than one?
+    - the more we have, the better we understand the system
+    - different models may be better suited for different purposes, i.e. developing the equalizer
+
+####*Video 3.2.3 - Recursive Channel Model*
+
+**A. Recursive Models**
+
+- recursive - involving repeated application of a rule
+- a recursive model for a discrete time waveform x(n) has tow parts:
+    - a formula that defines the nth sample in terms of the past samples
+    - an initial (starting) condition
+    
+**B. Recursive Model of IR Channel**
+
+- It turns out that the response of the IR channel y(n) to an input x(n) can be described by a recursive formula:
+    - $y(n) = a-y(n-1)+(1-a)*k*x(n)$
+- this is a feedback system
+    - the output comes back and influences the next input
+
+**C. Effect of the Parameter "a"**
+
+- this is basically just exponential smoothing!
+- higher a = the past is more important
+- the parameter "a" determines the "memory" of the channel
+- "a"=1 --> infinite memory of the past
+    - this is a model of a constant
+- at every time, the channel output is a mixture of where it's been and where it wants to go
+- the smaller value of "a", the less attraction to the past
+    - a determines the response of the channel in the recursive and exponential channels
+    
+####*Video 3.2.4 - Proof of Equivalence*
+
+**A. Exponential and recursive models**
+
+- if the recursive model is LTI and has the same step response, they are equivalent
+- remember the two elements of linearity...homogeneity and additivity
+- time invariant = if you delay the input, you get the same output, but delayed by the amount of delay
+- the model of the channel as LTI with an exponential step response is equivalent to the recursive model described in section B of the notes above
+
+
+
+
+

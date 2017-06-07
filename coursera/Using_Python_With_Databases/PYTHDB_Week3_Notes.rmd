@@ -1,0 +1,101 @@
+<center> <h2>Using Databases with Python - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1 - Designing a Data Model*
+
+**A. Notes**
+
+- this is an art form
+- our goal it to avoid really bad mistakes and make something useful
+
+**B. Building a Data Model**
+
+- drawing a picture of the data objects for our application and then figuring out how to represent the objects and their relationships
+- basic rule: don't put the same string data in twice - use a relationship instead
+- when there is one thing in the "real world", there should be one copy of that thing in the db
+- strings are way more expensive to store than integers
+- model the real world!
+- with spreadsheets, you end up replicating data many many times
+- where do we start? think about what the most essential thing is
+- "the data model creates the features of the application"
+    - you have to get the data model right for the application to have the capabilities you want
+	
+####*Video 3.2 - Representing a Data Model in Tables*
+
+**A. Notes**
+
+- go from "logical" to "physical" model of the data
+- primary keys...unique integers identifying rows w/in tables
+- foreign keys...primary keys in other tables. Used to create links between tables
+- logical key...a unique thing to look up a row from the outside world (something you might use in where clause)
+- it's more important that there IS naming convention
+
+**B. Let's get down to business**
+
+- how we might add a primary key:
+
+```
+CREATE TABLE Artist (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	name TEXT
+);
+```
+
+####*Video 3.3 - Inserting Relational Data*
+
+**A. Notes**
+
+- you don't need to specify the primary key when inserting because it auto-updates/increments
+- for example:
+
+```
+INSERT INTO Genre (name) VALUE ('Rock')
+INSERT INTO Genre (name) VALUE ('Trap')
+```
+
+- inserting with a foreign key
+
+```
+INSERT INTO Album (title, artist_id) values ('Who Made Who',2)
+INSERT INTO Album (title, artist_id) values ('TNT', 1)
+```
+
+- a more complex statement with lots of foreign keys:
+
+```
+INSERT INTO Track (title, rating, len, count, album_id, genre_id) VALUES ('Black Dog', 5, 297, 0, 2, 1)
+```
+
+- it's ok to have replication, as long as they're numbers (far far far less storage space required)
+- in DBs, you're trying to reduce the amount of data that has to be scanned to get to a particular piece of information
+
+####*Video 3.4 - Reconstructing data with JOIN*
+
+**A. Notes**
+
+- we've built a "web" of information that should scale
+- "you tend to do large things professionally"
+- the JOIN operation links across several tables as part of a select operation
+- for example:
+
+```
+SELECT Album.title, Artist.name FROM Album JOIN Artist ON Album.artist_id = Artist.id
+```
+
+- you can use the tablename.fieldname syntax for referencing specific fields in specific tables (to avoid name conflicts)
+- what happens when you do a join with no ON clause? 
+	- you get back alll the possible combinations of rows (the cross product)
+- identing and lines are irrelevant in SQL
+- you can use ```AND``` or ```OR``` in your ```ON``` clause to get more flexible JOIN results
+- in DBS you "reconstruct replication" but you don't "store replication"
+
+####*Video 3.5 - Multi-table Tracks Demo**
+
+**A. Notes**
+
+- we're going to work on XML to database
+- iTunes is stored internally as an XML implementation of dictionaries
+- you can combine a UNIQUE declaration and an ```INSERT OR IGNORE```` statement to deal with data that might not be unique
+- you could, alternatively, use an ```INSERT OR REPLACE``` statement to say "if the thing already exists, then update it"
+- Python None will get mapped to NULL in the DB
+- 

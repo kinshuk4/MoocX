@@ -1,0 +1,48 @@
+<center> <h2>Model Thinking - Week 17</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Reading 1 - The Prisoners' Dilemma in the Stanford Encyclopedia of Philosophy*
+
+- see [HERE](http://www.cscs.umich.edu/~spage/ONLINECOURSE/PrisonersDilemmaStanford.pdf)
+
+**A. Notes**
+
+- "a group whose members pursue rational self-interest may all end up worse off than a group whose members act contrary to rational self-interest"
+- many many formulations of the PD have been put forth
+
+**B. Symmetric 2x2 PD with Ordinal Payoffs**
+
+- "ordinal" = we care about who is better off than someone else, but not necessarily how much better
+- defection strictly dominates cooperation
+    - "strict domination" --> better no matter what the other player does
+- "strong nash equilibrium" = each player could only do worse by defecting
+
+**C. Asymmetry**
+
+- players have same payoff order, but different magnitudes across players
+- usually represents a "common knowledge PD", where the dilemma is felt as long as all players assume others act rationally
+- however, there may no longer by a strongly dominant strategy
+
+**D. Multiple Moves**
+
+- a game with an equilibrium as the outcome is called an "equilibrium PD"
+- one in which the selfish outcome is a pair of dominant moves is a "dominance PD"
+
+**E. Multiple Players**
+
+- "volunteer dilemma" - a group needs a few volunteers, but each member is better off if others volunteer
+- in tragedy of the commons games, "the only pareto optimal outcomes are those of minimally effective cooperation"
+- limited amount of "free rider" or "surplus cooperation" occurs
+
+**F. Single Person Interpretations**
+
+- 
+
+####*Reading 2 - Nowak and Sigmuned: Five Ways to Cooperate*
+
+- see [HERE](http://www.cscs.umich.edu/~spage/ONLINECOURSE/NowakSigmund07.pdf)
+
+####*Reading 3 - Ostrom: Going Beyond Panaceas*
+
+- see [HERE](http://www.cscs.umich.edu/~spage/ONLINECOURSE/Ostrom-Panacea.pdf)
+

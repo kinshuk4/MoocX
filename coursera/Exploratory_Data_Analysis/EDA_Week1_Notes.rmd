@@ -1,0 +1,248 @@
+<center> <h2>Exploratory Data Analysis - Week 1</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 1.1 Introduction*
+
+**A. What the Class is About **
+
+- this is about exploratory (pre-inference) analysis
+
+####*Video 1.2 Principles of ANalytic Graphics*
+
+**A. General Rules**
+
+1. Show comparisons
+    - evidence for a hypothesis is always relative to another, competing hypothesis
+2. Show causality, mechanism, explanation, systematic structure
+    - how is the system operating? How does the world work?
+    - what is your "causal framework"?
+3. Show multivariate data
+    - show as much on a single plot as you can
+    - "the real world is multivariate"
+    - need to "escape flatland"
+4. Integration of evidence
+    - data graphics should make use of many modes of data presentation
+    - don't let the tool (graphic device) drive the analysis
+5. Describe and document the evidence with appropriate labels, scales, sources, etc.
+    - a data graphic shoud tell a cmplete story that is credible
+    - keep the code that made the plot
+6. Content is king
+    - if your story isn't interesting, graphs won't magically make it more interesting
+    - start with the data and the story, then choose the appropriate plots
+    
+####*Video 1.3 Exploratory Graphs (pt 1)*
+
+**A. What are Exploratory Graphs?**
+
+- pretty much made for yourself
+- why use them?
+    - find patterns, understand properties, suggest modeling strategies
+    - debug analysis
+- made quickly, a large number are made
+- the goal here is just for personal understanding of the data
+- axes/legends cleaned up later
+- color/size are primarily used for information
+- you can use the *breaks* argument in hist() to change how many bars there are
+- use ```abline()``` to add vertical or horizontal lines to the plot
+
+####*Video 1.4 Exploratory Graphs (pt 2)*
+
+**A. 2 Dimensionsal Summaries of Data**
+
+- scatterplots
+- multiple/overlayed plots (lattice/ggplot2)
+- spinning plots (3D)
+
+**B. Some programming tips**
+
+- to not have to always use the dollar sign, you can use ```with()``, for example:
+    - ```with(pollution, plot(latitude, pm25, col = region))```
+- latitude runs from north to south
+
+####*Video 1.5 Plotting Systems in R*
+
+**A. Base Plotting System**
+
+- from original version of R
+- set up a blank canvas, and add stuff one by one
+- plot generation, then annotation plots
+- once the plot has started, you can't go back (need to plan in advance)
+- it's tough to translate a new plto to another person
+- plot is just a series of R commands (you have lots of control, but you have to control it)
+
+**B. The Lattice System**
+
+- plots are a single function call, stored in a "Trellis" object
+- really useful for conditiong types of plots: looking at how y changes with x across levels of z
+- margins/spacing are set automatically because everything happens at once
+- lots of plots on a page all at once
+- panel functions and subscripts (annotation) are difficult
+- annotating individual panels is tough
+
+**C. The ggplot2 System**
+
+- automatically deals with spacings, text, titles but also lets you annotate
+- pretty similar to lattice but easier/more intuitive
+    - useful for conditioning
+- default makes a bunch of choices for you, but you can always customize them
+- transition from lattice to ggplto 2 fairly easy
+
+####*Video 1.6 Base Plotting System (pt 1)*
+
+**A. Plotting System**
+
+- all of this system is in basic R already
+- a bunch of graphics devices included
+
+**B. The Process of Making a Plot**
+
+- will you make this on the screen or send to a file?
+- do you want to dynamically resize the graphic?
+- you can't really mix base, lattice, and ggplot2
+
+**C. Base Graphics**
+
+- initialize the plot, then annotate it
+- calling the initializing functions will launch a graphics device
+- definitely worth examining the parameter defaults in ```?par```
+- examples of plots --> ```plot()```, ```hist()```, ```boxplot()```
+
+**D. Key Graphic Parameters**
+
+1. pch - the plotting symbol
+2. lty - the line type
+3. lwd - the line width
+4. col - the plotting color, sepecified as number, string, or hex code
+    - note that the colors() function gives you a vector of colors by name
+    - colors() is a string list of color names...could randomly pick elements from it
+5. xlab/ylab - axis label strings
+
+- Stuff set in the par() function:
+
+1. las - the orientation of the axis labels on the plot
+2. bg - the background color
+3. mar - the margin size
+4. oma - the outer margin size (default is 0 for all sides)
+5. mfrow - number of plots per row, columnn (plots filled row-wise)
+6. mfcol - number of plots per row, column (plots filled column-wise)
+
+- call par("arg") for current/default value of the graphics parameters
+
+####*Video 1.7 Base Plotting System (pt 2)*
+
+**A. Base Plotting Functions**
+
+- plot - make a scatterplot
+- ```lines()``` - add lines to a plot
+- ```points()``` - add points to a plot
+- ```text()``` - add labels inside the plot
+- ```mtext()``` - put text in the margins
+- ```axis()``` - specify axis ticks
+- ```title()``` - add title to the plot (if you didn't do it in main=)
+- ```legend()``` - add a legend
+- ```abline()``` - add a regression line to a plot
+
+**B. Annotation Examples**
+
+- you can set the plot as type="n" to set up but not write anything
+    - then go through one at a time for different colors (plot subsets)
+- adding a regression line to a plot:
+    - store regression in an object
+    - call ```abline(thatobject, lwd=2)```
+
+**C. Multiple Base Plots**
+
+- change panel size with par(mfrow)
+- then just keep adding plots
+- for a "master title" on a panel, use ```mtext("title", outer = TRUE)```
+
+**D. Summary**
+
+- in base, you create a plot and then annotate
+- you're building up a plot function by function (so it's basically just a collection of code)
+- this is really flexible, but also can get tedious
+    - good for publication-quality plots
+
+####*Video 1.8 Base Plotting Demonstration*
+
+**A. Some Examples**
+
+- dafult in base plot is to use object name as axis label
+- margins (numbered counterclockwise):
+    - bottom: 1
+    - left : 2
+    - top : 3
+    - right : 4
+- legend:
+    - "bottomright, bottomleft, topright, topleft"
+- when you use text(), the coordinates are data coordinates (not graphical params like inches or pixels
+- for different colors: set up the plot, then do one call at a time to plot different subsets
+    - use the ```points()``` function to add points one a time (with different colors)
+    
+####*Video 1.9 Graphics Devices in R (pt. 1)*
+
+**A. What is a Graphics Device?**
+
+- some place you can make a plot appear
+    - a window on your computer (screen device)
+    - PDF file
+    - PNG/JPEG file
+    - scalable vector graphics (SVG) file (file device)
+- you can find a full list of devices on ```?Devices```, or get other types of devices from CRAN packages
+- usually screen device is the best place to send a plot
+- a file device is better for plots that might be printer out or incorporated into a document
+
+**B. How Does a Plot Get Created?**
+
+1. Basic
+    - call a plotting functions
+    - plot appears on the screen
+    - annotate it
+2. Use a File Device
+    - explicitly launch a graphics device
+    - call a plotting function to make a plot
+    - annotate plot if necessary
+    - explicitly close the device with ```dev.off()``` (THIS IS REALLY IMPORTANT)
+    
+####*Video 1.10 Graphics Devices in R (pt 2)*
+
+**A. Graphics File Devices**
+
+1. vector formats:
+    - pdf: useful for line-type graphics, resize well, usually portable, not graet for plots with lots of points
+    - SVG: web-based plots. supports animation and interactivity, useful for web-based plots
+    - Windowns metafile (win.metafile)
+2. bitmap formats:
+    - png: bitmapped format, good for line drawings or images with solid colors. Uses lossless compression. Good for many, many points. Does not resize well
+    - jpeg: good for photographs or natural scenes (gradient colors), lossy compression, good for lots of points
+    - tiff: TIFF format, supports lossless compression
+    - NOTE: do not resize bitmpas. They won't look very good
+    - bmp: a native Windows bitmapped format (used for stuff like icons)
+    
+**B. Multiple Oopen Graphics Devices*
+
+- launch devices explicitly (call the screen device many times)
+- ```dev.cur()``` returns which graphics device is currently active. Integer starting at 2
+    - then use ```dev.set()``` to switch to other open devices (choose wich is active)
+
+**C. Copying Plots**
+
+- for taking something from the screen and putting it in a file
+- use ```dev.copy``` from one device to  another
+- ```dev.copy2pdf``` specifically copies a plot to a PDF file
+- copying is inexact, so plot in the new device might look different from what's on your screen
+
+**D. Summary**
+
+- plots created on a graphics device
+- default graphics device is almost always the screen device
+    - windows screen device called with ```windows()```
+    - call this multiple times to open multiple screen devices
+- file devices useful for creating plots that can be included in other documents or sent to other people
+- for file devices, there are vector and bitmap formats:
+    - vector formats are good for line drawings and plots with solid colors using a modest number of points
+    - bitmap formats are good for plots with a large number of points, natural scenes or web-based plots
+    
+
+
+

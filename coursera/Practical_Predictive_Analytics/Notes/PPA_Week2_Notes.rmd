@@ -1,0 +1,463 @@
+<center> <h2>Pactical Predictive Analytics - Week 2</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 2.1.1 - Statistics vs. Machine Learning*
+
+**A. Notes**
+
+- "decline effects" --> effect size diminishes over time?
+- bayesian perspection --> incorporate prior knowledge more easily, but allows subjectivity to sneak in
+- computational distirbution
+    - sample complex distirbutions at scale
+    
+**B. What is Machine Learning?**
+
+- "systems that automatically learn programs from data"
+    - you don't need to provide a recipe for mapping inputs to outputs
+- "teaching a computer about the world"
+
+**C. Difference between stats and ML**
+
+- statistics:
+    - stochastic models of nature
+- ML:
+    - find a function that predicts Y from X, don't worry about figuring out an actual model of the world
+    - doesn't matter that the program we produce actual reflects the data generating process
+    
+####*Video 2.1.2 - Simple Examples*
+
+**A. Notes**
+
+- \textbf{classification} - learned attribute that is categorical ("nominal")
+- \textbf{regression} - the learned attribute is numeric
+    - fitting a curve to data, making predictions
+- \textbf{supervised learning} ("training") - you get groundtruth and try to infer structure
+- \textbf{unsupervised learning} ("mining") - you need to figure out the structure
+
+####*Video 2.1.3 - Structure of a Machine Learning Problem*
+
+**A. Notes**
+
+- document similarity:
+    - stem the words
+    - set of a matrix of vectors w/ all words as col headers
+ 
+**B. Example of Text Classification**
+
+- supervised:
+    - you have labels
+    - learn to predict the label
+- unsupervised:
+    - no label given
+    - try to cluster stuff that's "similar"
+    
+**C. Learning**
+
+- representation:
+    - what is your classifier?
+    - a reule? a decision tree? a neural network?
+- evaluation:
+    - how do you know if a given classifier is good or bad
+    - # of errors on some test?
+    - precision, recall, squared error, likelihood?
+- optimization:
+    - how do you search this huge space of hypotheses?
+    - you can't enumerate all of them
+    - greedy search? Gradient descent?
+- Domingo (2012) - "A Few Useful things to Know about Machine Learning"
+
+####*Video 2.1.4 - Classification with Simple Rules*
+
+**A. Titanic Dataset - Kaggle**
+
+- maybe start by plotting your data ("exploratory analysis")
+- a useful trick...plot categorical data as a numerical value on the y-axis and "jitter" the stuff
+
+**B. The Naive "rote" classifier**
+
+- does the new data point EXACTLY match a previous point x?
+- if so, assign it to the same class as that already-existing records
+- otherwise, randomly guess
+
+**C. Slight improvement**
+
+- take a vote among classes which match the new record on a certain attribute
+- very quickly, the space of these rules gets large
+
+####*Video 2.1.5 - Classification with Simple Rules*
+
+**A. Confusion Matrix**
+
+- square matrix (one col per label)
+- expectations down the vertical, actuals across the top
+- sum of the diagnoal elements gives you total correctly classified
+- really useful for visual inspection
+- maybe, instead, just create a single "Accuracy" number
+
+**B. Searching the Space**
+
+- for a 1-rule thing, just enumerate the entire space of possibilities
+    - pick the attribute whose set of rules produces the lowest error rate
+    
+####*Video 2.1.6 - Rules: Sequential Covering*
+
+**A. Notes**
+
+- loop over each class label
+- construct one rule r that correctly classifies some instances in D that belong to class C and does not incorrecty classify any non-c instances
+- add that rule to the ruleset
+- remove from D all instances correctly classified by r
+
+####*Video 2.1.7 - Rules recap**
+
+**A. Strategies for Learning Each Rule**
+
+- general-to-specific:
+    - start with an empty rule
+    - add constraints to eliminate negative examples
+    - stop when only positives are covered
+- specific-to-general:
+    - start with a rule that identifies a single random instance
+    - remove constraints in order to cover more positives
+    - stop when further generalization results in covering negatives
+    
+**B. COnflicts**
+
+- maybe use domain knowledge to break ties
+- the representation is a bunch of IF....THEN conditions
+- optimization is building rules that maximize accuracy
+- remember that the best "rule" might actually be a complex combination of many
+
+####*Video 2.2.1 - From rules to Trees*
+
+**A. Notes**
+
+- think about grouping redundant conditions
+- build a tree of rules
+- every path from a tree root to the terminal not is like one "rule"
+
+####*Video 2.2.2 - Entropy*
+
+**A. Aside on Entropy**
+
+- how we decide if a decision in the tree is useful
+- we want a function of information that satisfies:
+    - I(X) log_2p(x)
+- we should be able to add the info of two events to get total information
+- expected information = "entropy":
+    - -sum(x) px * log_29px)
+
+####*Video 2.2.3 - Measuring Entropy*
+
+**A. Notes**
+
+- higher entropy = "more unpredictable"
+- a weighted die is "less unpredictable" than a far die
+
+**B. How unpredictable is your data:
+
+- calculate the entropy of the entire set
+    - higher entropy means: you've learned more by seeing a new outcome
+
+**C. Back to Decision Trees**
+- which attribute do we choose at each level?
+- the one with the highest information gain
+    - the one that reduces the unpredictability the most
+    
+####*Video 2.2.4 - Using Information Gain to Build Trees*
+
+**A. Notes**
+
+- choose an attribute
+    - choose each of it's values
+    - figure out the entropy of the sub-class with each value of the attribute
+    - expected new entropy of the entire data set is weighted average of the entropies of each class
+- gain is the diff between the starting entropy and the entropy after choosing the rule
+- you want the attribute that tells you the most about what's going on
+    - biggest information gain
+    
+####*Video 2.2.5 - Building a Decision Tree (ID3 Algorithm**
+
+**A. Notes**   
+   
+- assume attributes are discrete
+    - discretize continuous attributes
+- choose the attribute with the highest Information Gain
+- create branches for each value of attribute
+- repeat with remaining attributes
+- stopping conditions
+    - all examples assigned the same label
+    - no examples left
+    
+**B. Problems**
+
+- expensive to train
+- prone to overfitting
+    - drive to perfection on training data, bad on test data
+    - pruning can help: remove or aggregate subtrees that provide little discriminatory power (C45)
+    - try to prune "overspecialized" subtrees
+
+####*Video 2.2.6 - Buliding Trees: C.45 Algorithm*
+
+**A. Notes**
+
+- use percentiles/quantiles
+- use domain knowledge to find (potentially different-sized) buckets
+- algorithmic approach:
+    - every point represents a possible split
+    - evaluate each split, choose the point that gives us the highest information gain
+
+####*Video 2.2.7 - Rules and Trees Recap*
+
+**A. Notes**
+
+- trees
+    - each path from the root is a tree; easy to interpreat
+    - use entropy to choose best attribute at each node
+    - extensions for numeric attributes
+    - but: decision trees are prone to overfitting
+    - the goal is to produce mostly "pure" terminal/leaf nodes
+    
+####*Video 2.3.1 - Overfitting*
+
+**A. Notes**
+
+- what if knowledge and data we have are not sufficient to completely determine the correct classifier?
+- lots of problems boil down to "how do we avoid overfitting"
+- overfitting = "lower error on train data, high error on test data"
+- where does OF set in?
+    - at the point where error on the training set continues to fall while error on the test sets starts to increase
+
+**B. Generalization**
+
+- how does the model perform on out-of-sample data?
+- can it deal with unseen data?
+- maybe split right away between training and test
+
+**C. Bias vs. Variance**
+
+- underfitting:
+    - high bias
+    - low variance (new data doesn't necessarily change how well the predictor does)
+    - not very sensitive to the data, but you're getting the wrong answer
+- overfitting:
+    - low bias
+    - high variance (when you add the data or perturb it, quality of prediction is suddenly very different)
+    - low bias, but sensitive to the data
+    
+####*Video 2.3.2 - Evaluation: Leave One Out Cross Validation*
+
+**A. Evaluation**
+
+- division into training and test
+    - fixed (leave out random n% of the data)
+- k-fold Cross-Validation
+    - select K folds without replacement
+    - split into chunks ahead of time
+- leave-one-out cross validation
+    - special case
+- related: bootstrap
+    - generate new training sets by sampling with replacement
+- bootstrapping is more aggressive than just setting on training set
+
+**B. LOOCV (leave-one-out)**
+
+- this is what we did when evaluating the term-sentiment model in the Twitter assignment
+
+####*Video 2.3.3 - Evaluation: Accuracy and ROC Curves*
+
+**A. Notes**
+
+- accuracy is (true neg + true pos)
+
+**B. Why not use Confusion matrix all the time?**
+
+- how do you interpret 90% accuracy?
+    - you can't, depends on the problem
+- need a baseline (benchmark to beat):
+    - base rate (accuracy of trivially predicting the most-frequent class)
+    - random rate (accuracy of making a random class assignment
+    - naive rate (accuracy of some simple default or pre-existing model
+- other concepts:
+    - lift
+    - information and recall
+    - sensitivity vs. specificity
+- ROC curves
+    - plot sensitivity (y axis) vs. 1-specificity (x axis)
+    
+####*Video 2.4.1 - Bootstrap Revisited*
+
+**A. Notes**
+
+- Bootstrap invented in 1979
+- given a dataset of size N
+    - draw N samples with replacement to cerate a new dataset
+    - repeat ~1000 times
+    - you now have ~1000 sample datasets
+        - all drawn from the same population
+        - you can compute ~1000 sampel statistics
+        - you can interpret these as repeated experiments
+- this is a computational answer to the problems we tried to solve analytically with older statistics
+- 95% conf interval example:
+    - just estimate 1000 samples, each on a different sample, estimate 1000 linear regressions, pick values of beta which encapsulate the mean 95% of the time
+    
+####*Video 2.4.2 - Boosting Walkthrough*
+
+**A. Boosting**
+
+- weights of selecting some observation in each sample
+- sum the weights of the stuff misclassified
+- get the odds of misclassifying (epsilon/(1-epsilon))
+- adjust weights down for correctly classified examples
+    - then normalize to make sure weights sum to 1
+- Boosting is a "meta-algorithm" for anytihng
+    - just affects data selection, doesn't care what classifier you use
+- not parallelizable - inherently sequential
+    
+**B. Bagging**
+
+- draw N boostrap samples
+- retrain the model on each sample
+- average the results
+    - regression: average 
+    - classification: majority vote
+- works great for overfit models
+    - decreases variance withotu changing bias
+    - doesn't help much with underfit/high bias models (insensitive to the training data)
+- bagging is slightly worse performing, but way more friendly for parallelization
+
+####*Video 2.4.3 - Ensembles, Bagging, Boosting*
+
+**A. Notes**
+
+- can a set of weak classifiers be combined to derive a strong classifier?
+    - YES!
+- average results from different models
+- why?
+    - better classification performance than individual classifiers
+    - more resilience to noise
+    - division of labor
+- why not?
+    - time consuming
+    - models become difficult to explain (you have a voting model)
+- this is called "wisdom of the (simulated) crowd"
+
+**B. Bagging**
+
+- high variance = overfitting
+- doesn't help out with bias, though
+- high bias, low variance models won't help if you already don't get a good signal
+
+**C. Boosting**
+
+- instead of selecting data points randomly with the bootstrap, favor the misclassified points
+- pesudo-code for adaboost:
+
+```{r eval=FALSE}
+initialize weights
+
+repeat:
+    - resample with respect to weights
+    - retrain the model
+    - recompute weights
+```
+
+####*2.4.4 - random Forests*
+
+**A. The RF Algorithm**
+
+- Breiman (2001)
+- repeat k times:
+    - draaw a boostrap sample from the dataset
+    - train a decision tree
+        - until the tree is maximum size, choose next leaf node
+        - select m attributes at random from the p available
+        - pick the best attribute/split as usual (C45)
+    - measure OOB ("out of bag") error
+        - evaluate against the samples not selected in the bootrap
+        - provides measurse of strength (inverse error rate), correlation between trees (which increases the forest error rate), and variable importance
+ - make a prediction by majority vote among the k trees
+ 
+ ###*Video 2.4.5 - Random Forests, Variable Importance*
+ 
+ **A. Notes**
+ 
+ - key idea: if you scramble the avlues of a variable and the accuracy of your tree doesn't change much, the variable isn't important
+ - measure the erro increase
+ - random forests are more difficult to interpret than single trees; understanding variable importance helps
+    - you want to do more than just get predicted values, but alo understand "which variables matter"?
+    
+ **B. Gini Coefficient**
+ 
+- entropy captured an intuition for "impurity"
+    - we want to choose attributes that splti reocrds into pure classes
+- the gini coefficient measures inequality:
+    - 1 - the sum of the squared probabilities of outcomes
+
+####*Video 2.4.6 - Trees and Forests*
+
+**A. Notes**
+
+- random forests graet for "big data"
+- easy to parallelize
+    - treats trees as independent
+- handles "small n big p problems" naturally
+    - a subset of attribtues are selected by importance
+    - scales to lots and lots of predictors
+- optimization:
+    - information gain or gini index to measure impurity and variable importance
+    - it's a "Random" forest, but better than truly random because we make smart decisions about which data to use
+   
+####*Video 2.5.1 - Nearest Neighbor*
+
+**A. Notes**
+
+- boosting --> adaboost (meta-algorithm for weighting missed data)
+- bagging --> bootstrapped samples, etc.
+- random forests:
+    - can handle many, many attributes
+    - simple to implement
+    - fantastic general-purpose approach
+
+**B. Nearest Neighbor**
+
+- assumes purely numerical inputs
+- plot your points in some space
+    - when you have a new point, drop it in the space (based on attributes), choose the class of the nearest point
+
+####*Video 2.5.2 - Nearest Neighbor: Similarity Functions*
+
+**A. Notes**
+
+- the last document I saw that mentionde falcons and saints was about sports, so this is sports
+
+**B. K Nearest Neighbors**
+
+- "vote" of the k nearest points
+- small k:
+    - fast
+    - less of a bias toward popular labels (everywhere
+- large k:
+    - bias toward popular labels (sensitive to imbalance)
+    - ignores outliers
+- similarity funciton:
+    - Euclidean distance
+    - cosine similarity (measure of angle between two vectors)
+ - what is the disadvantage of Euclidean distance?
+    - higher number of dimensions makes interpretation harder
+ - disadvantage of cosine
+    - favors dominant components
+    
+####*Video 2.5.3 - Nearest Neighbor: Curse of Dimensionality*
+
+**A. Notes**
+
+- you'll tend to be more similar to neighbors with a large value in some dimension if you use cosine similarity
+    - maybe useful in image matching
+- Euclidean distance increases as a function of the number dimensions
+
+####*Assignment 1 Notes*
+
+- "you shold always try to prove yoru results wrong by finding problems with the data"
+- SVM --> draw a bunch of vectors to try to split the data
+- 

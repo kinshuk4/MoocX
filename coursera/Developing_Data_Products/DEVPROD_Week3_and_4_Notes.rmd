@@ -1,0 +1,354 @@
+<center> <h2>Developing Data Products - Weeks 3 & 4</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1 R Packages*
+
+**A. What is an R Package?**
+
+- a mechanism for e xntending the basic functionality of R
+- a collection of R functions or other (data) objects
+- organized in a systematic fashion to provide a minimal amount of consistency
+- written by users/developers everywhere
+
+**B. Where are These R Packages**
+
+- CRAN and Bioconductor
+- Available fro mGitHub, Bitbucket, Gitorious
+- You don't have to put a package on a central repository, but doing so makes it easier for others to install your package
+
+**C. What is the Point?**
+
+- Documentation/vignettes
+    - sharing forces you to document
+- interface definition / clear API
+- users know that it will at least load properly
+- the upfront focus on structure makes it easier to maintain
+
+**D. Package Development Process**
+
+- write some code in an R script
+- want to make code available to others
+- incorporate R script file into R package structure
+- write documentation for user functions
+- include some other material (examples, demos, datasets, tutorials)
+- hosting your package gives you a bunch more eyes checking that everything is working
+
+####*Video 3.2 R Packages (pt 2)*
+
+**A. R Package Essentials**
+
+- An R package is started by creating a directory with the name of the R package
+- A DESCRIPTION file which has info about the package
+- R code in the R/ sub-directory
+- documentation in the man/ sub-directory
+- NAMESPACE
+
+**B. The DESCRIPTION File**
+
+- Package:
+- Title:
+- Description: 
+- Version:
+- Author:
+- Maintainer:
+- License:
+- Depends:
+- Suggests:
+- Date:
+- URL:
+- Other fields could be added
+
+**C. R Code**
+
+- Copy R code into the R/ sub-directory
+- There can be any number of files in this directory
+- Usually separate out files into logical groups
+
+**D. The NAMESPACE File**
+
+- list the dependencies
+- indicate which functions are exported (public to the user)
+- non-exported functions can't be called directly by the user
+    - make things cleaner by hiding implementation details
+- you can also import functions from other packages
+
+**E. The NAMESPACE File**
+
+- Key directives
+    - export()
+    - import()
+    - importFrom()
+- you can also create new classes and methods that could be used on those classes
+
+**F. Documentation**
+
+- Documentation files (.Rd) place in man/ sub-directory
+- written in a specific markup language
+- required for every exported function
+- you can document other things as well
+
+**G. Building and Checking**
+
+- R CMD build is a command-line program that creates a package archive file (.tar.gz)
+- R CMD check runs a battery of tests on the package
+- you can run R CMD build or R CMD check from the command-line using a terminal or command-shell application
+
+**H. Checks you have to pass to be put on CRAN**
+
+- R CMD check runs a battery of tests
+- Documentation exists
+- code can be loaded, no major coding problems or errors
+- run examples on documentation
+- check docs match code
+- All tests must pass to put package on CRAN
+
+**I. Getting Started**
+
+- the ```package.skeleton()``` function in the utils package creates a skeleton R package
+    - the directory structure will all be created
+- If there are functions visible in your workspace, it writes R code files to the R/ directory
+
+**J. Summary**
+
+- R packages provide a systematic way to make R code available to others
+- Standards ensure that packages are correct and usable
+- the process:
+    - create a new directory with R/ and man/ sub-directories
+    - Write a DESCRIPTION file
+    - Copy R code into the R/ sub-directory
+    - Write a NAMESPACE file with exports/imports
+    - build and check
+    
+####*Video 3.3 Build R Packages Demo (in RStudio)*
+
+**A. What We're Doing**
+
+- make a simple package with a function for a prediction algorithm that predicts high-dimensionality data using only the 10 best predictors
+
+**B. Getting Started**
+
+- New Project --> New Directory --> R Package
+- you can write the documentation directly within the R code file (RStudio will strip out what is documentation and what is functional code)
+
+**C. BUilding it**
+
+- Click to the "Build" tab on the right in RStudio (only viewable if building a package)
+- All documentation is created using ```roxygen```
+- check out the packagename.Rd file to see the documentation you created earlier
+- you can click the "Check" button on the right (under "BUild") to run R CMD Check
+
+####*Video 3.4 R Classes and Methods*
+
+**A. Basic Idea**
+
+- you write new classes and methods to deal with new data types that R doesn't handle well by default
+
+**B. Classes and Methods**
+
+- A system for doing object-oriented programming
+- R was originally quite interesting because it is both interactive and has a system for object orientation
+    - other OOP languages (C++, Java, Lisp, Python, Perl) generally not interactive
+- The code for submitting classes/methods allows the following:
+    - idea that people start off as users and then become programmers/developers
+
+**C. Two styles of classes and methods**
+
+- S3 classes/methods
+    - Included with version 3 of the S language
+    - not rigorous or very formal
+    - older
+- S4 classes/methods
+    - more formal and rigorous
+    - also called new-style classes/methods
+    - around since R 1.4.0
+
+**D. Two worlds living side by side**
+
+- both classes will live together for the forseeable future
+- each can be used fairly independently of the other
+- developers should use S4
+- S3 are tempting...quick and dirty
+- The code for implementing S4 classes/methods in R is in the methods package, which is usually loaded by default
+
+**E. Object Oriented Programming in R**
+
+- class = "a description of a thing"
+- object = "an instance of a class"
+- method = "a function that only operates on a certain class of objects"
+- a generic function is an R function which dispatches methods (plot, mean, predict...)
+- generic functions don't technically 'do anything'...just dispatch methods
+
+**F. Stuff to Look Up**
+
+- The help files for the ```methods``` package are extensive...read them
+
+**G. Generics/Methods in R**
+
+- S4 and S3 style generic functions look different but conceptually, they are the same
+- you can write new methods for existing generics or new methods for new generics
+
+**H. Methods**
+
+- generic functions just call methods
+- try this to see all the methods for a function:
+
+```{r methods}
+mean
+
+## See S3 methods
+methods("mean")
+
+## See S4 Methods
+showMethods("show")
+```
+
+**I. Generic/Method Mechanism**
+
+- the first argument of a generic function is an object of a particular class
+    1. The generic function checks to the class
+    2. A search is done to see if there is an appropriate method
+    3. If there exists a method for that class, then that method is called on the object
+    4. If not, looks for a default and tries that
+    5. IF no default, it breaks
+
+**J. Examining Code for Methods**
+
+- You cannot just print the code for a method like other functions because the code for the method is usually hidden
+- if you want to see S3, use getS3method
+- for S4, use ```getMethod()```
+
+####*Video 3.5 R Classes and Methods (pt 2)*
+
+**A. Calling Methods Directly**
+
+- you could call the default directly
+    - don't do this
+- you get cleaner code by just calling the function and letting it choose the appropriate method
+
+**B. WRite your own methods**
+
+- If you write new methods for new classes, you'll probably end up writing methods for the following:
+    - print/show
+    - summary
+    - plot
+
+**C. S4 Classes**
+
+- Why would you want to create a new class?
+    - represent new types of data
+    - new concepts/ideas that haven't been thought of yet
+    - Abstract/hide implementation details from the user. Say things are "new" as in R does not know about them (not new to the statistical community)
+    
+**D. S4 Class/Method: Creating a New Class**
+
+- A new class can be defined using the ```setClass``` function
+    - at a minimum you need to specify the name of the class
+    - you can also specify data elements called "slots"
+
+**E. Summary**
+
+- developing classes and associated methods is a powerful way to extend the functionality of R
+- Classes define new data types
+- methods extend generic functions to specify the behavior of generic functions on new classes
+- as new data types and concepts are created, classes/methods provide a way for you to develop an intuitive interface for users
+
+####*Videos 3.6 and 3.7 Deploying Prediction Algorithms to the Web with yhat*
+
+**A. What is this**
+
+- take you function to create a back-end algorithm
+- host it somewhere and let other people build a front end
+    - web developers can tap into your api (which you've created using yhat)
+
+**B. Opening the Dataset**
+
+- you can use the ```dir()``` to view all files/folders in current directory
+
+**C. Set up the model**
+
+- write some stuff for reading, cleaning, subsetting the data
+
+**D. The Prediction Script**
+
+- Just write some functions
+
+**E. Uploading To yhat**
+
+- Three functions to write
+- see below:
+
+```{r yhatr_example, eval=FALSE}
+## Load packages
+library(yhatr)
+
+## load dependencies (library loadings )
+model.require <- function(){
+    library(fields)
+}
+
+## Take input data frame as an argument
+## used to transform data before feeding to prediction model
+model.transform <- function(df){
+    df
+}
+
+## do the prediction
+model.predict <- function(df){
+    pollutant(df)
+}
+
+## deploy to yhat
+yhat.config <- c(username = "jaylamb20@gmail.com",
+                 apikey = "<api_key>",
+                 env = "http://sandbox.yhathq.com")
+
+## deploy your code to yhat
+yhat.deploy("my_stuff")
+```
+
+**F. Reminder**
+
+- yhat lets your stuff be accessed via an API
+- you can also build a website or javascript (a web fron-end around this)
+
+**G. Running a Yhat Model on the Web**
+
+- the input code in "Documentation" has to be in JSON (a simple but ugly interface fory our stuff)
+
+**H. Running a yhat Model from R**
+
+- you can access the api from within R
+    - let people call functions from within R without having to share all the data
+    - people interface with your yhat stuff and just get what they need
+- use ```yhat.predict``` to predict on your data
+
+```{r yhatpredict, eval=FALSE}
+## make sure you've configured!
+library(yhatr)
+yhat.config <- c(username = "jaylamb20@gmail.com",
+                 apikey = "<api_key>",
+                 env = "http://sandbox.yhathq.com")
+
+
+## Send your dataframe "df", which just contains RHS variables, to the yhat algorithm "pollutant"
+yhat.predict("pollutant",df)
+
+## this will return a dataframe with the following:
+
+    ## all your right hand side variables
+    ## the model results (predictions)
+```
+
+- this is a really nice, lightweight way to make a prediction function available to people without sharing a huge dataset with them
+
+**I. "Running a yhat model with cURL**
+
+- this is something you can embed in a perl shell
+
+**J. Summary**
+
+- that was three simple ways to access a yhat algorithm
+- There are a bunch of other ways (for example, through a web front end)
+    - you could build a web front end on top of an R-based back end
+    
+

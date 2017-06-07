@@ -1,0 +1,111 @@
+<center> <h2>Using Databases in Python - Week 1</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 1.1.1 - Intro to OOP in Python*
+
+**A. Notes**
+
+- "methods are functions that are part of an object"
+- you don't always want to do functions or always do objects
+	- we use them more than we build them
+- "coming up with shapes of data is part of solving programming problems"
+- a dictionary with nested "stuff" is very much "like an object already"
+- objects enforce a data "contract"
+
+####*Video 1.1.2 - What is an "Object"?
+
+**A. Notes**
+
+- a program is made up of many cooperating objects
+- an object is a bit of self-contained code and data
+- key aspect is to break hard problems into small, understandable parts
+	- then hide complexity in the parts
+- objects have boundaries that allow us to ignore un-needed detail
+- we have been using these all along
+
+**B. A Network of Objects**
+
+- still inputs and outputs, but you're orchestrating objects which is potentially more flexible
+- a way of "isolating complexity" and "providing a simple interface"
+
+####*Video 1.1.3 - Terminology*
+
+**A. Notes**
+
+- class = a template
+- method or message = a defined capability of a class - bark()
+	- activating a bit of code inside the class
+- field/attribute = a bit of data inside the class
+- object/instance - a particular instance of the class
+
+####*Video 1.1.4 - Inheritance*
+
+**A. Notes**
+
+- ```class``` is a new word
+
+```{r eval=FALSE}
+class PartyAnimal:
+	x = 0
+	
+	def party(self):
+		self.x = self.x+1
+		print "So far", self.x
+		
+an = PartyAnimal()
+
+an.party()
+an.party()
+an.party()
+```
+
+- ```self``` acts as an "alias" for the particular object
+
+**B. Playing with dir() and type()**
+
+- with class, we're basically making our own variable types
+- ```dir()``` lists all the methods in an object
+
+####*Video 1.1.5 - Object Lifecycle*
+
+**A. Notes**
+
+- "construction" is the beginning of the object lifecycle
+- objects are created, used, and discarded 
+- methods (constructor and descructor)
+- constructor --> the primary purpose of the constructor is to set up some instance variables to have the proper initial values when the object is created
+- destructors are rarely used
+
+**B. Building the constructor**
+
+- the ```__init__(self)``` and ```__del__(self)``` dictate the code that is run on construction and destruction, respectively
+- in OOP, a constructor starts up the instance variables
+
+**C. Many Instances**
+
+- "many instances of the same class"
+- constructors can have additional parameters
+	- these can be used to setup instance variables for the particular instance of the class
+- ```self``` as an "alias"
+
+####*Video 1.1.6 - Inheritance*
+
+**A. Notes**
+
+- when we make a new class - we can reuse an existing class and inherit all the cpabilities of anexisting class and then add our own little bit to make our new class
+- another form of "store and reuse"
+- write once - reuse many times
+- the new class (child) has all the cpaabilities of the old class (parent) - and then some more
+- "subclasses" is another term for this
+
+**B. An example**
+
+- something like ```class MyNewClass(ClassToInheritFrom)```
+- the idea is to group data and functionality together
+
+####*Video 1.1.7 - BONUS: Software Engineering - Bertrand Meyer*
+
+**A. Notes**
+
+- an early developer of OOP, inventor of Eiffel programming language
+- 

@@ -1,0 +1,226 @@
+<center> <h2>Statistical Inference - Week 2</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 2.1 - Variability*
+
+**A. The Variance**
+
+- The variance of a random variable is a measure of spread
+- Densities with higher variance are more spread out
+- Standard deviation = square root of variance
+- Expected value --> p(x)*x^2^
+- Coin flip example
+    - Var(X) = p(1-p)
+
+**B. Distributions with Increasing Variance**
+
+- Smaller variance = smaller probability of extreme values
+
+**C. The Sample Variance**
+
+- S^2^ = sum(X~i~ - X~bar~)^2^)/(n-1)
+- The sample variance is a random variable with its own distribution
+- As you collect more and more data, the distribution of sample var will get more concentrated around population variance it is trying to estimate
+- If you sample enough variances, the center of mass will be the population variance
+- More data = tighter distribution
+
+**D. Variance of x Die Rolls**
+
+- Variance of a die roll is 2.92
+- Sample variance is an unbiased estimate of pop variance (if you divide by n-1)
+
+**E. Recall the Mean**
+
+- The variance of averages of a random sample is Var(X~bar~) = sigma^2^/n
+- Standard error = "standard deviation of a statistic"
+
+**F. Summarizing**
+
+- The sample variance, S^2^, estimates the population variance, sigma^2^
+- The distribution of the sample variance is cenetered around sigma^2^
+- The variance of sample mean is sigma^2^/n
+- S/sqrt(n), the standard error, talks about how variable averages of random samples of size *n* from the population are
+
+**G. Simulation Example**
+
+```{r}
+#Simulation Example
+nosim <- 1000
+n <- 10
+sd(apply(matrix(rnorm(nosim*n),nosim),1,mean))
+```
+
+- This simulation takes means of 1000 random draws of 10 numbers from the normal distribution
+- You really only need simulations like this in a class setting
+- An example:
+    - You get a random sample of *n* observatiosn from a population and take their average
+    - To get variability of averages of *n* observations from this population...
+    - ...you can multiply the estimate of the population variance by 1/*n* to get a good estimate of variability of the average
+    
+**H. Summarizing What we Know About Variances**
+
+- The sample variance estimates the population variance
+- The distribution of the sample variance is centered at what it's estimating
+- It gets more concentrated aroudn the population mean as you get more data
+- The variance of the sample mean is the population variance divided by n
+    - The square root is the standard error
+
+
+####*Video 2.2 - Common Distributions*
+
+**A. The Bernoulli Distribution**
+
+- The Bernoulli distribution arises out of a binary outcome (like a coin flip)
+- The PMF for a Bernoulli random variable X is:
+    - P(X=*x*) = p^*x*^(1-p)^1-*x*^
+        
+**B. The Binomial Distribution**
+
+- The *binomial random variables* is obtained as the sum of iid Bernoulli trials
+- The binomial mass function is given by:
+    - P(X=*x*) = (n choose x)p^*x*^(1-p)^*n-x*^
+- Where (n choose x) = n! / (x!(n-x)!)
+- You can employ the r function choose() or, moe easily, just use pbinom()
+
+**C. The Normal Distribution**
+
+- "the most important distribution to know"
+- The density function = "the bell curve"
+- Standard normal --> mu = 0, sigma^2^=1
+- All normal distributions look identical, but the units along the axis change
+- "standard normal" = "Z scores"
+
+**D. More facts about the Normal Density**
+
+- 68%, 95%, 99%
+- -1.28, -1.645, -1.96, -2.33 are the 10^th^, 5^th^, 2.5^th^ and 1^st^ percentiles
+- 1.28, 1.645, 1.96, 2.33 are the 90^th^, 95^th^, 97.5^th^, 99^th^ percentiles
+
+**E. The Poisson Distribution**
+
+- Poisson may be the second-most-useful distribution
+- Used to model counts
+- PMF is given by :
+    - P(X=x; lambda) = lambda^x^e^-lambda^/x!
+- Mean and variance is lambda
+- X ranges from 0 to infinity
+
+**F. Some Uses for the Poisson Distribution**
+
+- Modeling count data (esp. unbounded counts)
+- Modeling event-time or survival data
+- Modeling contingency tables
+- Approximating binomials when n is large and p is small
+- Contingency table = categorizing a sample by characteristics such as hair color
+
+**G. Rates and Poisson Random Variables**
+
+- Poisson variables are used to model rates
+- X is dsibuted as Poisson(lambda*t)
+- Example:
+    - The number of people that show up at a bus stop is Poisson with mean of 2.5 per hour
+    - If watching the bus stop for 4 hours, what is the probability that 3 or fewer people show up for the whole time?
+    
+    ```{r}
+    ppois(3, lambda=2.5*4)
+    ```
+    
+**H. Poisson Approximation to the Binomial**
+
+- When n is large and p is small the Poisson distribution is a good approx. to the binomial dist.
+- For example
+    - Flip a coin w/ P(succes)=0.01. What's the probability of 2 or fewer successes?
+    
+    ```{r}
+    #with binomial
+    pbinom(2, size=500, prob=0.01)
+    #with Poisson
+    ppois(2, lambda=500*0.01)
+    ```
+
+
+####*Video 2.3 - A Trip to Asymptotia*
+
+**A. Asymptotics**
+
+- Asymptotics is the term for the behavior of statistics as the sample size limits to inifinity
+- Asymptotics form the basis for frequency interpretation of probabilities ("law of large numbers"
+
+**B. Limits of Random Variables*
+
+- Asymptotic results allow us to talk about large-sample distribution of sample means
+- The average limits to what it's estimating
+- use cumulative values, cumsum() cumprod() to do some simulations to show convergence
+- For example
+    ```{r}
+    means <- cumsum(sample(0:1,n,replace=TRUE))/(1:n)
+    ```
+- An estimator is **consistent** if it converges to what you want to estimate
+- Good estimators are consistent = "collecting more data is worth the effort
+
+**C. The Central Limit Theorem**
+
+- The CLT states that the distribution of averages of iid variables becomes that of a standard normal as the sample size increases
+- Variable distributions approach normality with more data
+- The sample average is approximately normally distributed
+- Galton's quincunx
+
+**D. Confidence Intervals**
+
+- According to the CLT, the sample mean is approximately normal with mean mu and sd sigma/sqrt(n)
+- Probability of being more than 2 standard errors away is 5%
+
+**E. Sample Proportions**
+
+- generally, you're looking at mean*quantile*standard deviation
+- approximate interval --> p~hat~ +/- 1/sqrt(n)
+```{r}
+binom.test(56,100)$conf.int
+```
+
+**F. Simulation**
+
+- useful code for the course project
+
+    ```{r}
+    n <- 40
+    lambvals <- seq(0.1,0.9,by=0.05)
+    nosim <- 5000
+    coverage <- sapply(pvals, function(p) {
+        phats <- rexp(n, 
+        ll <- phats - qnorm(0.975) * sqrt(phats*(1-phats)/n)
+        ul <- phats + qnorm(0.975)*sqrt(phats*(1-phats)/n)
+        mean(ll <p & ul > p)
+        })
+    ```
+- quick fix to CLT issues at small values: add two successes and two failures
+
+**G. Creating a Poisson Interval**
+
+- "A nuclear pump failed 5 times out of 94.32 days, give a 95% CI for daily failure rate"
+- Estimate lambda = X/t
+- See R code in the slides
+
+    ```{r}
+    poisson.test(x, T=94.32)$conf
+    ```
+
+**H. Simulating the Poisson Coverage**
+
+- Again, see code from the lecture (27:30 in video 7)
+- As monitoring time goes to infinity, the coverage of purported 95% CIs will converge to 95%
+
+**I. Summary**
+
+- The LLN states that averages of iid samples converge to the population means that they are estimating
+- The CLT states that averages are approximately normal, with dist centered at the population mean
+- Taking the mean and adding/subtracting the relevant quantile times SE yields CI for the mean
+- CLT gives no guarantee that *n* is large enough
+- Confidence intervals get wider as the coverage increases
+- Confidence intervals get narrower with less variability or larger sample sizes
+- Poisson and binomial cases have exact intervals that don't require CLT
+    - A quick fix is to add 2 success and failures to get a better confidence interval
+    
+
+
+

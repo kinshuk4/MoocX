@@ -1,0 +1,230 @@
+<center> <h2>Interactive Python - Week 4</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 5.1 - Introduction*
+
+**A. Expectations**
+
+- you should know how the class works
+- you should know some Python!
+- part one will stay open for the duration of this class
+- we're going to add more complexity this time
+- the final project = "Rice Rocks"
+
+####*Video 5.2 - Mouse Input*
+
+**A. Gaming**
+
+- three excuses for losing at a video game:
+    1. I lagged
+    2. Mom distracted me!
+    3. I got hacked! Yeah!
+
+**B. Handler for clicks**
+
+- the mouseclick handler takes one parameter(position)
+    - the position is a tuple of two integers
+    - remember that tuples are immutable
+
+####*Video 5.3 - List Methods*
+
+**A. List methods**
+
+- you can use the ```in``` operator to check if stuff is in there
+    - for example ```if 4 in mylist:```
+- you could use ```index()``` to find where stuff is in the list
+    - for exmplae ```position = mylist.index("apple")```
+- Using ```pop``` is like "cut"
+    - returns the element you poppeds
+- ```append``` adds objects, ```extend``` adds elements
+    - [see StackOverflow for more](http://stackoverflow.com/questions/252703/python-append-vs-extend)
+- lists are really powerful!
+    - they are "the workhorse of Python"
+    
+####*Video 5.4 - List Examples*
+
+**A. More Examples**
+
+- if you're iterating over a list, you cannot remove items from the list inside that loop
+    - you need to create a temp list of things to remove and remove them at the end of the for loop
+
+####*Video 5.5 - Iteration*
+
+**A. Stuff**
+
+- it might be better to use ```remove()``` in a list rather than indices (popping with indices will blow up your indexing scheme!)
+
+####*Video 5.6 - Dictionaries*
+
+**A. Intro to Dictionaries**
+
+- a dictionary is a mapping consisting of key-value pairs
+- in a list, indices are fixed and numbered
+    - in a dictionary, you can use anything as keys (even non-numeric stuff)
+    - could even map a key to a list
+- when you iterate over a dictionary, you get all the keys
+    - no guarantees about order, but you will get all of them once
+- you can loop over dictionary items:
+
+```{r eval=FALSE}
+for key, value in MYDICTIONARY.items():
+```
+
+**B. Random Ordering**
+
+- you can use ```random.shuffle()``` to randomly rearrange a list
+
+####*Video 5.7 - Loading Images*
+
+**A. Using Images**
+
+- you can load an image with ```im = simplegui.load_image(URL)```
+- remember that loading images takes time
+    - the image will be cached once you've downloaded it once
+- ```canvas.draw_image(im, src_center, src_size, dst_center, dst_size)```
+- the last 4 parameters will all be tuples
+    - CodeSkupltor won't stop running if image load fails, but know that failure can happen
+- Map magnifier:
+
+```{r eval=FALSE}
+# First draws entire map at reduced resolution
+# Second draws magnifier pane around clicked area
+
+
+# Demonstration of a magnifier on a map
+
+import simplegui
+
+# 1521x1818 pixel map of native American language
+# source - Gutenberg project
+
+image = simplegui.load_image("http://commondatastorage.googleapis.com/codeskulptor-assets/gutenberg.jpg")
+
+# Image dimensions
+MAP_WIDTH = 1521
+MAP_HEIGHT = 1818
+
+# Scaling factor
+SCALE = 3
+
+# Canvas size
+CAN_WIDTH = MAP_WIDTH // SCALE
+CAN_HEIGHT = MAP_HEIGHT // SCALE
+
+# Size of magnifier pane and initial center
+MAG_SIZE = 120
+mag_pos = [CAN_WIDTH // 2, CAN_HEIGHT // 2]
+
+
+# Event handlers
+# Move magnifier to clicked position
+def click(pos):
+    global mag_pos
+    mag_pos = list(pos)
+
+# Draw map and magnified region
+def draw(canvas):
+    # Draw map
+    canvas.draw_image(image, 
+            [MAP_WIDTH // 2, MAP_HEIGHT // 2], [MAP_WIDTH, MAP_HEIGHT], 
+            [CAN_WIDTH // 2, CAN_HEIGHT // 2], [CAN_WIDTH, CAN_HEIGHT])
+
+    # Draw magnifier    
+    map_center = [SCALE * mag_pos[0], SCALE * mag_pos[1]]
+    map_rectangle = [MAG_SIZE, MAG_SIZE]
+    mag_center = mag_pos
+    mag_rectangle = [MAG_SIZE, MAG_SIZE]
+    canvas.draw_image(image, map_center, map_rectangle, mag_center, mag_rectangle)
+    
+# Create frame for scaled map
+frame = simplegui.create_frame("Map magnifier", CAN_WIDTH, CAN_HEIGHT)
+
+# register even handlers
+frame.set_mouseclick_handler(click)    
+frame.set_draw_handler(draw)
+
+# Start frame
+frame.start()
+```
+
+- think about scaling up to "undo" the downscaling of the canvas
+
+####*Video 5.8 - Visualizing Iteration*
+
+**A. Notes**
+
+- list comprehension...how the cool kids do it:
+
+```{r eval=FALSE}
+
+## Squaring with For loop
+def square_list1(numbers):
+    """Returns a list of the squares of the numbers in the input."""
+    result = []
+    for n in numbers:
+        result.append(n ** 2)
+    return result
+    
+## Squaring with list comprehension
+def square_list2(numbers):
+    """Returns a list of the squares of the numbers in the input."""
+    return [n ** 2 for n in numbers]
+
+def is_in_range(ball):
+    """Returns whether the ball is in the desired range.  """
+    return ball[0] >= 0 and ball[0] <= 100 and ball[1] >= 0 and ball[1] <= 100
+
+# squaring with loop
+def balls_in_range1(balls):
+    """Returns a list of those input balls that are within the desired range."""
+    result = []
+    for ball in balls:
+        if is_in_range(ball):
+            result.append(ball)
+    return result
+
+# squaring with list comprehension
+def balls_in_range2(balls):
+    return [ball for ball in balls if is_in_range(ball)]
+
+```
+
+- list comprehension allows you to "map" elements (do stuff to them) and to "filter" (return a list of only some subset of the list you loop through)
+- you can use the ```+=``` operator with strings!!  (makes sense, still cool)
+
+####*Video 5.8 - Programming Tips**
+
+**A. Errors with Lists**
+
+- remember that indexing starts at 0!
+    - ```mylist[len(mylist)]``` is not going to work for you
+
+**B. Dictionaries vs Lists**
+
+- dictionaries have key-value relationships
+- lists are just collections of elements
+- indices of a list must be contiguous integers
+- dictionary keys can be anything
+- you can slice lists but not dictionaries
+    - there's no ordering of the dictionary, so slicing is useless
+- lists and dictionaries can be mutated
+- what can be a key?
+    - boolean, string, tuple, dictionary...NOT a list
+    - has to be something hashable
+    
+**C. Loading Images**
+
+- note that CodeSkulptor will not error with a bad URL
+    - programs will return 0 if you reference height and width when the image hasn't loaded yet
+
+####*Video 5.9 - Memory*
+
+**A. How it works**
+
+- if cards match, leave them face up
+- if they don't, cover them up
+- this is a difficult project
+- NOTE: ignore clicks on cards that were already exposed
+- consider using a global variable for "how many cards are flipped"
+    - handle checking if values are the same inside the "state = 2" bit of buttonclick()...the mouse handler
+-

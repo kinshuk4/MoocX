@@ -1,0 +1,452 @@
+<center> <h2>Data Manipulation At Scale - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1.1 - What Does Scalable Mean?*
+
+**A. Notes**
+
+- operationally:
+    - in the past: works even if data doesn't fit in main memory
+    - now: can make use of 1000s of cheap computers
+- algorithmically:
+    - in the past: if you have N data items, you must do no more than N^m operations -- "polynomial time algorithms"
+    - now: if you have N data items, you must do no more than N^m/k operations, for some large k
+- Soon: If you have N data items, you should do no more than N*log(n) operations:
+    - as data sizes go up, you may only get one pass at the data
+    - data is streaming - you better make that one pass count
+    - example: Large Synoptic survey Telescope (30TB / night)
+- when you see log, think "trees"
+
+####*Video 3.1.2 - A Sketch of Algorithmic Complexity*
+
+**A. Example: FInd matching DNA sequences**
+
+- given a set, find all sequences matching that exactly
+- one idea:
+    - linear search = compare equality at every point
+    - 40 records, 40 comparisons --> the algorithmic complexity is order N: O(N)
+- what if we sort the sequence?
+    - start in the middle, perform binary search
+    - walk through the records until we fail to match
+    - 40 comparisons, only 4 comparisons....the alrogithm is O(log(N))
+    - sorting plus search makes this an Nlog(n) operation (better for scalability)
+    
+####*Video 3.1.3 - A sketch of Data-Parallel Algorithms*
+
+**A. Relational DBs**
+
+- DBs are good at these "needle in a haystack" problems
+- good at building, using, reusing indexes
+- extracting small results from big datasets
+- a lot of algorithmic work is done for free just by turning your problem into a SQL statement
+    - remember that the DB will optimize for you
+    
+**B. New taks: read trimming**
+
+- given a set of sequences
+- trim the final n bps of each sequence
+- generate a new dataset
+- can we use an index for this?
+    - no, we have to touch every record
+    - no algorithm exists that is less than O(N)
+- but can we do better?
+    - yeah! all the pieces are independent...this is an "apply" task, not "for"
+    - so we can split up the job on many machines
+    - same amount of work, but much faster (in time units)
+    - parallelized will be O(N/k) for k computers
+    
+####*Video 3.1.4 - Pleasingly Parallel Algorithms*
+
+**A. Notes**
+
+- new task: run thousands of simulations:
+    - divide the parameter space across many computers
+- find the most common word in each document:
+    - compute in parallel, get big distributed list of word-count pairs
+- what if you want to compute the frequency of all words?
+    - same idea! distribute the documents among k computers
+    - you get a big distributed list at the end, then combine them
+    
+**B. A pattern**
+
+- in all these cases, you are providing a function to MAP some input to sorted or hashed or indexed output
+
+####*Video 3.1.5 - More General Distributed Algorithms*
+
+**A. Notes**
+
+- you don't want a bunch of little results...want one big one
+- consider counting words:
+    - you need a "hash function" which says: "send all the values of word A to the first computer, word B to some other computer, etc."
+
+**B. The idea**
+
+- you apply a function to a distributed dataset
+- two functions:
+    - map = process an individual data item
+    - (shuffle) = "hash function"
+    - reduce = collate the results
+
+####*Video 3.2.1 - MapReduce Abstraction*
+
+**A. Notes**
+
+- how many map tasks?
+    - one per document
+- how many invocations of reduce functionmap function
+- there is a cost in spinning up all the machines and preparing them
+    - "preparing the cluster"?
+    - number of unique groups produced by 
+    
+**B. Start Thinking in MapReduce**
+
+- every problem, think "what if the data was uber-distributed?"
+- the map function might produce a set of things, which is then shuffled and set to multiple reduce invocations
+
+####*Video 3.2.2 - Map Reduce*
+
+**A. Notes**
+
+- Google: paper published 2004
+- Hadoop is the free variant
+    - MapReduce refers to the abstraction
+    - Hadoop is one implementation
+- map-reduce = high-level programming model and implementation for large-scale parallel data processing
+    - a powerful way to write parallel programs
+    - you write serial functions and "the parallelization happens for free"
+    
+**B. Data Model of MapReduce**
+
+- a file = a bag of (key, value) pairs
+- a map-reduce program:
+    - input: a bag of (inputkey, value) pairs
+    - output: a bag of (outputkey, value) pairs
+
+####*Video 3.2.3 - Continued**
+
+**A. Notes**
+
+- the reduce phase:
+    - you get the intermediate key from the map phase and a bag of values associated with it
+    - output is a bag of output values
+- the system will group all pairs with the same intermediate key, and passes the bag of values to the REDUCE function
+- inspired by primitives from functional programming languages such as Lisp, SCheme, and Haskell
+
+**B. Example: What does this do?**
+
+- consider the following pseudocode:
+
+```{r eval=FALSE}
+map(String input_key, String input_value):
+    // input_key: document name
+    // input_value: document contents
+    for each word w in input_value:
+        EmitIntermediate(w,1);
+
+reduce(String output_key, Iterator intermediate_values):
+    //output_key: word
+    //output_values: ???
+    int result = 0;
+    for each v in intermediate_values:
+        result += v;
+    Emit(result);
+```
+
+####*Video 3.2.4 - MapReduce Simple Example*
+
+**A. Notes**
+
+- the input is a bunch of key-value pairs
+    - Map function operates on only one of them
+
+####*Video 3.2.5 - Continued Example*
+
+**A. Notes**
+
+- we're emitting a key-value pair for each map function:
+    - each one is getting shuffled to the reducer
+- why not have do local addition before sending to reduce?
+- you have a lot of control over performance even just be changing map and reduce parts
+    - even though you don't control system internals
+
+####*Video 3.2.6 - Example: Word Length Histogram*
+
+**A. Notes**
+
+- how many "big", "medium", and "small" words are used?
+- thinking in MR: split the document into chunks and process each chunk on a different computer
+- when you do the loading in MR, the file will automatically be split into chunks
+
+####*Video 3.2.7 - Example: Word length histogram*
+
+**A. Notes**
+
+- you'll see that counting, adding are really common and general reduce functions that add and count things come up over and over again
+- word count, word length are canonical Mapreduce examples
+
+**B. Build an Inverted Index**
+
+- When you have a corpus of documents, you can access any document efficiently by its name
+- for a search engine, you want to provide documents containing an idea
+    - primitive step in text retrieval
+- take tweet_ids and words, map to "word" (tweet_id, tweet_id)
+- the reduce task will get a key and an iterator over all the document ids containing the key
+    - in this case, no reduce task needed!
+    - maybe all you want to do is map and shuffle
+- keys and values can have substructure...don't really care
+
+####*Video 3.3.1 - Relational Join Example*
+
+**A. Notes**
+
+- join is a binary relation...mapreduce is unary (single dataset)
+- imagien the dataset is just a big jumble of tuples (doesn't matter what table they came from internally)
+    - just assign some kind of label for reorganizing later if you need it
+- key will be the value you're joining on, the value is "everything else in the record"
+
+####*Video 3.3.2 - Example COntinued*
+
+**A. Notes**
+
+- in the shuffle phase, you group all the tuples with the same key
+- reiterating:
+    - in map, key will be the thing you want to join and value will be table name plus tuple of all the values
+    - explicit tag is safe
+
+####*Video 3.3.3 - Simple Social NEtwork Analysis: Counting Friends*
+
+**A. Notes**
+
+- reducer will produce joined tuples
+
+**B. Social Network**
+
+- graph with friend relationships as edges
+- make the keys each person and the number 1 (we don't care WHO the friend on the RHS is)
+- the shuffle phase groups those 1s by name, i.e. Jim (1,1,1)
+- the reduce phase just adds occurrences
+
+####*Video 3.3.4 - Matrix Multiply Overview*
+
+**A. Notes**
+
+- C = A x B
+- A has dimensions L,M
+- B has dimensions M,N
+- in the map phase:
+    - for each element (i,j) of A, emit((i,k), A[i,j]) for k in 1..N
+    - for each element (j,k) of B, emit((i,k), B[j,k]) for i in 1..L
+- in the reduce phase, emit:
+    - key = (i,k)
+    - value = Sum(A[i,j]*B[j,k])
+- this would be an inefficient way to represent a dense array:
+    - but if many values are missing (the matrix is "sparse"), this is a good way to store the data
+- matrix multiply is a binary relation:
+    - lump them together, tag with source
+    - emit a tuple with (i,k) and the value from the matrix
+    - "for B, emit (i,k) for every i in the number of rows of A"
+    - replicate the values of A to the corresponding columns of B
+- in the reduce phase, do dot product and produce output
+
+####*Video 3.3.5 - Matrix Multiply Illustrated*
+
+**A. Notes**
+
+- one reducer per output cell
+- each reducer computes Sum(A[i,j]*B[j,k])
+- cell (1,1) needs all the values of row 1 of A and all the values of column 1 from B
+- so A[1,1] needs to be sent to two locations (used from two columns of the output)
+- you can send a single value to many places ("attached a value to multiple keys")
+
+####*Video 3.3.6 - Shared Nothing Computing*
+
+**A. Notes**
+
+- shared memory:
+    - every processor has access to all of the memory and all of the disk
+    - multicore laptop
+    - easier to program, but usually pretty expensive
+- shared disk:
+    - individual machines all access a shared file system
+    - this is the domain of high-end commercial DBs
+- shared nothing:
+    - what MapReduce is designed for
+    - individual machines only connected by a network
+    - no shared memory or disk
+
+**B. Cluster Computing**
+
+- large number of commodity servers, connected by high speed network
+- massive parallelism:
+    - 100s, 1000s, or 10000s servers
+    - many hours
+- failure:
+    - if mean-time-between-failure is 1 year
+    - then 10000 servers have one failure/hour
+    - at this scale, almost guaranteed to get failures
+    
+####*Video 3.3.7 Mapreduce Implementation*
+
+**A. Notes**
+
+- Distributed File Systems (DFS):
+    - for very large files: TBs, PBs
+    - each file is partitioned into chunks, typically 64MB
+    - each chunk is replicated several times, on different racks, for fault tolerance
+    - implementations:
+        - Google's DFS: GFS, proprietary
+        - Hadoop's DFS: HDFS, open source
+        
+**B. Notes**
+
+- there is one master node
+- master partitions input file into M splits, by key
+- Master assigns workers (=servers) to the M map tasks, keeps track of their progress
+- workers write their output to local disk, partition into R regions
+- Master assigns workers to the R reduce tasks
+- reduce workers read regions from the map workers' local disks
+- at every step, we are writing out to local disk in case something fails
+
+####*Video 3.3.8 Mapreduce Phase*
+
+**A. Notes**
+
+- HDFS replicates the files
+- the record reader parses the chunks
+- map function called on each record
+    - output of map written to local storage
+    - one region in local storage per key
+- all the regions related to a key are shuffled/sorted
+- reduce funciton called, output written back to HDFS
+- you're "guaranteeing for fault tolerance during job execution"
+
+**B. The combiner**
+
+- the combiner function identifies local values with the same key and combines them before sending to the shuffle step
+    - same signature as a reducer, might be exactly the same as the reducer!
+    
+####*Video 3.4.1 Design Space of Possibilities*
+
+**A. Notes**
+
+- Three dimensions:
+    - tradeoff between latency and throughput
+    - tradeoff between private data center and networking
+    - tradeoff between shared memory and data-parallel
+- low-latency smaller operations (data-parallel) would be NoSQL
+- analytics happens at high-throughput, data-parallel
+    - Hadoop not good for real-time applications
+    
+**B. Large-Scale Data Processing**
+
+- make tasks process big data, produce big data
+- want to use hundreds or thousands of CPUS
+    - ...but this needs to be easy
+    - parallel datbases exist, but ther are expensive, difficult to set up, and do not necessarily scale to hundreds of nodes
+- MapReduce is a lightweight framework, providing:
+    - automatic parallelization and distribution
+    - fault tolerance
+    - I/O scheduling
+    - status and monitoring
+    
+####*Video 3.4.2 - Parallel and Distributed Query Processing*
+
+**A. Notes**
+
+- key idea: declarative languages
+    - write a query in a decorative language, automatically turned into relational algebra
+
+**B. Two notions of parallel query processing*
+
+- "distributed query"
+    - reqrite the query as a union of subquieries
+    - workers communicate through standard interfaces, so compatible with federated, heterogeneous, or distributed databases
+    - kind of like map with no reduce
+    - everything sent back to the head
+- "parallel query"
+    - each operator is implemented with a parallel algorithm
+    - example: Teradata
+    
+####*Video 3.4.3 - Teradata Example, MR Extensions*
+
+**A. Example System: Teradata**
+
+- parallel processing units each contain a chunk
+    - all scan
+    - all filter (SELECT)
+    - all hash on the join atrribute
+    - shuffle the groups to other processing units
+    - reduce function produces the joins at the end
+- so basically, this already exists without you writing it yourself
+
+**B. MapReduce Extensions and Contemporaries**
+
+- Pig (Yahoo, available open source)
+    - relational algebra over Hadoop
+- HIVE (Facebook, available open source)
+    - SQL over Hadoop
+- Imapala (from Cloudera)
+    - SQL over HDFS; uses some HIVE code
+- Cascading
+    - relational algebra
+- Dryad (Microsoft, proprietary)
+    - relational algebra
+- Clustera (U of Wisconsin, not available)
+    - relational algebra research project
+    
+####*Video 3.4.4 - RDBMS vs. MapReduce: Features*
+
+**A. Notes**
+
+- RDBMS:
+    - declarative query languages
+    - scheams
+    - logical data independence (support for Views)
+    - indexing (supports logtime access)
+        - today, MapReduce touches every record
+        - Hbase is an open-soruce form of BigTable for quickly accessing particular records
+    - algebraic optimization
+    - caching/materialized views
+    - ACID/Transactions
+- MapReduce
+    - high scalability
+    - fault tolerance
+    - "one-person deployment"
+    - no pre-defined schema necessary
+- "the design space is being more fluidly explored"
+- MapReduce turned Java programmers into distributed systems programmers without having to teach them how to spin up distributed clusters
+
+####*Video 3.4.5 - RDBMS vs. Hadoop: Grep*
+
+**A. Notes**
+
+- comparison of 3 systems:
+    - Hadoop
+    - Vertica
+    - DBMS-X
+- qualitative
+    - programming model, ease of setup, features
+- quantitative
+    - data loading, different types of queries
+    
+**B. Grep Task**
+
+- find 3-byte pattern in 100-byte record
+- this task was performed in the MR paper
+    - 10 billion records, 1TB spread across 25,500,100 nodes
+- when you load data into a relational DB, it's recasting the data from raw form into the format of the DBMS
+    - load times are typically bad in RDMBS relative to Hadoop
+- Hadoop is slower than RDBMS on Execution
+    - no structure means the raw data need to be re-parsed
+
+####*Video 3.4.6 - RDBMS vs. Hadoop: Select, Aggregate, Join*
+
+**A. Notes**
+
+- Hadoop is much much much slower for the SELECT task (no index to access)
+- row-oriented DBMS beats Hadoop on an aggregate task
+
+
+        
+
+

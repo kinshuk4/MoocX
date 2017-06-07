@@ -1,0 +1,138 @@
+<center> <h2>An Introduction to Statistical Learning</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+All notes based on "Introduction to Statistical Learning in R" by Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani.
+
+####*Chap 0 - Preface*
+
+**A. Notes**
+
+- methods in statistical learning:
+    - lasso
+    - sparse regression
+    - classification and regression trees
+    - boosting,
+    - support vector machines
+- the book is intended to focus on applications, not the math behind these methods
+
+####*Chap 1 - Introduction*
+
+**A. An Overview of Statistical Learning**
+
+- "supervised" statistical learning involves building a statistical model for predicting, or estimating, an output based on one or more inputs
+- in unsupervised learning, we need to learn structure from the data
+- predicting a continuous variable (like wages) is something referred to as a "regression problem"
+- predicting which category some data will fall into is known as a "classification problem"
+- when you have inputs but no output (think a bunch of customer demographic data or a bunch of gene sequences), this is known as a "clustering problem"
+    - one approach here might be to use dimensionality reduction techniques like PCA to create a more manageable data space
+    - this could result in some loss of information, though
+
+**B. A Brief History of Statistical Learning**
+
+- up to the 1970s, almost all methods of statistical learning were linear because of computational constraints
+- by the mid 1980s, computers were ready to deal with nonlinearity. Breiman, Friedman, Olshen, and Stone introduced classification and regression trees (CART)
+- Hastie and Tibshirani coined the term "generalized additive models" in 1986 for a class of non-linear extensions to generalized linear models
+
+**C. This Book**
+
+- ESL was first published in 2001
+- "In the 1990s, increases in computational power generated a surge of interest in [statistical learning] from non-statisticians who were eager to use cutting-edge statistical tools to analyze their data"
+- the purpose of this book is to smooth the transition of statistical learning and machine learning from an academic pursuit to a mainstream toolkit
+- ISLR is based on 4 premises:
+    1. Many statistical learning methods are relevant and useful in a wide range of academic and non-academic disciplines, beyond just the statistical sciences.
+    2. Statistical learning should not be viewed as a series of black boxes.
+    3. While it is important to know what job is performed by each cog, it is not necessary to have the skills to construct the machine inside the box!
+    4. We presume that the reader is interested in applying statistical learning methods to real-world problems.
+- "R is the language of choice for academic statisticians"
+
+**D. Organization of This Book**
+
+- two important classification methods:
+    - logistic regression
+    - linear discriminant analysis (LDA)
+- support vector machines (SVM) = a set of approaches for performing both lienar and non-linear classification
+- unsupervised methods:
+    - principal component clustering
+    - K-means clustering
+    - hierarchical clustering
+
+**E. Data Sets Used in Labs and Exercises**
+
+- the ```ISLR``` package in R contains a number of data sets that are required in order to perform the labs and exercises
+- one other dataset is in the ```MASS``` library
+- the book and associated R package can be found at the [book website](www.StatLearning.com)
+
+####*Video 1.1 - Opening Remarks and Examples*
+
+**A. Notes**
+
+- machine learning became a hot topic in the 1980s
+- one of the first neural nets was developed at Bell Labs to solve "the zip code problem"
+- "I keep saying that the sexy job in the next 10 years will be statisticians. And I'm not kidding." - Hal Varian
+- Nate Silver - FiveThirtyEight
+- the first thing you should do when you get the data is to look at it in plots
+- features can be be combined to form other features
+- neural nets were first used to automatically identify human-written zip codes
+- you can typically find most of the signal very fast:
+    - the challenge is making the final push to get truly low error rates
+- hierarchical clustering and heatmaps have been key in genomics (allow you to visualize patterns)
+- deep learning:
+    - more and more data are in "natural" form, like videos, audio, images
+
+####*Video 1.2 - The Supervised Learning Problem*
+
+**A. Notes**
+
+- outcome measurement Y (response, outcome)
+- Vector of *p* predictor measurements *X*
+- in the "regression problem", Y is quantitative
+- in the "classification problem", Y takes on one of multiple (finite) categories
+- what we want:
+    - predict unseen test cases
+    - understand what contributes to binning into each class
+- "statistical learning is a dunamental ingredient in the training of a modern data scientist"
+- it's easy to apply methods, harder to evaluate how it's performing
+
+**B. Supervised Learning**
+
+- show the computer the outcomes and teach it how to predict them
+- think of a kindergarden teacher showing pictures to students to teach them the words associated with objects
+
+**C. Unsupervised Learning**
+
+- unlabeled data
+- the computer has to infer structure, then predict which bits of the structure new (unseen) data will fall into
+- the objective is not to predict "why", but to find (possibly hidden) structure in the data
+- really difficult to assess how well you're doing
+    - unless maybe those clusters inform some kind of supervised model
+    - "unsupervised learning is an important pre-processing step for supervised learning"
+- labelling data is difficult and costly
+
+**D. The Netflix Prize**
+
+- training data:
+    - 18,000 movies rated by 400,000 Netflix customers
+    - ratings between 1 and 5
+    - very sparse matrix (about 98% missing)
+- objective is to predict the rating for a set of 1 million customer-movie pairs that are missing in the training data
+- Netflix's original algorithm achieved a root MSE of 0.953 (on a scale of 1 to 5)
+- the problem generated a LOT of research
+    - lots of new techniques invented in the process
+    - many winning techniques used PCA or some variant
+- the authors of this book competed
+    - computation was too slow
+    - sometimes success comes from building something that is easy to test, break, rebuild, and test (think about Josh Wills airplane story)
+
+**E. Statistical Learning vs. Machine Learning**
+
+- ML is a subfield of AI
+- statistical learning is a subfield of statistics
+- Statistical Learning worries more about precision/uncertainty, interpretability
+- ML gets bigger grants and conferences
+
+**F. Two Books**
+
+- ISLR - less math, more applications
+- ESL - more math (more advanced)
+- both books have lots of examples in R
+- "R is a wonderful environment"

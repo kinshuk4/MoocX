@@ -1,0 +1,298 @@
+<center> <h2>Predictive Machine Learning - Week 1</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 1.1 Prediction motivation*
+
+**A. About this Course**
+
+- cover the main learningprediction ideas
+- study design - training vs. test sets
+- conceptual issues - out of sample error, ROC curves (for overfitting)
+- practical implementation - the caret package
+
+**B. Who Predicts?**
+
+- most organizations use prediction 
+- recommendation engines, financial forecasting, success/failure of program participants
+
+**C. Other Resources**
+
+- *the elements of statistical learning* (available for free in pdf format from the website
+- Machine Learning MOOC from Andrew Ng at Stanford (Coursera)
+- Lists of resources in the notes:
+    - Quora
+    - Science
+    - MIT open courseware
+    - open notes from CMU
+    - Kaggle ML competitions
+
+####*Video 1.2 What is prediction?*
+
+**A. The Central Dogma of Prediction**
+
+- you start with some training data
+- use some prediction function based on data characteristics
+- getting the training/test starts with probability and sampling
+    - prof. Leek thinks the prob/sampling step is overlooked
+- example: Google Flu trends (predicting flu by search trends) failed
+    - inaccuracies emerged as structure of the data (internet usage) changed
+    - you need to know the structure of the data
+    
+**B. Components of the predictor**
+
+- question -> input data -> features -> algorithm -> parameters -> evaluation
+- you can use the one-line function ```ifelse()``` to do an if statement in one line
+    - e.g. ```ifelse(spam$your < 0.5, "spam", "nonspam")```
+- the basic idea: if (insert logical test), predict x, otherwise predict y
+
+####*Video 1.3 Relative importance of steps*
+
+**A. Relative Order of Importance**
+
+- question > data > features > algorithm
+- "The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data" - John Tukey
+- you have to know when to give up (GIGO)
+- it's often that case that more data > better models
+- understand relationships between data
+- clearly define what a "good prediciton" is in the context of your specific project
+
+**B. Common Mistakes in Features**
+
+- trying to automate feature selection (rather than using expert knowledge)
+    - expert knowledge is better
+    - black-box can be useful and accurate, but if predictions suddenly change you will struggle
+- not paying attention to data-specific quirks
+- throwing away information unnecessarily
+
+**C. Algorithms matter less than you'd think**
+
+- difference between "best option" and linear descriminate pretty close...maybe getting a better algorithm won't get you from good to great accuracy
+
+**D. Issues to consider**
+
+- you might need it to be interpretable (crucial in a consulting framework)
+    - this means simple
+- you might need to make an accuracy tradeoff to make things simple and understandable
+- you model might need to be fast and scalable
+    - scalable doesn't mean simple --> could just mean paralellizable
+    
+**E. Tradeoffs**
+
+- interpretability vs. accuracy
+- speed vs. accuracy
+- simplicity vs. accuracy
+- scalability vs. accuracy
+- interpretability can be really crucial --> people might like something more intuitive like decision trees
+
+**F. Scalability matters**
+
+- Netflix never implemented to final solution to the Netflix prize (it wasn't scalable)
+    - Netflix ultimatey ended up going with something that was slightly less accurate but much more scalable
+
+####*Video 1.4 In and out of sample errors*
+
+**A. In Sample vs. Out of Sample**
+
+- in sample error is the error rate you get on the training data
+    - this will be optimistic (you might be tuning to noise)
+- out of sample error = "generalization error"
+    - error on prediction in the test data set
+- in sample error is always less than out of sample error (as a result of overfitting)
+    - this is why something like stepwise regression is questionable
+
+**B. Signal and Noise**
+
+- data have two parts: signal and noise
+- in any small dataset, you can always make a perfect predictor
+    - this is bending to the noise, so you can't parse out the noise and see just signal later on (in testing)
+- such highly-tuned predictor won't perform as well on new samples
+
+####*Video 1.5 Prediction study design*
+
+**A. Prediction Study Design**
+
+- define your error rate
+- split data into training, testing, validation (optional)
+- on the training set, use cross-validation to pick features
+- use the training set to pick prediction function (assign parameters)
+- if no validation:
+    - apply 1x to test set
+- If validation
+    - apply to test set and refine
+    - apply 1x to validation
+
+**B. Know the Prediction Benchmarks**
+
+- these would be the predictive accuracy to  shoot for (accuracy of simpler models, perhaps)
+
+**C. Avoid small sample sizes**
+
+- especially avoid small sample in the test set
+- think about "flip a coin to determine sickness" example
+    - large test set makes it very unlikely that spurious accuracy will be observed (probability of random accurate prediction declines with sample set)
+    
+**D. Rules of thumb for prediction study design**
+
+- Large sample:
+    - 60% training
+    - 20% test
+    - 20% validation
+- Medium sample:
+    - 60% training
+    - 40% testing
+- small sample:
+    - do cross validation
+    - report caveat of small sample size
+    
+**E. Some Principles to Remember**
+
+- set out test/validation and never look at them when building the model
+- randomly sample training and test
+- be careful in tim series (might need to do what finance calls backtesting)
+- subsets should reflect lots of diversity
+    - random assignment does this well
+    - might also try balancing by features (this can be tough)
+
+####*Video 1.6 Types of errors*
+
+**A. Basic Terms**
+
+- true positive vs. true negative
+- true positive (negative) = correctly identified (rejected)
+- false positive (negative) = incorrectly identified (rejected)
+- worth looking at wikipedia article on sensitivity and specificity of tests
+
+**B. Key Quantities**
+
+- sensitivity = Pr(positive test | disease)
+- specificity = Pr(negative test | no disease)
+- Positive predictive value = Pr(disease | positive test) = TP(TP + FP) [probability that we call you diseased, given a positive test]
+
+**C. Screning Tests**
+
+- this is really important if one class if way more prevalent than another
+    - for example, some very small fraction of people get a given illness
+- if you're predicting a rare event, know just how rare that event actually is
+
+**D. For Continuous Data**
+
+- consider mean square error (MSE) or root mean squared error (RMSE)
+- others:
+    - median absolute deviation
+    - sensitivity (recall)
+    - specificity
+    - accuracy (weights false positives/negatives equally)
+    - concordance (agreement of two or more predictors)
+- specificity or sensitivity might be preferred if you think false positives or negatives are more important than their coutnerparts
+####*Video 1.7 Receiver Operating Characteristic*
+
+**A. Why a Curve?**
+
+- in binary classification you are predicting one of two categories
+- but you're getting something quantitative (probability, prediction on a scale)
+- the cutoff you choose gives different results
+- an ROC curve:
+    - x axis has (1- specificity) = probability of a false positive
+    - y axis has (1 - sensitivity) = probability of true positive
+- tells you about tradeoffs between specificity and sensitivity
+- higher area under the curve = better predictor
+
+**B. Area Under the Curve**
+
+- AUC = 0.5 (random guessing)
+- AUC = 1 (perfect classifier)
+- in general AUC of above 0.8 considered "good"
+- AUC < 0.5 is worse than random guessing
+
+
+####*Video 1.8 Cross validation*
+
+**A. Key Idea**
+
+- accuracy on the training set (re-substitution accuracy) is optimistic
+- a better estimate comes from an independent set (test set accuracy)
+- we can't use the test set when building the model
+
+**B. Cross-Validation**
+
+- Approach:
+    1. Use the training set
+    2. Split it into training/test sets
+    3. Build a model on the training set
+    4. Evaluate on the test set
+    5. Repeat and average the estimated errors
+- Used for:
+    1. Picking variables to include in a model
+    2. Picking the type of prediction function to use
+    3. Picking the parameters in the prediction function
+    4. Comparing different predictors
+- you just keep picking new training/test sets
+
+**C. Random Subsampling**
+
+- you take a subsample of the training data and make that the "test" set
+- just keep re-estimating stuff to predict the pseudo-test set
+- take new random subsamples
+- average the errors to get an unbiased estimate of out-of sample accuracy
+    - also useful in checking different specifications
+
+**D. K-Fold**
+
+- break the data into even portions
+    - just a simpler way of subsampling (e.g. each testing set is a third of the data)
+    - then, again, you average pseudo-out-of-sample error
+    
+**E. Leave one out Cross validation**
+
+- leave out one sample, build on everything else
+    - do this iteratively, for every sample in your dataset
+    
+**F. COnsiderations**
+
+- this doesn't work for time series data
+    - you need contiguous chunks
+- for k-fold cross validation
+    - less bias, more variance
+    - more bias, less variance
+- random sampling must be done *without replacement*
+- random sampling with replacement is called *bootstrapping*
+    - underestimates the error
+    - can be corrected, but it's complicated
+    - samples will appear more than once, so you get a bit of bias
+- if you cross-validate to pick predictors you must estimate errors on independent data (to get true out-of-sample error rate)
+
+####*Video 1.9 What data should you use?*
+
+**A. A successful predictor**
+
+- [fivethirtyeight](http://www.fivethirtyeight.com)
+- this is like-to-like
+    - Nate Silver took polling data to predict actual election results
+- clever methodology
+    - adjustment for pollster bias
+    - polls weighted by how close they were to unbiased/actual polls
+    
+**B. Key idea:: Like Predicting Like**
+
+- if you want to predict X, use data closely related to X
+- Moneyball --> predict player performance using player performance
+- Netflix prize
+- Heritage Health prize --> hospitalizations to predict hospitalizations
+- closer to the target concept is better
+
+**C. Not a Hard Rule**
+
+- Google searches are good proxies for lots of stuff
+- econometric work on proxies...you don't need close concepts (directly)
+- looser connections imply harder prediction
+    - need to account for interdependencies, complex dynamics
+    
+**D. Data Properties Matter**
+
+- understand the data generating process
+- understand connections
+- machine learning is often thought of as black box (input-output)
+    - unrelated data is the most common mistake
+    - if there is a spurious relationship to find, ML will find it and use it
+- as often as possible, use like to predict like
+- Daniel Kahneman talks about this...we can build coherent stories and find ways to trust them, regardless of how reliable they actually are (what you see is all there is)

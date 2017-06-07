@@ -1,0 +1,203 @@
+<center> <h2>Model Thinking - Week 6</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Reading 1: Categorical Models*
+
+[Chapter 3: Models 1.0 Categorical Models](http://vserver1.cscs.lsa.umich.edu/~spage/ONLINECOURSE/R5CategoricalModels.pdf)
+
+**A. Introduction**
+
+- the most basic predicitve models rely on categories
+- categorical model says "how does some subset differ from it's complement (i.e. "everyone else")"?
+- very simple, stark categorical models sometimes have the ability to outpredict exports
+    - consider dividing loan apps by income-to-payment ratio
+
+**B. Variation**
+
+- mean = "the average"
+- variance = "how much the values differ from the mean"
+    - variance equals the the sum of squared distances from the mean
+- R^2^ = "the perecentage of the variation explained when the data gets binned into categories"
+    - Variance Explained / Total Variance
+
+####*Reading 2 - Linear Models*
+
+**A. Basics of Linear Models**
+
+- the canonical model: y = mx + b
+    - y is the dependent, x is independent
+
+**B. Why Everything is Linear (at least for a while)**
+
+- any curve can be approximated as a combination of linear segments
+    - "the curvier a function becomes, the shorter the linear segments must be to approximate that curve"
+    - the fact that we can approximate curves with line segments allows social scientists to use linear models to make sense of nonlinear phenomena
+
+**C. Constructing a Multivariable Linear Model**
+
+- the regression line = "the line that minimizes the total distance of all of the data points to a straight line"
+- distance from a point to the line is not just noise:
+    - it also captures all of the things we've omitted from the model
+- a "linear" model doesn't have to produce a straight line:
+    - it can allow for linear relationships between each of the indepdentn variables and the dependent variable
+    - the resulting prediction will be the net impact
+    
+####*Video 6.1 - Introduction to Linear Models*
+
+**A. Bringing Models to Data**
+
+- categorical models:
+    - take the data and "put it in a bunch of boxes"
+- linear models
+    - not the same as "a line"
+    - an assumption of a linear dependence of y on one or more x's
+    - when we say "linear dependence", we mean "constant contribution of unit changes in x to variation in y"
+
+**B. Fitting A Model to Data**
+
+- we'll learn the criteria for getting "the best line" that describes some data
+- non-linear models:
+    - maybe some exponential behavior
+    - multiple turning points
+    - von Neumann - "the set of nonlinear models is the size of the set of non-elephants"
+- "The Big COefficient"
+    - thinking about variable importance
+    - making policy on coefficient sizes
+    - linear models are better than "thinking off the cuff"
+    - problem: only works in the area where we have the data.
+- Doesn't make sense to use "big coefficient" thinking when policy is aimed at moving us to a better world (space unknown to the historical data and thus the model
+- linear models only really work over the space of data they are trained on
+
+####*Video 6.2 - Categorical Models*
+
+**A. How it Works**
+
+- "bin reality into categories"
+- how you categorize things matter
+- "lump to live"
+    - we create "boxes" to make sense of the world
+    - "truck" vs "car"
+- categories are shortcuts to help us make sense of the world
+
+**B. Calculating Variance**
+
+- why do we square deviations?
+    - prevent cancelling-out
+    - amplify big variations
+- categorical model...break things into minimum-variance groups
+    - "things that are similar"
+- variation = "what is unexplained"
+    - if you break stuff into categories and predict conditional means by category, you can achieve substantial reductions in variation
+- R^2^ = 1-RSS = 1-(unexplained)/(explained)
+- there're no fixed rules for a "good R^2^"
+    - it's very much domain dependent
+    
+**C. Another Example**
+
+- experts have more and more useful "boxes"
+- explaining a lot of the variation does not mean you have a good model
+    - correlation is not causation
+- put the world in boxes to try to explain variation
+
+####*Video 6.3 - Linear Models*
+
+**A. How it Works**
+
+- sign of the coefficient:
+    - does Y increase or decrease with X?
+- magnitude:
+    - how much does Y increase for each one unit increase in X?
+
+**B. Using Linear Models to Predict**
+
+- you can plug in values of x and get a prediction of y
+- might be ok for well-defined problems, even if the world isn't exacty linear
+
+**C. Models vs. People**
+
+- Robyn Dawes: "The beauty of linear models in decision making"
+- models almost always outperform experts (or at least tie)
+- even improper linear models will tend to do better than human experts for simple problems
+- the line tells us about relationships between x and y
+    - this falls in the "understanding the real world" category of modeling motivations
+    
+####*Video 6.4 - Fitting Lines to Data*
+
+**A. The R-squared**
+
+- in linear regression context, this is calculated as 1-(RSS/TSS)
+    - 1-(sum of squared resids)/(total sum of squares)
+- pick the parameters that minimize the sum of squared errors
+
+**B. Multivariate Regressions**
+
+- you'll get sign and magnitude
+- this is way better than "seat of your pants" reasoning
+- "Big Coefficient" thinking:
+    - look at the biggest coefficient, direct investment to that thing that can (on the basis of coefficients) have the biggest impact on the outcome
+    
+####*Video 6.5 - Reading Regression Output*
+
+**A. Notes**
+
+- "there's a certain amount of modeling you need to know to be an intelligent citizen of the world"
+- "standard error of regression" --> standard deviation of Y
+- coefficient standard error:
+    - gives you an idea of distribution of coefficient estimates
+    - in CLNRM applications, this is assuming a normal distribution of coefficients
+- p-value:
+    - probability of observing a coefficient more extreme than this one if the distribution of coefficients is t-distributed and centered on 0
+- be sure to come into this exercise with some expectations:
+    - results which are different from your expectations might be worth exploring further
+- regression output is telling you:
+    - how much of the variation did we explain?
+    - what is the sign and magnitude of the coefficients?
+    - are the coefficients actually non-zero?
+    
+####*Video 6.6 - From Linear to Nonlinear*
+
+**A. The Real World**
+
+- the world is usually non-linear
+
+**B. Approaches**
+
+1. Join together a few linear functions:
+    - "jack-knife" regression or "spline" method
+    - put the models together...behavior might be linear (but of different forms) over certain regions of the data
+    - "feed different quadrants of the data to different models"
+2. Add in Non-Linear Terms
+    - fit a linear coefficient to some non-linear transformation of X
+    - the model can still be "linear" as long as it has linear coefficients
+    - this is limited though...you have to specify very specific types of nonlinearity
+    
+####*Video 6.7 - The Big Coefficient vs The New Reality*
+
+**A. Challening the Linear Model**
+
+- Big Coefficient thinking can be found in Evidence-Based [something]
+- steps:
+    - construct model
+    - gather data
+    - identify important variables
+    
+**B. Big Data**
+- Big data
+    - big data does not obviate the uses of models
+    - identifying a pattern is different from knowing where it came from
+    - correlation is not causation
+- linear models give you a sign and magnitude **within the data range**
+- you need an understanding of what happens "outside the data"
+
+**C. Feedbacks**
+
+- safer brakes --> people drive closer to car in front of them --> accidents pick up again
+- be careful about extrapolating outside the data range
+
+**D. Multiple peaks**
+
+- what if you have a multimodal distribution?
+    - you might only find local optima
+- Big Coefficient = "climbing the current hill"
+     - can potentially blind your thinking as a policymaker
+- New Reality = "moving to a taller hill"

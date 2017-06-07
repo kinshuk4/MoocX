@@ -1,0 +1,100 @@
+<center> <h2>Programming for Everybody - Week 5</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 5.1 - Loops and Iteration*
+
+**A. Patterns**
+
+- sequential
+- conditional
+- store and retrieve (functions)
+- looping pattern
+    - this lecture
+    
+**B. Value of Looping**
+
+- "while" functions like an "if"
+    - while just keeps going until you break it
+
+**C. Breaking Out of a Loop**
+
+- the ```break``` statement ends the current (smallest) loop and jumps to the statement immediately following the loop
+- it is like a looop test that can happen anywhere in the body of the loop
+
+**D. Finishing an Iteration with Continue**
+
+- If you want to stop executing and move to the next iteration (think for loop), you can use the ```continue``` phrase
+- the continue statement ends the current iteration and jumps to the top of the loop and starts the next iteration
+- check it out:
+
+```{r eval=FALSE, engine='python'}
+while True:
+    line = raw_input('> ')
+    if line[0] == "#":
+        continue
+    if line == 'done':
+        break
+    print line
+print 'Done!'
+```
+
+**E. Indefinite vs Definite Loops**
+
+- while would be an indefinite loop (goes until a condition is met)
+- for would be a definite loop (does some stuff for a finite set of values
+- for functions:
+    - decide how long the loop is gonna run
+    - change the iteration variable
+- the ```in``` is powerful in python
+
+####*Video 5.2 - Loop Idioms*
+
+**A. Loop Idioms**
+
+- idioms are "how we construct loops"
+- think about making "smart" loops:
+    - think like a computer
+- this involves initializing a variable and then only updating its value if certain conditions are met
+- this is kind of like "filtering" inside the loop:
+    - only execute the code for certain values of the iteration variable(s)
+- you could use Booleans for search algorithms
+    - think about building a function that checks if one thing is in another set
+- consider using breaks so you don't waste computation
+
+####*Video 5.3 - Largest and Smallest*
+
+**A. More Loops**
+
+- be careful when setting initial conditions for your countervariables
+    - e.g. the same seed isn't appropriate for a "find the smallest" application and a "find the largest" application
+- maybe think about initializing at ```None``` and then immediately changing ```None``` to the first value of the iteration variable
+
+**B. The "is" and "is not" operators**
+
+- Python has na "is" operator that can be used in logical expressions
+- implies "is the same as"
+    - a test of value and type
+    - similar to, but stronger than "=="
+- don't overuse this
+    - it's better to use only for special cases (True, False, None)
+
+####*Video 5.4 - Bonus: Niklaus Wirth - On Teaching Computer Science*
+
+**A. Notes**
+
+- inventor of Pascal (1969-1971), Modula (1976/1977), Oberon (1987/1989) computer programming languages
+- implemented Pascal on many other computers
+- Pascal exploded with the introduction of microcomputers
+    - Basic was the only competitor, but Pascal was best for teaching
+    - this allowed lots of people to learn programming from scratch
+- Pascal was the API definition for Apple/Macintosh
+    - Wirth had little interaction with Apple
+- "we had always distributed our software for free"
+- in the beginning of computing, "open source" wasn't anything special:
+    - Wirth thinks universities have always been "open source". They have an interest in spreading their ideas
+- Oberon:
+    - the future of teaching lay in simple, simple program
+    - wanted a clean language with minimal features
+- this man built his own hardware when PCs were not commercially available
+- FPGA = "field programmable gate array"
+

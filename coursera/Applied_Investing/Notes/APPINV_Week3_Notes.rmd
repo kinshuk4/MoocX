@@ -1,0 +1,78 @@
+<center> <h2>Applied Investing - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1 - Overview of Investment Planning*
+
+**A. Notes**
+
+- Set your financial goals
+- Establish timelines
+- Determine how much money you will need for each goal
+    - How much do I need?
+    - When will I need it?
+    - What will inflation do to the cost of my goals?
+- Choose a less-risky portfolio for near-term goals (money-market certificates, bonds, etc.)
+- For longer-term, might as well hold higher-risk (like common stock)
+- Step 1: Determine the appropriate asset Mix
+- Step 2: Create an investment plan
+- Step 3: Choose investments based on the criteria established in your investment plan
+- Step 4: Don't make too many adjustments. Stick to the plan!
+- IRA= "Individual Retirement Account"
+- Max IRA contribution: $5,000/year
+
+####*Video 3.2 - Diversification*
+
+**A. Notes**
+
+- Ben Graham published "Security Analysis" in 1930s
+- Fundamental Analysis --> looking at the characteristics of the firm, not just its stocks
+- "Buy good companies, not good stocks"
+- Harry Markowitz --> "Portfolio Selection"
+    - pointed out the risk/return tradeoff
+    - Won Nobel Prize in Economics for the idea that an investor should be concerned about a security's contribution to overall risk, not just its return
+- Milton Friedman questioned Markowitz 's theories
+- By increasing the number of securities in a portfolio, the amount of unsystematic risk can be almost completely eliminated. This is known as "diversifiable risk"
+- Systematic (Market Risk) cannot be diversified away
+- Diversification: Both between and within asset categories
+- optimal number of securities is about 30
+- You could "diversify" by buying mutual funds or ETFs
+    - mutual funds make it easier to own a small part of a diversified portfolio
+    
+####*Video 3.3 - Market Timing*
+
+**A. Notes**
+
+- attempting to time the market is a loser's game
+- An investor attempts to predict the future position of the market
+- It's nearly impossible
+- Day traders are market-timers
+- Active traders have a failure rate of about 80%
+- Individuals almost always do worse than the market as a whole
+- Unhealthy cycle of greed and fear inherent in timing behavior
+- "Most active investors actually do follow a buy high, sell low strategy. Individual investors buy stocks after the price has increased."
+- \textbf{the herding effect} - the tendency to sell in a bear market and buy in a bull market....following the crowd
+- just establish a long-term strategy and stick to it
+
+####*Video 3.4 - Patience and Persistence*
+
+**A. Notes**
+
+- "common sense investing"
+- passive investment management (Jack Bogle, found/CEO of Vanguard)- Buy and hold, essentially
+    - "The Little of Common Sense Investing"
+    - "The Bogleheads Guide to Investing"
+- The Bogle philosophy
+    - develop a workable plan
+    - invest early and often
+    - never bear too much or too little risk
+    - keep costs low
+    - minimize taxes
+    - use index funds
+- "In investing, you get what you don't pay for. Costs matter."
+- Vanguard is not an establishment favorite ??? they insist on only index funds/ETFs
+    - active managers are not too pleased with this
+- "Intelligent investors must accept the fact that, over time, the funds they select, irrespective of past performance, will inevitably revert toward the mean"
+- Index funds cost about 1/5th of the average of the active mutual funds
+    - mutual funds need more analytical power and therefore cost more
+- It is difficult (if not impossible) to select the best-performing mutual fund beforehand
+

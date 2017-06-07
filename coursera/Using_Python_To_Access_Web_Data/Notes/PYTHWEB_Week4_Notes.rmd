@@ -1,0 +1,63 @@
+<center> <h2>Using Python to Access Web Data - Week 4</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 4.1 - Understanding HTML*
+
+**A. Notes**
+
+- no we can retrieve documents...let's learn how to make some sense of them
+- "rendering" = turning the HTML into prettiness
+- you can use regex of ```find()``` or whatever to parse the HTML
+- web scraping is a science all itself
+
+**B. More on This**
+
+- still the request/response cycle
+- why scrape?
+    - pull data
+    - get your own data back out of some system
+    - do stuff where no API (Application Programming Interface) exists
+    - monitor a site for new information
+- a lot of people pinging the same server could crash a server
+- Facebook cannot be scraped
+    - "you cannot use automated scripts to collect information from or otherwise interact with the Service or the Site"
+- you can't scrape Google search results
+    - otherwise, you could just be Google!
+    - Google copyrights search results
+- don't be mischievious
+
+####*Video 4.2 - Parsing HTML with BeautifulSoup*
+
+**A. Notes**
+
+- starting out with the easy way
+- lots of valid but ugly HTML
+- Beautiful Soup is an alternative to doing your own, custom, probably not great string searches
+
+**B. An Example - Getting Links from Anchor Tags**
+
+```{r eval=FALSE, engine='python'}
+import urllib
+from BeautifulSoup import *
+
+url = raw_input('Enter - ')
+html = urllib.urlopen(url).read() # this means "read it all'
+
+#retrieve a list of anchor tags
+#each tag is like a dictionary of HTML attributes
+
+tags = soup('a') # Their own object
+for tag in tags:
+    print tag.get('href',None)
+```
+
+- this is an easy way to write a web scraper using urllib and BeautifulSoup
+- the lowest we go in Python is sockets, and usually we work at an even higher level of abstraction
+
+####*Video 4.3 - BONUS: Tim Berners-Lee - Inventing the Web*
+
+**A. Notes**
+
+- "when the Web becomes something you consume, then it will be time for the revolution"
+- the Web is enabled by the Internet
+    - the Internet was a "quieter revolution"

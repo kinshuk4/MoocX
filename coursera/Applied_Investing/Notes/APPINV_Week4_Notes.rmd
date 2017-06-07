@@ -1,0 +1,138 @@
+<center> <h2>Applied Investing - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 4.1 - Overview of Investment Planning (cont'd)*
+
+**A. Notes**
+
+- fundamental analysis: a method of evaluating a security that involves attempting to measure its true or intrinsic value by examining related economic, financial and other qualitative and quantitative factors
+    - research all relevant company-specific information
+    - generate a valuation for the stock, then compare it to the spot price to see if it's over or undervalued
+- "The Money Masters"- John Train
+    - markets can be inefficient, and there are opportunities to identify mispriced securities
+    - "The essence of Buffett's thinking is that the business world is divided into a tiny number of wonderful businesses- that are well worth investing in at the right price - and there are a large number of bad or mediocre businesses that are not attractive as long-term investments"
+- Buffett's rules for a good business:
+    - Good return on capital w/o a lot of debt
+    - Understandable line of business
+    - Profits must lead to positive cash flow
+    - Strong business franchise, freedom to control their product's price
+    - Firm should be fairly easy to run
+    - Predictable future earnings
+    - Management is shareholder-friendly
+- Buffett's advantage has been his knowledge of competitive strategy
+    - long-term action plan that is devised to help a company gain a competitive advantage over its rivals
+    - he thinks like a business owner, not a shareholder
+- "economic moat"- the competitive advantage a firm has that allows it to keep competitors from attacking a firm's profits
+- Joseph Schumpeter ??? "creative destruction"
+- Buffett goes into the office and reads 10-K and 10-Qs
+- suggests you read Berkshire annual report
+- Buffett just reads and reads
+    - he has created $700B in value over
+    
+####*Video 4.2 - Alternatie Investments*
+
+**A. Notes**
+
+- "investments not considered to be traditional, like stocks and bonds"
+- Examples:
+    - hedge funds
+    - real estate 
+    - natural resources
+    - commodities
+    - private equity
+    - futures
+- Real estate investing and commodity investing goes back a long time
+- VC and private equity began in post-world-war-2 w/ emergence of aerospace and computer industries
+- first hedge fund began in 1949
+- $10 trillion in alternative investments today
+- Low correlation w/ the returns of stocks and bonds, so good for diversification
+- little regulatory oversight
+- private investment funds have typically been available only institutional investors
+- real estate as an investment generally focuses on commercial properties, not personal residencies
+- forward/future markets created in mid-1800s
+    - no includes currencies and financial assets
+- options are also alternative investments traded in derivative market
+- private equity
+    - venture capital
+- "bridge/mezzanine financing"- private equity that is a purchase of equity or debt of non-public, but well-established, firm that will help it to "bridge" to its IPO. Less risky than VC but more risky than common stock
+- hedge funds use leverage and sophisticated trading techniques
+- alternative investments provide strong returns and reduce risks
+- traditional managers cannot short, while alternatives can
+- alternative investment managers can use derivatives and leverage to hedge returns
+- alternative manages may have specialized knowledge or unique access
+- alternative managers don't pay market prices, but a negotiated price
+- risks associated w/ alternative investments:
+    - use of leverage can result in substantial losses
+    - manager compensation can add risk (bad incentives)
+    - reduced liquidity makes exit difficult during times of stress
+    - less regulation=less oversight
+- alternative investments are really only an option for high-net-worth individuals and institutional investors
+
+####*Video 4.3. - Real Estate*
+
+**A. Notes**
+
+- one of the oldest forms of investing
+- Benefits of real estate investment:
+    1. it can produce good returns
+    2. Inflation hedge
+    3. Diversification
+    4. Global investment exposure
+    5. Steady cash flow
+- Types:
+    - Direct investment in 2nd home (primary residence NOT an investment)
+    - Direct investment in commercial property
+    - Own/lease an apartment building
+    - Direct investment in undeveloped land
+        - land cannot be depreciated for tax purposes, and undivided land cannot be rented out
+    - Invest in a syndicate/partnership ??? pool funds
+    - Real Estate Investment Trusts (REITs)
+        - similar to a mutual fund
+        - share publicly traded
+        - own and operate income-producing properties
+        - advantages:
+            - limited financial liability
+            - no management concerns
+            - financial leverage allows acquisition of more financial properties
+            - liquidity
+            - moderate correlation w/ other assets
+            - high correlation w/ inflation
+        - disadvantages:
+            - potential for declining property values
+            - loss of control
+            - high administrative costs
+            - REIT stock prices move w/ the overall stock market
+            - less diversification than w/ investing directly in real estate
+    - most investors limit real estate exposure to more than 10%
+    
+####*Video 4.4 - Hedge Funds and Private Equity*
+
+**A. Notes**
+
+- no technical definition of "hedge fund" or "private equity" ??? not homogenous groups
+- hedge fund- a term used to describe an unregulated investment partnership setup by a money manager - and oddly enough, many of these funds do not engage in hedging
+    - use leverage
+    - long&short
+    - many different assets
+- private equity- an quity or debt investment in a firm that is not traded on a public exchange. It consists of investors and funds that make investments directly into private firms - which use the proceeds to fund new technologies, expand working capital, or to make acquisitions
+- these offer an opportunity for greater diversification
+- investors have to carry out their own due diligence on hedge funds/private equity firms
+- these firms are also not liquid (not publicly traded), so it's difficult for an investor to get their money out of one
+- types:
+    - long-short equity funds
+    - hedged or market neutral funds
+    - global macro funds
+- private equity is a pooled investment vehicle that is privately offered
+- one type: venture capital
+- "Mezzanine (or bridge) financing is a form of private equity investing employed by private companies before their IPO. The proceeds allow private firms to obtain the necessary funding for the maintenance of operations before going public."
+- hedge funds and private equity do earn substantial excess returns, but there is wide variation
+    - the best-performing funds are generally closed to new investors
+- "A Fund of Funds is an investment company that invests in other investment funds (such as hedge funds and private equity firms)."
+    - benefits:
+        - reduced due diligence require
+        - increased diversification
+        - access to top funds
+    - disadvantages
+        - additional fees/cost
+        - even less transparency
+        - no guarantee of excess returns

@@ -1,0 +1,617 @@
+Natural Language Processing with Python
+=======================================
+
+Chapter 1
+=========
+Language Processing and Python
+
+nltk.download() to download all corpus for the book.
+
+corpus: nltk.book
+
+Searching text:
+concordance() - works like grep
+Usage: text1.concordance(word)
+Make sure to create a nltk.text object of a corpus to use concordance function on it.
+
+similar() - Showing words having similar context in the corpus
+Usage: text1.similar(word)
+
+common_context() - Showing context shared by two or more words
+Usage: text1.common_context([word1, word2, ...])
+
+dispersion_plot() - Showing positional information of word in a corpus
+Usage: text1.dispersion_plot([word1, word2, ...])
+
+generate() - Generate random text from the corpus
+Usage: text1.generate() - Not found in nltk 3.0
+
+len() - find the lenght of a string
+Usage: len(string)
+
+set() - find distinct words
+Usage: set(string)
+
+Lexical richness of the text:
+len(string) / len(set(string))
+
+count() - count the occurance of a word
+Usage: string.count(word)
+
+FreqDist() - Output the frequency distribution in dict format
+Usage: FreqDist(string)
+
+Cumulative frequency plot:
+Usage: dict.plot(count, cumulative=True)
+
+collocations() - Bigrams that occur more often
+Usage: text4.collocations()
+
+Challenges in NLP:
+a. Word Sense Disambiguation:
+For e.g He serve the dish.
+
+b. Pronoun Resolution:
+For e.g The thieves stole the paintings. They were sold.
+
+c. Generating Language Output:
+Usage: Question answering and Machine Translation
+
+d. Machine Translation:
+babelize_shell() - To make the translation back and forth between two languages
+Note: No longer works
+
+e. Spoken Dialogue Systems:
+Siri or Google Now
+
+f. Textual Entailment:
+Directional relation between text fragments
+For e.g
+Text: David Golinkin is the editor or author of 18 books, and over 150 responsa, articles, sermons and books
+Hypothesis: Golinkin has written 18 books
+
+===============================================================================================================
+
+Chapter 2
+=========
+Accessing Text Corpora and Lexical Resources
+
+a. Gutenberg Corpus: Contains thousands of books
+nltk.corpus.gutenberg
+
+Functions:
+fileids()
+Usage: gutenberg.fileids()
+
+words()
+Usage: gutenberg.words(fileid)
+
+raw()
+Usage: gutenberg.raw(fileid)
+
+sents()
+Usage: gutenberg.sents(fileid)
+
+b. Web and Chat Text:
+nltk.corpus.webtext
+
+c. NPS Chat:
+nltk.corpus.nps_chat
+
+d. Brown Corpus:
+nlkt.corpus.brown
+
+Functions:
+categories()
+Usage: brown.categories()
+
+brown.words(categories=category)
+
+nlkt.ConditionalFreqDist()
+
+e. Reuters Corpus:
+Training and test dataset
+nltk.corpus.reuters
+
+Functions:
+reuters.categories(fileid)
+reuters.fileids(category)
+
+f. Inaugural Address Corpus
+nltk.corpus.inaugural
+
+g. Annotated Text Corpora
+100 of corpora
+
+h. Corpora in other languages
+
+More functions:
+a. abspath(fileid)
+b. encoding(fileid)
+c. open(fileid)
+d. root()
+e. readme()
+
+Text Corpus Structure:
+Four types of structures
+a. Isolated
+b. Categorized
+c. Overlapping
+d. Temporal
+
+Loading your own corpus:
+Using two libraries
+textCorpusReader
+BracketParseCorpusReader
+
+Passing corpus root, and file pattern as params.
+
+Conditional Frequency Distributions:
+Frequency distributions amoung several categories
+
+Usage:
+cfd = nltk.ConditionalFreqDist(
+	(target, fileid[:4])
+	for fileid in inaugural.fileids() 
+	for w in inaugural.words(fileid)
+	for target in ['america', 'citizen'] 
+	if w.lower().startswith(target))
+
+Generating random text with Bigrams:
+Using nltk.bigrams(corpus), and ConditionalFreqDist(bigrams) to get the highest probability bigram, generate random text.
+
+Lexical Resources:
+Lexicon, collection of words/phrases along with associated information, such as POS, head word.
+
+Various Lexicons:
+a. Wordlist Corpora
+nltk.corpus.words
+nltk.corpus.stopwords
+nltk.corpus.names
+
+b. A Pronouncing Dictionary
+nlkt.corpus.cmudist
+
+c. Comparative Wordlists - 200 common words in several languages
+nltk.corpus import swadesh
+
+d. Shoebox and Toolbox lexicons - contains series of attribute-value pairs
+nltk.corpus.toolbox
+
+e. WordNet
+nltk.corpus.wordnet as wn
+
+Synonyms:
+Usage:
+wn.synsets('motorcar')
+wn.synset('car.n.01').lemma_names
+wn.synset('car.n.01').definition
+wn.synset('car.n.01').examples
+wn.lemmas('car')
+
+The WordNet Hierarchy:
+Relationship between various synonyms and Semantic Similarity
+
+==========================================================================================================
+
+Chapter 3
+=========
+Processing Raw Text
+
+Accessing text from the web and the disk:
+Source:
+a. ebooks
+Usage:
+Using package urllib.urlopen and using read() on the url to get the content of an ebook from the web.
+
+Tokenization:
+Breaking up the string into words and punctuation, and neglecting whitespace, line breaks, and blank lines.
+Usage:
+nltk.word_tokenize(raw)
+
+Make sure to create a nltk.text object of a corpus to use various nltk function on it.
+
+find() and rfind() "reverse find" methods helps us get the right index values to use for slicing the string.
+
+b. Dealing with HTML
+Use BeautifulSoup library to extract content from html page.
+
+c. Processing search engine results
+Web search engines provide an efficient means of searching this large quantity of text for relevant linguistic examples.
+
+d. Processing RSS Feeds
+Using library feedparser
+Note that the resulting strings have a u prefix to indicate that they are Unicode strings
+
+e. Read local files
+Using open() and read() to read local files.
+
+f. Extracting text from PDF, MSWord, and other binary formats
+Using various third party libraries, such as pypdf, pywin32
+
+g. Capturing user input
+Using function raw_input()
+
+The NLP Pipeline:
+Create a pipeline to build a vocabulary from internet.
+HTML -> ASCII -> Text -> Vocab
+
+Strings: Text Processing at the lowest level
+Single quote, double quote, or triple quote strings
+Strings can have addition and multiplication as an operand
+
+Accessing substrings using slicing
+
+Strings are immutable, whereas list are mutable.
+
+Text Processing with Unicode:
+File/terminal 	-----------> Unicode ------------> File/terminal
+UTF-8, Latin-2									   UTF-8, Latin-2
+
+Unicode is stored in memory of a python program.
+
+Using codecs module to read encoded data into Unicode strings, and to write out Unicode string in encoded form.
+Usage:
+codecs.open(path, encoding='latin2')
+
+Regular expressions for detecting word patterns:
+Use re library
+Usaeg:
+re.search(RE, string) where RE can be any regular expression such as 'ed$'
+
+Range and Closures:
+Using [abc][def] to give range in regular expressions.
++ and * are known as Closures.
+
+Useful Application of Regular Expresions:
+re.findall()
+
+Finding word stems:
+Using re for finding and omitting the ending words.
+
+Searching Tokenized Text:
+re = '<a> (<.*>) <man>'
+
+Normalizing Text:
+Converting text to lowercase w.lowercase()
+Stemmers - nltk.PorterStemmer()
+Lemmatization - nltk.WordNetLemmatizer()
+
+Regular Expressions for Tokenizing Text:
+Using various regular expression, such as '[ \t\n]+' to split the strings to tokens.
+
+NLTK's Regular Expression Tokenizer:
+nltk.regexp_tokenize()
+
+Check the performance of regular expression tokenzier using Penn Treebank dataset.
+nltk.corpus.treebank_raw.raw()
+nltk.corpus.treebank.words()
+
+Segmentation:
+Tokenization is an instance of a more general problem of segmentation.
+
+Sentence Segmentation
+Word Segmentation
+
+Formatting: From Lists to Strings:
+Usage:
+' '.join(list)
+
+String formatting expressions
+Specifying width of the variables such as %6s
+
+Writing results to a file:
+Using open() and write() 
+
+Use textwrap library to avoid overflowing of strings.
+
+================================================================================================================
+
+Chapter 4
+=========
+Writing Structured Programs
+
+Assignments
+Equality
+Conditionals
+Sequences - Tuple
+Counters
+Functions
+Call by value and call by reference
+
+Using assert to handle types of varible passed to function
+assert isinstance(word, basestring), "argument to tag() must be a string"
+
+Documenting Functions
+Docstrings can include a doctest block, illustrating the use of the function and the expected output.
+
+Functions as Arguments
+
+Lambda expressions
+
+Use yield instead of accumulating variable to return from an function.
+
+Higher-Order Function
+filter()
+map()
+
+Program Development:
+Key high-level abilities are algorithm design and its manifestation in structured programming. 
+Key low-level abilities include familiarity with the syntactic constructs of the language, and knowledge of a variety of diagnostic methods for trouble-shooting a program which does not exhibit the expected behavior.
+
+Python Debugger:
+import pdb
+Usage: pdb.run(myfunction)
+
+Algorithm design:
+a. Divide and Conquer
+b. Recursion
+c. Dynamic Programming
+d. Greedy
+
+Third party packages:
+a. Matplotlib - Plotting a graph
+b. NetworkX - The NetworkX package is for defining and manipulating structures consisting of nodes and edges, known as graphs.
+c. csv
+d. NumPy
+
+===============================================================================================================================
+
+Chapter 5
+=========
+Categorizing and Tagging words
+
+Using a tagger:
+nltk.pos_tag(text)
+
+The text.similar() method takes a word w, finds all contexts w1 w w2, then finds all words w' that appear in the same context, 
+i.e. w1 w'w2.
+
+Tagged Corpora:
+nltk.tag.str2tuple('fly/NN')
+
+nltk.corpus.nps_chat.tagged_words()
+nltk.corpus.conll2000.tagged_words()
+nltk.corpus.treebank.tagged_words()
+
+Automatic Tagging:
+a. The Default Tagger
+Usage:
+default_tagger = nltk.DefaultTagger('NN')
+default_tagger.tag(tokens)
+
+b. The Regular Expression Tagger
+Usage:
+regexp_tagger = nltk.RegexpTagger(patterns)
+regexp_tagger.tag(brown_sents[3])
+
+c. The lookup Tagger
+Usage:
+most_freq_words = fd.keys()[:100]
+likely_tags = dict((word, cfd[word].max()) for word in most_freq_words) 
+baseline_tagger = nltk.UnigramTagger(model=likely_tags)
+
+In order to avoid None tag, use default backoff tag
+baseline_tagger = nltk.UnigramTagger(model=likely_tags, backoff=nltk.DefaultTagger('NN'))
+
+Evaluation:
+Evaluation on test dataset from each corpus
+Usage:
+baseline_tagger.evaluate(brown_tagged_sents)
+
+N-Gram Tagging:
+Usage:
+brown_tagged_sents = brown.tagged_sents(categories='news')
+brown_sents = brown.sents(categories='news')
+unigram_tagger = nltk.UnigramTagger(brown_tagged_sents)
+unigram_tagger.tag(brown_sents[2007])
+
+Separating the training and testing dataset.
+
+Bigram tagging takes in account the context of the sentence, but fails to generalise to new sentences.
+
+Combing tagger:
+t0 = nltk.DefaultTagger('NN')
+t1 = nltk.UnigramTagger(train_sents, backoff=t0) 
+t2 = nltk.BigramTagger(train_sents, backoff=t1)
+t2.evaluate(test_sents)
+
+Storing taggers:
+For future purposes.
+
+Transformation based tagging:
+Brill tagging algorithm: The general idea is very simple: guess the tag of each word, then go back and fix the mistakes.
+
+nltk.tag.brill.demo()
+
+Determining the category of a word:
+Morphological Clues
+Syntactic Clues
+Semantic Clues
+
+==========================================================================================================================
+
+Chapter 6
+=========
+Learning to classify text
+
+Supervised classification:
+Choose correct class for a given input.
+
+Classifier:
+NaiveBayes
+DecisionTree
+
+Use nltk.classify.apply_features to avoid storing every feature instance in memory.
+
+Avoid overfitting and underfitting using large features and less features.
+
+Break the dataset into two subsets:
+Training set, validation set, and test set
+
+Applications:
+
+a. Document Classification:
+Dataset: Movies reviews (Positive/Negative)
+
+b. POS Tagging:
+Approaches:
+Individual word rule based
+Context
+History
+Hidden Markov Models
+
+c. Sentence Segmentation
+
+d. Dialogue Act Types
+
+e. Textual Entailment
+
+Evaluation on test set
+
+Accuracy
+Precision and Recall
+Confusion matrix
+Cross validation (N-Folds)
+
+Learning algorithms:
+
+a. Decision Tree:
+Working:
+Finds best decision stump using entropy or information gain.
+
+b. Naive Bayes:
+Working:
+P(label|features) = P(features, label) / P(features)
+				  = P(features, label) # P(features) is same for every choice of label
+				  = P(label) P(features|label)
+				  = P(label) Pie P(f|label)
+
+Now, P(f|label) = count(f, label) / count(label)
+
+Use smoothing in order to avoid 0 counts.
+
+c. Maximum Entropy Classifier
+It's same as Naive Bayes, but a conditional model
+
+===========================================================================================================
+
+Chapter 7
+=========
+Extracting information from Text
+
+Converting unstrucutured data to structured one.
+Applications:
+Business intelligence, Resume harvesting, Media Analysis, Sentiment analysis, and email scanning.
+
+Architecture:
+Raw text -> Sentence segmentation -> tokenization -> POS tagging -> Name Entity Recognition -> Relation recognition
+
+Chunking:
+Technique for Name Entity Recognition
+
+NP-Chunking:
+Rule based algorithms
+
+Representating chunks: IOB tags (Inside, Outside, and Beginnning)
+
+Dataset:
+CoNLL-2000
+
+Various models:
+Regular expression-based chunkers
+n-gram chunkers
+Classifier-based chunkers
+
+nltk.tree package
+
+Name-Entity Recognition:
+nltk.ne_chunk()
+
+Relation Extractin:
+Rule based
+
+=======================================================================================================
+
+Chapter 8
+=========
+Analysing Sentence Structure
+
+The purpose of grammar is to give an explicit description of a language.
+
+Context Free Grammar:
+Top-down parsing and bottom-up parsing
+
+Bottom-up: Shift-Reduce parsing
+
+Use dynamic programming to speed up.
+
+Dependency Grammar:
+How words are relate to other words.
+
+nltk.parse_dependency_grammar()
+
+PCFG is used to avoid ambiguity.
+
+=======================================================================================================
+
+Chapter 9
+=========
+Building Feature-Based Grammars
+
+Handling syntactic agreements in PCFG:
+Using grammar rules such as
+N[NUM=pl] or N[NUM=sg] or N[NUM=?n]
+
+Similar for tenses and others
+N[TENSE=pres]
+
+Other notation is
+[POS=N, TENSE=pres]
+
+Attribute Value Matrix (AVM)
+[POS=N]
+[AGR=[PER=3 ]]
+[	 [NUM=pl]]
+
+To store this in python, use nltk.FeatStruct()
+
+Lexicalised PCFG is better option.
+
+====================================================================================================
+
+Chapter 10
+==========
+Analyzing the meaning of Sentences
+
+Natural Language Understanding:
+Naive way:
+Using parsing convert the english sentence to sql query.
+
+Semantics and Logic:
+Convert natural language to logical language.
+a. Propositional Logic (Boolean operators)
+b. First order logic
+
+It includes model building or inference for semantic analysis.
+
+Discourse Semantics:
+
+====================================================================================================
+
+Chapter 11
+==========
+Managing Linguistic Data
+
+Corpus:
+TIMIT Corpus - Speech database
+Development and evaluation of automatic speech recognition systems.
+
+Corpus Structure
+Corpus Life Cycle
+Acquiring data
+Using XML for storing linguistic data
+
+Using OLAC Metadata for describing language resources.
+
+=====================================================================================================

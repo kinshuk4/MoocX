@@ -1,0 +1,150 @@
+<center> <h2>Applied Logistic Regression - Week 1</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 1.0 Course Highlights*
+
+**A. Assignments**
+
+- 8 week Course
+- Teacher: Stanley Lemeshow, Professor of Biostatistics, Ohio State University
+- 1 hour of video, 2 hours of HW each week
+- There are solutions on the course site as well
+- Also consider "Intro to STATA"
+
+####*Video 1.1 Intro to Logistic Regression - Part 1*
+
+**A. What is Logistic Regression?**
+
+- find the best fitting, simplest model possible describing the relationship between an outcome and a set of predictors
+- What is different?
+    - In this case, the outcome variable is binary (0/1)
+    - In more advanced, you could have ordinal or polychotimous (multiple discrete values) outcome
+- The techniques used in linear regression provide the motivation for the approach to logistic regression
+
+**B. An Example: CHD**
+
+- all of the data in the course are available on the website
+- two variables
+    - Age (integer), CHD (binary)
+- scatter plot probably won't be very helpful with these data
+    - maybe a boxplot to see central tendency
+- "To better explore this relationship let us create intervals for the independent variable and compute the mean of the outcome variable within each group"
+- we're interested in the *nature* of the relationship between age and CHD
+- plot the share of people with CHD by group (y-axis) vs midpoint of age group (x-axis)
+    - you get an S-shaped curve, which approaches 0 from the right and 1 from the left asymptotically
+    - This is a "cumulative probability distribution" or a very particular type
+- The logistic model gives the conditional mean of x as:
+    - $\pi(x) = \frac{e^{\beta_{0}~ + \beta_{1}x}}{1+e^{\beta_{0} + \beta_{1}x}}$
+    
+####*Video 1.2 Intro to Logistic Regression - Part 2*
+
+**A. Why this model?**
+
+- This is a flexible and easily used function
+- It lends itself to a meaningful interpretation (more on this later)
+- This is the [logit model](http://en.wikipedia.org/wiki/Logistic_regression): 
+    - $\pi(x) = \frac{e^{\beta_{0}~ + \beta_{1}x}}{1+e^{\beta_{0} + \beta_{1}x}}$
+- The logit transformation, $g(x)$, looks like this:
+    - $g(x) = ln\left \{ \frac{\pi(x)}{1-\pi(x)} \right \}$
+- Think of this as "the log of odds"
+    - ratio of the outcome being PRESENT (=1) divided by probability of outcome being ABSENT (=0)
+- the logit i the log of the odds
+- This thing all reduces down to this:
+    - $g(x)= ln\left \{ e^{\beta_{0}~ + \beta_{1}x} \right \} = \beta_{0} + \beta_{1}x$
+- That thing looks regression-estimable!
+- the logit transform will be continuous and is linear in the parameters for the potential with parameters ranging across all real numbers
+
+**B. How does this relate to linear regression?**
+
+- Remember that in linear regression, we assumed that Y was normally distributed with the value of on the regression line and variance as constant (homoskedasticitiy)
+    - This doesn't work for dichotomous outcome variables!
+- in logistic regression, the errors follow a binomial distribution:
+    - $var(\epsilon) = \pi(x)(1-\pi(x))$, where $\pi(x)$ is the probability that Y=1
+    
+####*Video 1.3 Fitting the Logistic Model (likelihood function)*
+
+**A. Likelihood**
+
+- in linear regression, we chose parameters which minimized the sum of squared errors
+- The LS estimators lose many of their desirable properties when the dependent variable is dichotomous
+    - may not be unbiased or minimum variance
+- The general method of estimation that leads to the least squares function under the linear regression model (when the error terms are normally distributed) is called [maximum likelihood](http://en.wikipedia.org/wiki/Maximum_likelihood)
+    - LS is a special case of ML
+- The likelihood function can be thought of as "the probability of getting what you got"
+    - remember that you can multiply the probabilities of independent events
+    - $l=p^{n}(1-p)^{k}$ where *n* is the number of occurrences of the null case (whose probability is described by p) and *k* is the number of occurrences of the other case (whose probability is given by (1-p))
+- We're looking for a value of p which maximizes that likelihood function
+- How do we get at this?
+    - might be easier to work with the log likelihood, $L = ln(l)$
+    - You might even just iteratively choose values of p and then find a point that seems like a maximum
+    
+####*Video 1.4 Maximum Likelihood Estimation*
+
+**A. How does this work with Regression?**
+
+- We rely on software to "iterate into a solution"
+    - using the [Newton-Raphson Algorithm](http://www.jstor.org/stable/1267911?seq=1#page_scan_tab_contents)
+- "Choosing the values of beta that maximize the likelihood"
+    - THhe probabilities of 0 and 1 are described fully by the betas and x's, so this is also like picking probabilities
+- "The method of maximum likelihood yields values for the unknown parameters that maximize the probability of obtaining the observed set of data"
+- "With this method we first construct the **likelihood function**. This gives the probability (or likelihood) of the data for some arbitrary values of the parameters"
+- We then determine specific values for the parameters that maximize the likelihood function"
+- Contribution of each observation to the likelihood function:
+    - $Pr(y=1|x) = \pi(x) = \frac{e^{\beta_{0}~ + \beta_{1}x}}{1+e^{\beta_{0} + \beta_{1}x}}$
+    - $Pr(y=0|x) = 1-\pi(x) = \frac{1}{1+e^{\beta_{0} + \beta_{1}x}}$
+- a convenient way to express the contribution to the likelihood function for the pair (x,y) is through the term:
+    - $\xi(x_{i}) = \pi(x_{i})^{y_{i}}[1-\pi(x_{i})]^{1-y_{i}}$ 
+- Since the observations are assumed to be independent, the likelihood function is obtained as the product of the terms above:
+    - $l(\beta) = \prod\limits_{i=1}^n \xi(x_{i})$
+- the above relies on the observation, again, the the betas define the probabilities
+- It's easier to maximize the log of the likelihood function
+    - product becomes a sum when you take the log
+- The log likelihood is given as follows:
+    - $L(\beta) = ln\left \{ l(\beta) \right \} = \sum\limits_{i=1}^n [y_{i}ln\left \{\pi(x_{i}) \right \} + (1-y_{i})ln\left \{1-\pi(x_{i}) \right \}]$
+- to find the values of the parameters that maximize $L(\beta)$, we differentiate it with respect to $\beta_{0}$ and $\beta_{1}$ and set the resulting expressions equal to 0
+    - both equations have both parameters in it, so you can't solve simultaneously
+- For logistic regression, the likelihood equations are non-linear in the parameters and require special methods
+    - these methods are iterative and have been programmed into available logistic regression software
+- A note: if you sum up the observed Y's (0/1), that will equal the sum of all the predicted values of the probability of (0/1). This is cool:
+    - $\sum\limits_{i=1}^n y_{i} = \sum\limits_{i=1}^n \hat{\pi}(x_{i})$
+    
+####*Video 1.5 Logistic regression Examples
+
+**A. What is the meaning of a probability?**
+
+- If the probability of an event is 43%, we expect that 43% of a given population will show evidence of CHD
+- be careful about the use case:
+    - defaulting to "is it greater than 50%" isn't always the best way to approach these types of problems
+- remember also that these are point estimates with with erros
+- "the model is making estimates, not probabilities"
+
+####*Video 1.6 Using STATA and Week 1 Homework*
+
+**A. Getting started with CHD and Stata**
+
+- Some example code below
+
+```{r echo=FALSE, eval=FALSE}
+## This is Stata code
+
+use chdage.dta ## use a Stata dataset in the current directory
+
+
+## Print summary stats of two variables
+sum AGE CHD
+
+## show a table of cross-tab summary stats
+## splitting AGE by values of CHD
+tabulate CHD, summarize(AGE)
+
+## run a logistic regression of CHD on a constant and AGE
+## command in form of "logit <y> <x>"
+logit CHD AGE
+
+```
+
+- The parameters are not t-distributed. You might get:
+    - Roughly normal: $Z = \frac{\hat{\beta}_{i}}{\hat{SE}(\hat{beta}_{i})}$
+    - Chi-squared: $\chi^{2}=z^{2}$
+- once you have those coefficients, you can plug in to $\hat{\pi}(x)$ and get predicted values
+- 

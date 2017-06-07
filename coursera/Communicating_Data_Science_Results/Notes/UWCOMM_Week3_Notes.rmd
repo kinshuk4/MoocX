@@ -1,0 +1,256 @@
+<center> <h2>Communicating Data Science Results - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1.1 - Reproducibility and Data Science*
+
+**A. Notes**
+
+- data science is "science"....a research exercise
+- output is not just the answer, but the process and logic as well
+
+**B. The Rationale**
+
+- skepticisim requires that the claim can independently verified
+- advances in technology used for scientific discovery have changed how scientists effect reproducibility
+- lots of negative attention in recent years on reproducibility in science
+
+**C. Reproducible Research for Data Science**
+
+- needed for "defensible decision-making"
+- external stakeholders: compliance and audits
+- data science in industry is still \textbf{science}
+
+####*Video 3.1.2 - Reproducibility Gold Standard*
+
+**A. Notes**
+
+- thoughts on "backtest overfitting" in computational finance
+- standards:
+	- others can use your exact environment as it was at the time of the experiment
+	- your experimental procedures are completely unaffected
+	- could get close to this with VMs!
+
+**B. Roadmap**
+
+- skipping:
+	- motivation for reproducibility
+	- discussion of specialized tools
+	- best practices (git, literate programming, scripted visualizations)
+- Focus on one argument --> cloud computing is the appropriate platform for reproducible data science
+
+####*Video 3.2.1 - The Ocean Appliance*
+
+**A. Notes**
+
+- they put all the software needed into a "box", gave it to ships
+
+####*Video 3.2.2 - Code, Data, Environment*
+
+**A. Notes**
+
+- easier, cheaper, safer to build the box in the lab and hand it out for free than to work with ships' admin
+- "get things working in your environment, ship out you whole environment"
+- VMs offer most of the same benefits
+- containers (e.g. Docker) offer most of the same benefits
+	- superior to VMs for reproducibility
+
+####*Video 3.2.3 - Cloud Computing Introduction*
+
+**A. Notes**
+
+- with cloud, it's making less and less sense to pass VMs around
+- will the server room go the way of the on-site generator?
+- John McCarthy (1961): "...computing may someday be organized as a public utility just as the telphone system is a p ublic utility...the computer utility could become the basis of a new and important industry"
+
+####*Video 3.2.4 - Cloud Computing History*
+
+**A. Notes**
+
+- "application service providers"...SalesForce.com through the browser
+- other examples:
+	- YouTube, myspace, Google Drive, Windows Azure, AWS
+- gmail in the browser was a BIG deal
+- AWS --> infrastructure as a service
+	- access to machines
+	- "Amazon has always been a technology company"
+- Amazon was comfortable working on the margin, taking "pennies"
+- Google, Microsoft, Amazon all compete on most services they offer
+
+####*Video 3.3.1 - COde, Data, ENvironment, Platform*
+
+**A. Notes**
+
+- Virtualization = Code + Data + Environment
+	- cross-platform, generalized, reliable ad hoc environment cpature
+- Cloud = Virtualization + Resources + Services
+	- any code, any data (more structure --> more services)
+	- scalable storage and compute for everyone
+	- services for processing big data, various data models
+	- services for managing VMs
+	- secure, reliable, available
+
+####*Video 3.3.2 - Cloud Computing for Reproducible Research*
+
+**A. Notes**
+
+- infrastructure-aaS, platform-aaS, software-aaS
+- MSFT as "all in on the cloud"
+
+**B. Specific advantages of the commercial cloud for research**
+
+- burst capacity:
+	- for the first time, "1000 processors for 1 day costs the same (or less) as 1 processor for 1000 days"
+- reproducibility
+- sharing and collaboration
+- eliminate redundant infrastructure across functional units in organizations
+
+####*Video 3.3.3 - Advantages of Virtualization for Reproducibilty*
+
+**A. An Observation**
+
+- there will always be experiments data houosed outside of managed environments
+	- "free" experimentation is a beautiful property of software
+	- we should be conservative about constraining the process
+- there is no difference between debuggin, testing, and experiments
+	- when it works, it's an experiment
+	- when it doesn't, it's debugging
+- conclusion: we need post hoc approaches
+	- that can tolerate messy, heterogeneous code and data
+	
+**B. Division of Responsibility**
+
+- where should we place the division of responsibility between you and those who want to reproduce your results?
+- consider skillsets:
+	 - can they install packages?
+	 - can they compile code and solve dependency problems?
+	 - can they write DDL statements?
+	 - can they configure a database server?
+	 - can they troubleshoot permissions problems?
+- if the answer is "no" it's debatable whether you've achieved reproducibility
+- many reproducibility efforts might end at "here's how SOMEONE could do this"
+
+####*Video 3.3.4 - Complex Virtualization Scenarios*
+
+**A. Notes**
+
+- "download to my laptop" is insufficient
+- so you need to do more than share your VM...provide access to a place to run them
+- (inside a commercial environment, you may often be able to assume shared access to common infrastructure resources)
+
+**B. More**
+
+- experiment environment span multiple machines
+- databases, models, web server
+- 1 VM is not enough for some things
+
+####*Video 3.3.5 - Shared Laboratories*
+
+**A. Notes**
+
+- see Chef, Amazon CloudFormation
+- "write scriptes to launch and set up and operate infrastructure"
+- share scripts so others cna link in to the same infrastructure
+
+**B. Observation(3): "Google Docs for developers**
+
+- the cloud offers a "demilitarized zone" for temporary, low-overhead collaboration
+	- a temporary, shared dev environment outside of the jurisdiction of over-zealous sysadmins
+	- no bugs closed as "can't replicate"
+- example: new software for serving oceanographic model results, requiring collaboration between UW, OPeNDAP.org, and OOI
+- think about setting up a shared environment to work together in
+	- no emailing of error messages
+	- "spin up an EC2 instance"
+- still works in corporate environment, even if not the public cloud
+
+####*Video 3.4.1 - Economies of Scale*
+
+**A. Notes**
+
+- who pays for reproducibility?
+	- costs of hosting code? data?
+	- costs of executing code?
+- hosting code --> you
+- hosting data --> maybe you, but with access charges?
+
+**B. Why does Cloud Computing save money?**
+
+- economies of scale!
+- "many small server rooms" just cannot keep up
+
+####*Video 3.4.2 - Provisioning for Peak Load*
+
+**A. Notes**
+
+- on-site, you need to provision machiens for "peak load" (you end up with lots of idle capacity)
+- more realistically, you're going to underprovision
+	- this has hidden costs...demand will naturally just "fit" to whatever capacity you offer
+	- no way to know you're in the "underprovisioned" regime
+- the commercial cloud gives the "illusion of unlimited resources"
+
+####*Video 3.4.3 - Elasticity and Price Reductions*
+
+**A. Notes**
+
+- elasticity = adapatability = ability to scale up and down without wasting capacity (would be crazy-hard in a commercial setting)
+	- not just dealing with "shocks", but predictable spikes in traffic
+	- think about trading firms putting heaviest demand on infrastructure during trading hours
+- change in price: compute and RAM
+	- competition between Amazon, Google, Microsoft has been great for this
+	- Amazon kept lower prices even withouot much competition
+
+####*Video 3.4.4 - Server Costs vs. Power Costs*
+
+**A. Notes**
+
+- an idle machine is incredible expensive to own
+	- so the goal of centralizing comptue on as few machines as possible isn't really useful
+- you have to run power and cooling to machines
+- "bend over backwards to avoid having idle computers"
+- Amazon can go out and just lower the price to get people to send more compute to the machines
+- all the costs are coming down fast
+
+####*Video 3.4.5 - Reproducibility for Big Data*
+
+**A. An Observation on Big Data**
+
+- the days of FTP are over:
+	- it takes days to transfer 1TB over the Internet
+	- copying a petabyte is operationally impossible
+- the only solution: push the computation to the data, rather than push the data to the computation
+- motivation: have the resting place for your large dataset be publicly accessible
+
+**B. Another Observation**
+
+- RR community tends to emphasize computation rather than data
+	- are your scripts in GitHub
+- re-executing "canned" experiments is not enough
+- neeed to support ad hoc, exploratory Q&A, which means:
+	- queries, not programs
+	- database, not files
+- next idea: database-as-a-service for research
+	- e.g. SQLshare
+- SQL might be way better for certain types of tasks
+	- e.g. "Give me all the IDs missing from at least one of three samples"
+	
+####*Video 3.4.6 - Counter-Arguments and Summary*
+
+**A. Counter arguments to using VMs for Reproducibility**
+
+- just "dumping" a VM encourages bad behavior:
+	- "here's all my code - you figure it out"
+	- reproducibility is about building on the results of others, not just re-running the exact experiments
+	- I don't want your messy environment, I want clear and succinet instrucitons on how to perform similar experiments
+	- professor: the status quo is pretty terrible. If (data) scientists can at least snapshot their environments, that's a step forward
+	- transparency is more than access...it's documentaiton too
+- VMs are not composable
+	- containers are solving this problem
+	
+**B. Summary**
+
+- cloud computing offers a pretty comprehensive platform for reproducible research
+- data + code + environment + platform
+	- regardless of scale or complexity
+	- "my lab in a box"
+- VMs (and containers, maybe chef scripts) can be saved, shared, cited: they are executable provenance for your experiments
+- for data-intensive experiments, there is literally no other choice than to used a shared data platform
+	- you can't be moving data around

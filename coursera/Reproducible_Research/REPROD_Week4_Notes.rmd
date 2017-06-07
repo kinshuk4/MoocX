@@ -1,0 +1,72 @@
+<center> <h2>Reproducible Research - Week 4</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 4.1 Caching Computations*
+
+**A. Literate Statistical Programming**
+
+- analysis code, presentation code, text all around that stuff
+- documentation language = human readable
+- programming language = machine readable
+- Sweave (uses LaTeX as documentation language, R as programming)
+
+**B. Packages RD Peng Invented**
+
+- the *cacher* package for R
+- evalutate code written in files and stores intermediate results in a key-value database
+- R expressions are given SHA-1 has values so that changes can be tracked and code reevaluated if necessary
+- "cacher packages" can be built for distribution
+- others can "clone" an analysis and evaluate subsets of code or inspect data objects
+- by caching, this lets you give you stuff to people and let them tweak only certain parts
+    - e.g. no need to re-run MC
+
+**C. Using cacher as an Author**
+
+- parse the R soruce file
+- cyclces through each expression in the source file
+- stores the source file, cached data objects metadata
+- if you're reading something in a journal, you can just go into the cacher package and clone everything
+- data not downloaded by default
+- You can make Analysis Code Graphs
+- you can see what lines of code created each object
+- execute the code with the runcode function
+    - things are loaded from the database, it won't just do things by default
+- intermediate outputs (like plot) are not caches
+- checkcode function evaluates all expressions from scratch
+    - related checkcodes looks for corruption in data objects
+- you can use the loadcache() package to see what's in the cache, load it into your namespace
+- the package can be used by authors to create cache packages from dat analyses for distribution
+- readers can use the package to inspect others' data analyses by examining cached computaiton
+- thee goals is to efficiently load things, make reproducibility checking really easy
+
+####*Video 4.2 Case Study: Air Pollution*
+
+**A. Intro**
+
+- the particulate matter (PM) in pollution is basically tons of pieces of dust
+- each piece of dust has other stuff --> metals, chemicals
+    - it might be that some subset of those pieces of particulate matter are what is harmful
+- trying to indentify harmful chemical parts of particulate matter
+
+**B. What Causes PM to be Toxic?**
+
+- some components of PM may be more hamrful than others
+- some sources of PM may be more dangeours than others
+- identifying harmful chemical constituents may lead us to strategies for controlling sources of PM
+- today, we just regulate the total amount of PM, not targeting the most deadly ones
+
+**C. What Have We Learned?**
+
+- they used removal of leverage plots to do basically a sensitivity analysis
+- the strength of the relationship is what we care about the most
+    - and that is driven largely by a few observations
+- reproducibility allows for the scientific discussion to occur in a timely and informed manner
+    -"this is how science works"
+- transparency helped the ideas to flow in a productive way
+    - reproducibility is key to makign science work, and work quickly
+
+####*Video 4.3 Case Study: High Throughput Biology*
+
+
+
+

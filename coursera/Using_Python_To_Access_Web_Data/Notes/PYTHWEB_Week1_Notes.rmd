@@ -1,0 +1,12 @@
+<center> <h2>Using Python for - Week 1</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 1.1.1 - Welcome to Python - Guido van Rossum*
+
+**A. Notes**
+
+- millions of people have learned Python
+- you can learn lots of coolness
+
+
+

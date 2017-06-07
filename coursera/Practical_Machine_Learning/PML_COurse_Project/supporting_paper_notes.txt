@@ -1,0 +1,42 @@
+PML Project Notes:
+
+
+Sensors on four locations (glove, armband, lumbar belt, dumbbell):
+	- 8 features (mean, var, sd, max, min, amplitude, kurtosis, skewness) of three Euler angles (roll, pitch yam)
+
+
+4 x 8 x 3 = 96 features
+
+Selected Set:
+
+1. Belt:
+ {} Mean roll
+ {} Variance of roll
+ {} maximum of accelerometer vector
+ {} variance of the gyro
+ {} variance of the magnetometer
+
+2. Arm:
+ {} variance of accelerometer
+ {} maximum magnetometer
+ {} minimum of magnetometer
+
+3. Dumbbell:
+ {} maximum of acceleration
+ {} variance of gyro
+ {} maximum and minimum of magnetometer
+
+4. glove:
+ {} sum of pitch
+ {} maximum of gyro
+ {} minimum of gyro
+
+
+
+
+They used a Random Forest approach, using an ensemble of classifiers using bagging.
+	- 10 random forests and each forest was implemented with 10 trees
+	- the classifier was tested with 10-fold CV and different windows sizes
+
+Also use leave-one-out test in order to measure whether classifier trained for some subjects is still useful for a new subject.
+

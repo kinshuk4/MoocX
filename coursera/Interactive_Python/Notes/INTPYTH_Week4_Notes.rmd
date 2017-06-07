@@ -1,0 +1,137 @@
+<center> <h2>Interactive Python - Week 4</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 4.1 - Lists*
+
+**A. Sequence Types in Python**
+
+- the most common of these is the list type
+- lists are in square brackets
+    - empty: ```mylist = []```
+    - not empty: ```mylist = ['hello','goodbye']```
+    
+**B. Accessing Lists**
+
+- you can use ```len(my_list)``` to extract the number of list elements
+- both lists and strings are sequences, so there is a lot of overlap in the functions you use
+- you can use [] indexing (just like with strings) to get at certain elements
+- unlike strings, lists are mutable
+    - you can use indexing to change elements
+- "good programmers keep their lists homogenous"
+    - i.e. only one type per list
+
+####*Video 4.2 - Keyboard Input*
+
+**A. The Echo program**
+
+- http://www.codeskulptor.org/#examples-keyboard_echo.py
+- keyboard up and keyboard down events
+- simplegui calls the draw handler 60x per second
+- event handlers for the events tell Python what to do when certain events happen
+- keys are mapped to integer "key codes"
+    - to get that variable, use something like ```simpleguid.KEY_MAP["left"]```
+- a change in direction is controlled by whatever vector you are adding to the position
+
+####*Video 4.3 - Motion*
+
+**A. A Bit of Calculus**
+
+- speed ("velocity") = change in position per unit of time
+- position = initial position + velocity * time
+- vector [6,1] means "move over 6 to the right and down 1"
+
+**B. Implicit Timer**
+
+- the canvas is re-drawn 60 times a second, so just pop some stuff in that draw handler
+- you can't change the timing
+- but you can now conditionally change the direction of your object and other cool stuff!
+
+####*4.4 - Collisions and Reflections*
+
+**A. The Math**
+
+- distance between two points:
+    - dist(p,q)^2 = (p[0] - q[0])^2 + (p[1] - q[1])^2
+
+```{r eval=FALSE, engine='Python'}
+
+def dist(p,q):
+    return math.sqrt((p[0]-q[0])**2 + (p[1] - q[1])**2)
+```
+
+**B. Vectors**
+
+- a vector is the difference between two points
+- point = point plus a vector
+  -  p = p~0~ + a*v
+
+**C. Collisions**
+
+- collision of ball with center p and radius r with wall
+    - left: p[0] <= r
+    - right: p[0] >= (width-1)-r
+- left wall:
+    - p[0]  <= 0
+- right wall:
+    - p[o] >= width - 1
+
+**D. Reflections**
+
+- a reflection is "updating the velocity vector when you hit the edge"
+- when you bounce off a vertical wall, the vertical component should be fine, but you need to negate the horizontal component
+- 
+
+####*Video 4.5 - Velocity Control*
+
+**A. Position**
+
+- you might control the velocity of the ball, rather than the exact position
+
+**B. Other Ideas**
+
+- remember the ball has center p
+- you could modify things inside the key handler
+    - different keys change the position
+- or the draw handler:
+    - take a point and change it by a velocity vector
+- combine them by putting velocity in the key handler:
+    - use the key handler to change velocity vector, then apply velocity vector to position
+    - not a great scheme...can get out of control very fast
+
+####*Video 4.6 - Visualizing lists and mutation*
+
+**A. Mutations**
+
+- you don't have to do a global call if you're mutating a bit of a list
+    - i.e. you can have a function that does ```my_list[1] = 4``` and it will look for the global variable my_list
+    - assignment, though, would require a global declaration
+
+####*Video 4.7 - Programming Tips*
+
+**A. What is Mutable?**
+
+- mutable = changeable
+- [4,5,6] is [4,5,6] will return False
+    - they look alike, but they're not the same things
+- remember that "is" matches values and type
+
+**B. Tuples (immutable lists)**
+
+- list: [4,5,6]
+- tuple: (4,5,6)
+    - cannot be mutated
+- benefits of tuples:
+    - sometimes you want to make sure your data aren't changed
+    - using tuples protects your data
+- strings are immutable
+
+####*Video 4.8 - Pong*
+
+**A. How Pong Works**
+
+- developed in 1972
+- the "+" operator on lists is a concatenation operator
+    - makes sense, right? They act basically like strings
+    - or, rather, strings act like lists
+    
+

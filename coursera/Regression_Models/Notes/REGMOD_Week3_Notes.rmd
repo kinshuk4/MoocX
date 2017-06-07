@@ -1,0 +1,299 @@
+<center> <h2>Regression Models - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1 - Multivariable Regression Examples*
+
+**A. Swiss Fertility data**
+    
+    ```{r eval=FALSE}
+    library(datasets); data(swiss); require(stats); require(graphics)
+    pairs(swiss, panel=panel.smooth, main="Swiss Data", col=3 + (swiss$Catholic > 50))
+    ```
+
+- The data describes fertility measures and socioeconomic indicators for 47 French-speaking provinces of Switzerland in 1888
+
+**B. Calling lm**
+
+    ```
+    summary(lm(Fertility ~ ., data=swiss))
+    ```
+
+- using the "." says "all other variables in the dataset"
+
+**C. Back to the Data Set**
+
+- The sign reverses itself with the inclusion of Examination and Education, both of which are negatively correlated with Agriculture
+- Be sure to control for all relevant variables. Results are suspect without such controls in place
+- Try to "craft a story"
+
+
+**D. What is We Include an Unnecessary Variable?**
+
+- consider z, which adds no new linear information, since it's a linear combination of variables already included
+- R will drop terms that are linear combinations of other terms
+
+    ```
+    z <- swiss$Agriculture + swiss$Education
+    lm(Fertility ~ . + z, data=swiss)
+    ```
+
+####*Video 3.2 - Dummy Variables*
+
+**A. Dummy Variables Are Smart**
+
+- You can use dummies to fit "factor models", used to compare group means
+- When you use dummies, the constant term is the conditional mean for the "control" group and beta_1 captures the difference in means
+- Be sure not to include redundant dummies (D=1 for people in group A already implies "not in group B")
+
+**B. More than 2 Levels**
+
+- This approach is not limited to 2 dummies 
+- The comparison just becomes a bit more complicated
+- Just remember that the constant ("intercept") captures the mean when all dummies are 0; Work back from there
+
+**C. Using Dummies in R**
+
+- When you put a factor variable on the right hand side in an lm() call, it will automatically create dummies for the factor levels
+- It will choose the lowest factor level as the "reference category" (the factor level not explicitly called by a dummy, but represented in the constant)
+- You may also want to hard-code your own dummy variables into R
+
+    ```
+    summary(lm(count~
+        I(1 * (spray == 'B')) + I(1 * (spray == 'C'))
+        ), data=InsectSprays)
+    ```
+
+- That I() command tells R you are doing some manipulations of variables inside the lm() call
+
+**D. What if we Omit the Intercept?**
+
+- It's no longer redudant to have a dummy for every factor
+- Now you can use one for each, essentially decomposing the constant
+- This is a useful approach to identifying seasonality (e.g., when examining day-of-the-week effects in returns to financial assets)
+- If your model exclusively includes factors like this, the coefficients are just the empirical means for each sub-group
+
+**E. Summary**
+
+- If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor
+- If we omit an intercept, the group means = coefficients
+- The t-tests become tests of whether the group means are 0, not test of differences between them
+- To reset the reference category, you could use:
+
+    ```
+    spray2 <- relvel(InsectSprays$spray, "C")
+    ```
+
+**F. Other thoughts on this Data**
+
+- Counts are bounded from below by 0, violates the assumption of normality of the errors
+- Variance does not appear to be constant
+- Pehaps taking logs of the counts would help
+- We could use a Poisson GLM fot fitting data (would avoid the issue of violating assumptions)
+
+
+####*Video 3.3 - Interactions*
+
+**A. An Example (Millenium Development Goal 1)**
+
+- You could think of the error term as Gaussian noise
+- The error captures things missed in the model
+- Using some factor (such as gender), you can examine changes in the intercept or changes in the slope
+- To examine different slopes for different groups, intercat a factor dummy with some other RHS variable
+- R treats interaction specifications a bit...differently
+- Example 1: You want individual effects + interaction:
+
+    ```{r eval=FALSE}
+    lmBoth <- lm(hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex*hunger$Year)
+    
+    #The above is equivalent to:
+    lmBoth <- lm(hunger$Numeric ~ hunger$Sex*hunger$Year)
+    
+    #If you use the asterisk operator, R will automatically include the separate effects
+    ```
+    
+- Example 2: You want only the interaction term
+    
+    ```{r eval=FALSE}
+    #If you use the ":" operator, only the interaction will be included as a regressor
+    lmBoth <- lm(hunger$Numeric ~ hunger$Sex:hunger$Year)
+    ````
+
+**B. Interpreting a Continuous Interaction**
+
+- Interpretation here is "hard in the sense that programming a DVD player is hard"
+- Interaction dummies are a form of [piecewise regression](http://en.wikipedia.org/wiki/Segmented_regression)
+
+####*Video 3.4/3.5/3.6/3.7 - Multivariable Simulation Exercises*
+
+**A. Using Some Simulated Data**
+
+- The code from this lecture is useful if you want to learn some regression graphing, but not much going on
+- You can use the points() function to plot the points last (on top of the fitted line)
+
+**B. Some Things to Note**
+
+- The X variable is unrelated to group status
+- The X variable is related to Y, but the intercept depends on group status
+- THe group variable is related to Y
+- The treatment effect is meaningul (vertical shift --> vertical line)
+
+**C. A Tougher Simulation**
+
+- In this group, almost no overlap between treated and untreated
+- On the same line = same intercept (X is to blame for changes in their values)
+- The groups aren't comparable --> "estimates are all model, no data"
+- If the intercept still ends up being 0, there's really no impact of the group variable
+- The model would estimate no adjusted effect due to group
+- Conclusions are all based on the model
+- Overlap --> evidence for comparing red and blue holding x fixed
+- If group status is not related to X, there is lots of direct evidence for comparing red and blue holding x fixed
+
+**D. Some Final Thoughts**
+
+- Modeling multivariate relationships is difficult (if interpretation is the goal)
+- It's easier if you are just interested in prediction
+- Causality is even harder to figure it out (this is the domain of causal inference)
+
+####*Video 3.8/3.9/3.10 - Residuals, Diagnostics, Variation*
+
+**A. The linear model**
+
+- Y~i~ is assumed to be the sum of coefficients * some regressors
+- Residual variation = sum of squared resids / (n-p)
+```{r eval=FALSE}
+par(mfrow=c(2,2)) #show a two by two panel of plots
+```
+
+- observations with the most potential for influence are off the regression line and different from mean of x and y
+
+**B. Summary of the plot**
+
+- Calling a point an "outlier" is vague
+    - Outliers can be the result of spurious or real processes
+    - They can have varying degrees of influence
+    - Outliers can conform to the regression relationship
+    
+**C. Influence Measures**
+
+- Try ?influence.measures
+
+    ```{r eval=FALSE}
+    rstandard #standardized residuals
+    rstudent #standardized resids
+    hatvalues #measures of leverage
+    dffits #chagne in the predicted response with the i^th^ point is deleted
+    dfbetas #change in invidiual coefficients when the i^th^ point is deleted in fitting the model
+    cooks.distance # overall change in the coefficients when the i^th^ point is deleted
+    resid # the residuals
+    resid(fit)/(1-hatvalues(fit)) #the leave one out cross validation results
+    ```
+    
+**D. How do I use all of these things?**
+
+- Be wary of simplistic rules for diagnostic plots and measures
+- Tools are context-specific
+- Use these judiciously
+- Not all of the measures have meaningful absolute scales. Look at them relative to the values across the data
+- Patterns in your resid plots generally indicate some poor aspect of model fit. such as:
+    - Heteroskedasticity
+    - Missing model terms
+    - Temporal patterns
+- Residual QQ plots investigate normality of the errors
+    - quantiles of the errors vs theoretical quantiles of standard normal
+- Leverage measures can be useful for diagnosing data entry errors
+- Influence measures get to the bottom line. "How does deleting or including this point impact a particular aspect of the model?" 
+
+**E. Some Diagnostics Examples**
+
+- dfbetas() are the difference in coefficients between leaving that data in and taking it out
+- hatvalues() are the differences in the predicted value leaving it in/taking it out
+- pairs() does pairwise scatterplots
+
+
+####*Video 3.11/3.12 - Some Notes on Model Selection*
+
+**A. Multivariable Regression**
+
+- There is an entire class on prediction/machine learning
+- Prediction has a different set of criteria (needs for interpretability)
+- In modeling, our interest lies in parsimonious, interpretable representations of the data that enhance our understanding of the phenomena under study
+- A model is a lens through which to look at your data
+- There is no "best" model of a given dataset
+- Good modeling decisions are context dependent
+- There are a bunch of things you can do wrong
+    - Variable inclusion/exclusion
+    - Functional form
+    - Error distribution assumptions
+    - Sampling concerns
+
+**B. The Rumsfeldian Triplet**
+
+- "There are known knowns..."
+- (Unknown unknowns) - regressors we don't even know about that we should have included in the model
+
+**C. General Rules**
+
+- Omitting variables results in bias in other coefs, unless their regressors are uncorrelated with the omitted ones
+    - This is why randomized experiments are so popular
+- Including variables we shouldn't have increases standard errors of the variables
+    - Including *any* new variables increases standard errors (actual, not estimated) of other regressors
+- The model must tend toward perfect fit as the number of non-redundant regressors approaches *n*
+- R^2^ increases monotonically with new variables
+- The SSE decreases monotonically as more regressors are included
+
+**D. Variance Inflation Factors**
+
+- Adding more variableserrors inflates the standard errors of the betas
+- Notice variance inflation was much worse when we included a variable that was highly related to x1
+- We don't know sigma, so we can only estiamte the increase in the actual standard error of the coefficients
+- However, sigma drops out of the relative standard errors
+- When the regressors are actually orthogonal to the regressor of interest, there is not variance inflation
+- VIF --> the increase in the variance for the *ith* regressor compared to the ideal setting where it is orthogonal to the other regressors
+- Some variables belong, even if they cause severe variance inflation
+
+**E. Revisiting Our Previous Simulation**
+
+- Variance inflation doesn't depend on Y or the errors
+- Variance inflation is a function of the covariance between included regressors
+- To grab unscaled covariance use fit$cov.unscaled
+
+####*Video 3.13 - Model Comparison and Search*
+
+**A. VIFs**
+- you can get VIFs just by using:
+
+```{r eval=FALSE}
+vif(fit)
+```
+
+- VIFS --> the comparison of the standard errors relative to if all covariates were othogonal
+- Highly correlated variabels will have higher VIFs
+
+**B. What About Residual Variance Estimation**
+
+- Assuming that the model is linear with additive iid erros (with finite variance), we can mathematically describe the impact of omitting necessary variables or including unnecessary ones
+- Correctly/overfit model --> variance estimate unbiased
+- Omission --> variance estimate biased
+
+**C. Covariate Model Selection**
+
+- In the prediction class, we'll cover "large model spaces"
+    - Testing many interactions, polynomials, etc. in automatic selection
+- Good design can often eliminate the need for a complex model search
+- If the models of interest are nested and without lots of paramters differentiating them, it's fairly uncontroversial to use nested likelihood ratio tests
+- The best approach may be to look for robustness
+    - Include other stuff and see if you can knowck something out of a model
+    
+**D. How to do Nested Model Testing in R**
+
+- see the code from slide 14
+- use update(fit) and anova() on those updates to see how Sum of Squares changes
+- The p-value in the anova output tells you to keep including new stuff until it becomes insignificant
+
+
+
+
+
+
+
+

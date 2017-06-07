@@ -1,0 +1,286 @@
+<center> <h2>Reproducible Research - Week 1</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 1.1 Introduction*
+
+**A. What the Class is About **
+
+- basic idea: communicate your stuff in a way that could be reconstructed by someone else
+- as datasets and accompanying analyses become more complex, this becomes more important
+- this course is about basic tools: e.g., knitr (RStudio)
+- "It's about communicating exactly what you've done"
+
+####*Video 1.2 Concepts & Ideas (pt 1)*
+
+**A. Some Stuff**
+
+- your studies need to be replicable by other researchers
+- particularly important in studies that could impact policymakers
+- reproducible research: "make analytic data and code available so that others may reproduce findings"
+- replication is getting harder to do
+- reproducibility becomes even more important when you're detecting very small effects
+- Pollution data available: [JHU iHAPSS](http://www.ihapss.jhsph.edu/)
+
+####*Video 1.3 Concepts and Ideas (pt 2)*
+
+**A. Research Pipeline**
+
+- you're taking the data, doing some stuff, and reporting it in summary figures and tables
+- the article draws on these (in text)
+- example of reproducibility concerns: Duke University issues (60 minutes)
+- <b>omics</b> - a field of study in biology ending in -omics, such as genomics, proteomics, and metabolomics
+
+**B. Recommendations**
+
+- data/metadata used to develop tests should be made publicly available
+- code should be fully available
+- all steps should be described
+
+**C. What do we need?**
+
+- analytic data are available
+- analytic code are available
+- documentation of code and data
+- standard means of distribution (everything should be easy to access)
+
+**D. Who are the players?**
+
+- authors, readers
+- authors have to undertake considerable effort to put data/resultso n the web
+- readers might not have the tools at their disposable that authors did
+- RR toolbox is small but growing
+
+**E. Current State**
+
+- stuff just gets thrown up on the web
+- only a few central databses for fields
+- readers just download the data and try to figure stuff out
+
+####*Video 1.4 Literate Statistical Programming*
+
+**A. What is it?**
+
+- think of an article as a stream of text and code
+- literate programs can be <b>weaved</b> to produce human-readable documents and <b>tangled</b> to produce machine-readable documents
+- sweave uses uses LaTeX and R as the documentation and programming languages
+- Sweave is maintained by R core
+
+**B. Sweave Limitations**
+
+- primiarily focused on LaTex, a difficult to learn markup language "used only by weirdos"
+- knitr lets you mix LaTex, Markdown, HTML
+
+####*Video 1.5 Scripting Your Analysis*
+
+**A. Basic Rule**
+
+- "script everything" (Golden Rule of RR)
+- scripting means "'write everything down"
+- script is analogous to "the score" in music
+
+####*Video 1.6 Structure of a Data Analysis (pt 1)*
+
+**A. Steps in a data analysis**
+
+- think about defining an "ideal" data set, comparing to actual available data
+- it's unlikely you'll start with exactly the data you need
+- "defining a question is the most powerful deimsionality reduction tool you can ever employ"
+- proper data analysis should have some working theory guiding it
+
+**B. Asking the Right Question, the Right Way**
+
+- go from general to concrete question
+
+**C. Define the ideal data set**
+
+- possible solution: [UCI Machine Learning Library](http://archive.ics.uci.edu/ml/datasets/Spambase)
+
+**D. Obtain the Data**
+
+- try to get raw data
+- reference data sources
+    - "polite emails go a long way" when asking for data
+- if you load the data from an internet source, record the url and time accessed
+- example: spam dataset in r kern package
+- don't forget to determine if the data are good enough!
+- don't just "push on with the data you have"
+
+####*Video 1.7 Stucture of a Data Analysis (pt 2)*
+
+**A. **
+
+-EDA:
+    - look at summaries
+    - check for missing values
+    - create exploratory plots
+    - do some clustering
+    
+```{r echo=TRUE, eval=FALSE}
+#load the data
+require(kernlab)
+data(spam)
+
+#perform some subsampling
+set.seed(3435)
+trainIndicator = rbinom(4601, size=1, prob=0.5) #random half of dataset
+table(trainIndicator)
+
+#define training vs. test data
+trainSpam <- spam[trainIndicator == 1,]
+testSpam <- spam[trainIndicator == 0,]
+
+#look at the data
+head(trainSpam)
+
+#exploratory boxplot
+plot(log10(trainSpacm$CaptialAve + 1) ~ tainSpam$type)
+```
+
+- look at some pairwise relationships?
+
+```{r echo=TRUE, eval=FALSE}
+plot(log10(trainSpam[,1:4] + 1))
+
+#hierarchical clusters?
+hCluster = hclust(dist(t(trainSpam[, 1:57])))
+plot(hCluster)
+```
+
+- clusters can be really sensitive to skewness
+
+**B. Statistical prediction/modeling**
+
+- be informed by results of your exploratory analysis
+- exact methods depend on the question of interest
+- transformations/processing should be accounted for when necessary
+- measures of uncertainty should be reported
+
+```{r echo=TRUE, eval=FALSE}
+#the goal: fit a logistic regression
+trainSpam$numType = as.numeric(trainSpam$type) -1
+costFunction = function(x,y) sum(x != (y > 0.5))
+cvError = rep(NA, 55)
+require(boot)
+
+#run a logistic regression for prediction
+#reformulate is used to create a formula from a text string
+for (i in 1:55) {
+    lmFormula = reformulate(names(trainSpam)[i], response = "numType")
+    glmfit = glm(lmFormula, family = "binomial", data = trainSpam)
+    cvError[i] = cv.glm(trainSpam, glmFit, costFunction, 2)$delta[2]
+}
+
+#which predictor has minimum cross-validated error?
+names(trainSpam)[which.min(cvError)]
+
+#use the best model from the group
+predictionModel = glm(numType ~ charDollar, family = "binomial", data = trainSpam)
+
+## Get predictions on the test set
+predictionTest = predict(predictionmodel, testSpam)
+predictedSapm = rep("nonspam", dim(testSpam)[1]
+                    
+## Classify as 'spam' for those with prob > 0.5
+
+predictedSpam[predictionmodel$fitted > 0.5] = "spam"
+```
+
+**C. Interpret Results**
+
+- Use the right language
+- give an explanation
+- interpret coefficients
+- interpret measures of uncertainty
+
+**D. Challenge Your Results**
+
+- "if you don't do it, someone else will"
+- was the question even valid
+- how were the data analyzed?
+- do you have the right measures of uncertainty?
+- why is your model appropriate? Why is it better than others?
+
+**E. Synthesize/write up results**
+
+- synthesis is important --> there will be a bunch of things you did. Important to parse out the most important ones
+- don't include every analysis. Only the ones needed for the story
+- order analyses according to the story, rather than chronologically
+    - the order you did things was probably scattered, doesn't make sense when you look back at it
+- include "pretty" figures that contribute to the story (probably not your exploratory graphs)
+- benefits of R Markdown/knitr --> preserve the code, make everything reproducible
+- big data analyses will be judged by reproducibility
+
+####*Video 1.8 Organizing Your Analysis*
+
+**A. Data Analysis Files**
+
+- Data
+- Figures
+    - both rough exploratory figures and pretty figures
+- R code
+    - raw/unused scripts
+    - final scripts,
+    - R markdown files
+- Text
+    - README files
+    - text of analysis / report
+    
+**B. Raw Data**
+
+- store this in your analysis folder
+- if the data are from the web, include:
+    - url
+    - description
+    - data you accessed the data (maybe put all this in a README)
+- A tip for git:
+    - add the data to your version control, then keep all the tracking info above in the log message in git as you commit new versions of the data
+
+**C. Processed Data**
+
+- processed data should be named so it is easy to see which script generated the data
+- the processing script - processed data mappign should occur in the README
+- procedded data should be tidy
+
+**D. Exploratory Figures**
+
+- just stuff you look at as you do the analysis, not necessarily part of your final report
+- no need to make these "pretty"
+- final figures will be polished and pretty (perhaps some consistent use of colors)
+- avoid inundating people with a bunch of figures ... message more likely to get lost as you add more and more graphs
+
+**E. Raw Scripts**
+
+- need to keep commenting stuff
+- there might be multiple competing versions of scripts
+- these might include analyses that you get rid of later
+
+**F. Final Scripts**
+
+- lots of comments, good indenting
+- big comment blocks for whole sections
+- include processing details
+- only analyses that appear in the final write-up should be in the final scripts
+
+**F. R markdown files**
+
+- you can used these to generate RR because text and R code are integrated
+- super easy to create
+
+**G. README files**
+
+- not necessary if you use R markdown and literate programming
+- should contain step-by-step instructions for analysis
+- consider Jeff Leek's "swfdr" repo as an example
+
+**H. Text of the Document**
+
+- include a title, introduction, methods, results, and conclusions (includign potential problems)
+- tell a story
+- *do not include every anlysis you performed!*
+- include references for statistical methods
+- see link in course notes --> "Project template, a pre-organized set of files for data analysis" --> [ProjectTemplate package](http://cran.r-project.org/web/packages/ProjectTemplate/ProjectTemplate.pdf)
+
+####*Video 1.9 - Use R version 3.1.1.*
+
+- Most current version of R is 3.1.1, and the course will be taught in
+

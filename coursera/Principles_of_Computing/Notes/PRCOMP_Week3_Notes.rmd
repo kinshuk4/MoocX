@@ -1,0 +1,85 @@
+<center> <h2>Principles of Computing - Week 3</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 3.1 - The Importance of Probability*
+
+**A. Notes**
+
+- probability impacts difficulty in games
+- probability helps you to put events into the proper context
+
+####*Video 3.2 - Basics of Probability*
+
+**A. Notes**
+
+-  probability is an analysis of random phenomena
+- "uniformly distributed" = all outcomes have the same probability
+
+**B. Simulations**
+
+- we can use computers to simulate trials, random events
+- we can build tests in Python to see if the random numbers returned in Python are reasonable
+- random process should asymptotically approach the theoretical properties of a distribution
+
+####*Video 3.3 - Expected Value*
+
+**A. Notes**
+
+- "expected value" is an asymptotic property
+- you can only multiply the probabilities of independent events
+- expected value will always be just value of outcomes times their probabilities
+- there is great value in comparing expected to observed events
+
+####*Video 3.4 - Monte Carlo Methods*
+
+**A. Notes**
+
+- we do Monte Carlo simulations when finding an analytical result is impossible or too difficult/costly
+- Monte carlo methods are used for:
+    - optimization
+    - probability distributions
+    - numerical integration
+
+**B. How They Work**
+
+- just iterate a bagillion times and see what happens
+- make sure you use enough trials to get a good result
+- make sure the way you do this accurately simulates the phenomenon you're interested in
+
+####*Video 3.5 - Objects and References*
+
+**A. Notes**
+
+- in Python, everthing is an object
+- an object is a piece of memory that holds data
+    - also has a type, which implies methods
+    - object = data + behaviors
+- variables = references to objects
+    - like nametags
+- objects can have multiple references
+    - if you do ```x = [3,4,5]``` and ```y=x``` will give you two references to the same object
+- even the elements in your list are actually references to other locations in memory
+- when you pass a variable into a a function, you are actually passsing a reference
+    - you need to explicitly create copies if you want to work with copies
+- the data live in objects
+    - you need references to access them
+    - if you enter the object through any one reference, the object will change and if you call another reference to the same thing, you will get the new object
+
+####*Video 3.6 - Tic-Tac-Toe - Monte Carlo*
+
+**A. Notes**
+
+- if both players know what they're doing, noone wins
+- the goal is to create a machine player that won't lose
+- we're going to create a machine player that plays a bunch of games and decides the best move
+- [tic-tac-toe Monte carlo](https://class.coursera.org/principlescomputing1-004/wiki/tictactoemc)
+
+**B. Implementing the Game**
+
+- scoring game boards
+    - maybe add 2 for the winning squares, subtract 1 for losing squares
+- no useful information in draws
+- basically, the idea is just to mark all the winning squares
+- the template has a lot of missing stuff this time
+    - "pushing you a little outside your comfort zone"
+- Monte Carlo methods can be used for lots and lots of applications outside of game

@@ -1,0 +1,584 @@
+Summary
+-------
+
+List of Learning Algorithms:
+1. Linear Regression and its regularized algorithms (Ridge, Lasso, and Elastic Nets) (Supervised - Regression) (Model-based method)
+2. Logistic Regression (Supervised - Classification) (Model-based method)
+3. k-nearest Neighbors (Supervised - Classification) (Instance-based method)
+4. kMeans (Unsupervised - Clustering)
+5. Latent Dirichlet Allocation LDA (Unsupervised - Topic Modeling)
+6. Naive Bayes (Supervised - Classification)
+7. Apriori algorithm (Recommendation System)
+8. Principal Component Analysis (PCA) (Unsupervised - Dimension Reduction)
+9. Linear Discriminant Analysis (LDA) (Supervised - Dimension Reduction)
+10. Multidimensional Scaling (MDS) (Unsupervised - Dimension Reduction)
+
+List of dataset:
+1. Web hits
+2. Iris
+3. Seeds (Wheat)
+4. 20newsgroups
+5. Associated Press (AP) of news reports
+6. Wikipedia dump
+7. Stackoverflow dataset
+8. Sanders' hand-labeled twitter data
+9. Boston
+10. SVMLight
+11. Movielens
+12. Grocery Shopping Datasets
+13. GTZAN dataset
+
+Dataset Library:
+1. UCI Machine Learning Dataset Repository
+2. MLComp
+
+List of libraries:
+1. NumPy
+2. SciPy
+3. Matplotlib
+4. Scikit-learn
+5. Natural Language Toolkit (NLTK)
+6. gensim (Topic Modeling Tool)
+7. The ElementTree XML (Reading XML files)
+8. BeautifulSoup (Reading and Parsing HTML)
+9. Pickle (Saving the model to hard drive)
+10. Joblib (Saving the model to hard drive)
+11. SentiWordNet (Library which includes list of sentiment of words)
+12. scikits.talkbox (modules for speech/signal processing)
+13. mahotas
+14. scikit-image
+15. ndimage
+16. OpenCV Python
+17. Jug
+
+List of functions:
+1. np.genfromtxt(file, delimiter='')
+2. kFold (Cross Validation)
+3. CountVectorizer
+4. TfidfVectorizer
+5. precision_recall_curve
+6. MultinomialNB
+7. GridSearchCV
+8. ntlk.pos_tag()
+9. FeatureUnion
+10. LassoCV
+11. scipy.io.wavfile.read()
+12. specgram (Matplotlib function)
+13. confusion_matrix (scikit-learn)
+14. pylab.matshow()
+
+Other tools:
+1. http://www.wordle.net
+2. Amazon Web Services. (EC2)
+
+
+===================================================================================================
+
+Chapter 1
+=========
+Getting Started with Python Machine Learning
+
+1. Reading the data and cleaning it.
+2. Exploring and understanding the input data.
+3. Analyzing how best to present the data to the learning algorithm. [Feature Engineering]
+4. Choosing the right model and learning algorithm. [Overall very less time]
+5. Measuring the performance correctly.
+
+Libraries:
+----------
+1. NumPy
+2. SciPy
+3. Matplotlib
+
+Using numpy array as indices for another numpy array.
+
+NumPy provides n-dimensional array and various way to handle them.
+SciPy is build over NumPy and provides scientific calculations over these arrays.
+
+tsv (tab separated values) are better than space separated or comma separated.
+
+SciPy provides in built functions to read from the file and make a data structure to feed into a learning algorithm.
+For e.g sp.genfromtxt(filename, delimiter)
+
+In order to compare runtime behaviour, use timeit library
+
+In every algorithm you are about to implement, you should always look at how you can move loops over individual elements from Python to some of the highly optimized NumPy or SciPy extension functions.
+
+Application 1:
+--------------
+Scenario - A web startup doesn't want to invest lot of money on infrastructure, but gradually their web hits are increasing day by day. Problem is they want to know before hand when their infrastructure would need upgradation.
+
+Supervised Learning - Regression
+Learning Algorithm:
+Linear Regression (Degree 1, 2, or so on)
+
+Input - Web stats in a file. Structure. Each line contains consecutive hours and the number of web hits in that hour.
+Output - A model which can predict the number of hits on their system in coming future.
+
+Few pointers:
+np.genfromtxt(file, delimiter='') is brilliant function to read from file.
+
+If we try lower degree polynomial for Linear Regression, then the model will underfit, and won't generalise for new data.
+If we try higher degree polynomial for Linear Regression, then the model will overfit, and won't generalise for new data.
+
+Sometimes, breaking the data and building a model on split data are better choice. This way we will have multiple models for same data, but depending upon in which slot new data fits, that type of model is used to predict.
+
+=============================================================================================================
+
+Chapter 2
+=========
+Learning how to classify with Real-world Examples
+
+Application 2:
+-------------
+Scenario - Distinguish between flower species based on images.
+
+Supervised Learning - Classification
+Learning Algorithm:
+Logistic Regression
+
+Dataset - Iris
+
+Cross Validation via KFold technique
+
+Application 3:
+-------------
+Scenario - Given morphological measurements of a wheat seed, such as area, length, compactness etc; goal is to be able to classify the species of wheat.
+
+Supervised Learning - Classification
+Learning Algorithm:
+k-nearest Neighbors
+
+Dataset - Seeds
+
+Source of dataset:
+UCI Machine Learning Dataset Repository
+
+If features are less, then engineer new features, which is known as Feature Engineering.
+If features are more, choose good set of features for learning, which is known as Feature Selection.
+
+Use 'One vs All' scenario to use binary classifier to classify multiple classes.
+
+==============================================================================================================
+
+Chapter 3
+=========
+Clustering - Finding Related Posts
+
+Application 4:
+-------------
+Scenario - Measure the relatedness of posts
+
+Naive Approach:
+Similiarity Measure: We will compare the new post's distance to all the count vectors and fetch the post with the smallest one.
+
+Unsupervised Learning - Clustering
+Learning Algorithm:
+KMeans
+
+Dataset - 20newsgroups
+
+Using 'Bag of Word' approach is better than 'Edit Distance' for machine learning.
+'Edit Distance' is algorithmic approach which is expressed as the minimum set of edits that are necesary to turn one word into the other.
+'Bag of Word' calculates word count in each post.
+
+'Bag of Word' with Similarity measure is good start for clustering problem.
+
+The step to find each word in post and its corresponding occurrence is known as vectorization.
+
+Techniques for measuring the relatedness of posts:
+1. CountVectorizer (Bag of Word) with removal of less important words
+2. Normalisation (Preprocessing)
+3. Stemming (Using Natural Language Toolkit - NLTK)
+4. Term frequence - Inverse document frequency (TF-IDF) is better than CountVectorizer
+
+Source of dataset:
+http://mlcomp.org
+
+sklearn.metrics package to check the performance of your model.
+
+===============================================================================================================
+
+Chapter 4
+=========
+Topic Modeling
+
+Put each input into number of groups called topics in contrast to single input in single cluster in clustering algorithms.
+
+Topic models are useful on their own to build visualizations and explore data. They are also very useful as an intermediate step in many other tasks.
+
+Previously we compared two documents by comparing their word vectors, we can now compare two documents by comparing their topic vectors.
+
+Application 5:
+-------------
+Scenario - Modeling the whole of wikipedia
+
+Learning Algorithm:
+Latent Dirichlet Allocation (LDA)
+
+Library:
+gensim
+
+Dataset:
+Associated Press (AP) of news reports
+
+Scikit-learn doesn't support Latent Dirichlet Allocation.
+
+Tool to create 'Word Cloud'
+http://www.wordle.net
+
+================================================================================================
+
+Chapter 5
+=========
+Classification - Detecting Poor Answers
+
+Application 6:
+-------------
+Scenario - Giving feedback to the user who is giving an answer to a question about the quality of his answer.
+
+Learning Algorithms:
+1. k-nearest Neighbors
+2. Logistic Regression
+
+Dataset:
+Stackoverflow dataset
+ttp://www.clearbits.net/torrents/2076-aug-2012.
+
+All xml files
+
+Library: cElementTree
+Convert it into tsv using cElementTree because the simpler the format, the better it is. 
+
+Key Points:
+Feature Extraction or Vectorisation took usually 2 or 3 steps to convert raw data into set of features in order to feed into learning algorithm.
+
+Sometimes one of the feature can be used as a label for supervised learning. 
+
+Never use regex to extract data from html because of all the weird things that typically occur in everyday HTML. Use BeautifulSoup.
+
+Thinking of features to create from raw data is tricky and time consuming part. Only comes with experience and instincts.
+
+Keep on plotting the features in order to sense the distribution of feature over dataset.
+
+Steps of solving a machine learning problem is usually done in iterative manner. 
+
+3. Convert data into samples consisting of features (Feature Extraction or Vectorisation).
+	3.1 Plot the data to see the distribution of samples. (Visualisation)
+4. Split the data into training and testing.
+	4.1 Determine if features are enough to learn, otherwise engineer more features. (Feature Engineering)
+	4.2 If features are large, select good set of features for learning. (Feature Selection)
+	4.3 Perform data transformation for faster learning (Data Preprocessing).
+	4.4 Choose if using unsupervised learning method to reduce the dimensions of data will do good for you.
+5. Choose the right model and learning algorithm.
+6. Learn using learning algorithm.
+7. Measure the performance of the model by cross validating.
+8. Test your model using testing data.
+9. If possible visualise your model.
+
+Usually, these steps are repeated many times until we are satisfied with the performance of the model.
+
+This encourages us to waste very less time on vectorisation in the initial stage of the project, since it's the most time consuming part of the machine learning project; after successfully measuring the performance of the model developed by initial features extracted, we can go back to extract more features. We can do this n number of times.
+
+Limitation of k-nearest Neighbor:
+All features are treated similarly. kNN does not really learn that, for instance, one feature is good to have but much less important than the other feature.
+As the nearest neighbor method is an instance-based approach, we will have to store all the posts in our system. The more posts we get, the slower the prediction will be. This is different with model-based approaches where you try to derive a model from the data.
+
+How to improve:
+1. Add more data.
+2. Play with the model complexity.
+3. Modify the feature space.
+4. Change the model.
+
+Bias Variance Tradeoff:
+----------------------
+By plotting dataset size/error graph for train and test error, we can see  why our model is not generalising.
+High bias is typically revealed by the test error decreasing a bit at the beginning, but then settling at a very high value with the train error approaching a growing dataset size. 
+High variance is recognized by a big gap between both curves.
+
+IF error is not decreasing with the increase of dataset size:
+	then adding more data will not help improving the score.
+
+if model is underfit
+	then it is said to have high bias
+if model is overfit which usually happens when the model learns from too many features
+	then it is said to have high variance
+
+In both cases, it will fail to generalise to new cases.
+
+In order to avoid underfitting:
+1. Get more features
+2. Make the model more complex
+3. Change the model
+
+In order to avoid overfitting:
+1. Reduce number of features
+2. Regularisation (Keep all the features, but reduce the magnitude of weights for each feature)
+
+Key Idea:
+If we can tune the classifier to be particularly good in predicting one class, we could adapt the feedback to the user accordingly.
+
+This can be achieved using precision and recall score; finding the threshold.
+
+If you're not satisfied with the score of the model, check precision and recall score.
+Precision = TP/(TP+FP)
+Recall = TP(TP+FN)
+
+Using prediction recall curve to have an insight of the model.
+precision_recall_curve()
+
+It is always worth looking at the actual contributions of the individual features.
+
+Save the model for future use.
+pickle
+joblib
+
+==================================================================================================
+
+Chapter 6
+=========
+Classification II - Sentiment Analysis
+
+Opinion Mining - Sentiment classification
+
+Application 7:
+-------------
+Scenario - Sentiment Analysis of tweets. Classify tweets into postive, negative or neutral sentiment.
+
+Dataset:
+Sanders' hand-labeled twitter data
+
+Learning Algorithm:
+Naive Bayes - Supervised learning
+
+Naive Bayes is all about conditional probablity and manipulation given all the features are independent.
+
+Math tip:
+If you just want to compare two terms which will go upto very large term or very low term, term which can go above the limit of variable in a programming language, just calculate the log of those terms to bring it back to resonable terms.
+
+To avoid division by zero, use "add-one smoothing".
+p/q = (p+1)/(q+2)
+
+MultinomialNB uses word vectors.
+
+Making a pipeline is always a good idea.
+
+Sometimes score on the test set is higher, but doesn't mean the classifier is generalised. Maybe it's the case of skew class. So, always check for precision and recall score and graph. And finally to sum up both precision and recall, use F1 score.
+
+In order to tweak various options in Scikit-learn algorithms, use GridSearchCV instead of manual tweaking.
+
+One part of Feature building is thinking like a human. For e.g considering emoticons.
+
+More features can be added to a text based classifier by considering what is Part of Speech for each word in the sentence.
+For this, use NTLK
+ntlk.pos_tag()
+
+SentiWordNet that assigns most of the English words a positive and negative value.
+http:// sentiwordnet.isti.cnr.it
+
+Unlike pipeline which work sequentially, FeatureUnion works parallely.
+
+=============================================================================================================
+
+Chapter 7
+=========
+Regression - Recommendations
+
+Application 8:
+-------------
+Scenario - Predicting house prices.
+
+Dataset:
+Boston
+
+Learning Algorithm:
+Linear Regression and its regularized algorithms (Ridge, Lasso, and Elastic Nets)
+
+Initially, try your algorithm on 1 feature, in order to visualise your model. Then, move to n number of features.
+
+Ordinary least squares is fast at learning time and returns a simple model, which is fast at prediction time. For these reasons, it should often be the first model that you use in a regression problem.
+
+Use penalised regression to avoid overfitting and underfitting. Other name for penalised term is regularisation.
+
+Ridge, Lasso, and Elastic nets are linear regression with penalised regression (l2, l1 or both)
+
+Lasso has the additional property that it results in more coefficients being set to zero!
+
+P greater than N problem:
+# of features > # of samples
+
+When the number of features is greater than the number of examples, you always get zero training error with OLS, but this is rarely a sign that your model will do well in terms of generalization. In fact, you may get zero training error and have a completely useless model.
+
+One way to solve this problem is to use regularization. And in order to check what value of lambda to give in regularization, use CV over linear regression model.
+
+Application 9:
+-------------
+Scenario - The goal is to predict, based on this piece of public information, what the future volatility of the company's stock will be.
+
+Note: In this dataset, # of features > # of samples, which can result in 0 training error.
+
+Dataset:
+SVMLight
+
+Learing Algorithm:
+Linear Regression and its regularized algorithms (Ridge, Lasso, and Elastic Nets)
+
+Application 10:
+--------------
+Scenario - Recommendation System
+
+Dataset:
+Movielens
+
+Learning Algorithm:
+LassoCV
+
+======================================================================================================
+
+Chapter 8
+=========
+Regression - Recommendations Improved
+
+Application 10: (Continued)
+--------------
+Scenario - Recommendation System
+
+Dataset:
+Movielens
+
+Learning Algorithm:
+Linear Regression
+
+Basic Idea
+When predicting the rating of a movie M for a user U, the system will predict that U will rate M with the same points it gave to the movie most similar to M.
+
+Another way to build recommendation system is 'Basket Analysis'
+
+Application 11:
+---------------
+Scenario - Analyzing supermarket shopping basket
+
+Dataset:
+Grocery Shopping Datasets
+
+Learning Algorithm:
+Apriori algorithm
+
+====================================================================================================
+
+Chapter 9
+=========
+Classification III - Music Genre Classification
+
+Application 12:
+Scenario - Given mp3 files classify them to different genres.
+
+Dataset:
+GTZAN dataset
+http://opihi.cs.uvic.ca/sound/genres.tar.gz
+
+Learning Algorithm:
+Logistic Regression
+
+In order to make this work, all mp3 files has to change to wav format.
+
+Method to read wav file
+scipy.io.wavfile.read()
+
+In order to visualise the file
+from matplotlib.pyplot import specgram
+
+Fetching frequency intensities by Fast Fourier Transform (FFT)
+
+With multiclass problems, we should also not limit our interest to how well we manage to correctly classify the genres. In addition, we should also look at which genres we actually confuse with each other. This can be done with the so-called confusion matrix.
+
+from sklearn.metrics import confusion_matrix
+
+In order to visualise the confusion matrix, we can use pylab.matshow()
+
+Another way to measure classifier performance
+Receiver Operator Characteristic (ROC)
+
+Precision and Recall method is suitable for skew classes or when we are interested on a single class.
+ROC is more of a general way for determining performance of classifier.
+
+scikits.talkbox
+Mel Frequency Cepstral (MFC) Coefficients is another way to fetch features from wav files.
+from scikits.talkbox.features import mfcc
+
+The nice thing is that being equipped with only ROC curves and confusion matrices, we are free to pull in other experts' knowledge in terms of feature extractors, without requiring ourselves to fully understand their inner workings.
+
+It's good to leverage others' algorithms, but always cross validate your score.
+
+==========================================================================================================
+
+Chapter 10
+==========
+Computer Vision - Pattern Recognition
+
+Application 13:
+--------------
+Scenario - Image processing
+
+Dataset:
+Collected images.
+
+Libraries:
+mahotas
+scikit-image
+ndimage
+OpenCV Python
+
+with mahotas, we can do all numpy computations.
+
+Don't feed all array of numbers (pixels) of an image to a learning algorithm. Always compute features from the image.
+
+This is a perfect illustration of the principle that good algorithms are the easy part. You can always use an implementation of a state-of-the-art classification. The real secret and added value often comes in feature design and engineering. This is where knowledge of your dataset is valuable.
+
+==========================================================================================================
+
+Chapter 11
+==========
+Dimensionality Reduction
+
+Two ways:
+1. Feature Selection
+2. Feature Extraction
+
+Motivation:
+1. Superfluous features can irritate or mislead the learner. This is not the case with all machine learning methods (for example, Support Vector Machines love high-dimensional spaces). But most of the models feel safer with less dimensions.
+
+2. Another argument against high-dimensional feature spaces is that more features mean more parameters to tune and a higher risk of overfitting.
+
+3. The data we retrieved to solve our task might just have artificial high dimensions, whereas the real dimension might be small.
+Less dimensions mean faster training and more variations to try out, resulting in better end results.
+
+4. If we want to visualize the data, we are restricted to two or three dimensions. This is known as visualization.
+
+Learning Algorithms:
+principal component analysis (PCA) (Linear)
+linear discriminant analysis (LDA) (Non-linear)
+multidimensional scaling (MDS)
+
+Function:
+sklearn.feature_selection package
+
+=============================================================================================================
+
+Chapter 12
+==========
+Big(ger) Data
+
+Library:
+Jug - Perform parallel computations on multiple cores.
+
+Using jug we can specify which function to work in parallel and otherwise.
+This can be applied to both user defined function as well as library function of different libraries.
+
+Other options:
+Amazon Web Services (AWS)
+Elastic Compute Cluster (EC2)
+
+Use starcluster for EC2 to manage more than one nodes.
+
+============================================================================================================

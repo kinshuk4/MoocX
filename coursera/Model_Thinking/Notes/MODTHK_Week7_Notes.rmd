@@ -1,0 +1,215 @@
+<center> <h2>Model Thinking - Week 7</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Reading 1: Tipping Points*
+
+[Tipping Points](http://www.cscs.umich.edu/~spage/ONLINECOURSE/R7Tips.pdf)
+
+**A. Threshold and Tipping Points**
+
+- "the most extreme form of nonlinearity would be a trend that takes a 90 degee turn"
+    - examples: phase transitions, unstable points
+- this might be situations in which making changes in one variable has no impact on the dependent variable...and then suddenly a small change has a huge impact
+- "fitting a linear model to a system that's about to tip won't be informative about the future or about how the system performs given changes in variables"
+
+**B. A First Definition of a Tipping Point**
+
+- tipping point = "a value of variable at which small changes can induce large changes in the future state of the system"
+- or.... "an action or outcome that dramatically reduces uncertainty about the future"
+- like a Markov model, there is some assumption here that there are a finite number of possible states of the world
+- but why do they exist? to the models!
+
+**C. A Percolation Model**
+
+- designed to address the question of whether a resource can flow across a network or a grid
+    - in engineering, used to analyze whether fluids can flow through a solid
+- the tipping point in this model is the "percolation threshold"
+    - assume that you have water flowing down through a series of pipes along edges of boxes
+    - every edge has some probability p of being open or closed
+    - with slightly less than half of the pipes (randomly chosen) open, water will almost certainly not percolate
+    - with slightly more than half of the pipes open, water almost certainly WILL percolate
+
+####*Reading 2: Diffusion and SIS*
+
+[Tipping Points](http://www.cscs.umich.edu/~spage/ONLINECOURSE/R7Diffusion.pdf)
+
+**A. The S-Shaped Curve of Diffusion**
+
+- diffusion models and models of chaos rely on *difference equations*, which describe how processes change over time
+
+**B. The Contact Model**
+
+- discrete time
+- once you're infected you are always infected
+- the process tends to grow slowly, then build rapidly, then slow down again
+- the number of infected people always goes up in this model
+- N isn't "all people" but "all people who could catch the disease"
+
+**C. The SIS Model**
+
+- like the contact model, but people are able to recover at some recovery rate $\alpha$
+- a model that tells you how a disease spreads should also give you a sense of how many people you need to vaccinate
+
+####*Reading 3: [Lamberson and Page: Tipping Points (INTRO ONLY)](http://www.santafe.edu/research/working-papers/abstract/aecbfc4c6f63132ad19706066c864f27/)
+
+**A. Abstract**
+
+- contextual tips make direct tips possible
+    - e.g. human rights conditions in a state deteriorate creating the potential for an uprising
+
+**B. Introduction**
+
+- "...we use the mathematical formalism of dynamical systems to define tipping points as discontinuities in a relationship between present conditions and future states of the system"
+- "...many apparent tipping points may not be tips given our formal definition but rather inevitable upticks in adoption rates driven by positive feedbacks"
+- between-class tip causes movement between Wolfram's classes:
+    - fixed point
+    - periodic
+    - random
+    - complex
+- a measure of tippiness --> based on change in the expected distribution over future outcomes
+    - Diversity index or entropy
+    
+####*Video 7.1 - Tipping Points*
+
+**A. Notes**
+
+- "tipping" = small changes lead to big effects
+- when people talk about tipping points, they mean "kinks in curves"
+- a tipping point is a when a small change has a large effect
+    - exponential growth can look like a tipping point, but it really isn't that
+    - that's just the "inevitable process of growth"
+- we're going to explore two models in this space
+- types of tips:
+    - direct tips: an action tips that same entity (battle to war)
+    - contextual tips: environmental changes enable some other change
+- tipping might be thought of as moving between Wolfram's four classes of system equlibria (stable, complex, random, repeating)
+
+####*Video 7.2 - Percolation Models*
+
+**A. How It Works**
+
+- "the essence of modeling is to simplify things"
+- the question: will rainwater percolate?
+- this model can be applied to Forest Fires (see the model in NetLogo)
+- the idea here is that water can only go from one open place to another:
+    - think about a frog hopping across a fire through connected lilipads
+
+**B. Fertility of Models**
+
+- density of trees and relationship with fire spread
+- could also be applied to bank failures
+    - the density of lending relationships matters
+- you might consider this in the context of country failures (e.g. sovereign default)
+
+**C. Information Percolation**
+
+- imagine a network of people
+- transition probability - probability that when you hear something, you tell your friends
+- the distribution of rumors is probably nonlinear
+    - this is a result of information being spread through networks
+
+**D. Innovation**
+
+- why do we see a bunch of innovations in math and science all at once?
+- think about it like "getting from point A to point B" by stitching together bits of knowledge
+- think about innovation:
+    - new technology starts "filling in intermediate squares"
+    - at some point, the system tips and there are lots and lots of possible paths to the new invention
+    - this explains a bunch of people inventing the same thing at about the same time
+
+####*Video 7.3- Contagion Models 1: Diffusion*
+
+**A. The SIS Model**
+
+- SIS: "susceptible, infected, susceptible"
+- SIR: "susceptible, infected, recovered"
+- take some probability of transmission of the disease, probabilities of people with and without the disease meeting
+- contact rate: how often do ANY people meet?
+- the dynamics
+    - early: few people who have it (can't spread fast)
+    - middle: lots who have it, lots who don't (spreads fast)
+    - end: lots who have it, few who don't (spread slows)
+- diffusion equation:
+    - $W_{t+1} = W_{t} + (Nc)\tau\frac{W_{t}}{N}(\frac{N-W_{t}}{N})$
+- this is NOT a tipping point
+    - this is natural diffusion
+- just because you see a kink doesn't mean there's a tip
+
+####*Video 7.4 - Contagion Models 2: SIS Model*
+
+**A. The Difference**
+
+- unlike in pure diffusion, in this model you can become susceptible (second S) again after having had the disease once
+- the equation is now:
+    - $W_{t+1} = W_{t} + (Nc)\tau\frac{W_{t}}{N}(\frac{N-W_{t}}{N}) - aW_{t}$
+    - where $aW_{t}$ captures the people who get re-infected
+- when you write models, it's useful to be good at algebra
+- basic reproduction number:
+    - $R_{0} = c\tau/a$
+    - R_{0} > 1 --> disease spreads!
+- given V = % vaccinated
+    - $R_{0}(1-V) = r_{0}$
+    - if $R_{0}(1-V) <= 1$ the disease will not spread
+- we need $V >= 1-\frac{1}{R_{0}}$ to stop the spread
+- this model gives us a tipping point and policy
+    - it tells you that vaccination has no "population-level" effect short of the threshold
+- In this model, $R_{0}$ represents the tipping point
+
+####*Video 7.5 - Classifying Tipping Points*
+
+**A. Dynamical Systems**
+
+- when perturbed, the system will move in some direction (toward an equilbrium or at least a point of attraction)
+- a tippoing point = "unstable equilibrium"
+
+**B. Direct Tip**
+
+- this is when a tiny change in the variable itself leads to a large change on the end state of that same variable
+- we usually focus on the direct tips, but sometimes we have changes in the context
+- "the variable bootstraps itself"
+
+**C. Contextual Tips**
+
+- change in the environment by a tiny bit that has a huge effect on the end state
+    - more squares in percolation
+    - more connections in social network
+
+**D. Between and Within Class**
+
+- within class (from one equilibrium to another)
+- between class (switching between periodic, complex, chaotic, stable equilibrium)
+
+####*Video 7.6 - Measuring Tips*
+
+**A. Active Tip**
+
+- one the tip occurs, the outcome is locked in
+    - initially there was some uncertainty, and then it goes away
+    - we can measure "tippiness" by "reductions in uncertainty
+
+**B. Diversity Index**
+
+- given 4 outcomes:
+    - A (0.25), B(0.25), C(0.25), D(0.25)
+- first compute two people of the same type meeting
+    - P~ii~ = P~i~^2
+    - sum of these = 1/4
+    - DI = 1/ (1/4) = 4
+- a different example:
+    - A(1/2), B(1/3), C(1/6)
+    - sum of same-type probs = 14/36
+    - DI = 36/14 = 2.55 roughly (about 2.55 different things)
+- if DI is lower after the tip, then the number of possible states has gone way down
+
+**C. Entropy**
+
+- $-\sum\limits_{i=1}^n P_{i}log_{2}(P_{i})$
+- for the (4 cases with 0.25 probability) case, Entropy =2
+- Entropy tells us "the number of bits you need to know to identify the outcome"
+    - think about binary search
+- when you know with certainty, entropy = 0
+- "tippiness" can be measured by how much diversity index or entropy changes
+
+**D. What Tips Are**
+
+- tips = changes in likelihood of outcomes. NOT kinks in curves

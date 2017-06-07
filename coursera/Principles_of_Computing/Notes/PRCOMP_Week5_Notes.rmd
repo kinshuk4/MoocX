@@ -1,0 +1,160 @@
+<center> <h2>Principles of Computing - Week </h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 5.1 - The Importance of Counting*
+
+**A. Notes**
+
+- "When you write code and click run, something happens"
+    - "sometimes it's good, sometimes it's bad"
+- the importance of counting:
+    - we want an estimate of execution time before running
+- running time is some function of input size, typically
+
+**B. Counting and Sums**
+
+- CodeSkulptor translates Python into JS
+- for straight line and conditionals, size of code gives you a sense of how much code you'll execute
+- for looping, things are a bit more complicated
+    - depends on loop params
+
+**C. Examples with Loops**
+
+- input values give us a way to estimate running time of the program
+
+**D. Common Arithmetic Sums**
+
+- see class page
+
+####*Video 5.3 - Functions: FInding the Max*
+
+**A. Notes**
+
+- the ```index``` method of lists gives you the index of some value in a list
+- think about the differences between efficiences and readability
+- what if you want to find values and indexes?
+- when you build functions, think about what you do and do not need
+
+####*Video 5.4 - Higher-Order Functions*
+
+**A. Notes**
+
+- a function that can take other functions as arguments, or can even return arguments
+- allows it to take a function as an argument and implement those
+- you can encapsulate everything in one higher-order function
+- this is awesome, man.
+- ```map(func,list)``` takes a function, applies it to everything in the list
+- ```filter(func,data)``` returns only the items where the function evaluates to true
+
+####*Video 5.5 - Plotting Statement Counts*
+
+**A. Notes**
+
+- one debugging method:
+    - just print the value of a counter repeatedly
+- in Python, there are dozens of packages for doing plotting
+- part of Python survival is understanding other people's packages
+
+```{r eval=FALSE}
+"""
+Counting the number of iterations in various mystery functions
+"""
+
+import simpleplot
+import math
+
+# Plot options
+STANDARD = True
+LOGLOG = False
+
+# global counter that records the number of iterations for inner loops
+counter = 0
+
+###############################################
+# three mystery functions
+def mystery1(input_val):
+    """ 
+    Function whose loops update global counter    
+    """
+    global counter
+    for index in range(input_val):
+        for dummy_index in range(5):
+            counter += 1
+
+def mystery2(input_val):
+    """ 
+    Function whose loops update global counter   
+    """
+    global counter
+    for index in range(input_val):
+        for dummy_index in range(index / 2, index):
+            counter += 1
+
+def mystery3(input_val):
+    """ 
+    Function whose loops update global counter    
+    """
+    global counter
+    for index in range(input_val):
+        for dummy_index in range(int(1.1 ** index)):
+            counter += 1
+    
+def build_plot(plot_size, plot_function, plot_type = STANDARD):
+    """
+    Build plot of the number of increments in mystery function
+    """
+    global counter
+    plot = []
+    for input_val in range(2, plot_size):
+        counter = 0
+        plot_function(input_val)
+        if plot_type == STANDARD:
+            plot.append([input_val, counter])
+        else:
+            plot.append([math.log(input_val), math.log(counter)])
+    return plot
+
+
+
+###############################################
+# plottting code
+plot_type = STANDARD
+plot_size = 40
+
+# Pass name of mystery function in as a parameter
+plot1 = build_plot(plot_size, mystery1, plot_type)
+plot2 = build_plot(plot_size, mystery2, plot_type)
+plot3 = build_plot(plot_size, mystery3, plot_type)
+simpleplot.plot_lines("Iteration counts", 600, 600, 
+                      "input", "counter", [plot1, plot2, plot3])
+
+
+```
+
+- linear --> double input size, output doubles
+- exponential functions aren't going to be good
+- remember that log(ax^n) = log(a) + nlog(x)
+    - slope of the log-log plot is the degree of the polynomial
+- the functions exp() and log() are inverses and cancel out
+
+####*Video 5.6 - Cookie Clicker*
+
+**A. Notes**
+
+- we'll implement a simulator for a game called Cookie Clicker
+- this is a game about counting and optimization
+- always read the description
+- you should be testing your project
+- they recommend reducing the value of SIM_TIME
+- you can use set_timeout() to change when CodeSkulptor stops executing
+
+####*Practice Exercise - The Case of the Greedy Boss*
+
+**A. Notes**
+
+- "one of the reasons for the popularity of real-time strategy games...is that they allowed the player to experiment with different strategies for resources allocation."
+- "One strategy might be to immediately generate lots of weak low cost units and try to overwhelm an opponent who is investing in developing the technological capability to build more powerful (and costly) units"
+
+**B. The greedy Boss Scenario**
+
+- since the simulation makes 

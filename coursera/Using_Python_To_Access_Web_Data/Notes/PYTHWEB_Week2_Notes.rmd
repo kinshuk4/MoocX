@@ -1,0 +1,116 @@
+<center> <h2>Using Python to Access Web Data - Week 2</h2> </center>
+<center> <h3>---------------------------------------</h3> </center>
+
+####*Video 2.1 - Regular Expressions (part 1)*
+
+**A. Notes**
+
+- regex is like its own mini programming language
+- used for complex string-matching
+- you don't really need to "know" them:
+    - use simpler tools?
+- specialized in string matching
+    - just super clever "wild card" expressions for find/search in text
+- understanding regular expressions:
+    - very powerful and quite cryptic
+    - fun once you understand them
+    - regular expressions are a language unto themselves
+- sort of a mark of "coolness"
+
+**B. Quick Guide to Regex**
+
+- "^" --> matches the beginning of a line
+- "$" --> matches the end of the line
+- "." --> matches any character
+- "\s" --> matches whitespace
+- "\S" --> matches any non-whitespace character
+- "*" repeats a character 0 or more times
+- "*?" repeats a character zero or more times (non-greedy)
+- "+" --> matches character one or more times (non-greedy)
+- "+?" --> matches character one or more times (non-greedy)
+- "[aeiou]" --> matches a single character in the listed set
+- "[^XYZ]" --> matches a single character not in the listed set
+- "[a-z0-9]" --> the set of characters can include a range
+- "(" --> indicates where string extraction is to start
+- ")" --> indicates where string extraction is to end
+- need to call ```import re``` to bring in regular expressions
+    - use ```re.search()``` to see if a string matches a regular expression
+
+**C. Examples**
+
+- a find:
+
+```{r eval=FALSE}
+import re
+
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    if re.search('From: ', line):
+        print line
+```
+
+- use the caret to replace ```startswith()```
+- we can add more intelligence to our expression, without having to add more lines of code
+- to say "give me stuff starting with X- and now spaces between that and the colon, try:
+    - ```^X-\S+:```
+
+**D. More Notes**
+
+- the ```re.search()``` returns a True/False depending on whether the string matches
+- if we actually want the matching strings to be extracted, used ```re.findall()```
+- ```findall()``` returns a Python list of strings
+
+**E. Greedy Operations**
+
+- wants to return "the largest possible matching string" if it's greedy
+- the "?" is for non-greedy matching...take the first match (shortest)
+
+####*Video 2.2 - Regular Expressions (pt 2)*
+
+**A. Increasing Sophistication**
+
+- you can refine the match for ```re.findall()``` and separately determine which potion of the match is to be extracted by using parentheses
+- parentheses tell the regular expression "what to extract"
+    - so you can use a bigger expression to "match", but just get back the stuff in parentheses
+- e.g. ```y = re.findall('^From (\S+@S\+)',x)```
+- you can do searching and parsing all at once
+- inside of the brackets, the caret means "not" or "anything but"
+- try this: ```y=re.finall('^From .*@([^ ]*)',lin)```
+- the regular expressions are "like puzzles"
+
+**B. More On This**
+
+- you don't haev to use this!
+- periods are not wildcards inside of brackets
+- you can select and extract all in one statement
+- when you write programs for other people, don't get too excited about regen
+- when you want some characters to not be a special character, escape them with a "\"
+- regex:
+    - cryptic but potentially useful and powerful
+    - you can write more pwoerful programs with them
+- we won't be excessively using this for the rest of the class
+
+####*Video 2.3 - Bones Interview: Bjarne Stroustrup C++*
+
+**A. Notes**
+
+- C++ has been around for 30ish years
+- core domain:
+    - traditional systems programming
+- what is it that requires C++?
+    - "infrastructure"...if it breaks, someone gets hurt
+- compact data structures, minization of errors
+- analyzable, comprehensible code
+- C++ is overkill for some applications
+    - there are different techniques, different languages that apply to different areas
+    - it isn't desirable to have a single language or single tool chain
+- we don't all need the same training
+- applying stringent, software engineering principles to a mobile app, you'll be very late to market with maybe not any benefit
+- there should be several types of programmers
+- readability DOES matter
+    - "notation matters"
+- "type-rich interfaces" are important
+    - you need to be able to build "cheap types"
+- 
+
