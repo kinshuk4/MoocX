@@ -1525,4 +1525,8 @@ Tensorflow queues.
 =====================================================================================================
 
 #### help from
- - https://github.com/reetawwsum/Machine-learning-MOOC-notes/blob/master/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition%20(Stanford%20CS231n).txt
+- https://github.com/reetawwsum/Machine-learning-MOOC-notes/blob/master/Convolutional%20Neural%20Networks%20for%20Visual%20Recognition%20(Stanford%20CS231n).txt
+- http://cs231n.github.io/
+
+
+
