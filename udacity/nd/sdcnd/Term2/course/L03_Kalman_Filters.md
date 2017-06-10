@@ -165,11 +165,11 @@ Mean is now a vector for each of the dimension, variance here is replaced by cov
 
 E.g. contour lines of a 2D Gaussian: Tilted Gaussian (not parallel or perpendicular to x or y axes): x and y correlated.
 
-![multivariate-gaussian1](/Users/kchandra/Lyf/Kode/SCM/Github/K2/MoocX/udacity/nd/sdcnd/Term2/course/images/3kalman-filters/multivariate-gaussian1.png)
+![multivariate-gaussian1](./images/3kalman-filters/multivariate-gaussian1.png)
 
-![multivariate-gaussian2](/Users/kchandra/Lyf/Kode/SCM/Github/K2/MoocX/udacity/nd/sdcnd/Term2/course/images/3kalman-filters/multivariate-gaussian2.png)
+![multivariate-gaussian2](./images/3kalman-filters/multivariate-gaussian2.png)
 
-![multivariate-gaussian3](/Users/kchandra/Lyf/Kode/SCM/Github/K2/MoocX/udacity/nd/sdcnd/Term2/course/images/3kalman-filters/multivariate-gaussian3.png)
+![multivariate-gaussian3](./images/3kalman-filters/multivariate-gaussian3.png)
 
 Build 2-dimensional estimate: one for location, one for velocity.
 
@@ -192,7 +192,7 @@ and we can have our new predicted Gaussians (purple / blue Gaussians on the red 
 
 Kalman Filtetr equations (don't need to know for this course)
 
-![kalman-filter-design](/Users/kchandra/Lyf/Kode/SCM/Github/K2/MoocX/udacity/nd/sdcnd/Term2/course/images/3kalman-filters/kalman-filter-design.png)
+![kalman-filter-design](./images/3kalman-filters/kalman-filter-design.png)
 
 (img)
 
