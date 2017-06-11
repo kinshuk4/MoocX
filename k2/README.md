@@ -6,7 +6,7 @@
 - [Operating System]()
 - [Computer Vision]()
 - [Artificial Intelligence]()
-- [SDCND](../udacity/nd/sdcnd)
+- [carnd](../udacity/nd/carnd)
 - [ML](./ml)
 - [Data Analyst](../udacity/nd/data-analyst-nd)
 
