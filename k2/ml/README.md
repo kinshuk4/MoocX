@@ -38,6 +38,7 @@ Links for learning machine learning
     2. [Deep Neural Networks](../../udacity/nd/ml/classes/deep-learning/deep-neural-networks.md)
     3. [Convolutional Neural Networks](../../udacity/nd/ml/classes/deep-learning/convolutional-neural-networks.md)
     4. [Deep Models for Text and Sequences](../../udacity/nd/ml/classes/deep-learning/deep-models-for-text-and-sequences.md)
+    5. [Deep Learning 101 - Part 2: Multilayer Perceptrons][mlp.ipynb](deep-learning/mlp.ipynb)
 
 #### Some more topics
 
