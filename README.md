@@ -1,6 +1,6 @@
 Coursera
 ========
-Repo for programming assignments that I do on various platforms.
+Repo with code and notes from various platforms.
 
 My main organized content:
 - [My content](./k2e/README.md)
