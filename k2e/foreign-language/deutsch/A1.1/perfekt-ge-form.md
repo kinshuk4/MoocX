@@ -24,3 +24,19 @@ ge-form = (V-en) - en + t
 
 eg. stud**ier**en =  studier**t**
 
+Exception 3 - schwache trennbaren mit untrennbaren Präfixen (Weak separable with inseparable prefixes) have no ge.
+
+be-, ge-, ent-, ver-, zer-  
+
+vermissen - to miss - vermisst
+
+entdecken - to discover - entdeckt
+
+verlieben - to fall in love - verliebt
+
+
+
+https://www.youtube.com/watch?v=dK0XFHnSxGw
+
+
+

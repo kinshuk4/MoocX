@@ -21,3 +21,12 @@ Position 0 of the sentense, verb is position 2.
 4 
 
 c2
+1. aber
+oder
+denn
+und
+5. denn
+6. 
+7. aber
+
+S.142 A2 + Perfekt lernen

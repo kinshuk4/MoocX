@@ -75,6 +75,51 @@ When proper names are used in a sentence, it is possible to move the reflexive p
 
 Ärgert Karl sich?*(normal position)*Ärgert sich Karl?*(alternate, equally possible position)*
 
+## Reflexive verbs with dative
+
+The most common reflexive verbs in the dative are:
+
+| Verb                                     | Meaning             |
+| ---------------------------------------- | ------------------- |
+| [sich denken](https://www.germanveryeasy.com/denken) | to imagine          |
+| sich kaufen                              | to buy              |
+| sich etwas anziehen                      | to put something on |
+
+## Peculiarities of reflexive verbs
+
+Some reflexive verbs' behavior with parts of the body and items of clothing is interesting:
+
+If a part of the body or item of clothing is named, they are reflexive in the dative:
+
+Ich wasche mir die Haare 
+I wash my hair (**dative**)
+
+But if a part of the body or item of clothing is not named, they are reflexive in the accusative:
+
+Ich wasche mich 
+I wash myself (**accusative**)
+
+The verb "kämmen" (to comb) is used the same way:
+
+Ich kämme mir die Haare 
+I comb my hair (**dative**)
+
+Which in the third person would be:
+
+Er kämmt sie sich 
+He combs (his hair)
+
+But if we do not say hair:
+
+Ich kämme mich 
+I comb myself (**accusative**)
+
+## Negation of reflexive verbs
+
+The reflexive pronoun is placed, like all pronouns, before the adverb **nicht**:
+
 http://www.nthuleen.com/teach/grammar/reflexexpl.html
 
 https://www.youtube.com/watch?annotation_id=annotation_1797973727&feature=iv&src_vid=5toJhvb0bxQ&v=NWYR_q7fXrc
+
+https://www.germanveryeasy.com/reflexive-verbs
