@@ -28,13 +28,18 @@ George W. Bush is the President.*George W. Bush* is the subject and is nominativ
 
 ### THE GERMAN NOMINATIVE CASE ( *DER NOMINATIV* OR *DER WERFALL*)
 
-The nominative case—in both German and in English—is the subject of a sentence. The term nominative comes from Latin and means to name (think of "nominate"). Amusingly, *der **Werfall* translates literally as "the who case."
+The nominative case—in both German and in English—is the subject of a sentence. The term nominative comes from Latin and means to name (think of "nominate"). Amusingly, *der Werfall* translates literally as "the **who** case."
+
+The nominative case is used for a person, animal or thing which is doing the action. In this case, you will be able to ask: **Who/What** did or is something? The nominative case is always used after the verbs **sein** and **werden.**
 
 In the examples below, the nominative word or expression is in bold:
 
 - **\*Der Hund **beißt den Mann.* (The dog bites the man.)
 - **\*Dieser Gedanke **ist blöd**.** *(This thought is stupid.)
 - **\*Meine Mutter **ist **Architektin***\*.*** (My mother is an architect.)
+- Der Mann schläft. ⇨ **Who** sleeps?
+- Die Frau kocht. ⇨ **Who** cooks?
+- Es ist ein schönes Haus. ⇨ **What** is beautiful?
 
 The nominative case can follow the verb "to be," as in the last example. The verb "is" acts like an equal sign (my mother = architect). But the nominative is most often the subject of a sentence.
 
@@ -46,7 +51,7 @@ Articles in the nominative form:
 | Female  | die      | eine       | die    |
 | Neutral | das      | ein        | die    |
 
-### THE GENITIVE (*DER **GENITIV* OR *DER **WESFALL*)
+### THE GENITIVE (DER GENITIV OR DER WESFALL)
 
 The genitive case in German shows possession. 
 
@@ -78,7 +83,9 @@ You can tell that a noun is in the genitive case by the article, which changes t
 
 Feminine and plural nouns do not add an ending in the genitive. The feminine genitive (*der/**einer*) is identical to the feminine dative. The one-word genitive article usually translates as two words (of the or of a/an) in English.
 
-### THE DATIVE CASE (*DER DATIV *OR *DER **WEMFALL*)
+### THE DATIVE CASE (*DER DATIV OR DER WEMFALL*)
+
+The dative case is used to show the **indirect** object of a verb. An indirect object is a person, animal or a thing the action is intended to benefit or harm. You are able to ask: **Who to/for** or **to/for what?** In most situations you can also ask **whom**. The dative case is also used after certain [prepositions](http://www.jabbalab.com/blog/768/how-to-use-german-prepositions).
 
 The dative case is a vital element of communicating in German. In English, the dative case is known as the indirect object. Unlike the accusative, which only changes with the masculine gender, the dative changes in all genders and even in the plural. It is answered for the object - whom.
 
@@ -110,6 +117,8 @@ The vernacular in English is, of course, "Who'd you give the book to?" Note that
 
 If you misuse the accusative case in German, you might say something that would sound like "him has the book" or "her saw he yesterday" in English. It's not just some esoteric grammar point; it impacts whether or not people will understand your German (and whether you'll understand them).
 
+The accusative case is used for a person, animal or thing which is **directly** affected by the action of the verb. The accusative is also used after certain [prepositions](http://www.jabbalab.com/blog/768/how-to-use-german-prepositions).
+
 In English, the accusative case is known as the objective case (direct object).
 
 Articles in the accusative case:
@@ -123,10 +132,13 @@ Articles in the accusative case:
 In German, the masculine singular articles *der* and *ein* change to *den* and *einen* in the accusative case. The feminine, neuter and plural articles do not change. The masculine pronoun *er* (he) changes to *ihn* (him), in much the same way as it does in English. In the examples below, the accusative (direct object) noun and pronoun are in** **bold:
 
 - *Der Hund beißt \**den Mann.** *(The dog bites **the man**.)
-- *Er** beißt\** *****ihn****\*.*** (He [the dog] bites **him [the man]**.)
+- *Er beißt ihn.* (He [the dog] bites **him [the man]**.)
 - **\*Den Mann **beißt der Hund**.*** (The dog bites **the man**.)
 - *Beißt der Hund \**den Mann?*** (Is the dog biting **the man**?)
 - *Beißt \**den Mann **der Hund?* (Is the dog biting **the man**?)
+- Ich sehe den Mann. ⇨ What do I see?
+- Wir haben die Torte gegessen. ⇨ What have we eaten?
+- Er hat ein Foto gemacht. ⇨ What has he made?
 
 Notice how the order of the words may change, but as long as you have the proper accusative articles, the meaning remains clear. 
 
@@ -238,3 +250,5 @@ The following chart shows the personal pronouns in all four cases. Changes from 
 
 
 https://www.thoughtco.com/the-four-german-noun-cases-4064290
+
+http://www.jabbalab.com/blog/795/how-the-german-cases-work-nominative-accusative-dative-and-genitive
