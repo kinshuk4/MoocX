@@ -1,0 +1,1 @@
+ gegessen, gesehen, gelernt, gelesen, geschlafen, gespielt
