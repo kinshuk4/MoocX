@@ -1,6 +1,4 @@
-# Advanced German Alphabet- Double Vowels and Consonants
-
-[](http://www.jabbalab.com/blog/wp-content/uploads/2011/03/Advanced-Alphabet.jpg)
+## Advanced German Alphabet- Double Vowels and Consonants
 
 ### Advanced German Alphabet- Double Vowels and Grouped Consonants
 
