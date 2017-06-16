@@ -1,13 +1,17 @@
 # German Vocabulary – Animals
 
+[](http://www.jabbalab.com/blog/wp-content/uploads/2010/09/tiere.jpg)
+
 ### Animals
 
 Here is some essential German vocabulary from the world of animals. The tables below are divided into masculine words, female words and neutral words. This will help you with remembering the genders 🙂
 
 ### Masculine words
+### Masculine words
 
-| **der Affe**    | monkey   |
+| **Deutsch**     | English  |
 | --------------- | -------- |
+| **der Affe**    | monkey   |
 | **der Bär**     | bear     |
 | **der Elefant** | elephant |
 | **der Esel**    | donkey   |
@@ -55,6 +59,4 @@ Here is some essential German vocabulary from the world of animals. The tables b
 
 
 
-
-
-http://www.jabbalab.com/blog/1252/animals-in-german
+https://www.jabbalab.com/blog/1252/animals-in-german    
