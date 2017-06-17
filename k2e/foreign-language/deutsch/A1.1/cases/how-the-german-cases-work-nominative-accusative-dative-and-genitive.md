@@ -16,7 +16,7 @@ Example sentences:
 
 Die Frau kocht. ⇨ Who cooks?
 
- 
+
 Definite Articleden Manndie Fraudas Haus
 Indefinite Articleeinen Manneine Frauein HausThe accusative case is used for a person, animal or thing which is directly affected by the action of the verb. The accusative is also used after certain [prepositions](../768/how-to-use-german-prepositions.html).Example sentences:Ich sehe den Mann. ⇨ What do I see?Wir haben die Torte gegessen. ⇨ What have we eaten?Er hat ein Foto gemacht. ⇨ What has he made?You can see that the noun in the sentence here is always directly affected by the verb. The Dative CaseMasculineFeminineNeutral
 Example sentences:
@@ -30,7 +30,7 @@ Example sentences:
 
 Er hilft dem Mann beim Putzen. ⇨ Whom did he help to clean?
 
- 
+
 Definite Articledes Mannesder Fraudes Hauses
 Indefinite Articleeines Manneseiner Fraueines Hauses
 des Lehrersdes Mädchens
@@ -68,179 +68,9 @@ Die Tasche des Mädchens ist gelb. ⇨ Whose bag is yellow?
 
 Das ist die Telefonnummer einer Freundin. ⇨ Whose telephone number is that?
 
-                    
+​                    
 
 
-        
-        
-            Beautiful. You have made it simple. Thanks.
 
-        
 
-    
-
-
-        
-        
-            Very useful and easy to internalize.
-
-        
-
-    
-
-
-        
-        
-            The explanation is very good, thank you.  My English is bad and I don’t know why I want to learn German, I just love the language and find the nouns very easy to remember it’s just to make the sentence then… ok to write, but to speak – and they are so quick.
-
-        
-
-    
-
-
-        
-        
-            Thank you very much to have posted this.. Thank you.. Vielen dank..
-
-        
-
-    
-
-
-        
-        
-            very good many thanks
-
-        
-
-    
-
-
-        
-        
-            Very good I like to to learn here in deutsch
-
-        
-
-    
-
-
-        
-        
-            Great, very clear, easy to understand, had no idea of cases and this completely cleared any misunderstanding. Many Thanks
-
-        
-
-    
-
-
-        
-        
-            Finally a clear explanation! It would be nice too have the plural too.
-
-        
-
-    
-
-
-        
-        
-            Heartily appreciated explanation!
-
-        
-
-    
-
-
-please note that for the Accusative case the question can be ‘whom’ as well.
-Ich sehe Eric (I see Eric). – Whom do I see?
-
-
-
-me again..
-to show you how tricky the distinction between dative and accusative is, I will turn one given example from dative into accusative:
-“Er gibt dem Mädchen einen Kuss.” (he gives the girl a kiss) = dative (girl)
-“Er küsst das mädchen” (he kisses the girl) = accusative (girl)
-by the way: in the first sentence “a kiss” is the accusative
-
-
-
-        
-        
-            vielen Dank
-
-        
-
-    
-
-
-        
-        
-            u have such a great power of explanation…. vielen dank
-
-        
-
-    
-
-
-        
-        
-            Thank YOU!
-
-        
-
-    
-
-
-        
-        
-            Hi ich sage dankschöne
-
-        
-
-    
-
-
-        
-        
-            After reading ein paar blog posts on German cases, I couldn’t understand shit about the usage. But this is really an eye opener on when to use the cases. I always wonder why Die Monate des Jahres is “The Month of the year” aber jetzt ich warum wissen. Vielen Dank.
-
-        
-
-    
-
-
-        
-        
-            Sehr schön
-
-        
-
-    
-
-
-        
-        
-            YES, SAME HERE
-
-        
-
-    
-
-
-        
-        
-            Yes much easier to understand, love the explanation 
-
-        
-
-    
-
-
-        
-        
-            Kudos for the pedagogic expertise here, not even Institut Goethe’s materials are as clear.
-
-        
-
-    
+​    http://www.nthuleen.com/teach/grammar/nomakkdatexpl.html

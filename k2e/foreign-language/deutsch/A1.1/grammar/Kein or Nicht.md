@@ -32,3 +32,5 @@ When you first use these it will be confusing, but do not worry, you will pick i
 
 http://www.jabbalab.com/blog/821/kein-oder-nicht-whats-the-difference
 
+http://www.nthuleen.com/teach/grammar/negationexpl.html
+

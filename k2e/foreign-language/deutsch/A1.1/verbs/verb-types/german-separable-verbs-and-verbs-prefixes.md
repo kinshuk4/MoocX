@@ -85,45 +85,46 @@ vorziehen – to prefer
 
 zuschauen – to watch
 
-                    
+​                    
 
 
-        
-        
+​        
+​        
             Das ist super. Viele Dank
 
-        
+​        
 
-    
+​    
 
 
-        
-        
+​        
+​        
             Couldn’t be easier, thanks.
 
-        
+​        
 
-    
+​    
 
 
-        
-        
+​        
+​        
             Herzlichen Dank
 
-        
+​        
 
-    
+​    
 
 
-        
-        
+​        
+​        
             Thank you… very comprehensive and helpful.
 
-        
+​        
 
-    
+​    
 
 
 What about: “teilnehmen”.  Ich nahm an einer Diskussion teil.
 The list of prefixes for separable verbs is obviously not exhaustive.
 
+http://www.nthuleen.com/teach/grammar/sepinsepprefixexpl.html

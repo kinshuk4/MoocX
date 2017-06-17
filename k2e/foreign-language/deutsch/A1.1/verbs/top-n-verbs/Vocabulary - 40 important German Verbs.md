@@ -4,6 +4,8 @@
 
 We thought it was time to make a list of the most important German verbs. So here it is: The 40 most important German verbs. You can also read our other blogs [How German Verbs work in the Present Tense Part 1](http://www.jabbalab.com/blog/880/how-german-verbs-work-in-the-present-tense-part-1) and [Part 2](http://www.jabbalab.com/blog/924/how-german-verbs-work-in-the-present-tense-part-2) 🙂
 
+(Wir dachten es ist an der Zeit, euch eine Liste mit den 40 wichtigsten englischen Verben zu erstellen. Die Verben sind alphabetisch geordnet. Viel Spaß beim )
+
 | **arbeiten**  | to work          |
 | ------------- | ---------------- |
 | **beginnen**  | to begin         |

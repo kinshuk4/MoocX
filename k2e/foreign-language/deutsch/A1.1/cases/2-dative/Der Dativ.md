@@ -1,0 +1,7 @@
+| Handout: Der Dativ (mit Wiederholung: Nominativ und Akkusativ) |
+| ---------------------------------------- |
+| **Nominative**   • for the subject of a sentence: who or what is doing this?Der Student lernt Deutsch.    • for predicate nouns: when the main verb is *sein* or *werden*, use the nominative for both subject and predicate nouns.Das ist ein Tisch. **Accusative**   • for the direct object of a sentence: who or what is being <verbed>?Ich habe einen Tisch.*What is being had? A table.*   Note that the very common expression *"es gibt"* (there is/are) requires that the noun be in the accusative case because it is grammatically a direct object.Es gibt einen Stuhl da drüben.*There is a chair over there.*   • after the accusative prepositions and postpositions: *durch, für, gegen, ohne, um* (memory aid: dogfu), as well as the postpositions *bis* and *entlang* . If a noun follows these prepositions, it will ALWAYS be in the accusative!Er geht um den Tisch.*Around what? The table.*Ist das Geschenk für mich?*For whom? For me.*   • time expressions in a sentence are usually in accusative: *jeden Tag, letzten Sommer, den ganzen Tag, diesen Abend,* etc. We haven’t officially learned this yet, but it’s good to know.Jeden Morgen esse ich Brot und Marmelade zum Frühstück.*Every morning.* |
+
+
+
+## http://www.nthuleen.com/teach/grammar/dativexpl.html
