@@ -1,6 +1,6 @@
 Coursera
 ========
-This is the code just for the programming assignments that I do on coursera.
+This is the code just for the programming assignments that I do on various platforms.
 
 My main organized content:
 - [My content](./k2e/README.md)
