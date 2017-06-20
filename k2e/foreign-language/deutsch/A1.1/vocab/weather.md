@@ -6,36 +6,15 @@ wie ist das Wetter bei dir heute? - How is the weather at your place today?
 
 Here are some terms:
 
-| How's the weather today? | **Wie ist das Wetter heute?**  |
-| ------------------------ | ------------------------------ |
-| It's hot                 | **Es ist heiß**                |
-| It's cold                | **Es ist kalt**                |
-| It's beautiful           | **Es ist schön**               |
-| It's bad                 | **Es ist schlecht**            |
-| It's clear               | **Es ist klar**                |
-| It's icy                 | **Es ist eisig**               |
-| It's warm                | **Es ist warm**                |
-| It's sunny               | **Es ist sonnig**              |
-| It's windy               | **Es ist windig**              |
-| It's cloudy              | **Es ist bewölkt**             |
-| It's hazy                | **Es ist dunstig**             |
-| It's muggy               | **Es ist schwül**              |
-| It's humid               | **Es ist feucht**              |
-| It's foggy               | **Es ist nebelig**             |
-| It's snowing             | **Es schneit**                 |
-| It's raining             | **Es regnet**                  |
-| It's freezing            | **Es friert**                  |
-| It looks like rain.      | **Es sieht nach Regen aus.**   |
-| The weather is clearing  | **Das Wetter klärt sich auf.** |
-
 ### Das Wetter – The Weather
 
 In this post we are looking at German vocabulary used to tell the weather. The table divides the words into masculine, female and neutral words. This will help you with remembering the genders 🙂
 
 ### Masculine words
 
-| **der Blitz**         | flash          |
+| **Deutsch**           | English        |
 | --------------------- | -------------- |
+| **der Blitz**         | flash          |
 | **der Donner**        | thunder        |
 | **der Frost**         | frost          |
 | **der Grad**          | degree         |
@@ -63,9 +42,9 @@ In this post we are looking at German vocabulary used to tell the weather. The t
  
 
 ### Female words:
-
-| **die Hitze**          | heat        |
+| **Deutsch**            | English     |
 | ---------------------- | ----------- |
+| **die Hitze**          | heat        |
 | **die Hitzewelle**     | heat wave   |
 | **die Kälte**          | cold        |
 | **die Kältewelle**     | cold spell  |
@@ -80,15 +59,108 @@ In this post we are looking at German vocabulary used to tell the weather. The t
 
 ### Neuter words:
 
-| **das Eis**      | ice          |
+| **Deutsch**      | English      |
 | ---------------- | ------------ |
+| **das Eis**      | ice          |
 | **das Gewitter** | thunderstorm |
 | **das Glatteis** | black ice    |
 | **das Klima**    | climate      |
 | **das Wetter**   | weather      |
 
+## Conversations
 
+**DAS WETTER - THE WEATHER**
+
+| D E U T S C H                      | E N G L I S H                            |
+| ---------------------------------- | ---------------------------------------- |
+| **Fragen - Questions**             |                                          |
+| **Wie ist das Wetter heute?**      | What's the weather like today?           |
+| **Ist es warm**/**kalt**/**kühl?** | Is it warm/cold/cool?                    |
+| **Wie viel Grad sind es?**         | What's the temperature?"How many degrees is it?" |
+| **Scheint die Sonne?**             | Is the sun shining?                      |
+| **Wo ist mein Regenschirm?**       | Where's my umbrella?                     |
+
+
+
+### PHRASES 1 - ES + VERB
+
+| D E U T S C H   | E N G L I S H      |
+| --------------- | ------------------ |
+| **Es regnet.**  | It's raining.      |
+| **Es blitzt.**  | There's lightning. |
+| **Es donnert.** | It's thundering.   |
+| **Es schneit.** | It's snowing.      |
+| **Es hagelt.**  | It's hailing.      |
+| **Es friert**   | It's freezing      |
+
+
+
+### PHRASES 2 - ES IST + ADJECTIVE 
+| D E U T S C H         | E N G L I S H       |
+| --------------------- | ------------------- |
+| **Es ist schön.**     | It's nice.          |
+| **Es ist schlecht**   | It's bad            |
+| **Es ist bewölkt.**   | It's cloudy.        |
+| **Es ist heiß.**      | It's hot.           |
+| **Es ist kalt.**      | It's cold.          |
+| **Es ist windig.**    | It's windy.         |
+| **Es ist schwül.**    | It's muggy/humid.   |
+| **So ein Sauwetter!** | Such lousy weather! |
+| **Es ist klar**       | It's clear          |
+| **Es ist eisig**      | It's icy            |
+| **Es ist warm**       | It's warm           |
+| **Es ist sonnig**     | It's sunny          |
+| **Es ist dunstig**    | It's hazy           |
+| **Es ist feucht**     | It's humid          |
+| **Es ist nebelig**    | It's foggy          |
+
+
+
+### DATIVE PHRASES - MIR + IST 
+| D E U T S C H           | E N G L I S H                         |
+| ----------------------- | ------------------------------------- |
+| **Mir ist kalt.**       | I feel cold./I'm cold.                |
+| **Ist es dir zu heiß?** | Do you feel too hot?/Are you too hot? |
+
+**DATIVE PHRASES:** Although it is okay to say "I'm hot/cold" in English, this is not the case in German. To express that you feel hot or cold in German, you use a dative pronoun (**dir** and **mir**in the examples above). The German says "to me it is hot" rather than "I am hot" — which means something like you are "in heat"! 
+
+### More
+
+| D E U T S C H           | E N G L I S H                  |
+| ----------------------- | ------------------------------ |
+| It looks like rain.     | **Es sieht nach Regen aus.**   |
+| The weather is clearing | **Das Wetter klärt sich auf.** |
+
+###More conversations 
+
+Wie stark regnet es? (How strong is the rain?)
+
+Es regnet licht (It rains light)
+
+Wi viel Grad ist es? (How much temperature it is?)
+
+Es ist 17 grad (It is 17 degree )
+
+die Tageshöchsttemperatur - day's maximum temperature
+
+hochst - hoost - maximum
+
+Wie ist das Wetter am Nachmittag? (How is the weather in afternoon)
+
+Ich denke - I guess / think circa 28 degree celsius
+
+teilweise - sometimes 
+
+---
+
+der Wetterbericht - the weather forecast
+
+der Wettervorhersage - the weather forecast
+
+die Nachrichten - the news
 
 Ania
 
 http://www.jabbalab.com/blog/2442/german-vocabulary-all-about-the-weather
+
+https://www.thoughtco.com/talk-about-the-weather-in-german-4077805

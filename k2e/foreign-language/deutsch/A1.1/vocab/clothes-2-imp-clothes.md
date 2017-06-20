@@ -1,6 +1,4 @@
-# Englische Vokabeln – Alles rund um die Kleidung
-
-### Die Kleidung – clothes
+### Important Dresses
 
 In diesem Blog listen wir euch wichtige Vokabeln rund um das Thema **Kleidung** auf. Die Vokabeln sind alphabetisch geordnet. Viel Spaß beim Lernen 🙂
 
@@ -80,4 +78,12 @@ In diesem Blog listen wir euch wichtige Vokabeln rund um das Thema **Kleidung** 
 
  
 
+
+
+
+
 http://www.jabbalab.com/blog/4799/englische-vokabeln-alles-rund-um-die-kleidung
+
+http://www.jabbalab.com/blog/2304/german-vocabulary-all-about-clothes
+
+https://www.thoughtco.com/clothing-and-fashion-in-german-4071357
