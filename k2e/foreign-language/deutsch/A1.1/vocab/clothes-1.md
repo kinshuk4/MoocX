@@ -1,5 +1,29 @@
 # Englische Vokabeln – Alles rund um die Kleidung
 
+We use the word die Kleidung - the clothes, die Klamotten - daily clothes, die Sachen - the stuff/clothes. Sachen is generally used for stuff but manchmal (sometimes) used for clothes.
+
+der Pullover - der Pulli
+
+der Pullover sometimes has die Kapuze (the hood.)
+
+das T-Shirt 
+
+die Mütze - 
+
+Shoes are called der Schuhe, and hand gloves are wörtlich (literally) die Handschuhe and shoe we wear in house are callled die Hausschuhe.
+
+boots are not called der Schuhe but die Stiefel
+
+We wear die Blüse for job interview (das Bewerbungsgespräch - die Bewerbung is the application, gespräch is the conversation.)
+
+die Jacke
+
+on nech - das Tuch, when thick - der Schal
+
+die Hose - pants are singular in german
+
+skirt is der Rock. Belt is called der Gürtel.
+
 ### Die Kleidung – clothes
 
 In this blog we are looking at German vocabulary related to clothes. Below are 3 tables which split the vocabulary into masculine ‘der’ words, feminine ‘die’ words and neuter ‘das’ words.
@@ -311,3 +335,9 @@ http://www.jabbalab.com/blog/4799/englische-vokabeln-alles-rund-um-die-kleidung
 http://www.jabbalab.com/blog/2304/german-vocabulary-all-about-clothes
 
 https://www.thoughtco.com/clothing-and-fashion-in-german-4071357
+
+https://www.youtube.com/watch?v=rtZp3bUQrKA
+
+
+
+die Jeans, das Hemd, die Brille, das T-shirt, den Pullover, die SonnenBrille, den Anzug, den Stift, die Kette, die Socken, das Aspirin, 

@@ -4,7 +4,6 @@
 
 | Singular                 | Plural             | English             |
 | ------------------------ | ------------------ | ------------------- |
-| **die Brücke**           | die Dachse         | the bridge          |
 | **der Parkplatz**        | die Eisbären       | the parking lot     |
 | **der Bahnhof**          | die Hasen          | the station         |
 | **der Brunnen**          | die Hirsche        | the fountain        |
@@ -18,10 +17,8 @@
 | **der Taxistand**        | die Schmetterlinge | taxi stop           |
 | **der Vogel**            | die Vögel          | bird                |
 | **der Supermarkt**       | die Wale           | the super market    |
-
-
-
-
+| der Laden                |                    | the shop            |
+| **der Fluss**            |                    | the river           |
 
 
 
@@ -30,19 +27,23 @@
 
 ### Female words:
 
-| Singular              | Plural        | English         |
-| --------------------- | ------------- | --------------- |
-| **die Post**          | die Ameisen   | the post office |
-| **die Nachbarschaft** | die Bienen    | the apartments  |
-| **die Tankstelle**    | die Eidechsen | the gas station |
-| **die Kirche**        | die Enten     | the church      |
-| **die Bank**          | die Eulen     | the Bank        |
-| **die Oper**          | die Kröten    | the opera house |
-| **die Botschaft**     | die Quallen   | embassy         |
-| **die Apotheke**      | die Robben    | pharmacy        |
-| **die Haltestelle**   | die Schnecken | bus stop        |
-| **die  Straßenbahn**  | die Spinnen   | tram            |
-| **die  Laden**        | die Wespen    | store, shop     |
+| Singular              | Plural        | English           |
+| --------------------- | ------------- | ----------------- |
+| **die Post**          | die Ameisen   | the post office   |
+| **die Brücke**        | die Dachse    | the bridge        |
+| **die Kreuzung**      |               | the intersection  |
+| die Ampel             |               | the traffic light |
+| die Wiese             |               | the meadow        |
+| **die Nachbarschaft** | die Bienen    | the apartments    |
+| **die Tankstelle**    | die Eidechsen | the gas station   |
+| **die Kirche**        | die Enten     | the church        |
+| **die Bank**          | die Eulen     | the Bank          |
+| **die Oper**          | die Kröten    | the opera house   |
+| **die Botschaft**     | die Quallen   | embassy           |
+| **die Apotheke**      | die Robben    | pharmacy          |
+| **die Haltestelle**   | die Schnecken | bus stop          |
+| **die  Straßenbahn**  | die Spinnen   | tram              |
+| **die  Laden**        | die Wespen    | store, shop       |
 
 ### Neuter words:
 
@@ -80,13 +81,17 @@ How much does it cost?
 
 Is there something less expensive?
 
+### Trying to Learn the vocab
 
+There was die Brucke. Der Fluss flowing under it, and der Auto Fahrer and die Fahradfahrerin going over it. Just after bridge there was die Kreuzung, having die Ampel at the die Straße. Now people are going to der Park and lay down on die Wiese. After sometime, people go to der Laden or das Geschäft to buy vegetables. 
 
 
 
 https://quizlet.com/42443650/german-1-city-vocabulary-dhs-flash-cards/
 
 https://www.rocketlanguages.com/german/words/german-city-words
+
+https://www.youtube.com/watch?v=ufWr5lUyuu8&list=PLYzp2xhTw9W1q9Z577ViHvWXiktfyUCQK
 
 
 
