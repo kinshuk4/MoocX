@@ -12,7 +12,7 @@ Here are the points to keep in mind:
 | ---------------------------------------- | --------------------- | -------------------- | ------------------- | --------------------- |
 | **Definite Article OR bestimmter Artikel** | der Vater             | die Mutter           | das Kind            | die Eltern            |
 | **Indefinite Article OR unbestimmter Artikel** | ein Vater             | eine Mutter          | ein Kind            | - Eltern (no article) |
-| **Negativ artikel**                      | kein Vater            | keine Mutter         | kein Kind           |                       |
+| **Negativ artikel**                      | kein Vater            | keine Mutter         | kein Kind           | -                     |
 
 The nominative case is used for a person, animal or thing which is doing the action. In this case, you will be able to ask: **Who/What** did or is something? The nominative case is always used after the verbs **sein** and **werden.**
 
