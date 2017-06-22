@@ -68,20 +68,24 @@ George W. Bush is the President.*George W. Bush* is the subject and is nominativ
 
 Sentence with all the cases
 
-```
-​```json
+```json
+   // red
    Ich gebe
-​```
-​```html
-   dem Mann
-​```
-​```js
-   das Buch
-​```
-​```css
-   meines Vaters
-​```
 ```
+```html
+   // blue
+   dem Mann
+```
+```js
+   // blue
+   das Buch
+```
+```css
+   // black
+   meines Vaters
+```
+
+
 
 
 
