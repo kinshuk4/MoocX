@@ -85,7 +85,7 @@ Is there something less expensive?
 
 There was die Brucke. Der Fluss flowing under it, and der Auto Fahrer and die Fahradfahrerin going over it. Just after bridge there was die Kreuzung, having die Ampel at the die Straße. Now people are going to der Park and lay down on die Wiese. After sometime, people go to der Laden or das Geschäft to buy vegetables. 
 
-
+Now, suppose we are sick. Then we go to der Arzt, for eye der Augenarzt and for dental problems to der Zahnarzt. If you are even more sick, then go to das Krankenhaus (or clinic), and buy medicine from die Apotheke. das eiskafe - ice cream shop. For money, we go to die Bank.
 
 https://quizlet.com/42443650/german-1-city-vocabulary-dhs-flash-cards/
 
@@ -93,7 +93,7 @@ https://www.rocketlanguages.com/german/words/german-city-words
 
 https://www.youtube.com/watch?v=ufWr5lUyuu8&list=PLYzp2xhTw9W1q9Z577ViHvWXiktfyUCQK
 
-
+https://www.youtube.com/watch?v=UhWaMd5hUx0&index=2&list=PLYzp2xhTw9W1q9Z577ViHvWXiktfyUCQK
 
 
 

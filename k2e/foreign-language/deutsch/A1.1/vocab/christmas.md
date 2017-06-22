@@ -1,10 +1,14 @@
 # German Vocabulary – Christmas
 
-[](http://www.jabbalab.com/blog/wp-content/uploads/2014/12/Christmas1.jpg)
+
 
 ### Christmas
 
-Here are some essential German words focusing on Christmas. The tables below are divided into masculine words, feminine words and neuter words. This will help you with remembering the genders. In addition, all plural forms of nouns are shown with the exception of words which have no plural form. Learn and enjoy the German language with Jabbalab! 🙂
+Frohes Fest - Merry Christmas OR Happy holidays
+
+In christmas, people burn candles - die Kerze. die Kerzen come in many fragrances - Zimt (cinnemon), Vanille (Vanilla), Weihrauch - frankincense.
+
+Here are some essential German words focusing on Christmas. The tables below are divided into masculine words, feminine words and neuter words. This will help you with remembering the genders. In addition, all plural forms of nouns are shown with the exception of words which have no plural form. 
 
 ### Masculine Words
 
@@ -66,7 +70,12 @@ Here are some essential German words focusing on Christmas. The tables below are
 | **(Geschenke) einpacken** | to wrap (presents)   |
 | **feiern**                | to celebrate         |
 | **wichteln**              | to do a secret Santa |
+| dekorieren                | to decorate          |
 
 
 
 https://www.jabbalab.com/blog/15689/german-vocabulary-christmas
+
+http://www.jabbalab.com/blog/1753/german-vocabulary-all-about-christmas
+
+https://www.youtube.com/watch?v=xHKwyomXP50&index=3&list=PLYzp2xhTw9W1q9Z577ViHvWXiktfyUCQK

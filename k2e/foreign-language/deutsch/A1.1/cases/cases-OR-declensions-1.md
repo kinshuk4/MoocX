@@ -6,25 +6,7 @@ Depending on how a given word is used — whether it's the subject, a possessive
 
 The four German cases are the nominative, the genitive, the dative and the accusative. You can think of these as the subject, possessive, indirect object and direct object in English.
 
-### Subject and Direct Object
 
-**What is the subject of a sentence?**
-The **subject** of a sentence is the person or thing that is “doing” the verb. To find the subject, look for the verb and ask “Who or what is doing?” (substitute the verb for “doing” -- Who or what is singing? Who or what is sleeping?) Subjects are always in the NOMINATIVE CASE.
-
-**What is the direct object of a sentence?**
-The **direct object** receives the action of the verb. To find the direct object, look for the verb and ask “Who or what is being verbed?” (as in Who or what is being kicked? Who or what is being read?) Direct objects take the ACCUSATIVE CASE.
-
-For example:
-
-Eg. 1 - The woman sees the girl.
-
-*The woman* is the subject and is nominative. *the girl* is the direct object and is accusative.
-
-Eg. 2 - The girl sees the woman.
-
-*The girl* is the subject and is nominative. *the woman* is the direct object and is accusative.
-
-George W. Bush is the President.*George W. Bush* is the subject and is nominative. *the President* is ALSO nominative because it follows “to be” (is).
 
 ### THE GERMAN NOMINATIVE CASE ( *DER NOMINATIV* OR *DER WERFALL*)
 
