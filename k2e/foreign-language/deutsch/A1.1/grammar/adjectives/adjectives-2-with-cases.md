@@ -87,21 +87,19 @@ Study and practice the above examples on a regular basis. At first you will get 
 
 ### Summary Table
 
-|                          | Nominative | Accusative | Dative | Genitive |
-| ------------------------ | ---------- | ---------- | ------ | -------- |
-| **Masculine**            | -e         | -en        | -en    | -en      |
-| **Feminine**             | -e         | -e         | -en    | -en      |
-| **Neutral**              | -e         | -e         | -en    | -en      |
-| **Plural (all genders)** | -en        | -en        | -en    | -en      |
+| Artikel                                  | Masculine OR männlich | Feminine OR weiblich | Neutral OR sächlich   | Plural               |
+| ---------------------------------------- | --------------------- | -------------------- | --------------------- | -------------------- |
+| **Definite Article**                     | -e / -en / -en / -en  | -e / -e / -en / -en  | -e / -e / -en / -en   | -en / -en/ -en / -en |
+| **Indefinite Article and Negativ artikel** | -er / -en / -en / -en | -e / -e / -en / -en  | -es / -es / -en / -en | -en / -en/ -en / -en |
+| **No artikel**                           | -er / -en / -em / -en | -e / -e / -er / -er  | -es / -es / -em / -en | -e / -e / -en / -er  |
 
+**Learning the adjectives**
 
+For nominative:
 
-| Artikel                | Masculine OR männlich           | Feminine OR weiblich                     | Neutral OR sächlich             | Plural                               |
-| ---------------------- | ------------------------------- | ---------------------------------------- | ------------------------------- | ------------------------------------ |
-| **Definite Article**   | -e / -en / -en / -en            | die schön**e** Stadt (the beautiful city) | das alt**e** Auto (the old car) | die neu**en** Bücher (the new books) |
-| **Indefinite Article** | ein neu**er** Wagen (a new car) | eine schön**e** Stadt (a beautiful city) | ein alt**es** Auto (an old car) | - Eltern (no article)                |
-| **Negativ artikel**    | kein Vater                      | keine Mutter                             | kein Kind                       | -                                    |
-|                        |                                 |                                          |                                 |                                      |
+1. In the definite article, all genders end with **-e** and plural end with **-en**. (en - e as normal case and n for nominative and hence -en)
+2. In indefinite and negative article, it ends with ending of the definite article. 
+   neu**er** from Der, schön**e**  from Die and alt**es** from Das and for plural, again Schnell**e** from Die.
 
 
 
