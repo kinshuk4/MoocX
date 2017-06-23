@@ -10,7 +10,7 @@ In German, prepositions come in several "flavors," only one of which is dative.
 
 There are two kinds of dative prepositions:
 
-1. Those that are** **always dative and never anything else.
+1. Those that are always dative and never anything else.
 2. Certain [two-way or dual prepositions](https://www.thoughtco.com/two-way-doubtful-prepositions-in-german-1444444) that can be either dative or accusative — depending on how they are used.
 
 ### Examples

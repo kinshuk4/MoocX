@@ -1,80 +1,15 @@
 # German Accusative Prepositions
 
-In German, prepositions can be followed by nouns in various cases. An accusative preposition will always be followed by an object (a noun or pronoun) in the[ accusative case](https://www.thoughtco.com/the-four-german-noun-cases-4064290). 
-
-### Prepositions and the Cases
-
-German prepositions break down into **four groups**. Some of them use the **accusative** and some use the **dative** or **genitive** case. On top of this, there are also some that can be either **accusative or dative**, depending on the context of the sentence. When using a preposition, the article of the noun may change depending on the gender and case.
-
-### Accusative Prepositions
-
-There are **six** prepositions which are strictly linked to the accusative case. Let’s have a look at a table that shows you the prepositions in connection with the definite article der, die and das:
-
-| Preposition          | Masculine | Feminine  | Neuter     |
-| -------------------- | --------- | --------- | ---------- |
-| bis (until, till)    | bis den   | bis die   | bis das    |
-| durch (through, by)  | durch den | durch die | **durchs** |
-| für (for)            | für den   | für die   | **fürs**   |
-| gegen (against, for) | gegen den | gegen die | gegen das  |
-| ohne (without)       | ohne den  | ohne die  | ohne das   |
-| um (around, for, at) | um den    | um die    | **ums**    |
-
-As these prepositions are followed by the accusative case the masculine article **der** will change to **den**. After a few German accusative prepositions, a shortened form of the definite article can be merged with the preposition to make one word:
-
-durch + das = **durchs**
-für + das = **fürs**
-um + das = **ums**
-
-**Example sentences:**
-**Bis** nächsten Sonntag! ⇨ Until next Sunday!
-Wir laufen **durch den** Park. ⇨ We are walking through the park.
-Vielen Dank **für die** Auskunft. ⇨ Thank you very much for the advice.
-Ich stellte das Fahrrad **gegen die** Wand. ⇨ I put the bike against the wall.
-Der Bahnhof ist gleich **um die** Ecke. ⇨ The train station is around the corner.
-
-As you can see, some articles, pronouns and adjectives change their form in the accusative case. You can fresh your memory up by reading our blog [How the German Cases work](http://www.jabbalab.com/blog/795/how-the-german-cases-work-nominative-accusative-dative-and-genitive).
-
 ### TYPES OF ACCUSATIVE PREPOSITIONS
 
 There are two kinds of accusative prepositions:
 
-1. Those that are always accusative and never anything else.
+1. Those that are always accusative and never anything else. These are already covered - [accusative-3-preposition.md](../../cases/2-accusative/accusative-3-preposition.md).
 2. Certain two-way prepositions that can be either accusative or dative, depending on how they are used.
 
 
 
-See the chart below for a complete list of each type.
-
-Luckily, there are only five accusative prepositions you need to memorize. Another thing that makes this group of prepositions easier is the fact that only the masculine gender (*der*) changes in the accusative case. The plural, feminine (*die*) and neuter (*das*) genders don't change in the accusative.
-
-In the German-English examples below, the accusative preposition is** **bolded. The object of the preposition is italicized.
-
-- **Ohne ***Geld* geht's nicht**. **( ****Without** *money* it won't work.)
-- Sie geht *den Fluss*** entlang. **(She is walking **along** *the river.*)
-- Er arbeitet **für** *eine große Firma***. **(He works **for** *a big company*.)
-- Wir fahren **durch*** die Stadt***. **(We're driving **through** *the city*.)
-- Schreibst du einen Brief **an ***deinen Vater?*** (**Are you writing a letter **to** *your father*?)
-
-Notice in the second example above that the object (*Fluss*) comes before the preposition (*entlang*). Some German prepositions use this reverse word order, but the object must still be in the correct case.
-
-### WHAT ARE THE ACCUSATIVE PREPOSITION IN GERMAN?
-
-Here is a list of the accusative-only prepositions and their English translations.  
-
-| **Accusative Prepositions**              |                        |
-| ---------------------------------------- | ---------------------- |
-| **Deutsch**                              | **Englisch**           |
-| **bis***                                 | until, to, by          |
-| **durch**                                | through, by            |
-| **entlang**                              | along, down            |
-| Note: The accusative preposition *entlang *usually goes after its object. |                        |
-| **für**                                  | for                    |
-| **gegen**                                | against, for           |
-| **ohne**                                 | without                |
-| **um**                                   | around, for, at (time) |
-| *Note: The German preposition *bis* is technically an accusative preposition, but it is almost always used with a second preposition (*bis zu, bis auf*) in a different case, or without an article (*bis April, bis Montag, bis Bonn*). |                        |
-
- 
+### Two Way Accusative Prepositions
 
 | **Two-Way Prepositions****Accusative/Dative** |                                |
 | ---------------------------------------- | ------------------------------ |
@@ -144,10 +79,11 @@ Examples: *auf** dem Lande *(in the country), *um **drei** Uhr* (at three o'cloc
 
 For more on the two-way prepositions, check out this [self-scoring quiz](https://www.thoughtco.com/two-way-doubtful-prepositions-in-german-1444444).  
 
+​      
 
-
-
+https://www.youtube.com/watch?v=OnNGCS5tVMw&list=PLYzp2xhTw9W1Xfjp8_0oxsULeUw5g80TH&index=8
 
 https://www.jabbalab.com/blog/15767/german-accusative-prepositions   
 
 https://www.thoughtco.com/german-prepositions-and-the-accusative-case-4065315                 
+

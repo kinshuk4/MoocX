@@ -1,14 +1,8 @@
-# Nominative Case with examples and test
+# Solution of the German Nominative Case Test
 
 ### Nominative Case
 
 There are four cases in the German language. Nominative, Accusative, Dative and Genitive. The cases are an important part of the German grammar as they are responsible for the endings of adjectives, indefinite articles and when to use which personal pronoun. To say it short: The German cases are the heart of the language. Let’s have a closer look 🙂
-
- 
-
- 
-
- 
 
  
 
@@ -48,24 +42,35 @@ Wieso schreit das Kind?
 What is the missing word?
 
 1. Nadja ist __ erfolgreiche Frau.
-
 2. Das ist __ gute Geschichte.
 3. Wieso ist __ Radio kaputt?
 4. __ Kamin ist nicht echt.
 5. Warum ist __ Jacke so teuer?
-
 6. __ Meeting wurde verschoben.
-
 7. Er ist __ armer Mann.
 8. __ Uhr funktioniert nicht mehr.
 9. Ist __ Erde rund?
-
 10. __ Buch kostet 10€.
 
 The solution to the test is [here](http://www.jabbalab.com/blog/7700/solution-of-the-german-nominative-case-test)
 
+
+
+Here is the solution of our previous blog about the German Nominative Case 🙂
+
+1. Nadja ist eine erfolgreiche Frau.
+2. Das ist eine gute Geschichte.
+3. Wieso ist das Radio kaputt?
+4. Der Kamin ist nicht echt.
+5. Warum ist die Jacke so teuer?
+6. Das Meeting wurde verschoben.
+7. Er ist ein armer Mann.
+8. Die Uhr funktioniert nicht mehr.
+9. Ist die Erde rund?
+10. Das Buch kostet 10€.
+
+
+
 https://www.jabbalab.com/blog/6112/nominative-case-with-examples-and-test
 
-
-
-​                    
+http://www.jabbalab.com/blog/7700/solution-of-the-german-nominative-case-test
