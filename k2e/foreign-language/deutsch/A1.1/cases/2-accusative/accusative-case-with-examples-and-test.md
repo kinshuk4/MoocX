@@ -6,34 +6,34 @@
 
 There are four cases in the German language. Nominative, Accusative, Dative and Genitive. The cases are an important part of the German grammar as they are responsible for the endings of adjectives, indefinite articles and when to use which personal pronoun. To say it short: The German cases are the heart of the language. Let’s have a closer look 🙂
 
- 
+ 
 
- 
+ 
 
- 
+ 
 
- 
+ 
 
 ### The Accusative Case
 
-einen Hund
+|            | Masculine                       | Feminine                     | Neuter                    |
+| ---------- | ------------------------------- | ---------------------------- | ------------------------- |
+| Accusative | den Manneinen Hundkeinen Hunger | die Katzeeine Fraukeine Lust | das Kinoein Kindkein Geld |
 
-keinen Hunger
-die Katze
+ 
 
-eine Frau
-
-keine Lust
-das Kino
-
-ein Kind
-
-kein Geld
- 
+| **Personal Pronoun** | **Accusative** |
+| -------------------- | -------------- |
+| **ich**              | mich           |
+| **du**               | dich           |
+| **er/sie/es**        | ihn/sie/es     |
+| **wir**              | uns            |
+| **ihr**              | euch           |
+| **sie/Sie**          | sie/Sie        |
 
 The accusative case is used for a person/animal/thing which is directly affected by the action of the verb. The accusative is also used after certain [prepositions](http://www.jabbalab.com/blog/2992/german-prepositions-followed-by-the-accusative-case).
 
-Examples of Accusative:
+**Examples of Accusative:**
 
 Ich habe einen Fehler gemacht. (what have I done?)
 
@@ -69,30 +69,10 @@ What is the missing word?
 9. Kannst du bitte __ Fenster aufmachen?
 10. Er wird __ Abwasch morgen machen.
 
-The solution to the test is [here](http://www.jabbalab.com/blog/8253/solution-of-the-accusative-case-test) 🙂
-
-                    
-
-
-        
-        
-            Ja, “Chris” is the short form of “Christian” which is a male name 🙂
-
-        
-
-    
-
-
-Hallo! I have some doubts about how is the adjective declination in accusative. There’s some table for that?? Thank you!
-I really love how you explain the topics and the examples! 🙂
+The solution to the test is [here](http://www.jabbalab.com/blog/8253/solution-of-the-accusative-case-test) 🙂ƒ
 
 
 
-Hi Sandy,
-Yes, we have a blog anout the ending of adjectives in the accusative case. The link to that blog is here:
-[http://www.jabbalab.com/blog/810/how-to-use-german-adjectives](../810/how-to-use-german-adjectives.html)
-I hope this helps 🙂
+​        
 
-        
-
-    
+​    

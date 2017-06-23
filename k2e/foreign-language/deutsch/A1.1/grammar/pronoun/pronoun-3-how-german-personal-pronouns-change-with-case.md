@@ -2,9 +2,7 @@
 
 ### German Pronouns
 
-German personal pronouns are a little more complicated than in English (no surprise there!). It can be tricky to get to grips with but learning the different forms is a vital step in learning the German language. The form that the personal pronoun takes is dependent on the [case](http://www.jabbalab.com/blog/795/how-the-german-cases-work-nominative-accusative-dative-and-genetive) of the sentence. The table below will show you which form fits with which [case](http://www.jabbalab.com/blog/795/how-the-german-cases-work-nominative-accusative-dative-and-genetive). Learn and enjoy the German language with **Jabba****lab**! 🙂
-
- 
+German personal pronouns are a little more complicated than in English (no surprise there!). It can be tricky to get to grips with but learning the different forms is a vital step in learning the German language. The form that the personal pronoun takes is dependent on the [case](http://www.jabbalab.com/blog/795/how-the-german-cases-work-nominative-accusative-dative-and-genetive) of the sentence. The table below will show you which form fits with which [case](http://www.jabbalab.com/blog/795/how-the-german-cases-work-nominative-accusative-dative-and-genetive).  
 
 ### Personal Pronouns and the Cases
 
@@ -65,6 +63,6 @@ Das ist **ihr** Auto. (That’s her car.) ⇨ **Whose** car is it?
 
 
 
-
-
 http://www.jabbalab.com/blog/889/how-german-personal-pronouns-change-with-case
+
+​    

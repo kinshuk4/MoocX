@@ -1,3 +1,9 @@
+## Possessive Pronouns
+
+Possessive pronouns are quite simply used to show that a noun belongs to somebody or something (e.g 'mine', 'your', 'his').
+
+The endings they take depend on the case, gender and number of the 'thing' possessed.
+
 Here are the possessive pronouns:
 
 | Pronoun                    | Possessive Pronoun | Comment                                 |
