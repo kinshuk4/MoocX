@@ -13,7 +13,7 @@ This repo stores all my class notes, exercises and projects for [Udacity's Machi
 3. [Supervised Learning](notes/supervised-learning/supervised-learning.md)
     1. [Supervised Learning Tasks](notes/supervised-learning/supervised-learning.md)
     2. [Decision Trees](notes/supervised-learning/decision-trees.md)
-    3. [Artificial Neural Networks](notes/supervised-learning/artificial-neural-networks.md)
+    3. [Artificial Neural Networks](notes/supervised-learning/artificial-neural-networks/)
     4. [Support Vector Machines](notes/supervised-learning/support-vector-machines.md)
     5. [Non Parametric Models](notes/supervised-learning/nonparametric-models.md)
     6. [Bayesian Methods](notes/supervised-learning/bayesian-methods.md)
@@ -42,13 +42,13 @@ This repo stores all my class notes, exercises and projects for [Udacity's Machi
 4. Unsupervised Learning Project: [Creating Customers Segment](projects/p3-customer_segments/report.html)
 5. Reinforcement Learning Project: [Train a Smartcab to Drive](projects/p4-smartcab/report.html)
 6. Deep Learning Project 1: Build a Digit Recognition Program
-6. Deep Learning Project 2: [Image Classification](projects/image-classification/report.html)
-7. Capstone Project: TBA
+7. Deep Learning Project 2: [Image Classification](projects/image-classification/report.html)
+8. Capstone Project: TBA
 
 ## Extra
 
 - [Statistics Cheatsheet](statistics/cheatsheet.md)
 
 credit
- - https://github.com/pedropb/machine-learning-nanodegree
- - https://github.com/ritchieng/machine-learning-nanodegree
+- https://github.com/pedropb/machine-learning-nanodegree
+- https://github.com/ritchieng/machine-learning-nanodegree

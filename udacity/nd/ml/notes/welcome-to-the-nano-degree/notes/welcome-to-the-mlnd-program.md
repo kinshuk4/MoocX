@@ -8,6 +8,8 @@ Machine Learning is a broad concept that involves AI, Statistics and Algorithms.
 
 In conclusion, Machine Learning is an evolution of all these areas.
 
+Some people define Machine learning as field of AI that relies on computer to learn about the environment from data instead of relying on the rules set by the computer program.
+
 # Machine Learning vs Traditional Programming
 
 In traditional programming, we write decisions into the code.
@@ -21,3 +23,7 @@ For example, in traditional programming, we would write code that would use a st
 - Building model and validation
 - Nuts and bolts of machine learning: different tools for different kinds of problems and when to use them
 - Personnal Project using all the knowledge gathered during the program.
+
+
+
+https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/6df7ae49-c61c-4bb2-a23e-6527e69209ec/lessons/83a4e710-a69e-4ce9-9af9-939307c0711b/concepts/ed36a8de-0f4f-495d-8617-1a6d74ebdc09
