@@ -101,4 +101,6 @@ Keep in mind that like with all other pronouns, *du*, *ihr* and *Sie* will also 
 
 http://www.jabbalab.com/blog/956/when-to-use-sie-du-and-ihr
 
+https://www.jabbalab.com/blog/16117/du-ihr-and-sie-german-polite-form-with-video
+
 https://www.thoughtco.com/how-to-address-a-german-properly-1444463

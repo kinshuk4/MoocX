@@ -1,33 +1,41 @@
-# German Indefinite Pronouns
-
-[](http://www.jabbalab.com/blog/wp-content/uploads/2011/06/Indefinite-Pronouns-Part-1.jpg)
+## German Indefinite Pronouns
 
 ### What is an indefinite pronoun?
 
 An indefinite pronoun is a type of pronoun that is used to refer to unknown or unspecified objects, beings or places.
 
-In this first part we are looking at the words alle = all, beide = both, diese = this and einige = few
+In this first part we are looking at the words alle = all, beide = both, diese = this and einige = few 
 
- 
-
- 
-
- 
+ 
 
 ### Indefinite Pronoun Table
 
- 
+|                    | **Nominative** | **Accusative** | **Dative** | **Genitive**(possessive) |
+| ------------------ | -------------- | -------------- | ---------- | ------------------------ |
+| **Plural only**    | alle           | alle           | allen      | aller                    |
+| **Singular**       | beides         | beides         | beiden     | beides                   |
+| **Plural**         | beide          | beide          | beiden     | beider                   |
+| **Singular (der)** | dieser         | diesen         | diesem     | dieses/diesen            |
+| **Singular (die)** | diese          | diese          | dieser     | dieser                   |
+| **Singular (das)** | dieses         | dieses         | diesem     | dieses/diesen            |
+| **Plural**         | diese          | diese          | diesen     | dieser                   |
+| **Singular (der)** | einiger        | einigen        | einigem    | einiges/einigen          |
+| **Singular (die)** | einige         | einige         | einiger    | einiger                  |
+| **Singular (das)** | einiges        | einiges        | einigem    | einiges/einigen          |
+| **Plural**         | einige         | einige         | einigen    | einiger                  |
+
+ 
 
 ### Example Sentences:
 
-Alle
+**Alle**
 
 Nominative: Ihr seid alle heute eingeladen.
 Accusative: Ich habe alle gesehen.
 Dative: Er hat allen geholfen.
 Genitive: Die Autos aller Nachbarn sind kaputt.
 
-Beide
+**Beide**
 
 Nominative + singular: Beides wird dort verkauft.
 Accusative + singular: Du kannst nicht beides haben.
@@ -39,7 +47,7 @@ Accusative + plural: Ich besuche beide.
 Dative + plural: Wir geben beiden Kindern Geld.
 Genitive + plural: Die Steuereinnahmen beider Länder sind sehr gering.
 
-Dies
+**Dies**
 
 Nominative + male + singular: Dieser Hut ist zu groß.
 Nominative + female + singular: Diese Frau ist sehr gemein.
@@ -62,7 +70,7 @@ Accusative + plural: Ich backe diese Kekse heute.
 Dative + plural: Ich glaube diesen Leuten nicht.
 Genitive + plural: Die Autos dieser Frauen waren sehr günstig.
 
-Einiges, einige:
+**Einiges, einige:**
 
 Nominative + male + singular: Einiger politischer Sinn ist hier nötig.
 Nominative + female + singular: Einige Anstrengung muss sein.
@@ -85,54 +93,6 @@ Accusative + plural: Ich sehe einige Löwen im Zoo.
 Dative + plural: Ich gebe einigen Freunden eine Einladung.
 Genitive + plural: Die Häuser einiger Bekannten sind neu.
 
-                    
 
 
-        
-        
-            I think there is a mistake on this page.  Shouldn’t it be “Ihr habt alle heute eingeladen” instead of “Ihr seid alle heute eingeladen”?
-
-        
-
-    
-
-
-        
-        
-            @Brandon No this is not a mistake. “Ihr habt alle heute eingeladen” would mean “You (plural) have invited everyone today”. Whereas “Ihr seid alle heute eingeladen” means “You are all invited today”. Hope this helps clear it up 🙂
-
-        
-
-    
-
-
-        
-        
-            Can someone please explain to me how to differentiate between Akkustiv, Dativ and Nominativ. Is there any way to recognise it easy? THANKS!
-
-        
-
-    
-
-
-Hello Lailan. We have a blog about the cases here: [http://www.doubletranslate.com/blog/795/how-the-german-cases-work-nominative-accusative-dative-and-genitive](http://www.doubletranslate.com/blog/795/how-the-german-cases-work-nominative-accusative-dative-and-genitive)
-I hope this helps 🙂
-
-
-
-        
-        
-            In the masculine/neuter Genitive singular form of indefinite pronouns like dieser/jeder is there still a choice of ending ‘es/en’ or is one no longer in modern usage (especially spoken)?
-
-        
-
-    
-
-
-        
-        
-            @Anthony: The normal use is the one with the -es ending. The -en ending is sometimes used (incorrectly) if it comes to specific dates. For example: Im April diesen Jahres… Many Germans use “diesen” then. However, it would be better to use “dieses”. Im April dieses Jahres… 🙂
-
-        
-
-    
+https://www.jabbalab.com/blog/2396/german-indefinite-pronouns
