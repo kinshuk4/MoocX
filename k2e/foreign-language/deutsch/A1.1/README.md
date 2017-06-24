@@ -1056,7 +1056,14 @@ Ania Website - https://learngermanwithania.com/
 
 Jenny - https://www.youtube.com/channel/UCZ6mER1F4vj55-DkKBDY5Iw
 
+Jenny website - http://germanwithjenny.com/
+
 https://yesgerman.com/
 
 http://germanforenglishspeakers.com/
 
+http://mein-deutschbuch.de/
+
+http://www.medienvilla.com/download/german/
+
+http://germanforenglishspeakers.com/verbs/prefix-verbs/
