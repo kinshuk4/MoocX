@@ -63,17 +63,17 @@ Types of Machine Learning Algorithms and when to use Machine Learning
 
 #### Sentiment Analysis with Andrew Trask
 
-* Framing Problems for Neural Networks ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/1-framing-problems-for-nns.ipynb))
-* Creating the Input/Output Data ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/2-creating-input-output-data.ipynb))
-* Building the Neural Network ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/3-building-the-nn.ipynb))
-* Making Learning Faster by Reducing Noise ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/4-reducing-noise.ipynb))
-* Making our Network Train and Run Faster ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/5-making-network-train-faster.ipynb))
-* Reducing Noise by Strategically Reducing Noise ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/6-reducing-vocabulary-noise.ipynb))
+* Framing Problems for Neural Networks ([Notebook](./Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/1-framing-problems-for-nns.ipynb))
+* Creating the Input/Output Data ([Notebook](./Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/2-creating-input-output-data.ipynb))
+* Building the Neural Network ([Notebook](./Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/3-building-the-nn.ipynb))
+* Making Learning Faster by Reducing Noise ([Notebook](./Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/4-reducing-noise.ipynb))
+* Making our Network Train and Run Faster ([Notebook](./Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/5-making-network-train-faster.ipynb))
+* Reducing Noise by Strategically Reducing Noise ([Notebook](./Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/6-reducing-vocabulary-noise.ipynb))
 
 #### (11) Intro to TFLearn
 
-* Sentiment Analysis with TFLearn ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20TFLearn/sentiment-analysis-tflearn.ipynb))
-* Handwritten Digit Recognition with TFLearn and MNIST ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Handwritten%20Digit%20Recognition%20with%20TFLearn%20and%20MNIST/handwritten-digit-recognition-with-tflearn.ipynb))
+* Sentiment Analysis with TFLearn ([Notebook](./Sentiment%20Analysis/Sentiment%20Analysis%20with%20TFLearn/sentiment-analysis-tflearn.ipynb))
+* Handwritten Digit Recognition with TFLearn and MNIST ([Notebook](./Sentiment%20Analysis/Handwritten%20Digit%20Recognition%20with%20TFLearn%20and%20MNIST/handwritten-digit-recognition-with-tflearn.ipynb))
   <br>
 
 ### 3 - MiniFlow
@@ -88,26 +88,26 @@ Types of Machine Learning Algorithms and when to use Machine Learning
 
 ### 4 - Intro to TensorFlow
 
-* Intro to TensorFlow Notes ([Markdown](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Intro%20to%20TensorFlow/intro-to-tensorflow-notes.md)) ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Intro%20to%20TensorFlow/intro-to-tensorflow-notes.ipynb))
-* TensorFlow Neural Network Lab ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Intro%20to%20TensorFlow/tf_neural_network_lab.ipynb))
+* Intro to TensorFlow Notes ([Markdown](./Intro%20to%20TensorFlow/intro-to-tensorflow-notes.md)) ([Notebook](./Intro%20to%20TensorFlow/intro-to-tensorflow-notes.ipynb))
+* TensorFlow Neural Network Lab ([Notebook](./Intro%20to%20TensorFlow/tf_neural_network_lab.ipynb))
   <br>
 
 ### 5 - Deep Neural Networks
 
-* Deep Neural Networks Notes ([Markdown](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Deep%20Neural%20Networks/tf-deep-neural-networks.md)) ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Deep%20Neural%20Networks/tf-deep-neural-networks.ipynb))
+* Deep Neural Networks Notes ([Markdown](./Deep%20Neural%20Networks/tf-deep-neural-networks.md)) ([Notebook](./Deep%20Neural%20Networks/tf-deep-neural-networks.ipynb))
   <br>
 
 ### 6 - Convolutional Neural Networks
 
-* Convolutional Neural Network Notes ([Markdown](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Convolutional%20Neural%20Networks/convolutional-neural-networks-notes.md)) ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Convolutional%20Neural%20Networks/convolutional-neural-networks-notes.ipynb))
+* Convolutional Neural Network Notes ([Markdown](./Convolutional%20Neural%20Networks/convolutional-neural-networks-notes.md)) ([Notebook](./Convolutional%20Neural%20Networks/convolutional-neural-networks-notes.ipynb))
 
 * **PROJECT 2: Image Classification Convolutional Neural Network** ([Repo](https://github.com/nehal96/Image-Classification-CovNet))
   <br>
 
 ### 7 - Recurrent Neural Networks
 
-* Recurrent Neural Network Exercise (Anna Karenina Text Generation) ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Recurrent%20Neural%20Networks/Anna%20KaRNNa.ipynb))
-* Sentiment Analysis Recurrent Neural Network ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Recurrent%20Neural%20Networks/Sentiemnt-RNN/Sentiment%20RNN.ipynb))
+* Recurrent Neural Network Exercise (Anna Karenina Text Generation) ([Notebook](./Recurrent%20Neural%20Networks/Anna%20KaRNNa.ipynb))
+* Sentiment Analysis Recurrent Neural Network ([Notebook](./Recurrent%20Neural%20Networks/Sentiemnt-RNN/Sentiment%20RNN.ipynb))
 
 * **PROJECT 3: Simpsons Script Generation with Recurrent Neural Networks** ([Repo](https://github.com/nehal96/Simpsons-Script-Generation))
 
@@ -122,7 +122,7 @@ Types of Machine Learning Algorithms and when to use Machine Learning
 
 ### 8 - Embeddings and Word2Vec
 
-* Embeddings and Word2Vec (Skip-Gram) Exercise ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Embeddings%20and%20Word2Vec/Skip-Gram%20word2vec.ipynb))
+* Embeddings and Word2Vec (Skip-Gram) Exercise ([Notebook](./Embeddings%20and%20Word2Vec/Skip-Gram%20word2vec.ipynb))
 
 #### Resources
 * [Word2Vec Overview: The Skip-Gram Model by Chris McCormick](http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/) (Blog)
@@ -134,10 +134,10 @@ Types of Machine Learning Algorithms and when to use Machine Learning
 
 ### 9 - TensorBoard
 
-* Viewing Graphs ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/TensorBoard/Anna%20KaRNNa.ipynb))
-* Name Scopes ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/TensorBoard/Anna%20KaRNNa%20Name%20Scoped.ipynb))
-* Inspecting Variables - TF Summaries ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/TensorBoard/Anna%20KaRNNa%20Summaries.ipynb))
-* Choosing Hyperparameters ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/TensorBoard/Anna%20KaRNNa%20Hyperparameters.ipynb))
+* Viewing Graphs ([Notebook](./TensorBoard/Anna%20KaRNNa.ipynb))
+* Name Scopes ([Notebook](./TensorBoard/Anna%20KaRNNa%20Name%20Scoped.ipynb))
+* Inspecting Variables - TF Summaries ([Notebook](./TensorBoard/Anna%20KaRNNa%20Summaries.ipynb))
+* Choosing Hyperparameters ([Notebook](./TensorBoard/Anna%20KaRNNa%20Hyperparameters.ipynb))
 
 #### Resources
 * [Hands-on TensorBoard Tutorial](https://www.youtube.com/watch?v=eBbEDRsCmv4&feature=youtu.be) (TensorFlow Dev Summit 2017)
@@ -146,7 +146,7 @@ Types of Machine Learning Algorithms and when to use Machine Learning
 
 ### 10 - Weight Initialization
 
-* Comparing Different Weight Initializations on MNIST ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Weight%20Initialization/weight_initialization.ipynb))
+* Comparing Different Weight Initializations on MNIST ([Notebook](./Weight%20Initialization/weight_initialization.ipynb))
 
 #### Resources
 * [Understanding the Difficulty of Training Deep Feedforward Neural Networks by Bengio et al.](http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf) (Paper) [PDF]
@@ -156,36 +156,36 @@ Types of Machine Learning Algorithms and when to use Machine Learning
 
 ### 11 - Transfer Learning
 
-* Transfer Learning with VGGNet ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Transfer-Learning/Transfer_Learning.ipynb))
+* Transfer Learning with VGGNet ([Notebook](./Transfer-Learning/Transfer_Learning.ipynb))
   <br>
 
 ### 12 - Sequence to Sequence RNN
 
-* Character Sequence to Sequence ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sequence-to-Sequence/sequence_to_sequence_implementation.ipynb))
+* Character Sequence to Sequence ([Notebook](./Sequence-to-Sequence/sequence_to_sequence_implementation.ipynb))
 
 * **PROJECT 4: English to French Translation with Sequence to Sequence RNN** ([Repo](https://github.com/nehal96/Seq2Seq-Language-Translation))
   <br>
 
 ### 13 - Reinforcement Learning
 
-* Playing Cart-Pole using Q-Learning ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Reinforcement-Learning/Q-learning-cart.ipynb))
+* Playing Cart-Pole using Q-Learning ([Notebook](./Reinforcement-Learning/Q-learning-cart.ipynb))
   <br>
 
 ### 14 - Autoencoders
 
-* Simple Autoencoder on MNIST ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Autoencoders/Simple_Autoencoder.ipynb))
-* Conventional Autoencoder on MNIST ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Autoencoders/Convolutional_Autoencoder.ipynb))
+* Simple Autoencoder on MNIST ([Notebook](./Autoencoders/Simple_Autoencoder.ipynb))
+* Conventional Autoencoder on MNIST ([Notebook](./Autoencoders/Convolutional_Autoencoder.ipynb))
   <br>
 
 ### 15 - Generative Adversarial Networks
 
 #### Intro to GANs
-* Generating Handwritten Digits with GANs ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Generative-Adversarial-Networks/Intro_to_GANs_Exercises.ipynb))
+* Generating Handwritten Digits with GANs ([Notebook](./Generative-Adversarial-Networks/Intro_to_GANs_Exercises.ipynb))
 
 #### Deep Convolutional GANs
-* Batch Normalization Lesson ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Batch-Normalization/Batch_Normalization_Lesson.ipynb))
-* Batch Normalization Exercise ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Batch-Normalization/Batch_Normalization_Exercises.ipynb))
-* Deep Convolutional GAN on Street View House Numbers (SVHN) Dataset ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/DCGAN/DCGAN.ipynb))
+* Batch Normalization Lesson ([Notebook](./Batch-Normalization/Batch_Normalization_Lesson.ipynb))
+* Batch Normalization Exercise ([Notebook](./Batch-Normalization/Batch_Normalization_Exercises.ipynb))
+* Deep Convolutional GAN on Street View House Numbers (SVHN) Dataset ([Notebook](./DCGAN/DCGAN.ipynb))
 * **PROJECT 5: Face Generation DCGAN** ([Repo](https://github.com/nehal96/Face-Generation-DCGAN))
 
 
