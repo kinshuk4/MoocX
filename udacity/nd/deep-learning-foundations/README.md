@@ -1,5 +1,33 @@
 # Deep Learning Nanodegree Foundation Notes & Exercises
 Notes, coding exercises and projects from Udacity's Deep Learning Nanodegree Foundation program.
+
+## Syllabus
+
+- Week 1 Linear Regression: Types of Machine Learning and when to use Machine Learning 
+  1. Welcome 
+  2. Anaconda 
+  3. Jupyter Notebook 
+  4. Applying Deep Learning 
+  5. Regression 
+- *Week 2 Numerical Classification: Neural Network Architecture and Types 
+  1. Siraj's Neural Network 
+  2. Intro to Neural Networks 
+  3. Project 1: Your First Neural Network: Bike Sharing 
+- Week 3 Sentiment Analysis: Cloud Computing and Sentiment Analysis 
+  1. Model Evaluation and Validation
+  2. Sentiment Analysis with Andrew Trask: Movie Reviews 
+  3. Intro to TFLearn
+  4. Preparing for Siraj's Lesson
+  5. Siraj's Sentiment Analysis: Video Game Reviews, Game of Throne 
+- Week 4 Recommender System: Math Notation and Recommender Systems 
+  1. Siraj's Math Notations: Music Recommender System, Earthquake 
+  2. MiniFlow: Boston House Pricing
+- Week 5 Data Preparation 
+  1. Intro to Tensorflow: MNIST, notMNIST 
+  2. Siraj's Data Preparation: Wine Dataset, Network Intrusion Dataset, MagnaTagATune Dataset, Speed Dating Data Prediction 
+
+
+
 <br>
 
 ## Projects
@@ -13,9 +41,22 @@ Notes, coding exercises and projects from Udacity's Deep Learning Nanodegree Fou
 
 ## Lessons
 
+### 0 - Linear Regression
+
+Types of Machine Learning Algorithms and when to use Machine Learning
+
+- Welcome
+- Anaconda
+- Jupyter Notebook
+- Applying Deep Learning
+- Regression
+
 ### 1 - Intro to Neural Networks
 
-* **PROJECT 1: Bike Sharing Neural Network** ([Repo](https://github.com/nehal96/Bike-Sharing-Neural-Network))
+* Neural Network Architecture and Types 
+* (6)Siraj's Neural Network 
+* (7) Intro to Neural Networks 8
+* (8) **PROJECT 1: Bike Sharing Neural Network** ([Repo](https://github.com/nehal96/Bike-Sharing-Neural-Network))
   <br>
 
 ### 2 - Sentiment Analysis
@@ -29,7 +70,7 @@ Notes, coding exercises and projects from Udacity's Deep Learning Nanodegree Fou
 * Making our Network Train and Run Faster ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/5-making-network-train-faster.ipynb))
 * Reducing Noise by Strategically Reducing Noise ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20Andrew%20Trask/6-reducing-vocabulary-noise.ipynb))
 
-#### Intro to TFLearn
+#### (11) Intro to TFLearn
 
 * Sentiment Analysis with TFLearn ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Sentiment%20Analysis%20with%20TFLearn/sentiment-analysis-tflearn.ipynb))
 * Handwritten Digit Recognition with TFLearn and MNIST ([Notebook](https://github.com/nehal96/Deep-Learning-ND-Exercises/blob/master/Sentiment%20Analysis/Handwritten%20Digit%20Recognition%20with%20TFLearn%20and%20MNIST/handwritten-digit-recognition-with-tflearn.ipynb))
@@ -150,5 +191,14 @@ Notes, coding exercises and projects from Udacity's Deep Learning Nanodegree Fou
 
 
 
-
 https://github.com/nehal96/Deep-Learning-ND-Exercises
+
+https://github.com/jincongho/Deep-Learning-Nanodegree-Foundation
+
+https://github.com/ivanturianytsia/Deep-Learning-Foundations
+
+https://github.com/sudowork/nd101-deep-learning
+
+https://github.com/andersy005/deep-learning-nd
+
+https://github.com/tsminhuang/deep-learning-foundation-nd
