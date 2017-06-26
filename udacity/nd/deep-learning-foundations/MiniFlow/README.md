@@ -12,3 +12,9 @@ Code in order:
 - [6-gradient-descent](gradient_descent)
 - [7-backpropogation](backpropogation)
 - [8-stochastic-gradient-descent](stochastic_gradient_descent)
+
+
+
+
+
+https://github.com/PhilippeW83440/SDCND
