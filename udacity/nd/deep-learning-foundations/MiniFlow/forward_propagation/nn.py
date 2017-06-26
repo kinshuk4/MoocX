@@ -9,7 +9,7 @@ build a network that solves the equation below?
 (x + y) + y
 """
 
-from miniflow import *
+from .miniflow import *
 
 x, y = Input(), Input()
 
@@ -23,3 +23,4 @@ output = forward_pass(f, sorted_nodes)
 # NOTE: because topological_sort set the values for the `Input` nodes we could also access
 # the value for x with x.value (same goes for y).
 print("{} + {} = {} (according to miniflow)".format(feed_dict[x], feed_dict[y], output))
+
