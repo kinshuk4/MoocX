@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+
+import unittest
+from vectors.vector_test import TestVectorMethods
+
+if __name__ == "__main__":
+    unittest.main()
