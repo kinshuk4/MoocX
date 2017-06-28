@@ -28,3 +28,5 @@ Borrowed from
 - https://github.com/matthewzimmer/carnd-term2-notes
 - https://github.com/ra9hur/Udacity-Self-Driving-Car-ND-Term2
 - https://github.com/GOUTHAMRANGU/SDCND-UDACITY
+- https://github.com/whathelll/SDCND-Dev
+- https://github.com/shadowind/SelfDriving
