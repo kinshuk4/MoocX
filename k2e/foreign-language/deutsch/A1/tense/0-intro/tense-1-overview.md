@@ -62,3 +62,5 @@ And now the tenses:
 Finally, as in English, most of these tenses/moods also exist in a **passive **voice. Passive constructions in English usually (but not always) use a form of to be; in German they always use a form of the verb werden. This is the third major auxiliary usage of werden, after the *Konjunktiv II* and Futur usages mentioned above. We’ll cover the passive voice in [V.10](http://germanforenglishspeakers.com/verbs/the-passive-voice/).
 
 http://germanforenglishspeakers.com/verbs/tenses-and-moods/
+
+http://www.thegermanprofessor.com/german-verb-tenses/

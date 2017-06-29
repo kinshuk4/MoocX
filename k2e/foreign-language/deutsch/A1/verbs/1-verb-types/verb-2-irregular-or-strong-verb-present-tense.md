@@ -106,8 +106,46 @@ Below you will find a list of a few irregular verbs. Please conjugate them based
 
 **Nehmen, lesen, essen, gebe, sprechen, fahren, raten, laden, halten, tragen, waschen**
 
+### Verbs with english cognate
+
+If the verb has an English cognate, then the German verb is usually strong (usually with similar vowel changes) if the English verb is strong, and weak if the English verb is weak.  Examples:
+
+| laugh, laughed, laughed (weak)  | lachen, lachte, gelacht (weak)           |
+| ------------------------------- | ---------------------------------------- |
+| sing, sang, sung (strong)       | singen, sang, gesungen (strong)          |
+| love, loved, loved (weak)       | lieben, liebte, geliebt (weak)           |
+| stand, stood, stood (strong)    | stehen, stand, gestanden (strong)        |
+| live, lived, lived (weak)       | leben, lebte, gelebt (weak)              |
+| speak, spoke, spoken (strong)   | sprechen, sprach, gesprochen (strong)    |
+| cook, cooked, cooked (weak)     | kochen, kochte, gekocht (weak)           |
+| swim, swam, swum (strong)       | schwimmen, schwamm, geschwommen (strong) |
+| bring, brought, brought (mixed) | bringen, brachte, gebracht (mixed)       |
+
+There are exceptions to this, however, so be careful:
+
+| run, ran, run (strong)      | rennen, rannte, gerannt (mixed) |
+| --------------------------- | ------------------------------- |
+| help, helped, helped (weak) | helfen, half, geholfen (strong) |
 
 
 
+### Verbs learning in first year
+
+Any of the verbs you learned in your first year of German that have a stem-change in the present tense are strong verbs, e.g.
+
+| sehen  | er/sie/es sieht | sah  | gesehen  |
+| ------ | --------------- | ---- | -------- |
+| essen  | er/sie/es isst  | aß   | gegessen |
+| fahren | er/sie/es fährt | fuhr | gefahren |
 
 https://yesgerman.com/learn-german/lesson-12-present-tense-for-irregular-verbs-in-german/
+
+http://www.jabbalab.com/blog/924/how-german-verbs-work-in-the-present-tense-part-2
+
+http://www.nthuleen.com/teach/grammar/stemchangeexpl.html
+
+http://www.lsa.umich.edu/german/hmr/Grammatik/Verb_Summaries/Strong_Weak_Mixed.html
+
+http://www.learn-german-smarter.com/learn-german-irregular-verbs/
+
+https://jakubmarian.com/list-of-irregular-strong-german-verbs/

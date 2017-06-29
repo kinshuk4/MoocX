@@ -1067,3 +1067,7 @@ http://mein-deutschbuch.de/
 http://www.medienvilla.com/download/german/
 
 http://germanforenglishspeakers.com/verbs/prefix-verbs/
+
+http://www.thegermanprofessor.com/
+
+http://www.skrause.org/language/german/

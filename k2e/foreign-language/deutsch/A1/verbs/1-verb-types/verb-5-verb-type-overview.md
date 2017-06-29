@@ -1,11 +1,5 @@
 ## Overview of Verb Types
 
-German verbs always end in *–n* in their infinitive form, usually *–en*:
-
-| *kaufen*to buy | *arbeiten*to work | *helfen*to help | *fliegen*to fly |
-| -------------- | ----------------- | --------------- | --------------- |
-|                |                   |                 |                 |
-
 When introducing verbs, most textbooks and classes jump right into conjugation (I work, you work, he works…) but let’s take a few minutes first to understand the big picture. German root verbs can be broken into five categories:
 
 | **Auxiliary **(3)                        | **Modal **(6)                            | **Mixed **(9)                            | **Strong **(about 150)                   | **Weak **(thousands)                     |
@@ -35,3 +29,5 @@ In any event, some sources don't do enough to distinguish the strong forms that 
 
 
 http://germanforenglishspeakers.com/verbs/verb-types/
+
+https://yesgerman.com/learn-german/lesson-8-present-tense-for-regular-verbs/
