@@ -1,3 +1,13 @@
+## Partizip II used in forming Perfekt Tense
+
+Read about it here
+
+[verb-11-participle-partizip-II.md](../../verbs/1-verb-types/verb-11-participle-partizip-II.md)
+
+
+
+
+
 How to form the verb in ge-form from the infinitive case.
 
 For eg. take the verb in infinitive form - **V**-en. 
