@@ -1,0 +1,14 @@
+
+*.pdf
+
+*.SUNet
+*.pyc
+
+
+examples/checkpoints/*
+
+examples/chatbot/processed/*
+examples/chatbot/checkpoints/*
+examples/chatbot/data_analysis.py
+
+assignments/chatbot/processed/*
