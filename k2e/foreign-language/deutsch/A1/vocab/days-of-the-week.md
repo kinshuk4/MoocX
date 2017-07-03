@@ -2,25 +2,19 @@
 
 To begin, here are the seven days of the week in German, linked to an audio of their pronunciations.
 
-| German   | English | Reason |
-| -------- | ------- | ------ |
-| *Montag* |         |        |
-|          |         |        |
-|          |         |        |
-|          |         |        |
-|          |         |        |
-|          |         |        |
-|          |         |        |
+| German                                   | English   | Reason |
+| ---------------------------------------- | --------- | ------ |
+| *Montag*                                 | Monday    |        |
+| *Dienstag*                               | Tuesday   |        |
+| [*Mittwoch*](http://forvo.com/search/mittwoch/de/) | Wednesday |        |
+| [*Donnerstag*](http://forvo.com/search/donnerstag/de/) | Thursday  |        |
+| [*Freitag*](http://forvo.com/search/freitag/de/) | Friday    |        |
+| [*Samstag*](http://forvo.com/word/samstag/#de) | Saturday  |        |
+| [*Sonntag*](http://forvo.com/search/sonntag/de/) | Sunday    |        |
 
--  (Monday)
--  *Dienstag* (Tuesday)
--  [*Mittwoch*](http://forvo.com/search/mittwoch/de/) (Wednesday)
--  [*Donnerstag*](http://forvo.com/search/donnerstag/de/) (Thursday)
--  [*Freitag*](http://forvo.com/search/freitag/de/) (Friday)
--  [*Samstag*](http://forvo.com/word/samstag/#de) (Saturday)
--  [*Sonntag*](http://forvo.com/search/sonntag/de/) (Sunday)
 
-## Must-know Grammatical Info About the German Days of the Week
+
+### Must-know Grammatical Info About the German Days of the Week
 
 All right, I know I said above that you only had to use seven words, but it’s German, so things are slightly more complicated than that. You also need to know [a few grammatical rules](http://www.fluentu.com/german/blog/german-grammar-rules/), such as:
 
