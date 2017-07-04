@@ -16,7 +16,22 @@ Now of course this could be you asking the question, or someone else asking you 
 
 **Es ist sechs Uhr – **It is six o’clock.
 
- 
+ Here are some more examples:
+
+| **English**        | **German**                    |
+| ------------------ | ----------------------------- |
+| **Midnight**       | *Die Mitternacht*             |
+| **At Midnight**    | *Um Mitternacht*              |
+| **At 8:00**        | *Um 8 Uhr*                    |
+| **At 12:00 pm**    | *Um zwolf Uhr or Der Mittag*  |
+| **It is 2 am**     | *Es ist Zwei Uhr nachts*      |
+| **2:00pm**         | *Es ist Zwei Uhr nachmittags* |
+| **6:20**           | *Es ist Sechs Uhr zwanzig*    |
+| **half past 3**    | *Es ist halb vier*            |
+| **quarter past 4** | *Es is Viertel nach vier*     |
+| **10 past 11**     | *Es ist zehn nach elf*        |
+| **quarter to 5**   | *Es ist Viertel vor fünf*     |
+| **20 to 7**        | *Es ist zwanzig vor sieben*   |
 
 Those were the simple, on the hour responses in a situation where you would know whether this was one o’clock in the afternoon or six o’clock in the morning. Where you would need to specify this, you can use the 24 hour system.
 
@@ -54,3 +69,5 @@ In German, it is said in the context of half** TO **the hour instead of half **P
 
 
 https://www.jabbalab.com/blog/1388/how-to-tell-the-time-in-german
+
+http://germanlanguageguide.com/german/vocabulary/time.asp
