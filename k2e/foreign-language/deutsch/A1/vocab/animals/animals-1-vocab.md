@@ -1,6 +1,4 @@
-# German Vocabulary – Animals
-
-[](http://www.jabbalab.com/blog/wp-content/uploads/2010/09/tiere.jpg)
+## German Vocabulary – Animals
 
 ### Animals - das Tiere
 
@@ -87,4 +85,5 @@ es juckt - it is itching.
 
 https://www.jabbalab.com/blog/1252/animals-in-german    
 
-https://www.youtube.com/watch?v=9Ewx5-xi6Dk&list=PLYzp2xhTw9W1q9Z577ViHvWXiktfyUCQK&index=5
+https://www.youtube.com/watch?v=9Ewx5-xi6Dk&list=PLYzp2xhTw9W1q9Z577ViHvWXiktfyUCQK&index=5https://www.germanveryeasy.com/animals
+https://www.germanveryeasy.com/animals

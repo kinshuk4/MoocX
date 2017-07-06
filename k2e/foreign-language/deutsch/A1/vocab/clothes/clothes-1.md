@@ -340,4 +340,4 @@ https://www.youtube.com/watch?v=rtZp3bUQrKA
 
 
 
-die Jeans, das Hemd, die Brille, das T-shirt, den Pullover, die SonnenBrille, den Anzug, den Stift, die Kette, die Socken, das Aspirin, 
+die Jeans, das Hemd, die Brille, das T-shirt, den Pullover, die SonnenBrille, den Anzug, den Stift, die Kette, die Socken, das Aspirin, https://www.germanveryeasy.com/clothing

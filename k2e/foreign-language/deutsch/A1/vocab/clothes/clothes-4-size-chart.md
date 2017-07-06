@@ -34,4 +34,4 @@ See the conversion charts below for more information.
 
  
 
-https://www.thoughtco.com/clothing-and-fashion-in-german-4071357
+https://www.thoughtco.com/clothing-and-fashion-in-german-4071357https://www.germanveryeasy.com/clothing

@@ -206,4 +206,4 @@ windbreaker  **e Windjacke** (-**n**)
 wool  **e Wolle**
 wrist watch  **e Armbanduhr** (-**en**)
 **Z**
-zipper  **r Reißverschluss** (-**e**)
+zipper  **r Reißverschluss** (-**e**)https://www.germanveryeasy.com/clothing

@@ -135,4 +135,4 @@ http://www.jabbalab.com/blog/4799/englische-vokabeln-alles-rund-um-die-kleidung
 
 http://www.jabbalab.com/blog/2304/german-vocabulary-all-about-clothes
 
-https://www.thoughtco.com/clothing-and-fashion-in-german-4071357
+https://www.thoughtco.com/clothing-and-fashion-in-german-4071357https://www.germanveryeasy.com/clothing

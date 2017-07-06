@@ -1,6 +1,4 @@
-# Animals in German
-
-[](http://www.jabbalab.com/blog/wp-content/uploads/2013/04/Animals-in-German.jpg)
+## Animals in German
 
 ### Animals in German
 
@@ -58,3 +56,6 @@ You might also want to read our first animal blog [German Vocabulary – Animals
 
 
 https://www.jabbalab.com/blog/9659/animals-in-german-2
+
+http://www.jabbalab.com/blog/2795/englische-vokabeln-animals-tierehttps://www.germanveryeasy.com/animals
+https://www.germanveryeasy.com/animals
