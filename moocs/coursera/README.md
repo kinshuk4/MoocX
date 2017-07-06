@@ -1,13 +1,32 @@
 # Coursera MOOCs
-MOOCs that I have taken till now
-
-
-
-This repo contains short notes from past MOOCs I've taken.  Please see the course information below.
-
-![learning is fun](http://blogldc.s3.amazonaws.com/wp-content/uploads/2015/05/2015_05_05_LearningCultureHero.jpeg)
+This repo contains short notes from MOOCs in coursera.
 
 <blockquote><i>I just wondered how things were put together.</i><br><br>-Claude Shannon</blockquote>
+
+## Specializations
+
+**[Data Scientist Specialization](specialization/data-science-spl)**
+
+1. The Data Scientist’s Toolbox
+
+2. R Programming
+
+3. 
+   Getting and Cleaning Data
+
+4. Exploratory Data Analysis
+
+5. Reproducible Research
+
+6. Statistical Inference
+
+7. Regression Models
+
+8. 
+   Practical Machine Learning
+
+9. Developing Data Products
+10. Capstone
 
 ## 2016
 
