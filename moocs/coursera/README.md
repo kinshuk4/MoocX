@@ -5,7 +5,7 @@ This repo contains short notes from MOOCs in coursera.
 
 ## Specializations
 
-**[Data Scientist Specialization (Johns Hopkins University)](specialization/data-science-spl)**
+**[Data Science Specialization (Johns Hopkins University)](specialization/data-science-spl)**
 
 1. The Data Scientist’s Toolbox
 2. R Programming
@@ -25,12 +25,6 @@ This repo contains short notes from MOOCs in coursera.
 3. Classification
 4. Clustering
 
-**Data science Specialization (Johns Hopkins University)** - 
-- Reproducible Research 
-- Practical Machine Learning
-- Developing Data Products 
-- Data Science Capstone 
-
 **Fundamentals of Computing Specialization (Rice University)**
 - An Introduction to Interactive Programming in Python pt. 1 
 - An Introduction to Interactive Programming in Python pt. 2 
@@ -45,6 +39,8 @@ This repo contains short notes from MOOCs in coursera.
 **Data Science at Scale Specialization (University of Washington)**
 - Data Manipulation at Scale: Systems and Algorithms 
 - Practical Predictive Analytics: Models and Methods 
+- Communicating datascience results
+- Capstone
 
 ### Courses
 
@@ -61,12 +57,6 @@ This repo contains short notes from MOOCs in coursera.
 
 
 
-
-
-## 2016
-
-- **Python for Everybody Specialization (University of Michigan)**
-  - Using Databases with Python([Certificate](https://www.coursera.org/account/accomplishments/certificate/E6L7L4QSY8QZ) | Coursera)
 
 ## 2015
 
