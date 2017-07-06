@@ -1058,6 +1058,8 @@ Jenny - https://www.youtube.com/channel/UCZ6mER1F4vj55-DkKBDY5Iw
 
 Jenny website - http://germanwithjenny.com/
 
+https://www.germanveryeasy.com/vocabulary
+
 https://yesgerman.com/
 
 http://germanforenglishspeakers.com/
@@ -1071,3 +1073,4 @@ http://germanforenglishspeakers.com/verbs/prefix-verbs/
 http://www.thegermanprofessor.com/
 
 http://www.skrause.org/language/german/
+

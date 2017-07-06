@@ -1,4 +1,4 @@
-
+## Fruits
 
 | **FRUIT**      |                                |
 | -------------- | ------------------------------ |
@@ -19,6 +19,37 @@
 | **tomato**     | **die Tomate**                 |
 | **grape**      | **die Traube**                 |
 
+## Common fruit
 
+The most common fruit:
+
+| das Obst             | fruit      | plural            |
+| -------------------- | ---------- | ----------------- |
+| der **Apfel**        | apple      | die Äpfel         |
+| die **Ananas**       | pineapple  | die Ananasse      |
+| die **Banane**       | banana     | die Bananen       |
+| die **Birne**        | pear       | die Birnen        |
+| die **Erdbeere**     | strawberry | die Erdbeeren     |
+| die **Kirsche**      | cherry     | die Kirschen      |
+| die **Melone**       | melon      | die Melonen       |
+| die **Orange**       | orange     | die Orangen       |
+| der **Pfirsich**     | peach      | die Pfirsiche     |
+| die **Wassermelone** | watermelon | die Wassermelonen |
+| die **Weintraube**   | grape      | die Weintrauben   |
+| die **Zitrone**      | lemon      | die Zitronen      |
+
+## Less common fruit
+
+| das Obst            | fruit       | plural          |
+| ------------------- | ----------- | --------------- |
+| die **Brombeere**   | blackberry  | die Brombeeren  |
+| die **Feige**       | fig         | die Feigen      |
+| der **Granatapfel** | pomegranate | die Granatäpfel |
+| die **Himbeere**    | raspberry   | die Himbeeren   |
+| die **Kiwi**        | kiwi        | die Kiwis       |
+| die **Kokosnuss**   | coconut     | die Kokosnüsse  |
+| die **Zwetschge**   | plum        | die Zwetschgen  |
+
+https://www.germanveryeasy.com/fruit
 
 http://www.smartphrase.com/German/ge_food-drink_voc.shtml

@@ -49,4 +49,4 @@ In this post we are looking at important German vocabulary about the body. The t
 
 
 
-https://www.jabbalab.com/blog/3004/german-vocabulary-all-about-the-body
+https://www.jabbalab.com/blog/3004/german-vocabulary-all-about-the-bodyhttps://www.germanveryeasy.com/parts-of-body

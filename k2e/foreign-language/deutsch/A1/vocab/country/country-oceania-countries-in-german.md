@@ -24,4 +24,4 @@ In this post we are looking at Oceania countries and the German translations. Th
 
 
 
-https://www.jabbalab.com/blog/2350/german-vocabulary-oceania-countries-in-german
+https://www.jabbalab.com/blog/2350/german-vocabulary-oceania-countries-in-germanhttps://www.germanveryeasy.com/countries-in-german

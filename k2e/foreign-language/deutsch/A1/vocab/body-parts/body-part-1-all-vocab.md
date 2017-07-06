@@ -50,4 +50,4 @@ In this post we are looking at German vocabulary about the body. The table divid
 
 
 
-https://www.jabbalab.com/blog/6065/german-vocabulary-all-about-the-body-part-2
+https://www.jabbalab.com/blog/6065/german-vocabulary-all-about-the-body-part-2https://www.germanveryeasy.com/parts-of-body

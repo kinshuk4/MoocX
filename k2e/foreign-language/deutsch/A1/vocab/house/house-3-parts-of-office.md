@@ -1,5 +1,28 @@
 ### PARTS OF A HOUSE
 
+## List of the parts of a house
+
+| Part                  | Meaning     | Plural             |
+| --------------------- | ----------- | ------------------ |
+|                       |             |                    |
+| das **Bad**           | bathroom    | die Bäder          |
+| der **Balkon**        | balcony     | die Balkone        |
+| die **Bibliothek**    | library     | die Bibliotheken   |
+| die **Eingangshalle** | entry way   | die Eingangshallen |
+| der **Flur**          | hall        | die Flure          |
+| der **Garten**        | garden      | die Gärten         |
+| das **Gästezimmer**   | guest room  | die Gästezimmer    |
+| der **Keller**        | basement    | die Keller         |
+| das **Kinderzimmer**  | kid’s room  | die Kinderzimmer   |
+| die **Küche**         | kitchen     | die Küchen         |
+| das **Esszimmer**     | dining room | die Esszimmer      |
+| die **Toilette**      | toilet      | die Toiletten      |
+| der **Weinkeller**    | wine cellar | die Weinkeller     |
+| das **Wohnzimmer**    | living room | die Wohnzimmer     |
+| das **Schlafzimmer**  | bedroom     | die Schlafzimmer   |
+
+
+
 From roof to basement, know what to call different rooms and elements of a house.
 
 attic **der Dachboden**, **der Speicher**
@@ -81,3 +104,5 @@ window **das Fenster** (-)
 work room, office, study **das Arbeitszimmer** (-)
 
 https://www.thoughtco.com/g00/english-german-glossary-house-and-apartment-4071170?i10c.referrer=https%3A%2F%2Fwww.google.co.in%2F
+
+https://www.germanveryeasy.com/rooms

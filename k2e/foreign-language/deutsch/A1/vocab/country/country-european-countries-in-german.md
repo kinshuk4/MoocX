@@ -62,3 +62,4 @@ In this post we are looking at all the European countries and what the German tr
 
 http://www.jabbalab.com/blog/1192/german-vocabulary-european-countries-in-german
 
+https://www.germanveryeasy.com/countries-in-german

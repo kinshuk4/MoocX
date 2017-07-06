@@ -87,4 +87,4 @@ You can now learn even more words and phrases on this topic with audio playback 
 
 
 
-https://www.jabbalab.com/blog/15978/german-vocabulary-countries-and-nationalities-with-video
+https://www.jabbalab.com/blog/15978/german-vocabulary-countries-and-nationalities-with-videohttps://www.germanveryeasy.com/countries-in-german

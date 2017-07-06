@@ -53,4 +53,4 @@ In this post we are looking at North American countries and the German translati
 
 
 
-https://www.jabbalab.com/blog/2181/german-vocabulary-north-american-countries-in-german
+https://www.jabbalab.com/blog/2181/german-vocabulary-north-american-countries-in-germanhttps://www.germanveryeasy.com/countries-in-german

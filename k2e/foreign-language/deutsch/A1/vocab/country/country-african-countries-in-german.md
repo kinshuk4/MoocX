@@ -70,4 +70,4 @@ In this post we are looking at all the African countries and what the German tra
 
 https://www.jabbalab.com/blog/1791/german-vocabulary-african-countries-in-german
 
-​                    
+​                    https://www.germanveryeasy.com/countries-in-german

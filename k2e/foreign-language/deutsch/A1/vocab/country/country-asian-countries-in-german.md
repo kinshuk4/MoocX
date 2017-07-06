@@ -51,4 +51,4 @@ In this post we are looking at all the Asian countries and what the German trans
 
 
 
-http://www.jabbalab.com/blog/1533/german-vocabulary-%E2%80%93-asian-countries-in-german
+http://www.jabbalab.com/blog/1533/german-vocabulary-%E2%80%93-asian-countries-in-germanhttps://www.germanveryeasy.com/countries-in-german

@@ -24,4 +24,4 @@ In this post we are looking at all the South American countries and what the Ger
 
 
 
-http://www.jabbalab.com/blog/1274/german-vocabulary-south-american-countries-in-german
+http://www.jabbalab.com/blog/1274/german-vocabulary-south-american-countries-in-germanhttps://www.germanveryeasy.com/countries-in-german
