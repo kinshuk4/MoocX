@@ -28,6 +28,30 @@ This repo contains short notes from MOOCs in coursera.
 9. Developing Data Products
 10. Capstone
 
+**[Machine learning Specialization](specialization/machine-learning-spl)**
+
+1. Foundations
+2. Regression
+3. Classification
+4. Clustering
+
+
+
+### Courses
+
+- [Functional Programming Principles in Scala](https://github.com/chenyuy/coursera-notes/blob/master/notes/functional_programming_principles_in_scala.md)
+- [Programming Languages](https://github.com/chenyuy/coursera-notes/blob/master/notes/programming_languages.md)
+- [Introduction to Music Production](https://github.com/chenyuy/coursera-notes/blob/master/notes/introduction_to_music_production.md)
+- [Survey of Music Technology](https://github.com/chenyuy/coursera-notes/blob/master/notes/survey_of_music_technology.md)
+- [Machine Learning](https://github.com/chenyuy/coursera-notes/blob/master/notes/machine_learning.md)
+- [The History of Rock, Part 2](https://github.com/chenyuy/coursera-notes/blob/master/notes/the_history_of_rock_part_two.md)
+- [Principles of Reactive Programming](https://github.com/chenyuy/coursera-notes/blob/master/notes/principles_of_reactive_programming.md)
+- [Fundamentals of Music Theory](https://github.com/chenyuy/coursera-notes/blob/master/notes/fundamentals_of_music_theory.md)
+- [Financial Markets](https://github.com/chenyuy/coursera-notes/blob/master/notes/financial_markets.md)
+- [Compilers](https://github.com/chenyuy/coursera-notes/blob/master/notes/compilers.md)
+
+
+
 ## 2016
 
 - **Python for Everybody Specialization (University of Michigan)**
@@ -75,3 +99,5 @@ This repo contains short notes from MOOCs in coursera.
 Design ideas for this README from [Paul Deng
 
 https://github.com/jameslamb/MOOC_Stuff
+
+https://github.com/chenyuy/coursera-notes
