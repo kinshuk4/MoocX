@@ -42,6 +42,14 @@ This repo contains short notes from MOOCs in coursera.
 - Communicating datascience results
 - Capstone
 
+[**Functional Programming In Scala**](specialization/functional-programming-in-scala-spl)
+
+- Functional Programming Principles in Scala
+- Functional Program Design in Scala
+- Parallel Programming
+- Big Data Analysis with Scala and Spark
+- Capstone
+
 ### Courses
 
 - [Functional Programming Principles in Scala](https://github.com/chenyuy/coursera-notes/blob/master/notes/functional_programming_principles_in_scala.md)
@@ -80,3 +88,5 @@ Design ideas for this README from [Paul Deng
 https://github.com/jameslamb/MOOC_Stuff
 
 https://github.com/chenyuy/coursera-notes
+
+https://github.com/xiaoyunyang/coursera-scala-specialization/blob/master/README.md
