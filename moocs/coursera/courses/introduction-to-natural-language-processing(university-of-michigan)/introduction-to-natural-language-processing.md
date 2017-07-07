@@ -3,6 +3,10 @@ Introduction to Natural Language Processing
 
 Week 1
 ======
+https://www.coursera.org/learn/natural-language-processing
+
+**Taught by:**  [Dragomir R. Radev, Ph.D.](https://www.coursera.org/instructor/dragoradev), Professor of Information, School of Information, Professor of Electrical Engineering and Computer Science, College of Engineering, and Professor of Linguistics, College of Literature, Science, and the Arts
+
 Introduction 1/2
 
 NLP is the study of the computational treatment of natural (human) language.
@@ -1048,15 +1052,15 @@ Backpointers
 HMM learning:
 a. Supervised
 - Training sequences are labeled.
-Estimate the static probabilities using MLE
-Estimate the observations probabilities using MLE
-Use smoothing
+  Estimate the static probabilities using MLE
+  Estimate the observations probabilities using MLE
+  Use smoothing
 
 b. Unsupervised
 - Training sequences are unlabeled.
 - Known number of states
-Use EM (Expectation Maximization) methods
-Forward-backward (Baum-Welch) algorithm
+  Use EM (Expectation Maximization) methods
+  Forward-backward (Baum-Welch) algorithm
 
 Algorithm:
 Randomly set the parameters of the HMM.
@@ -1292,8 +1296,8 @@ Components:
 - PC-Kimmo for unknown words
 - Link Parser
 - Google
-Tokenization
-Query transformations
+  Tokenization
+  Query transformations
 
 NSIR:
 Probabilistic phrase ranking
@@ -1417,19 +1421,19 @@ g. Kupiec et al.
 - First trainable method
 - Naive Bayes classifier
 - Features: Sentence length, Presence of uppercase words, sentence position in paragraph.
-Performance:
-84% precision
+  Performance:
+  84% precision
 
 h. Summons
 - First work on multi-document summarization
 - Approach: 
-Knowledge based
-information extraction (MUC templates)
-Text generation
+  Knowledge based
+  information extraction (MUC templates)
+  Text generation
 
 i. Mitra/Allen/Salton
 - Semantic hyperlinks
-Paths linking highly connected paragraphs are more likely to contain information central to the topic of the article.
+  Paths linking highly connected paragraphs are more likely to contain information central to the topic of the article.
 
 j. Mani/Bloedorn
 Graph-based method for identifying similarities and differences between documents.
@@ -1953,9 +1957,9 @@ Output: like(Javier, pizza)
 
 Parsing:
 - Associate a semantic expression with each node.
-Javier - N: Javier
-likes - V: lamda x, y likes(x, y)
-pizza - N: pizza
+  Javier - N: Javier
+  likes - V: lamda x, y likes(x, y)
+  pizza - N: pizza
 
 VP -> V N
 VP: lambda x, pizza likes(x, pizza)
@@ -1986,9 +1990,9 @@ b. Coreference resolution
 Coreference resolution:
 Agreement constraints
 - gender, number, animacy
-Syntactic constraints
+  Syntactic constraints
 - parallelism
-Sentence ordering
+  Sentence ordering
 - recency
 
 Properties for antecedent: Salience weights
@@ -2151,4 +2155,4 @@ Lexical choice
 
 =====================================================================================================================
 #### help from
- - https://github.com/reetawwsum/Machine-learning-MOOC-notes/blob/master/Introduction%20to%20Natural%20Language%20Processing.txt
+- https://github.com/reetawwsum/Machine-learning-MOOC-notes/blob/master/Introduction%20to%20Natural%20Language%20Processing.txt

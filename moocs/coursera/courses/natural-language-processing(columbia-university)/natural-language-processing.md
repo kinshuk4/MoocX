@@ -1,6 +1,8 @@
 Natural Language Processing (NLP)
 =================================
 
+https://coursera.org/course/nlangp
+
 Week 1
 ======
 
@@ -199,7 +201,7 @@ Same goes for Katz Back-Off Models (Trigram)
 Three steps in deriving the language model probabilites:
 1. Expand p(w1, w2, ... wn) using Chain rule.
 2. Make Markov Independence Assumptions
-p(wi|w1, w2, ... wi-1) = p(wi|wi-2, wi-1)
+   p(wi|w1, w2, ... wi-1) = p(wi|wi-2, wi-1)
 3. Smooth the estimates using low order counts.
 
 Other method used to improve language models:
@@ -826,7 +828,7 @@ For k = 1 to n
 		c(ej) = c(ej) + delta(k, i, j)
 		c(j|i, l, m) = c(j|i, l, m) + delta(k, i, j)
 		c(i, l, m) = c(i, l, m) + delta(k, i, j)
-
+	
 	where delta(k, i, j) = 1 if ai = j, 0 otherwise
 
 Output:
@@ -1021,8 +1023,8 @@ Log-Linear Models
 Application of Log-Linear Models:
 
 1. The Language Modeling Problem
-wi is the ith word in a document
-Estimate a distribution p(wi|w1, w2, ... wi-1) given previous "history" w1 ... wi-1
+   wi is the ith word in a document
+   Estimate a distribution p(wi|w1, w2, ... wi-1) given previous "history" w1 ... wi-1
 
 For e.g
 The meaning of life is wi
@@ -1034,8 +1036,8 @@ Makes use of only bigram, trigram, unigram estimates
 Many other "features" of w1 ... wi-1 may be useful.
 
 2. Part-of-Speech Tagging
-Input: Sequence of Words
-Output: Sequence of tags from Part-of-Speech
+   Input: Sequence of Words
+   Output: Sequence of tags from Part-of-Speech
 
 The task:
 p(ti|t1 ... ti-1, w1 ... wn)
@@ -1432,8 +1434,8 @@ Training data is used to set the value of v.
 
 Components:
 1. f
-f maps a candidate to a feature vector belongs to R^d
-f defines the representation of a candidate
+   f maps a candidate to a feature vector belongs to R^d
+   f defines the representation of a candidate
 
 Features:
 A "feature" is a function on a structure. For e.g
@@ -1444,13 +1446,13 @@ A set of functions h1 ... hd define a feature vector
 f(x) = <h1(x), h2(x) ... hd(x)>
 
 2. GEN
-GEN enumerates a set of candidates for a sentence. For e.g
-Parsing: GEN(x) is the set of parses for x under a grammar
-Translation: GEN(x) is the set of all possible English translations for the French sentence x.
+   GEN enumerates a set of candidates for a sentence. For e.g
+   Parsing: GEN(x) is the set of parses for x under a grammar
+   Translation: GEN(x) is the set of all possible English translations for the French sentence x.
 
 3. v
-v is a parameter vector belongs to R^d
-f and v together maps a candidate to a real-valued score.
+   v is a parameter vector belongs to R^d
+   f and v together maps a candidate to a real-valued score.
 
 Putting it all together:
 X is set of sentences, Y is set of possible outputs.
@@ -1620,4 +1622,4 @@ Large-margin methods (Related to SVM)
 =======================================================================================================================
 
 #### help from
- - https://github.com/reetawwsum/Machine-learning-MOOC-notes/blob/master/Natural%20Language%20Processing.txt
+- https://github.com/reetawwsum/Machine-learning-MOOC-notes/blob/master/Natural%20Language%20Processing.txt
