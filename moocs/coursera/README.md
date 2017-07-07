@@ -50,6 +50,19 @@ This repo contains short notes from MOOCs in coursera.
 - Big Data Analysis with Scala and Spark
 - Capstone
 
+**Data mining Specialization**
+
+- Data Visualization
+- Text Retrieval and Search Engines
+
+- Text Mining and Analytics
+
+- Pattern Discovery in Data Mining - IN PROCESS
+
+- Cluster Analysis in Data Mining
+
+- Data Mining Project
+
 ### Courses
 
 - [Functional Programming Principles in Scala](https://github.com/chenyuy/coursera-notes/blob/master/notes/functional_programming_principles_in_scala.md)

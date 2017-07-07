@@ -1,0 +1,4 @@
+3.1 punctuations
+-----------------
+vary sentence structure
+increasing power to seperate: comma->colon->dash->parentheses->semicolon->period
