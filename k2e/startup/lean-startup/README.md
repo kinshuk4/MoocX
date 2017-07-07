@@ -1,0 +1,416 @@
+# Chapter 4: Experiment
+
+- Break It Down
+  - Value Hypothesis
+    - Tests whether a product really delivers value
+      - Measure by key metrics
+      - If users are investing time and effort, it's a good sign of value delivered
+      - Surveys are inaccurate—most people have a hard time judging their feelings objectively
+      - Experiments provide a more accurate gauge
+  - Growth Hypothesis
+    - Tests how new customers will discover a product
+    - Depending on engine of growth, a product will measure/optimize different metrics here
+    - Goal is to find early adopters initially
+      - More forgiving of mistakes
+      - Eager to give feedback
+    - If early adopters aren't using your product in the way you've designed for, it's a bad sign on strategy.
+    - Talk to early adopters to improve your offering
+- Test Assumptions First
+  - Identify core assumptions before building
+    - Do consumers recognize that they have the problem you are trying to solve?
+    - If there was a solution, would they buy it?
+    - Would they buy it from us?
+    - Can we build a solution for that problem?
+  - Common tendency in product development to skip to the fourth question before confirming there's a problem at all.
+  - "An experiment is a product"
+  - A simple prototype with analytics is often sufficient to validate/invalidate hypotheses.
+  - "Success is not delivering a feature; success is learning how to solve the customer's problem."
+
+# Chapter 5: Leap
+
+- Strategy is Based on Assumptions
+  - Startup's goal: Test assumptions
+    - Assumptions can be difficult to voice
+      - Ex. We assume customers have a significant desire to use a product like ours
+      - Ex. We assume stores will carry our product
+  - Leaps of faith: Success of the entire venture relies on these assumptions being true
+  - Important to test without losing sight of overall vision
+- Value and Growth
+  - Success Theater: Value-destroying growth
+    - Ex. Ponzi schemes, fraudulent companies like Enron
+  - Understand new ventures through the lens of value creation/destruction
+- Genchi Gembutsu
+  - Japanese term used in lean manufacturing (Toyota)
+  - "Go and see for yourself"
+    - Business decisions should be based on first-hand knowledge
+  - Steve Blank's "Get out of the building"
+    - Facts about customers, markets, suppliers, and channels only exist outside the building.
+- Design and Customer Archetype
+  - Brief document to humanize the target customer
+  - Ensures priorities in development appeal to target
+  - Lean UX: Target customer is a hypothesis to be tweaked until proven valid
+
+# Chapter 6: Test
+
+- Minimum Viable Product (MVP)
+  - Fastest way to get through the build-measure-learn feedback loop
+  - Goal of an MVP is to start learning, not end it
+  - Test not only product design and technical questions, but also fundamental business hypotheses
+- Why First Products Aren't Meant to Be Perfect
+  - Early adopters accept 80% solutions
+    - They'll use imagination to fill in what product is missing
+  - Early adopters are suspicious of something too polished
+    - "How much advantage can one get by being early?"
+  - MVPs can range in complexity
+    - Smoke tests: advertisements and landing pages with no functionality
+    - Actual prototypes
+  - Any additional work beyond what is required to start learning is a waste
+- Types of MVPs
+  - Video
+    - Video explaining product and showing it in use
+    - Good for markets with a new problem being solved
+  - Concierge
+    - Do everything possible by hand—scale pain points when necessary
+    - Benefits = you scale what's working instead of inventing something that may work in the future
+  - Wizard of Oz Testing
+    - If problems are technically challenging to solve by computers, have humans do it instead first.
+    - Similar to concierge MVPs
+    - Unfeasible at large scale, but works at micro scale to validate hypotheses
+- The Role of Quality and Design in an MVP
+  - Many take it as a point of pride to produce quality work
+  - Focus on quality in a product presupposes you already know what attributes of a product are valuable to customers
+    - This is a risky assumption in a startup
+    - "If we do not know who the customer is, we do not know what quality is"
+  - Customers don't care how long it takes to build something—only that it serves their needs
+  - If an MVP is perceived as low-quality, take the opportunity to find out what attributes customers care about
+  - Don't sacrifice quality in your production process—that will slow down the build-measure-learn feedback loop
+- Speed Bumps in Building an MVP
+  - Legal issues
+    - Mainly patents
+    - Mostly not worth worrying over unless there is new science involved
+  - Competition
+    - Idea theft
+    - It is hard enough to be recognized as a startup, let alone have your idea stolen
+    - If a competitor can out execute, already doomed
+  - Branding
+    - Many startups want to build a brand and see MVP as a dangerous branding risk
+  - Morale can drop if MVP is rejected
+    - Fear of false-negative
+      - Customers will reject the idea because it is too small or limited
+- Morale and Commitment
+  - Commit—no matter result of MVP you will iterate
+    - Remember that the goal of an MVP is to start learning, not to stop
+  - Success comes from a combo of perseverance and flexibility
+  - Startups are at risk when there is a crisis of confidence
+    - Mitigate with a systemic approach to validated learning
+
+# Chapter 7: Measure
+
+- Importance of Accounting
+  - Traditional accounting allowed large companies to set milestones for divisions and hold managers accountable
+  - Standard accounting is not helpful for entrepreneurs
+    - Startups are too unpredictable for financial forecasts
+  - Retrospective storytelling is not a good indicator for success
+    - You must have a clear hypothesis before starting an experiment
+- A Cross-industry Accountability Framework
+  - Innovation accountability proves objectively a startup is learning
+  - All businesses have models for success
+  - Innovation accounting turns leap-of-faith assumptions into a quantitative financial model
+- How Innovation Accounting Works — 3 Learning Milestones
+  - Establish the baseline
+    - Can be done with a prototype or smoke test
+    - MVP provides baseline data in growth model
+      - Conversion rates
+      - Sign-up/trial rates
+      - Customer lifetime value (LTV)
+    - Test riskiest assumptions first
+      - No sense testing others if you can't mitigate the riskiest first
+  - Tuning the engine
+    - Once the baseline is established, focus can be on improving one of the drivers of growth model
+    - Good design is design that changes user behavior for the better (ie. towards whatever goals you have)
+  - Pivot or persevere
+    - Over time success will look like improving baseline metrics established by the MVP
+    - Alternative will see ideal recede farther
+      - Sure sign to pivot
+- Improving on $5 a Day
+  - IMVU spent $5 on adwords for 100 clicks daily
+    - New test customers daily
+    - Fast (daily) iteration loop
+    - Track funnel metrics and design to improve
+- Cohort Analysis
+  - One of the most important tools of startup analytics
+  - Look at performance of each group of customers to come in contact with product independently (cohort)
+  - Customer flows govern interaction of customers with products
+  - Poor quantitative results here force acknowledgement of failure and create necessary motivation, context, and space for more qualitative research
+    - This can lead to potential pivot
+    - Each time this happens you repeat the three learning milestones
+- Optimization vs. Learning
+  - If you are building the wrong thing, optimization is not useful
+    - Measure against the question of if a sustainable business can be made
+    - Can only determine if a sustainable business can be built if clear, tangible predictions are made
+      - In absence of predictions, product and strategy decisions take much more time and effort
+  - Innovation accounting makes it clear when company is stuck and needs to change direction
+    - There is danger in using the wrong metrics to drive though
+- Actionable vs. Vanity Metrics
+  - Vanity metrics paint the rosiest picture possible
+  - Often gross numbers (revenue, registrations, etc.)
+- Cohorts and Split Testing
+  - Split (A/B) testing helps draw clear cause and effect inferences
+  - Can often uncover surprising information
+    - Namely that new features aren't changing user behavior as hypothesized
+- Kanban
+  - Lean manufacturing principle
+  - "Capacity constraint"
+  - User stories (features) not complete until validated
+  - Four states of development
+    - Backlog
+    - In progress
+    - Built
+    - Validated
+      - Knowing if a story was a good idea in the first place
+  - Kanban limits the number of stories that can exist in each state (bucket)
+  - Can be frustrating initially
+    - First the validated bucket fills up, then the built, etc. until no new work can be started
+    - Teams using narrow definitions of productivity feel stuck
+      - Narrow definition: Shipping features as productivity
+  - The only way to start new stories is to investigate
+    - Often involves non-engineering tasks
+      - Talking to customers
+      - Looking at split test data
+  - The result of an artificial limit is that testing gets built in
+    - Becomes a question of why build a feature without testing? It'll just take more time to validate later.
+- The Value of the Three A's
+  - Actionable
+    - Must demonstrate clear cause-and-effect
+    - If a metric cannot do this, it is a vanity metric
+  - Accessible
+    - Must be understandable by all
+    - Easy way to do this is to look at people based metrics
+      - "Metrics are people, too"
+      - Use tangible, concrete units: Website hits vs. a person visiting the website
+      - This is what cohort analysis is: Among people who used our product in this time period, these behaviors were exhibited.
+    - Also means transparency—everyone should be privy to this information
+  - Auditable
+    - Data is credible to viewers (employees)
+    - Data should be testable "by hand"
+      - Talking to customers should reveal the same findings
+    - The mechanism to generate reports shouldn't be too complex
+      - Reports should be drawn from master data, not computed/secondary data
+
+# Chapter 8: Pivot (Or Persevere)
+
+- Runway
+  - Runway is the number of pivots you can make before you're out of cash
+    - Extend runway by cutting costs or raising money
+    - Cutting costs indiscriminately can extend the time through the feedback loop
+      - All this does is help the business die more slowly
+  - Measuring runway through pivots suggests another way to extend it: Get to each pivot faster
+    - Do this by achieving the same amount of validated learning faster or cheaper
+    - All lean startup techniques have this as the goal
+- Pivots Require Courage
+  - Most entrepreneurs who pivot say they wish they had sooner. Why?
+    - Vanity metrics can lead to false conclusions
+    - Unclear hypotheses
+      - Without a hypothesis it is impossible (nearly) to fully fail
+      - Without failure, no impetus to embark on radical change
+  - Many entrepreneurs are afraid
+    - Pivots acknowledge failure
+    - Fear vision may be deemed wrong without having a chance to prove itself fully
+- The Pivot or Persevere Meeting
+  - Decision to pivot requires clear-eyed and objective mindset
+  - Decision is emotionally charged
+    - Must be addressed in a structured way
+    - Meetings can be scheduled in advance to mitigate emotion
+      - ie. Making the call in advance removes the emotional aspect of deciding if it's time to decide or not.
+  - Meetings must include business and product development leadership
+    - Product team brings
+      - Report of product optimization efforts over time
+      - Expectations over time, compared to the above
+    - Business team brings
+      - Detailed accounts of conversations with current and potential customers
+  - Requires insights from previous iteration data to make a pivot decision
+  - Pivots are often about repurposing what has been built
+- Failure to Pivot
+  - Any time engine tuning yields diminishing returns—pivot
+    - Can be particularly challenging to do in the face of success
+  - Always be testing a clear hypothesis in service of a vision
+- A Catalog of Pivots
+  - A pivot is a special kind of change designed to test a new fundamental hypothesis for
+    - Product
+    - Business model
+    - Engine of growth
+  - Zoom-in Pivot
+    - What was once a single feature becomes the full product
+  - Zoom-out Pivot
+    - What was once the whole product becomes a feature
+  - Customer Segment Pivot
+    - Product solves real problems for real people, just not the original target customer
+    - Product hypothesis is partially confirmed
+      - Right problem
+      - Wrong customer
+  - Customer Need Pivot
+    - Unlocked by getting to know customers extremely well
+    - Find the "problem" you're solving isn't too important
+    - Via customer intimacy, discover related problems that are
+      - Important
+      - Can be solved by the current team
+  - Platform Pivot
+    - Change from an application to a platform or vice versa
+  - Business Architecture Pivot
+    - High margin and low volume to low margin and high volume (or vice versa)
+  - Value Capture Pivot
+    - Change to revenue model, monetization strategy
+    - Changes here can have consequences for business, product, and/or marketing strategies.
+  - Engine of Growth Pivot
+    - Three engines of growth for startups:
+      - Viral
+      - Sticky
+      - Paid
+    - Changes here often necessitate changes to value capture strategy
+  - Channel Pivot
+    - Recognition that the same product can be delivered through a new distribution channel with greater effectiveness
+  - Technology Pivot
+    - Same solution, new technology
+    - More common in established companies
+    - Move for better price/performance
+- A Pivot is a Strategic Hypothesis
+  - No substitute for sound strategic thinking
+  - Pivots require new MVPs
+  - Pivots are fact-of-life for any growing business
+
+# Chapter 9: Batch
+
+- Batching
+  - Example of stuffing envelopes: Is it faster to batch or make one at a time?
+    - One at a time—single-piece-flow—is faster
+      - The overhead of moving parts is greater in large batches
+      - Process problems later in production don't show up until the first parts have been done many times over with large batches, potentially leading to huge waste.
+    - Delivery—every few intervals or all at once
+      - Can determine quality once everything is done, or many times as order is fulfilled
+- Small Batches in Entrepreneurship
+  - A lean startup's goal is not to produce more efficiently, but to learn as quickly as possible
+  - Small batches equate to finding what customers (don't) want more quickly
+- Continuous Deployment
+  - Upwards of 50 changes daily at IMVU
+  - Testing
+    - Not only software tests, but also business health
+    - If a release has negative consequences for business health, the feature is automatically rolled back and the appropriate team is notified
+  - By reducing batch size, you get through the build-measure-learn loop faster
+- Large Batch Death Spiral
+  - Large batches incur delays
+    - Through work and rework
+    - A desire to minimize the effects of overhead can lead to ever-larger batches
+  - No physical constraint on batch size in software
+    - Can lead to ballooning, resulting in "Bet the company" size releases
+      - Incentive becomes about upping batch size over shipping it
+      - "Been in development so long, why not add one more thing?"
+      - Who wants to be responsible for the product that failed because it was missing the one critical feature?
+- Pull, Don't Push
+  - Having a product in inventory when a customer needs it is efficient. Having a large inventory is not.
+  - Pull model means whenever a piece is used, a "hole" in inventory is created and a new one is provisioned all the way down the line—warehouse, distribution, factory, etc.
+    - This is called just-in-case, or work-in-progress inventory
+  - Startups struggle to see WIP inventory because it's mostly intangible
+    - Work that goes into building MVP before shipping is WIP inventory
+    - In manufacturing, pull is used to gauge customer demand to produce just as much product as is necessary
+    - Applying this approach to developing new products is not straightforward
+      - In lean startup, the goal is quick, validated learning, so pull requests come in the form of experiments that need to be run
+      - As soon as a hypothesis to be tested is formed, development team should build and run the experiment as quickly as possible and using the smallest batch size possible that will still get the job done
+      - Although the feedback loop is stated as build-measure-learn because that is how it is executed, it is planned in reverse
+        - Figure out what needs to be learned, then work backwards to see what product will work as an experiment
+
+# Chapter 10: Grow
+
+- Engine of Growth: Mechanism used to achieve sustainable growth
+- Sustainable Growth
+  - Excludes surges—one-off ads, publicity stunts
+  - "New customers come from the actions of old customers"
+    - Word of mouth
+    - As a side effect of usage
+      - Fashion/luxury goods drive awareness when used
+      - Also true of viral products (FB, PayPal)
+    - Through funded advertising
+      - To be sustainable, must be funded from revenue, not investment capital
+      - Cost of acquisition must be less than average customer revenue
+      - Extra revenue can be used to grow more
+    - Through repeat purchase/use
+      - Subscriptions, consumables
+  - These sources of sustainable growth power feedback loops—Engines of Growth
+    - The faster the loop turns, the faster the company grows
+- The Three Engines of Growth
+  - "Startups don't starve, they drown"
+    - Always tons of ideas to improve—what to focus on?
+    - Hard truth is that many of these ideas are mere optimizations
+    - Must focus on big experiments that lead to validated learning
+      - Engines of Growth framework helps to stay focused on metrics that matter
+- The Sticky Engine of Growth
+  - The idea is to have long term customers
+    - Ex. telephone providers, DB vendors
+  - Track attrition/churn rate very carefully
+    - Defined as the fraction of customers who fail to remain engaged with a product over a given period of time
+  - Governed by simple rules
+    - If rate of acquisition exceeds churn, the product will grow
+    - Speed of growth: Natural growth rate minus rate of churn yields the rate of compounding growth
+- The Viral Engine of Growth
+  - Customers do most of the marketing
+    - Ex. online social networks, Tupperware
+    - Awareness of product spreads from person to person
+    - Differs from simple word of mouth in that person to person transmission is a necessary consequense of normal product use
+    - "Viruses are not optional"
+  - Viral loop speed determined by viral coefficient
+    - Measures how many new customers will use a product as a consequence of each new customer that signs up
+    - Viral coefficient of 0.1 means 1/10 customers will recruit a friend (not sustainable)
+    - If the coefficient is greater than one, the product is growing
+  - Companies that rely on virality must focus on viral coefficient more than anything else
+  - Many viral companies rely on indirect revenue like advertising
+    - There can be no friction between signup and recruitment
+    - This can make testing the value hypothesis a challenge
+  - Monetary exchange does not drive growth in this model, only that customers value the product enough to pay
+  - Free applications/product can be given value from customers' time and attention
+- The Paid Engine of Growth
+  - Like other engines, powered by a feedback loop
+  - Each customer pays a certain amount over his/her "lifetime" as a customer
+    - Customer's lifetime value (LTV) is an important metric here
+    - This revenue can be reinvested in advertising to drive the engine of growth
+  - Cost per acquisition (CPA) is the cost of an ad campaign over the number of paid users acquired
+    - If LTV is greater than the CPA, product grows
+    - Margin between LTV and CPA determines speed of growth
+    - CPA doesn't only pertain to advertisements—also outbound sales forces, retail outlets, etc. All must be factored into the CPA
+  - Most sources of customer acquisition are subject to competition
+    - Prime retail storefronts have more foot traffic and are therefore more valuable
+    - Prices to reach target markets are determined by the average value earned in aggregate by companies in competiton for a given customer's attention
+  - Over time, any source of acquisition tends to have its CPA bid up by competition
+    - Growth long-term requires a differentiated ability to monetize a certain set of customers
+- Multiple Engines
+  - Technically, more than one can exist in a business at a time
+    - Each one has unique challenges though
+    - Can be difficult to optimize two at once
+- Product/Market Fit
+  - Moment when a startup finally finds a widespread set of customers that resonate with a product
+  - If you have it, you'll know
+  - Many entrepreneurs believe failing to find product/market fit means a pivot is necessary
+    - Also believe the converse: Finding product/market fit means no more pivots
+    - Both assumptions are wrong
+  - Engine of growth concept can help evaluate product/market fit more rigorously
+    - Each engine has unique metrics to evaluate if near a P/M fit
+      - Ex. Viral startup with viral coefficient of 0.9 is close
+    - Helps to focus features from chapter 7 on innovation accounting
+      - Viral engines develop features to increase the viral loop speed
+      - Paid focuses on sales/marketing
+    - Focus on direction and degree of progress through each build-measure-learn loop
+- When Engines Run Out
+  - Every engine runs out of gas eventually
+    - At some point, a set of customers is exhausted
+      - Can take a long or short time, depending on industry and timing
+  - Building an MVP to reach early adopters will unlock an engine to reach that audience
+    - Transitioning to the mainstream requires tremendous additional work
+    - Vanity metrics could allow you to believe that growth coming in from a working engine is the result of product improvements instead
+      - When this happens and growth slows, the result is a crisis
+      - This is a problem established companies experience
+
+# Chapter 11: Adapt
+
+
+
+
+
+https://github.com/GLips/Reading_Notes/blob/master/The_Lean_Startup.md
