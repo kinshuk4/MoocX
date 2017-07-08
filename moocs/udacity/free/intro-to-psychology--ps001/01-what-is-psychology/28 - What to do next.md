@@ -1,0 +1,13 @@
+Congratulations, you just finished your first lesson. Following the lesson is
+going to be a problem set, where you answer questions based on what you've
+learned so far. Now, this is going to be the format for every lesson to come.
+&gt;&gt; So if you're ready, go back to the problem set for lesson one and answer each
+question. If you get stuck, go back to the lesson. Or, to the forum, where you
+can then interact with your peers or with us.
+&gt;&gt; After you finish a problem set for lesson one, you're ready to move on to
+lesson two. Where we're going to look at how psychologists conduct experiments
+to learn more about human thought and behavior. Now it's important for the
+remainder of the course that you notes while you're watching the lessons. In
+addition, be sure to check the instructor's note section, which is here, to get
+other valuable information that's contained in each lesson. And we'll see you
+in lesson 2.
