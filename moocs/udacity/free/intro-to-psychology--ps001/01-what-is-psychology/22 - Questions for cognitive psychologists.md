@@ -1,8 +1,1 @@
-So, what type of question do Cognitive Psychologists ask?
-Can we really multitask? How does our attachment change over
-our lives? Why does my dog learn to salivate when
-I open the door to the cabinet? What does an
-increase in dopamine in my brain do to my mood?
-Now was the shooter having a psychotic episode or was
-he competent to stand trial? Choose which one you think
-psychologists would ask and more than one could be correct.
+So, what type of question do Cognitive Psychologists ask? Can we really multitask? How does our attachment change over our lives? Why does my dog learn to salivate when I open the door to the cabinet? What does an increase in dopamine in my brain do to my mood? Now was the shooter having a psychotic episode or was he competent to stand trial? Choose which one you think psychologists would ask and more than one could be correct. 
