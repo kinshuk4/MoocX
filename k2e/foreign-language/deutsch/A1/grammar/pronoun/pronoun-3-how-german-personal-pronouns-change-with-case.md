@@ -65,4 +65,4 @@ Das ist **ihr** Auto. (That’s her car.) ⇨ **Whose** car is it?
 
 http://www.jabbalab.com/blog/889/how-german-personal-pronouns-change-with-case
 
-​    
+https://www.youtube.com/watch?v=tg6ANnRKpF0&list=PLDl7JofqmDnHxxS7NjiGgEapMeTQyPK5R&index=23    

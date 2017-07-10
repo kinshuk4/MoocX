@@ -2,7 +2,13 @@
 
 Be aware that some German apartments are sold "bare" - with no light fixtures or even the proverbial kitchen sink! Read your **Kaufvertrag** (sales contract) carefully to avoid having to wash the dishes in the bathroom by candlelight after you move into your new apartment.
 
-furnished **möbliert ****\*Note:** Furnished apartments are rare in Germany.*
+furnished **möbliert**  
+
+**Note:** *Furnished apartments are rare in Germany.*
+
+das Möbel - the furniture - This generally is plural form 
+
+das Möbelstuck - peice of furniture
 
 bath towel **das Badetuch**
 
@@ -68,3 +74,5 @@ wash basin, sink **das Waschbecken**
 
 
 https://www.thoughtco.com/g00/english-german-glossary-house-and-apartment-4071170?i10c.referrer=https%3A%2F%2Fwww.google.co.in%2F
+
+https://www.youtube.com/watch?v=NnoxJbLila4
