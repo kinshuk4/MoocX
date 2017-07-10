@@ -2,6 +2,8 @@
 
 Certain prepositions always take the genitive case no matter their position in the sentence, and even if there will be more than one genitive noun within the sentence.
 
+There are only a few common genitive prepositions in German, including: *(**an)**statt* (instead of), *außerhalb/**innerhalb* (outside/inside of), *trotz* (in spite of), *während*** **(during) and *wegen* (because of). Notice that most of the time the genitive prepositions can be translated with "of" in English.
+
 | Preposition | Definition |
 | ----------- | ---------- |
 | trotz       | despite    |
@@ -9,15 +11,25 @@ Certain prepositions always take the genitive case no matter their position in t
 | wegen       | because    |
 | (an)statt   | instead of |
 
+Even *während* can be rendered as "in the course of," as well as "during."
 
+Other genitive prepositions include: *angesichts* (in view of), *beiderseits* (on both sides of), *diesseits* (this side of), *jenseits** *(on the other side of) and *laut* (according to).
 
-ExamplesHere are a few example sentences in which the genitive nouns are pointed out:
+The genitive prepositions are often used with the dative in spoken German, particularly in certain regions. If you want to blend in with the local speakers and not sound too stuffy, you can use them in the dative also, but purists will want to learn the genitive forms.
+
+### Examples
+
+Here are a few example sentences in which the genitive nouns are pointed out:
 
 Das ist das Auto **meines Vaters** - This is **my father's** car
 
 Der Beruf **des Mannes** ist Arzt - **The man's** job is a doctor
 
 Trotz **des Regens** spielen wir Fußball - Despite **the rain** we're playing football
+
+**Während** *der Woche* arbeiten wir. -  **During** *the week* we work.
+
+**Trotz** *des Wetters* fahren wir heute nach Hause. - **In spite of*** the **weather,** *we're driving home today.
 
 ### More on it
 
@@ -51,8 +63,12 @@ As mentioned in [Section II.4](http://germanforenglishspeakers.com/nouns/more-on
 
 
 
+Note: The genitive prepositions listed above are often used with the dative in spoken German, particularly in certain regions. Examples:*   **trotz** dem Wetter:* in spite of the weather   *während der Woche:* during the week (same as genitive)  * **wegen** den Kosten:* because of the costs  
 
+Note: The genitive prepositions listed above are often used with the dative in spoken German, particularly in certain regions. Examples:*   **trotz** dem Wetter:* in spite of the weather   *während der Woche:* during the week (same as genitive)  * **wegen** den Kosten:* because of the costs  
 
-http://www.deutsched.com/Grammar/Lessons/0205genitive.php
+**http://www.deutsched.com/Grammar/Lessons/0205genitive.php**
 
-http://germanforenglishspeakers.com/prepositions/genitive-prepositions/
+**http://germanforenglishspeakers.com/prepositions/genitive-prepositions/**
+
+**https://www.thoughtco.com/german-prepositions-in-the-genitive-case-4065381**

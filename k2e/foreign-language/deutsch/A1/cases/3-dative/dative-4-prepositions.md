@@ -82,9 +82,51 @@ Kannst du **nach dem** Weg fragen? ⇨ Can you ask for directions?
 Die Touristeninformation ist in der Nähe **vom** Markt. ⇨ The tourist information is near the market.
 Sollen wir **zum** Zoo gehen? ⇨ Shall we go to the zoo?
 
+### More Examples of the Prepositions
+
+**aus**
+Marcel wird nächste Woche aus dem Krankenhaus kommen. – Marcel will get out of hospital next week.
+Ohne Regenschirm gehe ich nicht aus dem Haus. – I don’t leave the house without an umbrella.
+
+**außer**
+Außer ihr wollte keiner mit ins Kino. – Nobody wanted to come to the cinema except her.
+Außer ihm konnte mir keiner helfen. – Nobody could help me except him.
+
+**bei**
+Bei meiner Mutter gibt es immer selbstgebackenen Kuchen. – There is always a home made cake at my mom’s place.
+Sina möchte bei ihrem Freund wohnen. – Sina wants to live at her friends place.
+
+**gegenüber**
+Gegenüber der Kirche gibt es ein sehr gutes Restaurant. – There is a very good restaurant opposite the church.
+Die Oper ist gegenüber der Post. – The opera is opposite the post office.
+
+**mit**
+Mit Ihrer Hilfe werde ich das schaffen. – I will make it with your help.
+Ich gehe gerne mit dir joggen. – I like jogging with you.
+
+**nach**
+Nach der Party ging es uns sehr schlecht. – We felt very bad after the party.
+Pete fuhr nach der Arbeit zu Ben. – Pete drove to Ben’s after work.
+
+**seit**
+Seit ihrem Geburtstag hat sie sich sehr verändert. – She has changed a lot since her birthday.
+Ich habe seit dem Unfall nicht mehr richtig geschlafen. – I haven’t slept properly since my accident.
+
+**von**
+Diese Kette habe ich von ihm bekommen. – I got this necklace from him.
+Diesen Karatetrick habe ich von seinem Vater gelernt. – I learned that karate move from his father.
+
+**zu**
+Ich werde zu deiner Hochzeit kommen. – I will come to your wedding.
+Zu dir komme ich nicht mehr zu Besuch! – I won’t come to visit you again!
+
 https://www.youtube.com/watch?v=L_EWNRkvkZY&index=14&list=PLYzp2xhTw9W1Xfjp8_0oxsULeUw5g80TH
 
 https://www.jabbalab.com/blog/15792/german-dative-prepositions
 
-https://www.thoughtco.com/using-german-dative-prepositions-correctly-1444496    
+https://www.thoughtco.com/using-german-dative-prepositions-correctly-1444496  
+
+https://www.jabbalab.com/blog/2994/german-prepositions-followed-by-the-dative-case        
+
+  
 

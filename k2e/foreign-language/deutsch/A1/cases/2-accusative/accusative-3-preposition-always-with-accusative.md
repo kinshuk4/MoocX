@@ -6,6 +6,15 @@ In German, prepositions can be followed by nouns in various cases. An accusative
 
 German prepositions break down into **four groups**. Some of them use the **accusative** and some use the **dative** or **genitive** case. On top of this, there are also some that can be either **accusative or dative**, depending on the context of the sentence. When using a preposition, the article of the noun may change depending on the gender and case.
 
+### TYPES OF ACCUSATIVE PREPOSITIONS
+
+There are two kinds of accusative prepositions:
+
+1. Those that are always accusative and never anything else. These are already covered - [accusative-3-preposition.md](../../cases/2-accusative/accusative-3-preposition.md).
+2. Certain two-way prepositions that can be either accusative or dative, depending on how they are used.
+
+### 
+
 ### Accusative Prepositions
 
 There are **six** prepositions which are strictly linked to the accusative case. Let’s have a look at a table that shows you the prepositions in connection with the definite article der, die and das:

@@ -38,7 +38,107 @@ However, you often encounter a preposition before the year when you’re listeni
 
 (INCOMPLETE)
 
+### More Examples
+
+ 
+
+| **Die Präposition at – um** |                |              |
+| --------------------------- | -------------- | ------------ |
+| Uhrzeit                     | um 19 Uhr      | at 7pm       |
+| Feste                       | zu Weihnachten | at Christmas |
+|                             |                |              |
+
+ 
+
+| **Die Präposition on – am** |                  |                          |
+| --------------------------- | ---------------- | ------------------------ |
+| Datum                       | am 22. September | on the 22nd of September |
+| Wochentage                  | am Dienstag      | on Tuesday               |
+|                             |                  |                          |
+
+ 
+
+| **Die Präposition after – nach** |            |
+| -------------------------------- | ---------- |
+| nach der Arbeit                  | after work |
+
+ 
+
+| **Die Präposition ago – vor** |              |
+| ----------------------------- | ------------ |
+| vor 5 Monaten                 | 5 months ago |
+
+ 
+
+| **Die Präposition before – vor** |            |
+| -------------------------------- | ---------- |
+| before Easter                    | vor Ostern |
+
+ 
+
+| **between – zwischen**             |                              |
+| ---------------------------------- | ---------------------------- |
+| zwischen dienstags und donnerstags | between Tuesday and Thursday |
+
+ 
+
+| **Die Präposition by – bis** |              |
+| ---------------------------- | ------------ |
+| bis nächste Woche            | by next week |
+
+ 
+
+| **Die Präposition during – während** |                    |
+| ------------------------------------ | ------------------ |
+| während der Hochzeit                 | during the wedding |
+
+ 
+
+| **Die Präposition for – seit** |              |
+| ------------------------------ | ------------ |
+| seit einem Jahr                | for one year |
+
+ 
+
+| **Die Präposition past** |                 |
+| ------------------------ | --------------- |
+| halb acht                | half past seven |
+
+ 
+
+| **Die Präposition since – seit** |              |
+| -------------------------------- | ------------ |
+| seit Freitag                     | since Friday |
+
+ 
+
+| **Die Präposition until – bis** |             |
+| ------------------------------- | ----------- |
+| until Saturday                  | bis Samstag |
+
+ 
+
+| **Die Präposition to** |               |
+| ---------------------- | ------------- |
+| 5 vor Mitternacht      | 5 to midnight |
+
+ 
+
+| **Die Präposition up to – bis zu** |                       |
+| ---------------------------------- | --------------------- |
+| bis zu 10 Stunden die Woche        | up to 10 hours a week |
+
+ 
+
+| **Die Präposition within – innerhalb** |                |
+| -------------------------------------- | -------------- |
+| innerhalb einer Stunde                 | within an hour |
+
+
+
 https://easy-deutsch.de/en/prepositions/temporal-prepositions/
 
 https://deutsch.lingolia.com/en/grammar/prepositions/types
+
+https://www.jabbalab.com/blog/4856/englische-prapositionen-der-zeit
 

@@ -1,24 +1,37 @@
-# German Two-Way Prepositions
-
-## German Two-Way Prepositions
+### Two Way Accusative Prepositions
 
 Most German prepositions are always [followed by the same case](https://www.thoughtco.com/the-four-german-noun-cases-4064290), but dual prepositions (also called two-way or doubtful prepositions) are prepositions that can take either the accusative or dative case.
 
-## Two-Way Prepositions
-
 There are nine of these dual prepositions:
 
-- *an*
-- *auf*
-- *hinter*
-- *neben*
-- *in*
-- *über*
-- *unter*
-- *vor*
-- *zwischen*
+| **Two-Way Prepositions****Accusative/Dative** |                                |
+| ---------------------------------------- | ------------------------------ |
+| The meaning of a two-way preposition often changes based on whether it is used with the accusative or dative case. See below for the grammar rules. |                                |
+| **Deutsch**                              | **Englisch**                   |
+| **an**                                   | at, on, to                     |
+| **auf**                                  | at, to, on, upon               |
+| **hinter**                               | behind                         |
+| **in**                                   | in, into                       |
+| **neben**                                | beside, near, next to          |
+| **über**                                 | about, above, across, over     |
+| **unter**                                | under, among                   |
+| **vor**                                  | in front of, before,ago (time) |
+| **zwischen**                             | between                        |
 
-Let’s look at the **nine** little beauties that can be either accusative or dative:
+### THE RULES OF TWO-WAY PREPOSITIONS
+
+The basic rule for determining whether a two-way preposition should have an object in the accusative or dative case is motion versus location. If there is motion toward something or to a specific location (wohin?), then usually the object is accusative. If there is no motion at all or random motion going nowhere in particular (*wo?*), then that is usually dative**.** This rule applies only to the so-called two-way or dual prepositions in German. For example, a [dative-only preposition](https://www.thoughtco.com/using-german-dative-prepositions-correctly-1444496) like *nach* is always dative, whether there is motion or not. 
+
+### More Examples
+
+Here are two sets of examples showing motion versus location:
+
+- Accusative: Wir gehen** ins Kino.** (We're going **to the movies**.) There is a motion toward a destination. In this case, that's the movie theater. 
+- Dative: Wir sind** im Kino.** (We're **at the movies/cinema**.) We are already at the location and not traveling somewhere. 
+
+
+- Accusative: Legen Sie das Buch** auf den Tisch.** (Put/Lay the book on the table.) The motion is the placement of the book toward the table.
+- Dative: Das Buch liegt **auf dem Tisch.** (The book's lying **on the table.**) The book is already at its destination and not moving.
 
 **Two-Way Prepositions in the Accusative Case**
 
@@ -58,8 +71,6 @@ in + dem = **im**
 
 Some other forms that aren’t as frequently used are **hintern**, **hinterm**, **hinters**, **übern**, **überm**, **übers**, **untern**, **unterm**, **unters**, **vorm** and **vors**.
 
-------
-
 ## When to use Accusative or Dative?
 
 One of the first issues you will encounter when learning these prepositions is:
@@ -69,10 +80,8 @@ When should I use accusative and when should I use the dative case?
 Which case to use depends on the meaning. Here is a quick overview:
 
 - Prepositions in the accusative case describe movement or show a change of location. These prepositions can answer questions that start with: **Where to…?**
-
 - **For example:**
   Sie wollen **auf die** Party. (They want to go to the party.) ⇨ **Where** do they want to go **to**?
-
 - Prepositions in the dative case describe positions or refer to a static location. These prepositions can answer questions that start with: **Where…?****For example:**
   Deine Tasche liegt **auf dem** Tisch. (The bag is on the table.) ⇨ **Where** is the bag?
 
@@ -142,8 +151,15 @@ Now we'll put the *Kirche* phrases into sentences to further illustrate the poin
 - **Akkusativ**: *Die Leute gehen in die Kirche.* The people are going into the church. 
 - **Dativ**: *Die Leute sitzen in der Kirche.* The people are sitting in the church. 
 
-​        
+
+
+https://www.youtube.com/watch?v=OnNGCS5tVMw&list=PLYzp2xhTw9W1Xfjp8_0oxsULeUw5g80TH&index=8
+
+https://www.jabbalab.com/blog/15767/german-accusative-prepositions   
 
 ​    https://www.jabbalab.com/blog/15861/german-two-way-prepositions
 
 https://www.thoughtco.com/two-way-doubtful-prepositions-in-german-1444444
+
+https://www.thoughtco.com/german-prepositions-and-the-accusative-case-4065315                 
+
