@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+	<link href="Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="container">
+		<!-- Alert -->
+		<div class="alert alert-warning alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<h3>Warning</h3>
+			<div>It appears that something has gone wrong</div>
+		</div>
+
+		<form class="form-horizontal">
+			<!-- Normal textbox, no input group -->
+			<div class="form-group has-error has-feedback">
+				<label for="address" class="control-label col-md-3">Address:</label>
+				<div class="col-md-6">
+					<input type="text" name="address" id="address" class="form-control" />
+					<!-- Glyphicon is placed after textbox -->
+					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+
+			<!-- Input group -->
+			<div class="form-group has-error has-feedback">
+				<label for="username" class="control-label col-md-3">Username:</label>
+				<div class="col-md-6">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class="glyphicon glyphicon-user"></span>
+						</div>
+						<input type="text" class="form-control" name="username" id="username" />
+					</div>
+					<!-- Glyphicon is placed after input group-->
+					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+
+			<!-- Button group -->
+			<div class="form-group">
+				<div class="col-md-offset-3 btn-group" data-toggle="buttons">
+					<label class="btn btn-primary">
+						<input type="radio" id="first" name="sample" />
+						First
+					</label>
+					<label class="btn btn-primary">
+						<input type="radio" id="second" name="sample" />
+						Second
+					</label>
+				</div>
+			</div>
+
+			<!-- Button -->
+			<div class="form-group">
+				<button type="submit" class="btn btn-default col-md-offset-3 col-md-4">Submit form</button>
+			</div>
+		</form>
+	</div>
+
+	<script src="Scripts/jquery-2.1.3.min.js"></script>
+	<script src="Scripts/bootstrap.min.js"></script>
+</body>
+</html>
