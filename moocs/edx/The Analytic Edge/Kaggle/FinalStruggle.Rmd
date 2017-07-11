@@ -1,0 +1,361 @@
+---
+title: "Final Struggle"
+author: "Ryan Zhang"
+date: "Monday, May 04, 2015"
+output:
+  html_document:
+    fig_height: 4
+    fig_width: 5
+    highlight: espresso
+    keep_md: yes
+    theme: cosmo
+    toc: yes
+---
+
+#0 Environment  环境设定  
+##0-1 Set working directory  设定工作环境  
+```{r }
+setwd("~/GitHub/edX/The Analytic Edge/Kaggle")
+```
+
+##0-2 Load Libraries  函数包  
+```{r warning=FALSE,message=FALSE}
+library(tm)
+library(e1071)
+library(neuralnet)
+library(randomForest)
+library(ROCR)
+library(party)
+library(rCUR)
+library(topicmodels)
+library(xgboost)
+```
+
+##0-3 Function Definition  自定义函数  
+用于帮助求table后正类百分比的小函数    
+```{r}
+tCor <- function(t)round(t[,2]/rowSums(t),2)*100 
+```
+
+用于生成dummy encoding的数据框
+```{r}
+dummyEncoding <- function(df, colname){
+  dDF <- as.data.frame(model.matrix(~df[,colname]))
+  names(dDF) <- paste(colname,as.character(levels(df[,colname])),sep="")
+  dDF}
+```
+
+#1 Data Preparing 数据准备工作
+##1-1 Loading 装载
+```{r}
+NewsTrain <- read.csv("NYTimesBlogTrain.csv", stringsAsFactors = F)
+NewsTest <- read.csv("NYTimesBlogTest.csv", stringsAsFactors = F)
+```
+
+##1-2 预处理
+Store the number of training data points and the number of testing data points.        
+记录一下训练数据和测试数据的数量。
+```{r}
+ntrain <- nrow(NewsTrain)
+ntest <- nrow(NewsTest)
+ntrain
+ntest
+```
+
+"Popular"" is the dependant variable, store it in a separate vector "Y", and delete the colomn from the dataframe "NewsTrain".      
+要预测的因变量是“Popular”，将其存在一个单独的"Y"向量中,并从训练数据框中删除该列。
+```{r}
+Y <- as.factor(NewsTrain$Popular)
+NewsTrain$Popular <- NULL
+```
+
+Combine "NewsTrain" and "NewsTest" into a single dataframe for the purpose of data preparing      
+将训练数据和测试数据合并为一个单一的数据框，以便集中处理（这是否有问题？）    
+**只要是非监督的变换应该都不算作弊**
+```{r}
+OriginalDF <- rbind(NewsTrain, NewsTest)
+```
+
+##处理缺失数据
+Imputing the categorical data
+```{r}
+table(OriginalDF$NewsDesk)
+table(OriginalDF$SectionName)
+table(OriginalDF$NewsDesk,OriginalDF$SectionName)
+```
+
+```{r}
+ImputedDF <- OriginalDF
+IY <- Y
+ImputedDF$NewsDesk[OriginalDF$SectionName == "Arts"] <- "Culture"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "Business Day"] <- "Business"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "Crosswords/Games"] <- "Games"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "Health"] <- "Science"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "N.Y. / Region"] <- "Metro"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "Open"] <- "OpEd"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "Opinion"] <- "OpEd"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "Technology"] <- "Tech"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "Travel"] <- "Travel"
+ImputedDF$NewsDesk[OriginalDF$SectionName == "World"] <- "Foreign"
+```
+
+```{r}
+table(OriginalDF$NewsDesk, OriginalDF$SubsectionName)
+```
+
+```{r}
+ImputedDF$NewsDesk[OriginalDF$SubsectionName == "Education"] <- "Education"
+```
+
+```{r}
+table(OriginalDF$SectionName, OriginalDF$SubsectionName)
+```
+
+```{r}
+ntrain <- ntrain - sum(ImputedDF$NewsDesk == "National")
+IY <- IY[(ImputedDF$NewsDesk[1:length(IY)] != "National")]
+ImputedDF <- ImputedDF[(ImputedDF$NewsDesk != "National"),]
+ntrain <- ntrain - sum(ImputedDF$NewsDesk == "Sports")
+IY <- IY[(ImputedDF$NewsDesk[1:length(IY)] != "Sports")]
+ImputedDF <- ImputedDF[(ImputedDF$NewsDesk != "Sports"),]
+```
+
+Filling empty entries for the first three columns with name "Other"      
+将前三列里面的“”用“Other”替代
+```{r}
+for (i in 1:nrow(ImputedDF)){
+  for (j in 1:3){
+    if (ImputedDF[i,j] == ""){
+      ImputedDF[i,j] <- "Other"}}}
+```
+
+Change the first three columns to be factors     
+将前三个变量改成factor类型
+```{r}
+ImputedDF$NewsDesk <- as.factor(ImputedDF$NewsDesk)
+ImputedDF$SectionName <- as.factor(ImputedDF$SectionName)
+ImputedDF$SubsectionName <- as.factor(ImputedDF$SubsectionName)
+```
+
+## Feature Extraction
+QuestionRaised?
+```{r}
+QR <- rep(0,nrow(ImputedDF))
+QR[grep("\\?", ImputedDF$Headline)] <- 1
+ImputedDF$QR <- QR
+```
+
+Log Transform "WordCount"      
+将WordCount做对数转换，（转换后变为正态分布）  
+```{r}
+ImputedDF$NWordCount <- log(ImputedDF$WordCount + 1)
+```
+
+Conver the PubDate and time variable to be more R friendly and extract the hour of day, the day on month and the day of week to be seperate variables. Finally delete the PubDate column.       
+将PubDate改成R的日期-时间格式，并将周几、每月几号以及每天几点这些信息单独抽取出来，删除原本的PubDate
+```{r}
+ImputedDF$PubDate <- strptime(ImputedDF$PubDate, "%Y-%m-%d %H:%M:%S")
+ImputedDF$Hour <- as.factor(ImputedDF$PubDate$h)
+ImputedDF$Wday <- as.factor(ImputedDF$PubDate$wday)
+ImputedDF$PubDate <- NULL
+```
+
+## TF-IDF 术语频次·逆文档频次  
+Extract all headline and abstract to form a corpus    
+抽取题名和摘要文本构建一个语料库    
+```{r cache=TRUE}
+text <- vector()
+for (i in 1:nrow(ImputedDF)) {
+  text <- rbind(text, paste(ImputedDF$Headline[i], " ", ImputedDF$Abstract[i]))
+}
+
+Corpus <- Corpus(VectorSource(text))
+```
+
+Standard Corpus processing     
+标准化的语料库处理     
+```{r cache=TRUE}
+Corpus <- tm_map(Corpus, tolower)     
+Corpus <- tm_map(Corpus, PlainTextDocument)    
+Corpus <- tm_map(Corpus, removePunctuation)    
+Corpus <- tm_map(Corpus, removeWords, stopwords("english"))     
+Corpus <- tm_map(Corpus, stemDocument)
+```
+
+人为地移除一些术语
+```{r}
+Corpus <- tm_map(Corpus, removeWords, c("york","time","today","day","said","say","report","week","will","year","articl","can","daili","news"))
+```
+
+Document ~ TF-IDF matrix    
+构建文档~TFIDF矩阵     
+```{r cache=TRUE}
+dtm <- DocumentTermMatrix(Corpus, control = list(weighting = weightTfIdf))   
+tfdtm <- DocumentTermMatrix(Corpus)   
+```
+
+看看那些词比较频繁
+```{r}
+sort(colSums(as.matrix(dtm,sparse = T)),decreasing = T)[1:20]
+```
+
+Get frequent terms matrix as feature
+```{r cache=TRUE}
+sparse <- removeSparseTerms(dtm, 0.975)
+words <- as.data.frame(as.matrix(sparse))
+terms <- names(words)
+row.names(words) <- c(1:nrow(ImputedDF))
+ImputedDF <- cbind(ImputedDF, words)
+```
+
+## Clustering on TFIDF matrix 做个聚类
+```{r cache=TRUE}
+kmclusters <- kmeans(words, 8, iter.max = 10000)
+ImputedDF <- cbind(ImputedDF, kmclusters$cluster)
+```
+
+## PCA
+```{r cache=TRUE}
+cMatrix <- cMatrix <- as.matrix(removeSparseTerms(dtm, 0.99))
+s <- svd(cMatrix)
+Sig <- diag(s$d)
+plot(s$d)
+totaleng <- sum(Sig^2)
+engsum <- 0
+for (i in 1:nrow(Sig)){
+  engsum <- engsum + Sig[i,i]^2
+  if (engsum/totaleng > 0.8){
+    print(i)
+    break}}
+```
+需要28个术语才能保留原TF-IDF矩阵80%的能量 
+
+## CUR Matrix Decomposition CUR矩阵分解
+```{r cache=TRUE}
+set.seed(1126)
+res <- CUR(cMatrix, c = 9, r = 85, k = 170)
+```
+
+将投影加到训练、测试数据
+```{r cache=TRUE}
+ncolC <- ncol(getC(res))
+Ak <- getC(res) %*% getU(res)[,1:ncolC]
+AkDF <- as.data.frame(Ak)
+ImputedDF <- cbind(ImputedDF, AkDF)
+```
+
+
+## LDA
+```{r cache=TRUE}
+lda <- LDA(tfdtm, control = list(seed = 880306, alpha = 0.1), k = 3)
+ImputedDF$topic3 <- topics(lda)
+lda <- LDA(tfdtm, control = list(seed = 880306, alpha = 0.1), k = 5)
+ImputedDF$topic5 <- topics(lda)
+lda <- LDA(tfdtm, control = list(seed = 880306, alpha = 0.1), k = 7)
+ImputedDF$topic7 <- topics(lda)
+lda <- LDA(tfdtm, control = list(seed = 880306, alpha = 0.1), k = 9)
+ImputedDF$topic9 <- topics(lda)
+```
+
+```{r cache=TRUE}
+df <- ImputedDF[,c(1:3,9:ncol(ImputedDF))]
+names(df) <- c(names(df)[1:52], "cluster", names(df)[54:ncol(df)])
+df$QR <- as.factor(df$QR)
+df$cluster <- as.factor(df$cluster)
+df$topic3 <- as.factor(df$topic3)
+df$topic5 <- as.factor(df$topic5)
+df$topic7 <- as.factor(df$topic7)
+df$topic9 <- as.factor(df$topic9)
+
+x <- df[1:ntrain,]
+xt <- df[(1+ntrain):nrow(df),]
+```
+
+## Random Forest Fitting
+```{r cache=TRUE}
+tuneRF(x, IY, 1, ntreeTry=1000, stepFactor=2, improve=0.05,
+  trace=TRUE, plot=TRUE, doBest=FALSE)
+```
+
+```{r cache=TRUE}
+result <- rfcv(trainx = x, 
+               trainy = IY,
+               cv.fold= 5,
+               step = 3)               
+```
+
+
+```{r cache=TRUE}
+set.seed(1126)
+RFModel <- randomForest(x = x,
+                        y = IY,
+                        ntree = 5000,
+                        mtry = 8,
+                        nodesize = 1,
+                        importance = T,
+                        proximity = F)
+plot(RFModel)
+
+t(sort(RFModel$importance[,4],decreasing = T ))
+RFModelPred <- predict(RFModel, x, type = "prob")
+table(RFModelPred[,2] > 0.5,IY)
+
+prediction <- ROCR::prediction(RFModelPred[,2], IY)
+perf <- performance(prediction, "tpr", "fpr")
+plot(perf, colorize = T, lwd = 2)
+auc <- performance(prediction, "auc")
+auc@y.values
+
+RFModelPred <- predict(RFModel, newdata = xt, type = "prob")
+MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = RFModelPred[,2])
+write.csv(MySubmission, "finalStruggle.csv", row.names = F)
+```
+
+
+```{r cache=TRUE}
+taDF <- df
+toEnco <- c("NewsDesk","SectionName","SubsectionName","Hour","Wday","cluster","topic3","topic5","topic7","topic9")
+
+for (colname in toEnco){
+  taDF <- cbind(taDF, dummyEncoding(taDF, colname))
+}
+
+taDF <- taDF[,c(4:5,8:52,54:63,68:ncol(taDF))]
+taDF$QR <- as.numeric(as.character(taDF$QR))
+x <- taDF[1:ntrain,]
+
+xt <- taDF[((1+ntrain):nrow(taDF)),]
+```
+
+
+不知道为毛Knit的时候就报错.public board 9.2620
+```{r cache=TRUE}
+# dtrain <- xgb.DMatrix(data = as.matrix(x), label = as.numeric(as.character(IY)))
+# nround <- 30
+# param <- list(max.depth=6, eta=0.5,silent=1,nthread = 4, objective='binary:logistic')
+# 
+# xgb.cv(param, dtrain, nround, nfold=5, metrics={'auc'},showsd = FALSE)
+# 
+# set.seed(1126)
+# dtrain <- xgb.DMatrix(data = as.matrix(x), label = as.numeric(as.character(IY)))
+# bst <- xgboost(data = dtrain,
+#                max.depth = 6,
+#                eta = 0.5,
+#                nround = 15,
+#                nthread = 4,
+#                eval_metric = "auc",
+#                objective = "binary:logistic")
+# 
+# pred <- predict(bst, as.matrix(x))
+# table(pred > 0.5,IY)
+# prediction <- ROCR::prediction(pred, IY)
+# perf <- performance(prediction, "tpr", "fpr")
+# plot(perf, colorize = T, lwd = 2)
+# auc <- performance(prediction, "auc")
+# auc@y.values
+# 
+# XgboostPred <- predict(bst, newdata = as.matrix(xt))
+# MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = XgboostPred)
+# write.csv(MySubmission, "XGBOOST.csv", row.names = F)
+```
+

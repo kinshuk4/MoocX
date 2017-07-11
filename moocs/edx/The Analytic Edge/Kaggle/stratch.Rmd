@@ -1,0 +1,512 @@
+---
+title: "Analytic Edge Kaggle NYT classifiction"
+author: "Ryan Zhang"
+date: "Thursday, April 16, 2015"
+output:
+  html_document:
+    fig_height: 4
+    fig_width: 5
+    highlight: espresso
+    keep_md: yes
+    theme: cosmo
+    toc: yes
+---
+
+#0 Environment  环境设定  
+##0-1 Set working directory  设定工作环境  
+```{r }
+setwd("~/GitHub/edX/The Analytic Edge/Kaggle")
+```
+
+##0-2 Load Libraries  函数包  
+```{r warning=FALSE,message=FALSE}
+library(tm)
+library(e1071)
+library(neuralnet)
+library(randomForest)
+library(ROCR)
+library(party)
+library(rCUR)
+```
+
+##0-3 Function Definition  自定义函数  
+用于帮助求table后正类百分比的小函数    
+```{r}
+tCor <- function(t)round(t[,2]/rowSums(t),2)*100 
+```
+用于生成dummy encoding的数据框
+```{r}
+dummyEncoding <- function(df, colname){
+  dDF <- as.data.frame(model.matrix(~df[,colname]))
+  names(dDF) <- paste(colname,as.character(levels(df[,colname])),sep="")
+  dDF}
+```
+
+#1 Data Preparing 数据准备工作
+##1-1 Loading 装载
+```{r}
+NewsTrain <- read.csv("NYTimesBlogTrain.csv", stringsAsFactors = F)
+NewsTest <- read.csv("NYTimesBlogTest.csv", stringsAsFactors = F)
+```
+
+##1-2 预处理
+Store the number of training data points and the number of testing data points.        
+记录一下训练数据和测试数据的数量。
+```{r}
+ntrain <- nrow(NewsTrain)
+ntest <- nrow(NewsTest)
+ntrain
+ntest
+```
+
+"Popular"" is the dependant variable, store it in a separate vector "Y", and delete the colomn from the dataframe "NewsTrain".      
+要预测的因变量是“Popular”，将其存在一个单独的"Y"向量中,并从训练数据框中删除该列。
+```{r}
+Y <- as.factor(NewsTrain$Popular)
+NewsTrain$Popular <- NULL
+```
+
+Combine "NewsTrain" and "NewsTest" into a single dataframe for the purpose of data preparing      
+将训练数据和测试数据合并为一个单一的数据框，以便集中处理（这是否有问题？）    
+**只要是非监督的变换应该都不算作弊**
+```{r}
+OriginalDF <- rbind(NewsTrain, NewsTest)
+```
+
+Filling empty entries for the first three columns with name "Other"      
+将前三列里面的“”用“Other”替代
+```{r}
+for (i in 1:nrow(OriginalDF)){
+  for (j in 1:3){
+    if (OriginalDF[i,j] == ""){
+      OriginalDF[i,j] <- "Other"}}}
+```
+
+Change the first three columns to be factors     
+将前三个变量改成factor类型
+```{r}
+OriginalDF$NewsDesk <- as.factor(OriginalDF$NewsDesk)
+OriginalDF$SectionName <- as.factor(OriginalDF$SectionName)
+OriginalDF$SubsectionName <- as.factor(OriginalDF$SubsectionName)
+```
+
+Log Transform "WordCount"      
+将WordCount做对数转换，（转换后变为正态分布）  
+```{r}
+# OriginalDF$ZWordCount <- with(OriginalDF, (WordCount - mean(WordCount))/sd(WordCount))
+OriginalDF$NWordCount <- log(OriginalDF$WordCount + 1)
+```
+
+Conver the PubDate and time variable to be more R friendly and extract the hour of day, the day on month and the day of week to be seperate variables. Finally delete the PubDate column.       
+将PubDate改成R的日期-时间格式，并将周几、每月几号以及每天几点这些信息单独抽取出来，删除原本的PubDate
+```{r}
+OriginalDF$PubDate <- strptime(OriginalDF$PubDate, "%Y-%m-%d %H:%M:%S")
+OriginalDF$Hour <- as.factor(OriginalDF$PubDate$h)
+OriginalDF$Wday <- as.factor(OriginalDF$PubDate$wday)
+OriginalDF$Mday <- as.factor(OriginalDF$PubDate$mday)
+# OriginalDF$isWeekend <- as.numeric(OriginalDF$Wday %in% c(0,6))
+OriginalDF$PubDate <- NULL
+```
+
+Generate training and testing set    
+生成训练和测试数据    
+```{r}
+train <- OriginalDF[1:ntrain, c(1:3,9:12)]
+test <- OriginalDF[(ntrain+1):nrow(OriginalDF),c(1:3,9:12)]
+```
+
+##2 Exploratory Data Analysis  探索式数据分析    
+First Explore the few factor variable and their relationship to the depandent variable.    
+先看看前三个factor型数据与要预测的Popular之间的关系。    
+```{r}
+tNewsDesk <- table(OriginalDF$NewsDesk[1:ntrain], Y)
+t(tNewsDesk)
+tCor(tNewsDesk)
+plot(tCor(tNewsDesk))
+
+tSectionName <- table(OriginalDF$SectionName[1:ntrain], Y)
+t(tSectionName)
+tCor(tSectionName)
+plot(tCor(tSectionName))
+
+tSubsectionName <- table(OriginalDF$SubsectionName[1:ntrain], Y)
+t(tSubsectionName)
+tCor(tSubsectionName)
+plot(tCor(tSubsectionName))
+```
+    
+SectionName, SubsectionName,NewsDesk应该都是有预测能力的变量，应该保留   
+
+Looking at the text contents    
+看看文本信息   
+It seems that the "Snippet" is almost redudent with "Abstract", in since 98% cases they are the same. And "Abstract" contains a little bit more infomation than "Snippet"      
+Snippet应该和Abstract的重合内容非常多，前者貌T似都属于后者，因而估计只用后者就好了。    
+```{r}
+sum(OriginalDF$Snippet == OriginalDF$Abstract)/nrow(OriginalDF)
+which(OriginalDF$Snippet != OriginalDF$Abstract)[1]
+OriginalDF[22,5]
+OriginalDF[22,6]
+```
+
+Looking at WordCount    
+看看字数    
+The distribution of WordCount seems to be a longtail / power-law distribution.    
+字数的分布似乎是幂律分布的    
+```{r}
+summary(OriginalDF$WordCount)
+hist(OriginalDF$WordCount, breaks = 70)
+hist(OriginalDF$NWordCount)
+```
+
+Looking at publication day/weekday/hour related to Popular   
+看看小时、周几、每月几号，这些有没有用   
+```{r}
+tHour <- table(OriginalDF$Hour[1:ntrain] , Y)
+t(tCor(tHour))
+plot(tCor(tHour))
+
+tWday <- table(OriginalDF$Wday[1:ntrain], Y)
+t(tCor(tWday))
+plot(tCor(tWday))
+
+tMday <- table(OriginalDF$Mday[1:ntrain], Y)
+t(tCor(tMday))
+plot(tCor(tMday))
+
+#tWeekend <- table(OriginalDF$isWeekend[1:ntrain], Y)
+#tCor(tWeekend)
+#plot(tCor(tWeekend))
+```
+每月几号看上去没啥用   
+
+#3 Model fitting  模型拟合  
+##3-1 randomForest on Non-Text Features 用不含文本提取的特征做随机森林
+randomForest model    
+随机森林模型    
+public board auc = 0.92699
+```{r  cache=TRUE}
+set.seed(880306)
+rfModel <- randomForest(x = train,
+                        y = Y,
+                        ntree = 1000,
+                        mtry = 2,
+                        nodesize = 4,
+                        importance = F,
+                        proximity = F)
+```
+
+Evaluate on Training set 
+根据测试集评价模型
+```{r cache=TRUE}
+rfPred <- predict(rfModel, train, type = "prob")
+table(rfPred[,2] > 0.5,Y)
+
+prediction <- ROCR::prediction(rfPred[,2], Y)
+perf <- performance(prediction, "tpr", "fpr")
+plot(perf, colorize = T, lwd = 2)
+auc <- performance(prediction, "auc")
+auc@y.values
+```
+
+Make prediction with randomForest model
+用随机森林模型做预测
+```{r }
+tpred <- predict(rfModel, test, type = "prob")
+MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = tpred[,1])
+write.csv(MySubmission, "rfRegularFeatures.csv", row.names = F)
+```
+
+#4 Try feature engineering with text content 尝试通过文本数据做特征工程     
+##4-1 TFIDF   术语频次·逆文档频次  
+Extract all headline and abstract to form a corpus    
+抽取题名和摘要文本构建一个语料库    
+```{r cache=TRUE}
+text <- vector()
+for (i in 1:nrow(OriginalDF)) {
+  text <- rbind(text, paste(OriginalDF$Headline[i], " ", OriginalDF$Abstract[i]))
+}
+
+Corpus <- Corpus(VectorSource(text))
+```
+
+Standard Corpus processing     
+标准化的语料库处理     
+```{r cache=TRUE}
+Corpus <- tm_map(Corpus, tolower)     
+Corpus <- tm_map(Corpus, PlainTextDocument)    
+Corpus <- tm_map(Corpus, removePunctuation)    
+Corpus <- tm_map(Corpus, removeWords, stopwords("english"))     
+Corpus <- tm_map(Corpus, stemDocument)    
+```
+
+Document ~ TF-IDF matrix    
+构建文档~TFIDF矩阵     
+```{r cache=TRUE}
+dtm <- DocumentTermMatrix(Corpus, control = list(weighting = weightTfIdf))    
+```
+
+Get the terms    
+获取术语列表     
+```{r }
+terms <- dtm$dimnames$Terms    
+terms[5101:5110]
+```
+
+Get the matrix for training and testing set     
+分别获得训练和测试数据的Document~TF-IDF矩阵     
+```{r }
+dtmTrain <- dtm[1:ntrain,]
+dtmTest <- dtm[(1+ntrain):dtm$nrow,]
+```
+
+Get frequent terms matrix for testing set
+获得测试集的频繁术语
+```{r }
+sparseTest <- removeSparseTerms(dtmTest, 0.96)
+wordsTest <- as.data.frame(as.matrix(sparseTest))
+termsTest <- names(wordsTest)
+```
+
+Filter the dtm based on frequent terms in testing set    
+根据测试集的频繁术语，对原本的矩阵进行筛选     
+```{r cache=TRUE}
+cols <- vector()
+for (i in 1:length(termsTest)){
+  cols = c(cols, which((terms == termsTest[i]) == T))}
+dtmFiltered <- dtm[,cols]
+```
+
+Text Feature    
+文本特征      
+```{r cache=TRUE}
+termFeatures <- as.data.frame(as.matrix(dtmFiltered))
+row.names(termFeatures) <- c(1:nrow(OriginalDF))
+```
+
+Append text features to the dataframe    
+```{r}
+TextADDDF <- as.data.frame(termFeatures)
+```
+
+```{r}
+tatrain <- cbind(train, TextADDDF[1:ntrain,])
+tatest <- cbind(test, TextADDDF[(ntrain+1):nrow(TextADDDF),])
+```
+
+##4-2 randomForest model with text features added  加了文本特征的随机森林模型  
+public board auc = 
+```{r cache=TRUE}
+set.seed(880306)
+tarfModel <- randomForest(x = tatrain,
+                        y = Y,
+                        ntree = 1000,
+                        nodesize = 4,
+                        importance = T,
+                        proximity = F)
+```
+
+Look at the importance of features via training randomForest   
+看看文本特征的重要性    
+```{r}
+t(tarfModel$importance[,4])
+```
+  
+貌似都挺低的。。。    
+
+Make prediction on the training set
+用加了文本特征的随机森林模型对训练数据进行预测
+```{r cache=TRUE}
+tarfPred <- predict(tarfModel, tatrain, type = "prob")
+table(tarfPred[,2] > 0.5,Y)
+
+prediction <- ROCR::prediction(tarfPred[,2], Y)
+perf <- performance(prediction, "tpr", "fpr")
+plot(perf, colorize = T, lwd = 2)
+auc <- performance(prediction, "auc")
+auc@y.values
+```
+
+Make prediction with randomForest model
+加了文本特征的随机森林模型做预测
+```{r}
+tatpred <- predict(tarfModel, tatest, type = "prob")
+MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = tatpred[,1])
+write.csv(MySubmission, "rfText.csv", row.names = F)
+```
+
+##4-3 Why not a neural net?  试试神经网络      
+Neural net based on numerical features.    
+基于数值特征的神经网络（没有GPU 炒鸡慢）       
+```{r cache=TRUE}
+nntrain <- tatrain[,c(4,8:26)]
+nntest <- tatest[,c(4,8:26)]
+nntrain$Popular <- as.numeric(as.character(Y))
+nameofvars <- names(nntrain)
+nnformula <- as.formula(paste("Popular ~", 
+                        paste(nameofvars[!nameofvars %in% "Popular"], collapse = " + ")))
+ptm <- proc.time()
+nn <- neuralnet(formula = nnformula,
+                data = nntrain, 
+                hidden = 2,
+                threshold = 0.02,
+                stepmax = 1e8,
+                err.fct="ce",
+                linear.output=FALSE)
+plot(nn)
+pnn <- compute(nn,nntrain[,1:20])
+summary(pnn$net.result)
+nnpredict <- as.vector(pnn$net.result)
+prediction <- ROCR::prediction(nnpredict, Y)
+perf <- performance(prediction, "tpr", "fpr")
+plot(perf, colorize = T, lwd = 2)
+auc <- performance(prediction, "auc")
+auc@y.values
+proc.time() - ptm
+```
+
+##4-4 Support Vector Machine 支持向量机
+先做下Dummy Encoding
+```{r cache=TRUE}
+taDF <- rbind(tatrain, tatest)
+names(taDF)
+tadDF <- taDF[,c(4,8:26)]
+toEnco <- c("NewsDesk","SectionName","SubsectionName","Hour","Wday","Mday")
+for (colname in toEnco){
+  tadDF <- cbind(tadDF, dummyEncoding(taDF, colname))
+}
+names(tadDF) <- make.names(tadDF)
+tadtrain <- tadDF[1:ntrain,]
+tadtest <- tadDF[((1+ntrain):nrow(tadDF)),]
+```
+
+SVM Model Fitting 支持向量机
+```{r cache=TRUE, Warning=FALSE}
+svmModel <- svm(x = tadtrain, 
+                y = Y,
+                cost = 100, gamma = 1, probability = T)
+svmpred <- predict(svmModel, tadtrain, decision.values = T, probability = T)
+svmpredp <- attr(svmpred, "probabilities")[,1]
+prediction <- ROCR::prediction(svmpredp, Y)
+perf <- performance(prediction, "tpr", "fpr")
+plot(perf, colorize = T, lwd = 2)
+auc <- performance(prediction, "auc")
+auc@y.values
+svmtpred <- predict(svmModel, tadtest, probability = T)
+svmtpredp <- attr(svmtpred, "probabilities")[,1]
+MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = svmtpredp)
+write.csv(MySubmission, "svmText.csv", row.names = F)
+```
+
+##4-5 Simple Ensemble 简单的组合模型
+public board auc 0.91463
+```{r cache=TRUE}
+enpred <- 0.5*svmtpredp+0.5*tatpred[,2]
+MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = enpred)
+write.csv(MySubmission, "svm_rf_ensemble.csv", row.names = F)
+```
+
+
+#5 Clustering on TFIDF matrix 做个聚类看看
+```{r cache=TRUE}
+cTest <- removeSparseTerms(dtmTest, 0.98)
+cWords <- as.data.frame(as.matrix(cTest))
+cTerms <- names(cWords)
+
+cols <- vector()
+for (i in 1:length(cTerms)){
+  cols = c(cols, which((terms == cTerms[i]) == T))
+}
+cdtm <- dtm[,cols]
+cMatrix <- as.matrix(cdtm)
+cDF <- as.data.frame(cMatrix)
+
+kmclusters <- kmeans(cDF, 9, iter.max = 5000)
+
+tactrain <- cbind(tatrain, kmclusters$cluster[1:ntrain])
+names(tactrain) <- c(names(tactrain)[1:26],"cluster")
+tactest <- cbind(tatest, kmclusters$cluster[(1+ntrain):nrow(OriginalDF)])
+names(tactest) <- c(names(tactest)[1:26],"cluster")
+```
+
+##5-1 Another randomForest with cluster labels added 加上聚类标签后再来一个随机森林 
+public board auc = 0.92495
+```{r cache=TRUE}
+set.seed(1126)
+tacrfModel <- randomForest(x = tactrain,
+                        y = Y,
+                        ntree = 1000,
+                        mtry = 6,
+                        nodesize = 4,
+                        importance = T,
+                        proximity = F)
+t(tacrfModel$importance[,4])
+tacrfPred <- predict(tacrfModel, tactrain, type = "prob")
+table(tacrfPred[,2] > 0.5,Y)
+
+prediction <- ROCR::prediction(tacrfPred[,2], Y)
+perf <- performance(prediction, "tpr", "fpr")
+plot(perf, colorize = T, lwd = 2)
+auc <- performance(prediction, "auc")
+auc@y.values
+
+tacrfPred <- predict(tacrfModel, newdata = tactest, type = "prob")
+MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = tacrfPred[,2])
+write.csv(MySubmission, "rfTextCluster.csv", row.names = F)
+```
+
+#6 Matrix Factorization 矩阵分解  
+##6-1 SVD 奇异值分解
+```{r cache=TRUE}
+s <- svd(cMatrix)
+Sig <- diag(s$d)
+plot(s$d)
+totaleng <- sum(Sig^2)
+engsum <- 0
+for (i in 1:nrow(Sig)){
+  engsum <- engsum + Sig[i,i]^2
+  if (engsum/totaleng > 0.8){
+    print(i)
+    break}}
+```
+需要60个术语才能保留原TF-IDF矩阵80%的能量   
+
+##6-2 CUR Matrix Decomposition CUR矩阵分解
+```{r cache=TRUE}
+res <- CUR(cMatrix, c = 10, r = 84, k = 60)
+```
+
+将投影加到训练、测试数据
+```{r cache=TRUE}
+ncolC <- ncol(getC(res))
+Ak <- getC(res) %*% getU(res)[,1:ncolC]
+AkDF <- as.data.frame(Ak)
+tacftrain <- cbind(tactrain, AkDF[1:ntrain,])
+tacftest <- cbind(tactest, AkDF[((1+ntrain):nrow(AkDF)),])
+```
+
+##6-3 randomForest with pc added 加上主要成分投影后的随机森林
+public board auc = 0.92511
+```{r cache=TRUE}
+set.seed(1126)
+tacfrfModel <- randomForest(x = tacftrain,
+                        y = Y,
+                        ntree = 1000,
+                        mtry = 8,
+                        nodesize = 4,
+                        importance = T,
+                        proximity = F)
+t(tacfrfModel$importance[,4])
+tacfrfPred <- predict(tacfrfModel, tacftrain, type = "prob")
+table(tacfrfPred[,2] > 0.5,Y)
+
+prediction <- ROCR::prediction(tacfrfPred[,2], Y)
+perf <- performance(prediction, "tpr", "fpr")
+plot(perf, colorize = T, lwd = 2)
+auc <- performance(prediction, "auc")
+auc@y.values
+
+tacfrfPred <- predict(tacfrfModel, newdata = tacftest, type = "prob")
+MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = tacfrfPred[,2])
+write.csv(MySubmission, "rfTextClusterFactorization.csv", row.names = F)
+```
+
