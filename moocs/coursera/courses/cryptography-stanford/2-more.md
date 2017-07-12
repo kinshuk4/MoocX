@@ -9,12 +9,12 @@ Symmetric ciphers:
 - Caesar cipher (bad substitution cipher because no key (if you know the number of shifts, you win))
 - Vigener cipher (have a key that's concatenated as long as there is plaintext, then take CipherText = (key + plaintext mod 26)). When we discover the key size, we can thus perform an entropy attack on every letter.
 - Rotor Motor :
- - Hebern: Rotor-powered substitution table -> statistical attacks
- - Enigma (2^18 keyspace) - broken by cipher text attacks 
+- Hebern: Rotor-powered substitution table -> statistical attacks
+- Enigma (2^18 keyspace) - broken by cipher text attacks 
 
 - DES (1974, NIST standard)
- - 2^56 keyspace -> can be bruteforced these days, not to be used anymore
- - blocks size 64 bits
+- 2^56 keyspace -> can be bruteforced these days, not to be used anymore
+- blocks size 64 bits
 
 Now: AES, SALSA20
 

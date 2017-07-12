@@ -1,0 +1,147 @@
+Android Development for Beginners
+
+================================
+Lesson 3B Object Oriented Programming
+
+1. Quiz: Adding a CheckBox
+
+2. Quiz: Boolean Data Type
+
+3. Quiz: Update Order Summary
+
+4. Scrolling along
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"   <-- move this name space from LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"				<-- move tools name space (useful for debugging and running) from LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<LinearLayout
+		...
+</ScrollView>
+Note use:  android:fillViewport="true" in ScrollView if using RelativeLayout later.
+
+5. Add the Chocolate Topping CheckBox
+
+6. Into to Impostor Syndrome
+https://www.vikingcodeschool.com/posts/why-learning-to-code-is-so-damn-hard
+Hand Holding Honeymoon
+Cliff of Confusion
+Desert of Despair
+Upswing of Awesome
+
+7. Quiz: Googlers' Montage
+Everyone experiences it but start small and focus on the issue at hand
+
+8. Quiz: What's Your Name
+https://developer.android.com/training/keyboard-input/style.html
+
+9. Quiz: Conditional Code
+
+10. Quiz: Conditional Code (email)
+
+11. Quiz: Conditional Code (Smoothie)
+
+12. Introduction to If/Else
+
+13. Quiz: Syntax of If/Else
+
+14. Relational Operators
+
+15. Quiz: Adjust Price with Toppings
+
+16. Quiz: Negative Cups of Coffee
+https://developer.android.com/guide/topics/ui/notifiers/toasts.html
+import android.widget.Toast;
+Toast.makeText(this,"You cannot order more than 100 cups of coffee", Toast.LENGTH_LONG).show();
+Toasts are a good idea as otherwise user is wondering what is wrong.
+
+17. Let Someone Else Do the Hard Work
+Intents - throw a ball and let someone catch it e.g. hit web address and request is made to chose a browser
+
+18. Quiz: Practise with Intents
+https://developer.android.com/guide/components/intents-common.html?utm_source=udacity&utm_medium=course&utm_campaign=android_basics
+An intent allows you to start an activity in another app by describing a simple action you'd like to perform in an Intent object. 
+Confirm resolveActivity() is not null first as this proves an app exists to deal with the startActivity() call, otherwise a crash occurs
+CTRL /    results in all highlighted code to be commented out :-)
+
+import android.content.Intent;
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        String subject = "JustJava order for " + customerName;
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, priceMessage);     //priceMessage is created earlier
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
+19. Localisation
+Supporting Different Languages	https://classroom.udacity.com/courses/ud837/lessons/4584545214/concepts/45809704040923
+MyProject -> res -> values -> strings.xml       values = {values, values-es, values-fr, etc}
+
+strings.xml   <string name="toppings">Toppings</string>
+activity_main.xml   android:text="@string/toppings"
+
+strings.xml   <string name="thank_you">Thank you!</string>
+MainActivity.java : priceMessage += "\n" + getString(R.string.thank_you);
+
+<resources xmlns:xliff="urn:oasis:names:t:xliff:document:1.2">    <-- need to include this at top of strings.xml
+strings.xml   <string name="order_summary_name">Name: <xliff:g id="name" example="Amy">%s</xliff:g></string>    stuff within xliff is supplied later.
+MainActivity.java : priceMessage = getString(R.string.order_summary_name, name);
+[%s = string, %b = boolean, %d = integer]
+
+20. Styles
+
+21. Quiz: Styles
+Styles and Themes: https://developer.android.com/guide/topics/ui/themes.html
+res -> values -> styles.xml
+
+22. Quiz: Themes
+Applying Styles and Themes to the UI: https://developer.android.com/guide/topics/ui/themes.html#ApplyingStyles
+A theme is set to an activity or application (i.e. all the views) while a style is set to a single view
+Using the Material Themes: https://developer.android.com/training/material/theme.html
+https://www.materialpalette.com/green/light-green is a webpage for how the theme my look
+parent is used here e.g.   <style name="AppTheme" parent="android:Theme.Material">
+
+<resources>
+  <!-- inherit from the material theme -->
+  <style name="AppTheme" parent="android:Theme.Material">
+    <!-- Main theme colors -->
+    <!--   your app branding color for the app bar -->
+    <item name="android:colorPrimary">@color/primary</item>
+    <!--   darker variant for the status bar and contextual app bars -->
+    <item name="android:colorPrimaryDark">@color/primary_dark</item>
+    <!--   theme UI controls like checkboxes and text fields -->
+    <item name="android:colorAccent">@color/accent</item>
+  </style>
+</resources>
+
+Need to use <style name="Theme.MyTheme" parent="Theme.AppCompat.Light"> for android 4 and earlier
+
+23. Reflect on What You've Accomplished
+I<3ANDROID
+
+24. So Many Things to Explore in Android.
+Build for tablets, Create lists, Create cards, Load up things from the internet, Store data on the device, Post notifications, Do background operations, Use Google Play services, Use location, Add analytics, Build for other form factors, Play sound, Animations, Create server backend for your app, Fitness, Test out the latest N Developer Preview
+
+25. Intro to Study Break: Peek Vision
+
+26. Study Break: Peek Vision
+
+27. You're (Almost) Done
+
+28. Congratulations
+Android Basics Nanodegree consists of: 
+A. Android Basics: User Interface
+B. Android Basics: User Input (this course)
+C. Android Basics: Multiple App Screens
+D. Android Basics: Networking
+E. Android Basics: Data Storage
+
+29. Additional Resources
+
+
+
+
+
+
+

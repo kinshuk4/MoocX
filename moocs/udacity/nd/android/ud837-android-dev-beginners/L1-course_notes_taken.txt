@@ -1,0 +1,125 @@
+Android Development for Beginners
+
+================================
+Lesson 1A Building Layouts
+
+Vocabulary Glossary - https://developers.google.com/android/for-all/vocab-words/?utm_source=udacity&utm_medium=course&utm_campaign=android_basics	
+Ding - Whish - Pew, Pew, Pew, Pew - Toc - Boom
+14. TextView Text Color:	https://material.google.com/style/color.html#color-color-palette
+                            http://www.w3schools.com/colors/colors_hex.asp
+	                        android:background="#2196f3"
+                            android:textColor="#AED581
+15. Simple ImageView: 
+          <ImageView	
+                    android:src="@drawable/toys"     <-- no .jpg, png, etc required in udacity
+					android:layout_width="wrap_content"       
+					android:layout_height="wrap_content"   
+					android:scaleType="centre" />  <-- "wrap_content" affects centre/centreCrop
+16. Documentation:
+    https://developer.android.com/index.html
+    https://developer.android.com/reference/android/widget/TextView.html
+	android:textAllCaps="true"
+	android:textStyle="bold|italic"
+17. Chatting with Google's Kirill Grouchnikov Part 1 
+     Go to website for material design https://material.google.com/
+	 .... focus on bigger picture .... have consistent grid (key lines) ... have little margin ... 
+	 typography - have 3 or 4 styles here ... 
+     colors - use big splashes, identify accent (important elements) and primary colors for toolbar, etc. 
+
+================================
+Lesson 1B Building Layouts
+
+Useful websites: https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html
+https://developer.android.com/reference/android/view/ViewGroup.MarginLayoutParams.html
+www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-baseline-grids
+
+1. Quiz: ViewGroup = holder for everything on screen	
+    Ray - Relative Layout - ViewGroup - Parent Views
+	Laura - Linear Layout - ViewGroup - Parent Views
+	Tommy - TextView - Child Views
+	Ivy - ImageView - Child Views
+2. Quiz: Types of ViewGroup
+    - LinearLayout - horizontal, vertical, one after the other
+    - RelativeLayout - top & bottom, all over the page, each has to be assigned a location, otherwise all in top left corner on top of each other
+3. Quiz: LinearLayout 
+    - background colors don't appear unless set
+	- no forward slash for LinearLayout until the very end (TextViews have '/>' though)
+	- https://developer.android.com/reference/android/widget/LinearLayout.html
+	- android:orientation="vertical"  
+	- xmlns = xml name space needed at the beginning so all attributes are to do with android 
+	   e.g. xmlns declaration = 'xmlns:android="http://schemas.android.com/apk/res/android"' added to opening tag of <LinearLayout.
+4. Quiz: Width and Height
+    android:layout_width/layout_height="200dp", "wrap_content", "match_parent"
+	watch out match_parent can push everything else off the screen but is nice for stretching text across page
+	layout_ are in ViewGroup (e.g. TextView/ImageView) but are handled by the parent
+5. Quiz: Evenly Spacing Out Children 
+    - Linear Layout weight
+    - https://developer.android.com/guide/topics/ui/layout/linear.html?utm_source=udacity&utm_medium=course&utm_campaign=android_basics
+6. Quiz: Layout Weight	
+    if all attributes contain
+        android:layout_height="0dp"
+	    android:layout_weight="1"
+	this results in all attributes being divided equally down the screen
+	if the weights are different then this is a ratio
+	The following is a row of two image views and one textview in between e.g. bottom of hangouts app
+			ImageView 		EditText 		ImageView
+	Height	wrap_content 	wrap_content 	wrap_content   i.e. show full height with no excess/blank space
+	Width	wrap_content	0dp				wrap_content   i.e. show full width for first and last items, 0dp => we don't know the width initially
+	weight	0				1				0 
+	this results in middle section taking up all the space while the other two are just e.g. buttons
+	if the weight is 0 then no changes are made if space left over
+	
+7. Relative Layout (Ray)
+    Relative to Parent e.g.	top/bottom of page
+	Relative to other children e.g. stacked beside an image.
+	Left Edge, Top Edge, Right Edge, Bottom Edge
+	ViewGroup Layout Parameters
+	android:layout_alignParentTop="true" or "false" on child view (..Top, ..Bottom, ..Left, ..Right,  layout_centerHorizonal, layout_centerVertical)
+	Values are false by default & so can be omitted.
+	layout_centerHorizontal also exists
+	<RelativeLayout....> & </RelativeLayout> are used
+	The default is the top left corner
+	
+8. Quiz: Relative to Parent
+    Nothing to report
+
+9. Quiz: Relative to Other Views
+    android:id="@+id/ben_text_view"   
+	@ = resource symbol
+	+ = definining it here (needed only once)
+	id = resource id 
+	ben_text_view = name    android:layout_toLeftOut="@id/ben_text_view"
+    layout_above=...
+	Remember to include layout_alignParentTop also
+	If necessary search on "RelativeLayout layout params" in google
+	
+10. Quiz: List Item with RelativeLayout
+    First child in RelativeLayout is in top left corner by default
+	
+11. Quiz: Padding vs. Margin
+    android:padding="8dp" in TextView ... Padding => from internal item (going out, making bigger) ... handled by TextView ... no "layout_" here  ... padding can extend and fill out areas. 
+	android:layout_margin="8dp"  in ViewView ... Margin => from extremities (going in from sides, making smaller) ... handled by ViewGroup ... margin gives buffer space
+    - Padding can also be added to ViewGroup but generally ViewGroup contains "layout_margin=".
+	- By lining everything up it is easier to read and use.
+	- Google recommends padding/margins to be increments of 8dp
+	
+12. Chatting with Google's Kirill Grouchnikov Part 2 
+    Don't use RelativeLayout everywhere as it is overkill, use LinearLayout for simple things.
+	Build smaller blocks first and reuse as you go along => design is consistent, redesign is easier and so are new screens.
+	Focus in the beginning on getting data right, especially gettting data from external sources, i.e. start getting data first in case that takes forever.
+	Google++ keeps Kirill up to date, along with blogs
+	
+13. Great Work!
+    Lesson 1 Trail: 
+	Select views - a screen is made up of different views ImageView, TextView
+	Style views - e.g. color of a text 
+	Position views - ViewGroups, LinearLayout, RelativeLayout, margin, padding
+	
+14. Learn More on Your Own
+    Read blogs http://android-developers.blogspot.ie/
+	Follow official Android Development channels https://plus.google.com/+AndroidDevelopers/posts
+	List to podcasts http://fragmentedpodcast.com/
+	
+	
+	
+

@@ -1,0 +1,57 @@
+<resources xmlns:xliff="urn:oasis:names:t:xliff:document:1.2">
+
+    <!-- activity_main.xml strings -->
+
+    <!-- name of app [CHAR LIMIT = 20]-->
+    <string name="app_name">Just Java</string>
+
+    <!-- hint of what to write [CHAR LIMIT = 20]-->
+    <string name="name">Name</string>
+
+    <!-- title saying Toppings [CHAR LIMIT = 20]-->
+    <string name="toppings">Toppings</string>
+
+    <!-- label going with for whipped cream checkbox [CHAR LIMIT = 20]-->
+    <string name="whipped_cream">Whipped cream</string>
+
+    <!-- label going with chocolate checkbox [CHAR LIMIT = 20]-->
+    <string name="chocolate">Chocolate</string>
+
+    <!-- title saying quantity [CHAR LIMIT = 20]-->
+    <string name="quantity">Quantity</string>
+
+    <!-- title saying order summary [CHAR LIMIT = 20]-->
+    <string name="order_summary">Order Summary</string>
+
+    <!-- this is written in the button [CHAR LIMIT = 20]-->
+    <string name="order">Order</string>
+
+    <!-- MainActivity.java strings -->
+    <!-- what to write as email subject e.g. JustJava order for Brian [CHAR LIMIT = NONE]-->
+    <string name="email_subject">JustJava order for  <xliff:g id="name" example="Amy">%s</xliff:g></string>
+
+    <!-- title and string variable e.g. Customer Name: Brian [CHAR LIMIT = NONE]-->
+    <string name="customer_name">Customer Name: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+
+    <!-- title and true/false variable e.g. Add Whipped Cream? true [CHAR LIMIT = NONE]-->
+    <string name="add_whipped_cream">Add Whipped Cream? <xliff:g id="name" example="true">%b</xliff:g></string>
+
+    <!-- title and true/false variable e.g. Add Chocolate? false [CHAR LIMIT = NONE]-->
+    <string name="add_chocolate">Add Chocolate? <xliff:g id="name" example="false">%b</xliff:g></string>
+
+    <!-- title and integer variable e.g. Quantity: 2 [CHAR LIMIT = NONE]-->
+    <string name="quantity_java">Quantity: <xliff:g id="name" example="4">%d</xliff:g></string>
+
+    <!-- title and integer variable e.g. Total: €12 [CHAR LIMIT = NONE]-->
+    <string name="total">Total: €<xliff:g id="name" example="6">%s</xliff:g></string>
+
+    <!-- title saying Thank you![CHAR LIMIT = NONE]-->
+    <string name="thank_you">Thank you!</string>
+
+
+    <!-- toast comment if upper limited reached [CHAR LIMIT = 30]-->
+    <string name="toast_lower_limit">You cannot order less than 1 cup of coffee</string>
+
+    <!-- toast comment if lower limit reached [CHAR LIMIT = 30]-->
+    <string name="toast_upper_limit">You cannot order more than 100 cups of coffee</string>
+</resources>
