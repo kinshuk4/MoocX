@@ -12,13 +12,13 @@ output:
     toc: yes
 ---
 
-#0 Environment  »·¾³Éè¶¨  
-##0-1 Set working directory  Éè¶¨¹¤×÷»·¾³  
+#0 Environment  ï¿½ï¿½ï¿½ï¿½ï¿½è¶¨  
+##0-1 Set working directory  ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 ```{r }
 setwd("~/GitHub/edX/The Analytic Edge/Kaggle")
 ```
 
-##0-2 Load Libraries  º¯Êý°ü  
+##0-2 Load Libraries  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 ```{r warning=FALSE,message=FALSE}
 library(tm)
 library(e1071)
@@ -31,13 +31,13 @@ library(topicmodels)
 library(xgboost)
 ```
 
-##0-3 Function Definition  ×Ô¶¨Òåº¯Êý  
-ÓÃÓÚ°ïÖúÇótableºóÕýÀà°Ù·Ö±ÈµÄÐ¡º¯Êý    
+##0-3 Function Definition  ï¿½Ô¶ï¿½ï¿½åº¯ï¿½ï¿½  
+ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ï¿½ï¿½tableï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±Èµï¿½Ð¡ï¿½ï¿½ï¿½ï¿½    
 ```{r}
 tCor <- function(t)round(t[,2]/rowSums(t),2)*100 
 ```
 
-ÓÃÓÚÉú³Édummy encodingµÄÊý¾Ý¿ò
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dummy encodingï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 ```{r}
 dummyEncoding <- function(df, colname){
   dDF <- as.data.frame(model.matrix(~df[,colname]))
@@ -45,16 +45,16 @@ dummyEncoding <- function(df, colname){
   dDF}
 ```
 
-#1 Data Preparing Êý¾Ý×¼±¸¹¤×÷
-##1-1 Loading ×°ÔØ
+#1 Data Preparing ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+##1-1 Loading ×°ï¿½ï¿½
 ```{r}
 NewsTrain <- read.csv("NYTimesBlogTrain.csv", stringsAsFactors = F)
 NewsTest <- read.csv("NYTimesBlogTest.csv", stringsAsFactors = F)
 ```
 
-##1-2 Ô¤´¦Àí
+##1-2 Ô¤ï¿½ï¿½ï¿½ï¿½
 Store the number of training data points and the number of testing data points.        
-¼ÇÂ¼Ò»ÏÂÑµÁ·Êý¾ÝºÍ²âÊÔÊý¾ÝµÄÊýÁ¿¡£
+ï¿½ï¿½Â¼Ò»ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½ÝºÍ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```{r}
 ntrain <- nrow(NewsTrain)
 ntest <- nrow(NewsTest)
@@ -63,20 +63,20 @@ ntest
 ```
 
 "Popular"" is the dependant variable, store it in a separate vector "Y", and delete the colomn from the dataframe "NewsTrain".      
-ÒªÔ¤²âµÄÒò±äÁ¿ÊÇ¡°Popular¡±£¬½«Æä´æÔÚÒ»¸öµ¥¶ÀµÄ"Y"ÏòÁ¿ÖÐ,²¢´ÓÑµÁ·Êý¾Ý¿òÖÐÉ¾³ý¸ÃÁÐ¡£
+ÒªÔ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½Popularï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"Y"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½
 ```{r}
 Y <- as.factor(NewsTrain$Popular)
 NewsTrain$Popular <- NULL
 ```
 
 Combine "NewsTrain" and "NewsTest" into a single dataframe for the purpose of data preparing      
-½«ÑµÁ·Êý¾ÝºÍ²âÊÔÊý¾ÝºÏ²¢ÎªÒ»¸öµ¥Ò»µÄÊý¾Ý¿ò£¬ÒÔ±ã¼¯ÖÐ´¦Àí£¨ÕâÊÇ·ñÓÐÎÊÌâ£¿£©    
-**Ö»ÒªÊÇ·Ç¼à¶½µÄ±ä»»Ó¦¸Ã¶¼²»Ëã×÷±×**
+ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½ÝºÍ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝºÏ²ï¿½ÎªÒ»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ô±ã¼¯ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£¿ï¿½ï¿½    
+**Ö»Òªï¿½Ç·Ç¼à¶½ï¿½Ä±ä»»Ó¦ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½**
 ```{r}
 OriginalDF <- rbind(NewsTrain, NewsTest)
 ```
 
-##´¦ÀíÈ±Ê§Êý¾Ý
+##ï¿½ï¿½ï¿½ï¿½È±Ê§ï¿½ï¿½ï¿½ï¿½
 Imputing the categorical data
 ```{r}
 table(OriginalDF$NewsDesk)
@@ -121,7 +121,7 @@ ImputedDF <- ImputedDF[(ImputedDF$NewsDesk != "Sports"),]
 ```
 
 Filling empty entries for the first three columns with name "Other"      
-½«Ç°ÈýÁÐÀïÃæµÄ¡°¡±ÓÃ¡°Other¡±Ìæ´ú
+ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½Otherï¿½ï¿½ï¿½ï¿½ï¿½
 ```{r}
 for (i in 1:nrow(ImputedDF)){
   for (j in 1:3){
@@ -130,7 +130,7 @@ for (i in 1:nrow(ImputedDF)){
 ```
 
 Change the first three columns to be factors     
-½«Ç°Èý¸ö±äÁ¿¸Ä³ÉfactorÀàÐÍ
+ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½factorï¿½ï¿½ï¿½ï¿½
 ```{r}
 ImputedDF$NewsDesk <- as.factor(ImputedDF$NewsDesk)
 ImputedDF$SectionName <- as.factor(ImputedDF$SectionName)
@@ -146,13 +146,13 @@ ImputedDF$QR <- QR
 ```
 
 Log Transform "WordCount"      
-½«WordCount×ö¶ÔÊý×ª»»£¬£¨×ª»»ºó±äÎªÕýÌ¬·Ö²¼£©  
+ï¿½ï¿½WordCountï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ì¬ï¿½Ö²ï¿½ï¿½ï¿½  
 ```{r}
 ImputedDF$NWordCount <- log(ImputedDF$WordCount + 1)
 ```
 
 Conver the PubDate and time variable to be more R friendly and extract the hour of day, the day on month and the day of week to be seperate variables. Finally delete the PubDate column.       
-½«PubDate¸Ä³ÉRµÄÈÕÆÚ-Ê±¼ä¸ñÊ½£¬²¢½«ÖÜ¼¸¡¢Ã¿ÔÂ¼¸ºÅÒÔ¼°Ã¿Ìì¼¸µãÕâÐ©ÐÅÏ¢µ¥¶À³éÈ¡³öÀ´£¬É¾³ýÔ­±¾µÄPubDate
+ï¿½ï¿½PubDateï¿½Ä³ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-Ê±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼ï¿½ï¿½ï¿½Ã¿ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½Ã¿ï¿½ì¼¸ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½PubDate
 ```{r}
 ImputedDF$PubDate <- strptime(ImputedDF$PubDate, "%Y-%m-%d %H:%M:%S")
 ImputedDF$Hour <- as.factor(ImputedDF$PubDate$h)
@@ -160,9 +160,9 @@ ImputedDF$Wday <- as.factor(ImputedDF$PubDate$wday)
 ImputedDF$PubDate <- NULL
 ```
 
-## TF-IDF ÊõÓïÆµ´Î¡¤ÄæÎÄµµÆµ´Î  
+## TF-IDF ï¿½ï¿½ï¿½ï¿½Æµï¿½Î¡ï¿½ï¿½ï¿½ï¿½Äµï¿½Æµï¿½ï¿½  
 Extract all headline and abstract to form a corpus    
-³éÈ¡ÌâÃûºÍÕªÒªÎÄ±¾¹¹½¨Ò»¸öÓïÁÏ¿â    
+ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÕªÒªï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½    
 ```{r cache=TRUE}
 text <- vector()
 for (i in 1:nrow(ImputedDF)) {
@@ -173,7 +173,7 @@ Corpus <- Corpus(VectorSource(text))
 ```
 
 Standard Corpus processing     
-±ê×¼»¯µÄÓïÁÏ¿â´¦Àí     
+ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿â´¦ï¿½ï¿½     
 ```{r cache=TRUE}
 Corpus <- tm_map(Corpus, tolower)     
 Corpus <- tm_map(Corpus, PlainTextDocument)    
@@ -182,19 +182,19 @@ Corpus <- tm_map(Corpus, removeWords, stopwords("english"))
 Corpus <- tm_map(Corpus, stemDocument)
 ```
 
-ÈËÎªµØÒÆ³ýÒ»Ð©ÊõÓï
+ï¿½ï¿½Îªï¿½ï¿½ï¿½Æ³ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½
 ```{r}
 Corpus <- tm_map(Corpus, removeWords, c("york","time","today","day","said","say","report","week","will","year","articl","can","daili","news"))
 ```
 
 Document ~ TF-IDF matrix    
-¹¹½¨ÎÄµµ~TFIDF¾ØÕó     
+ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½~TFIDFï¿½ï¿½ï¿½ï¿½     
 ```{r cache=TRUE}
 dtm <- DocumentTermMatrix(Corpus, control = list(weighting = weightTfIdf))   
 tfdtm <- DocumentTermMatrix(Corpus)   
 ```
 
-¿´¿´ÄÇÐ©´Ê±È½ÏÆµ·±
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð©ï¿½Ê±È½ï¿½Æµï¿½ï¿½
 ```{r}
 sort(colSums(as.matrix(dtm,sparse = T)),decreasing = T)[1:20]
 ```
@@ -208,7 +208,7 @@ row.names(words) <- c(1:nrow(ImputedDF))
 ImputedDF <- cbind(ImputedDF, words)
 ```
 
-## Clustering on TFIDF matrix ×ö¸ö¾ÛÀà
+## Clustering on TFIDF matrix ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```{r cache=TRUE}
 kmclusters <- kmeans(words, 8, iter.max = 10000)
 ImputedDF <- cbind(ImputedDF, kmclusters$cluster)
@@ -228,15 +228,15 @@ for (i in 1:nrow(Sig)){
     print(i)
     break}}
 ```
-ÐèÒª28¸öÊõÓï²ÅÄÜ±£ÁôÔ­TF-IDF¾ØÕó80%µÄÄÜÁ¿ 
+ï¿½ï¿½Òª28ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½Ô­TF-IDFï¿½ï¿½ï¿½ï¿½80%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
-## CUR Matrix Decomposition CUR¾ØÕó·Ö½â
+## CUR Matrix Decomposition CURï¿½ï¿½ï¿½ï¿½Ö½ï¿½
 ```{r cache=TRUE}
 set.seed(1126)
 res <- CUR(cMatrix, c = 9, r = 85, k = 170)
 ```
 
-½«Í¶Ó°¼Óµ½ÑµÁ·¡¢²âÊÔÊý¾Ý
+ï¿½ï¿½Í¶Ó°ï¿½Óµï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```{r cache=TRUE}
 ncolC <- ncol(getC(res))
 Ak <- getC(res) %*% getU(res)[,1:ncolC]
@@ -328,7 +328,7 @@ xt <- taDF[((1+ntrain):nrow(taDF)),]
 ```
 
 
-²»ÖªµÀÎªÃ«KnitµÄÊ±ºò¾Í±¨´í.public board 9.2620
+ï¿½ï¿½Öªï¿½ï¿½ÎªÃ«Knitï¿½ï¿½Ê±ï¿½ï¿½Í±ï¿½ï¿½ï¿½.public board 9.2620
 ```{r cache=TRUE}
 # dtrain <- xgb.DMatrix(data = as.matrix(x), label = as.numeric(as.character(IY)))
 # nround <- 30
