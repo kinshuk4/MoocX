@@ -13,12 +13,12 @@ output:
 ---
 
 # 0 House Keeping
-Set up working directory  设定工作环境    
+Set up working directory    
 ```{r CWD}
 setwd("~/GitHub/edX/The Analytic Edge/Kaggle")
 ```
 
-Load Libraries  装载函数包    
+Load Libraries 
 ```{r Libs, warning=FALSE,message=FALSE}
 library(tm)
 library(rCUR)
@@ -27,7 +27,7 @@ library(xgboost)
 ```
 
 Function Definition   
-Function for dummy encoding 用于生成虚拟编码的函数  
+Function for dummy encoding
 ```{r Functions}
 dummyEncoding <- function(df, colname){
   dummyDf <- as.data.frame(model.matrix(~df[,colname]))
@@ -38,7 +38,7 @@ dummyEncoding <- function(df, colname){
   }
 ```
 
-# 1 Data Preparing 数据准备工作  
+# 1 Data Preparing
 Loading Data  
 ```{r Data}
 newsTrain <- read.csv("NYTimesBlogTrain.csv", stringsAsFactors = F)
@@ -50,9 +50,9 @@ newsTrain$Popular <- NULL
 originalDf <- rbind(newsTrain, newsTest)
 ```
 
-Imputing missing categorical data 填补下缺失数据  
+Imputing missing categorical data
 I used a really simple approach, after inspecting the correlation among them.   
-主要是通过SectionName来填补NewsDesk的值  
+SectionNameNewsDesk
 ```{r Imputing}
 imputedDf <- originalDf
 iY <- Y
@@ -70,7 +70,7 @@ imputedDf$NewsDesk[originalDf$SubsectionName == "Education"] <- "Education"
 ```
 
 Remove data entries which has a NewsDesk value not appeared in the testing data    
-训练数据中有几个文章NewsDesk是National或者Sports，然而测试数据中没有这样的，干脆去掉  
+NewsDesk NationalSports
 ```{r Remove}
 ntrain <- ntrain - sum(imputedDf$NewsDesk == "National")
 iY <- iY[(imputedDf$NewsDesk[1:length(iY)] != "National")]
@@ -81,7 +81,7 @@ imputedDf <- imputedDf[(imputedDf$NewsDesk != "Sports"),]
 ```
 
 Change "" to "Other", No effect on modeling, just don't like to see ""   
-将""改成"Other"，应该没什么影响
+"Other"
 ```{r Fix}
 for (i in 1:nrow(imputedDf)){
   for (j in 1:3){
@@ -89,21 +89,19 @@ for (i in 1:nrow(imputedDf)){
       imputedDf[i,j] <- "Other"}}}
 ```
 
-Log Transform "WordCount" 将字数做个对数转变     
+Log Transform "WordCount" 
 ```{r LogTransform}
 imputedDf$WordCount <- log(imputedDf$WordCount + 1)
 ```
 
-# 2 Feature Extraction 提取特征
+# 2 Feature Extraction
 QR = Question Mark in the title?    
-QR表示标题中有无问号    
 ```{r Question}
 imputedDf$QR <- rep(0,nrow(imputedDf))
 imputedDf$QR[grep("\\?", imputedDf$Headline)] <- 1
 ```
 
 Extract Hour and day in week   
-从发表日期中抽取时间和周几  
 ```{r HourWday}
 imputedDf$PubDate <- strptime(imputedDf$PubDate, "%Y-%m-%d %H:%M:%S")
 imputedDf$Hour <- as.factor(imputedDf$PubDate$h)
@@ -111,8 +109,7 @@ imputedDf$Wday <- as.factor(imputedDf$PubDate$wday)
 imputedDf$PubDate <- NULL
 ```
 
-Extract all headline and abstract to form a corpus    
-抽取题名和摘要文本构建一个语料库    
+Extract all headline and abstract to form a corpus     
 ```{r Corpus, cache=TRUE}
 text <- vector()
 for (i in 1:nrow(imputedDf)) {
@@ -122,7 +119,6 @@ Corpus <- Corpus(VectorSource(text))
 ```
 
 Corpus processing     
-语料库处理     
 ```{r Corpus-Process, cache=TRUE}
 Corpus <- tm_map(Corpus, tolower)     
 Corpus <- tm_map(Corpus, PlainTextDocument)    
@@ -133,14 +129,13 @@ Corpus <- tm_map(Corpus, removeWords, c("york","time","today","day","said","say"
 ```
 
 Document ~ TF-IDF matrix And Document ~ TF matrix    
-构建文档~TF-IDF矩阵 以及文档~TF矩阵     
+锟斤拷锟斤拷锟侥碉拷~TF-IDF锟斤拷锟斤拷 锟皆硷拷锟侥碉拷~TF锟斤拷锟斤拷     
 ```{r TF-IDF-Matrix, cache=TRUE}
 dtm <- DocumentTermMatrix(Corpus, control = list(weighting = weightTfIdf))   
 tfdtm <- DocumentTermMatrix(Corpus)   
 ```
 
-Get frequent terms matrix as feature   
-抽取频繁的术语    
+Get frequent terms matrix as feature    
 ```{r Terms, cache=TRUE}
 sparse <- removeSparseTerms(dtm, 0.975)
 words <- as.data.frame(as.matrix(sparse))
@@ -154,7 +149,7 @@ kmclusters <- kmeans(words, 8, iter.max = 10000)
 imputedDf <- cbind(imputedDf, kmclusters$cluster)
 ```
 
-PCA 主要成分分析
+PCA 锟斤拷要锟缴分凤拷锟斤拷
 ```{r PCA, cache=TRUE}
 cMatrix <- cMatrix <- as.matrix(removeSparseTerms(dtm, 0.99))
 s <- svd(cMatrix)
@@ -212,7 +207,7 @@ x <- trainingDf[1:ntrain,]
 xt <- trainingDf[((1+ntrain):nrow(trainingDf)),]
 ```
 
-# 3 Model Fitting 模型拟合    
+# 3 Model Fitting
 Using cross validation to pick number of rounds 
 ```{r CV, cache=TRUE, results="hide"}
 dtrain <- xgb.DMatrix(data = as.matrix(x), label = as.numeric(as.character(iY)))
