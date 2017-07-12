@@ -12,13 +12,13 @@ output:
     toc: yes
 ---
 
-#0 Environment  »·¾³Éè¶¨  
-##0-1 Set working directory  Éè¶¨¹¤×÷»·¾³  
+#0 Environment      
+##0-1 Set working directory  ï¿½     
 ```{r }
 setwd("~/GitHub/edX/The Analytic Edge/Kaggle")
 ```
 
-##0-2 Load Libraries  º¯Êı°ü  
+##0-2 Load Libraries   ï¿½  
 ```{r warning=FALSE,message=FALSE}
 library(tm)
 library(e1071)
@@ -31,13 +31,13 @@ library(topicmodels)
 library(xgboost)
 ```
 
-##0-3 Function Definition  ×Ô¶¨Òåº¯Êı  
-ÓÃÓÚ°ïÖúÇótableºóÕıÀà°Ù·Ö±ÈµÄĞ¡º¯Êı    
+##0-3 Function Definition  ï¿½Ô¶ï¿½ï¿½åº¯ï¿½ï¿½  
+ Ú° table ï¿½Ù·Ö±Èµï¿½Ğ¡ ï¿½    
 ```{r}
 tCor <- function(t)round(t[,2]/rowSums(t),2)*100 
 ```
 
-ÓÃÓÚÉú³Édummy encodingµÄÊı¾İ¿ò
+  dummy encoding İ¿ï¿½
 ```{r}
 dummyEncoding <- function(df, colname){
   dDF <- as.data.frame(model.matrix(~df[,colname]))
@@ -45,16 +45,16 @@ dummyEncoding <- function(df, colname){
   dDF}
 ```
 
-#1 Data Preparing Êı¾İ×¼±¸¹¤×÷
-##1-1 Loading ×°ÔØ
+#1 Data Preparing  ï¿½×¼ ï¿½
+##1-1 Loading ×°ï¿½ï¿½
 ```{r}
 NewsTrain <- read.csv("NYTimesBlogTrain.csv", stringsAsFactors = F)
 NewsTest <- read.csv("NYTimesBlogTest.csv", stringsAsFactors = F)
 ```
 
-##1-2 Ô¤´¦Àí
+##1-2 Ô¤ ï¿½
 Store the number of training data points and the number of testing data points.        
-¼ÇÂ¼Ò»ÏÂÑµÁ·Êı¾İºÍ²âÊÔÊı¾İµÄÊıÁ¿¡£
+ï¿½ï¿½Â¼Ò»ï¿½ï¿½Ñµ İºÍ² ï¿½İµ ï¿½ï¿½
 ```{r}
 ntrain <- nrow(NewsTrain)
 ntest <- nrow(NewsTest)
@@ -63,21 +63,21 @@ ntest
 ```
 
 "Popular"" is the dependant variable, store it in a separate vector "Y", and delete the colomn from the dataframe "NewsTrain".      
-ÒªÔ¤²âµÄÒò±äÁ¿ÊÇ¡°Popular¡±£¬½«Æä´æÔÚÒ»¸öµ¥¶ÀµÄ"Y"ÏòÁ¿ÖĞ,²¢´ÓÑµÁ·Êı¾İ¿òÖĞÉ¾³ı¸ÃÁĞ¡£
+ÒªÔ¤  ï¿½Ç¡ï¿½Popular  ï¿½Ò»  "Y" ï¿½, ï¿½Ñµ İ¿ É¾ Ğ¡ï¿½
 ```{r}
 Y <- as.factor(NewsTrain$Popular)
 NewsTrain$Popular <- NULL
 ```
 
 Combine "NewsTrain" and "NewsTest" into a single dataframe for the purpose of data preparing      
-½«ÑµÁ·Êı¾İºÍ²âÊÔÊı¾İºÏ²¢ÎªÒ»¸öµ¥Ò»µÄÊı¾İ¿ò£¬ÒÔ±ã¼¯ÖĞ´¦Àí£¨ÕâÊÇ·ñÓĞÎÊÌâ£¿£©    
-**Ö»ÒªÊÇ·Ç¼à¶½µÄ±ä»»Ó¦¸Ã¶¼²»Ëã×÷±×**
+ï¿½ï¿½Ñµ İºÍ² ï¿½İºÏ²ï¿½ÎªÒ» ï¿½Ò» İ¿ï¿½ï¿½Ô±ã¼¯ï¿½Ğ´ ï¿½Ç· ï¿½â£¿ï¿½ï¿½    
+**Ö»Òªï¿½Ç·Ç¼à¶½ï¿½Ä±ä»»Ó¦ï¿½Ã¶  ï¿½**
 ```{r}
 OriginalDF <- rbind(NewsTrain, NewsTest)
 ```
 
 Filling empty entries for the first three columns with name "Other"      
-½«Ç°ÈıÁĞÀïÃæµÄ¡°¡±ÓÃ¡°Other¡±Ìæ´ú
+ï¿½ï¿½Ç°  Ä¡ ï¿½Ã¡ï¿½Other 
 ```{r}
 for (i in 1:nrow(OriginalDF)){
   for (j in 1:3){
@@ -86,7 +86,7 @@ for (i in 1:nrow(OriginalDF)){
 ```
 
 Change the first three columns to be factors     
-½«Ç°Èı¸ö±äÁ¿¸Ä³ÉfactorÀàĞÍ
+ï¿½ï¿½Ç°  ï¿½Ä³ï¿½factor ï¿½
 ```{r}
 OriginalDF$NewsDesk <- as.factor(OriginalDF$NewsDesk)
 OriginalDF$SectionName <- as.factor(OriginalDF$SectionName)
@@ -94,14 +94,14 @@ OriginalDF$SubsectionName <- as.factor(OriginalDF$SubsectionName)
 ```
 
 Log Transform "WordCount"      
-½«WordCount×ö¶ÔÊı×ª»»£¬£¨×ª»»ºó±äÎªÕıÌ¬·Ö²¼£©  
+ï¿½ï¿½WordCount ï¿½×ª ï¿½×ª Îªï¿½ï¿½Ì¬ï¿½Ö²   
 ```{r}
 # OriginalDF$ZWordCount <- with(OriginalDF, (WordCount - mean(WordCount))/sd(WordCount))
 OriginalDF$NWordCount <- log(OriginalDF$WordCount + 1)
 ```
 
 Conver the PubDate and time variable to be more R friendly and extract the hour of day, the day on month and the day of week to be seperate variables. Finally delete the PubDate column.       
-½«PubDate¸Ä³ÉRµÄÈÕÆÚ-Ê±¼ä¸ñÊ½£¬²¢½«ÖÜ¼¸¡¢Ã¿ÔÂ¼¸ºÅÒÔ¼°Ã¿Ìì¼¸µãÕâĞ©ĞÅÏ¢µ¥¶À³éÈ¡³öÀ´£¬É¾³ıÔ­±¾µÄPubDate
+ï¿½ï¿½PubDateï¿½Ä³ï¿½R ï¿½-Ê± Ê½ ï¿½ï¿½Ü¼ Ã¿ï¿½Â¼ ï¿½Ô¼ï¿½Ã¿ï¿½ì¼¸ ï¿½Ğ©ï¿½ï¿½Ï¢ ï¿½È¡ ï¿½É¾ï¿½ï¿½Ô­ ï¿½PubDate
 ```{r}
 OriginalDF$PubDate <- strptime(OriginalDF$PubDate, "%Y-%m-%d %H:%M:%S")
 OriginalDF$Hour <- as.factor(OriginalDF$PubDate$h)
@@ -112,15 +112,15 @@ OriginalDF$PubDate <- NULL
 ```
 
 Generate training and testing set    
-Éú³ÉÑµÁ·ºÍ²âÊÔÊı¾İ    
+ ï¿½Ñµ Í² ï¿½ï¿½    
 ```{r}
 train <- OriginalDF[1:ntrain, c(1:3,9:12)]
 test <- OriginalDF[(ntrain+1):nrow(OriginalDF),c(1:3,9:12)]
 ```
 
-##2 Exploratory Data Analysis  Ì½Ë÷Ê½Êı¾İ·ÖÎö    
+##2 Exploratory Data Analysis  Ì½ï¿½ï¿½Ê½ İ·     
 First Explore the few factor variable and their relationship to the depandent variable.    
-ÏÈ¿´¿´Ç°Èı¸öfactorĞÍÊı¾İÓëÒªÔ¤²âµÄPopularÖ®¼äµÄ¹ØÏµ¡£    
+ï¿½È¿ Ç° ï¿½factor  ÒªÔ¤ PopularÖ®ï¿½ï¿½Ä¹ï¿½Ïµï¿½ï¿½    
 ```{r}
 tNewsDesk <- table(OriginalDF$NewsDesk[1:ntrain], Y)
 t(tNewsDesk)
@@ -138,12 +138,12 @@ tCor(tSubsectionName)
 plot(tCor(tSubsectionName))
 ```
     
-SectionName, SubsectionName,NewsDeskÓ¦¸Ã¶¼ÊÇÓĞÔ¤²âÄÜÁ¦µÄ±äÁ¿£¬Ó¦¸Ã±£Áô   
+SectionName, SubsectionName,NewsDeskÓ¦ï¿½Ã¶ Ô¤ ï¿½ï¿½Ä± Ó¦ï¿½Ã±    
 
 Looking at the text contents    
-¿´¿´ÎÄ±¾ĞÅÏ¢   
+ Ä± Ï¢   
 It seems that the "Snippet" is almost redudent with "Abstract", in since 98% cases they are the same. And "Abstract" contains a little bit more infomation than "Snippet"      
-SnippetÓ¦¸ÃºÍAbstractµÄÖØºÏÄÚÈİ·Ç³£¶à£¬Ç°ÕßÃ²TËÆ¶¼ÊôÓÚºóÕß£¬Òò¶ø¹À¼ÆÖ»ÓÃºóÕß¾ÍºÃÁË¡£    
+SnippetÓ¦ï¿½Ãºï¿½Abstract Øº ï¿½İ·Ç³ï¿½ï¿½à£¬Ç°ï¿½ï¿½Ã²Tï¿½Æ¶ ï¿½Úºï¿½ï¿½ß£  Ö»ï¿½Ãºï¿½ï¿½ß¾Íºï¿½ï¿½Ë¡ï¿½    
 ```{r}
 sum(OriginalDF$Snippet == OriginalDF$Abstract)/nrow(OriginalDF)
 which(OriginalDF$Snippet != OriginalDF$Abstract)[1]
@@ -152,9 +152,9 @@ OriginalDF[22,6]
 ```
 
 Looking at WordCount    
-¿´¿´×ÖÊı    
+      
 The distribution of WordCount seems to be a longtail / power-law distribution.    
-×ÖÊıµÄ·Ö²¼ËÆºõÊÇÃİÂÉ·Ö²¼µÄ    
+ Ä·Ö²ï¿½ï¿½Æº ï¿½É·Ö²     
 ```{r}
 summary(OriginalDF$WordCount)
 hist(OriginalDF$WordCount, breaks = 70)
@@ -162,7 +162,7 @@ hist(OriginalDF$NWordCount)
 ```
 
 Looking at publication day/weekday/hour related to Popular   
-¿´¿´Ğ¡Ê±¡¢ÖÜ¼¸¡¢Ã¿ÔÂ¼¸ºÅ£¬ÕâĞ©ÓĞÃ»ÓĞÓÃ   
+ ï¿½Ğ¡Ê± Ü¼ Ã¿ï¿½Â¼ï¿½ï¿½Å£ Ğ©ï¿½ï¿½Ã» ï¿½   
 ```{r}
 tHour <- table(OriginalDF$Hour[1:ntrain] , Y)
 t(tCor(tHour))
@@ -180,12 +180,12 @@ plot(tCor(tMday))
 #tCor(tWeekend)
 #plot(tCor(tWeekend))
 ```
-Ã¿ÔÂ¼¸ºÅ¿´ÉÏÈ¥Ã»É¶ÓÃ   
+Ã¿ï¿½Â¼ï¿½ï¿½Å¿ È¥Ã»É¶ï¿½ï¿½   
 
-#3 Model fitting  Ä£ĞÍÄâºÏ  
-##3-1 randomForest on Non-Text Features ÓÃ²»º¬ÎÄ±¾ÌáÈ¡µÄÌØÕ÷×öËæ»úÉ­ÁÖ
+#3 Model fitting  Ä£   
+##3-1 randomForest on Non-Text Features ï¿½Ã² ï¿½Ä± È¡  ï¿½É­ï¿½ï¿½
 randomForest model    
-Ëæ»úÉ­ÁÖÄ£ĞÍ    
+ É­ï¿½ï¿½Ä£ï¿½ï¿½    
 public 0.92420
 ```{r  cache=TRUE}
 set.seed(1126)
@@ -199,7 +199,7 @@ rfModel <- randomForest(x = train,
 ```
 
 Evaluate on Training set 
-¸ù¾İ²âÊÔ¼¯ÆÀ¼ÛÄ£ĞÍ
+ İ²ï¿½ï¿½Ô¼ Ä£ï¿½ï¿½
 ```{r cache=TRUE}
 rfPred <- predict(rfModel, train, type = "prob")
 table(rfPred[,2] > 0.5,Y)
@@ -212,17 +212,17 @@ auc@y.values
 ```
 
 Make prediction with randomForest model
-ÓÃËæ»úÉ­ÁÖÄ£ĞÍ×öÔ¤²â
+ É­ï¿½ï¿½Ä£ ï¿½Ô¤ï¿½ï¿½
 ```{r }
 tpred <- predict(rfModel, test, type = "prob")
 MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = tpred[,1])
 write.csv(MySubmission, "rfRegularFeatures2.csv", row.names = F)
 ```
 
-#4 Try feature engineering with text content ³¢ÊÔÍ¨¹ıÎÄ±¾Êı¾İ×öÌØÕ÷¹¤³Ì     
-##4-1 TFIDF   ÊõÓïÆµ´Î¡¤ÄæÎÄµµÆµ´Î  
+#4 Try feature engineering with text content  ï¿½Í¨ Ä±        
+##4-1 TFIDF    ï¿½Æµï¿½Î¡ ï¿½Äµï¿½Æµï¿½ï¿½  
 Extract all headline and abstract to form a corpus    
-³éÈ¡ÌâÃûºÍÕªÒªÎÄ±¾¹¹½¨Ò»¸öÓïÁÏ¿â    
+ï¿½ï¿½È¡ ï¿½ÕªÒªï¿½Ä± Ò» Ï¿ï¿½    
 ```{r cache=TRUE}
 text <- vector()
 for (i in 1:nrow(OriginalDF)) {
@@ -233,7 +233,7 @@ Corpus <- Corpus(VectorSource(text))
 ```
 
 Standard Corpus processing     
-±ê×¼»¯µÄÓïÁÏ¿â´¦Àí     
+ï¿½ï¿½×¼ ï¿½ï¿½Ï¿â´¦ï¿½ï¿½     
 ```{r cache=TRUE}
 Corpus <- tm_map(Corpus, tolower)     
 Corpus <- tm_map(Corpus, PlainTextDocument)    
@@ -242,40 +242,40 @@ Corpus <- tm_map(Corpus, removeWords, stopwords("english"))
 Corpus <- tm_map(Corpus, stemDocument)
 ```
 
-ÈËÎªµØÒÆ³ıÒ»Ğ©ÊõÓï
+ï¿½ï¿½Îª Æ³ï¿½Ò»Ğ© ï¿½
 ```{r}
 Corpus <- tm_map(Corpus, removeWords, c("new","time","york","today","day","said","say","report","week","will","year","articl","can","daili","news"))
 ```
 
 Document ~ TF-IDF matrix    
-¹¹½¨ÎÄµµ~TFIDF¾ØÕó     
+ Äµï¿½~TFIDF ï¿½     
 ```{r cache=TRUE}
 dtm <- DocumentTermMatrix(Corpus, control = list(weighting = weightTfIdf))   
 tfdtm <- DocumentTermMatrix(Corpus)   
 ```
 
-¿´¿´ÄÇĞ©´Ê±È½ÏÆµ·±
+ ï¿½Ğ©ï¿½Ê±È½ï¿½Æµï¿½ï¿½
 ```{r}
 sort(colSums(as.matrix(dtm)),decreasing = T)[1:20]
 ```
 
 
 Get the terms    
-»ñÈ¡ÊõÓïÁĞ±í     
+ï¿½ï¿½È¡ Ğ±ï¿½     
 ```{r }
 terms <- dtm$dimnames$Terms    
 terms[5101:5110]
 ```
 
 Get the matrix for training and testing set     
-·Ö±ğ»ñµÃÑµÁ·ºÍ²âÊÔÊı¾İµÄDocument~TF-IDF¾ØÕó     
+ï¿½Ö± Ñµ Í² ï¿½İµï¿½Document~TF-IDF ï¿½     
 ```{r }
 dtmTrain <- dtm[1:ntrain,]
 dtmTest <- dtm[(1+ntrain):dtm$nrow,]
 ```
 
 Get frequent terms matrix for testing set
-»ñµÃ²âÊÔ¼¯µÄÆµ·±ÊõÓï
+ï¿½ï¿½Ã²ï¿½ï¿½Ô¼ Æµ ï¿½
 ```{r }
 sparseTest <- removeSparseTerms(dtmTest, 0.97)
 wordsTest <- as.data.frame(as.matrix(sparseTest))
@@ -283,7 +283,7 @@ termsTest <- names(wordsTest)
 ```
 
 Filter the dtm based on frequent terms in testing set    
-¸ù¾İ²âÊÔ¼¯µÄÆµ·±ÊõÓï£¬¶ÔÔ­±¾µÄ¾ØÕó½øĞĞÉ¸Ñ¡     
+ İ²ï¿½ï¿½Ô¼ Æµ ï£¬ï¿½ï¿½Ô­ Ä¾ ï¿½É¸Ñ¡     
 ```{r cache=TRUE}
 cols <- vector()
 for (i in 1:length(termsTest)){
@@ -292,7 +292,7 @@ dtmFiltered <- dtm[,cols]
 ```
 
 Text Feature    
-ÎÄ±¾ÌØÕ÷      
+ï¿½Ä±       
 ```{r cache=TRUE}
 termFeatures <- as.data.frame(as.matrix(dtmFiltered))
 row.names(termFeatures) <- c(1:nrow(OriginalDF))
@@ -308,7 +308,7 @@ tatrain <- cbind(train, TextADDDF[1:ntrain,])
 tatest <- cbind(test, TextADDDF[(ntrain+1):nrow(TextADDDF),])
 ```
 
-##4-2 randomForest model with text features added  ¼ÓÁËÎÄ±¾ÌØÕ÷µÄËæ»úÉ­ÁÖÄ£ĞÍ  
+##4-2 randomForest model with text features added   Ä±  É­ï¿½ï¿½Ä£ï¿½ï¿½  
 public  0.92420
 ```{r cache=TRUE}
 set.seed(1126)
@@ -321,13 +321,13 @@ tarfModel <- randomForest(x = tatrain,
 ```
 
 Look at the importance of features via training randomForest   
-¿´¿´ÎÄ±¾ÌØÕ÷µÄÖØÒªĞÔ    
+ Ä±  ï¿½Òªï¿½ï¿½    
 ```{r}
 t(sort(tarfModel$importance[,4],decreasing = T))
 ```
   
 Make prediction on the training set
-ÓÃ¼ÓÁËÎÄ±¾ÌØÕ÷µÄËæ»úÉ­ÁÖÄ£ĞÍ¶ÔÑµÁ·Êı¾İ½øĞĞÔ¤²â
+ï¿½Ã¼ ï¿½Ä±  É­ï¿½ï¿½Ä£ï¿½Í¶ï¿½Ñµ İ½ Ô¤ï¿½ï¿½
 ```{r cache=TRUE}
 tarfPred <- predict(tarfModel, tatrain, type = "prob")
 table(tarfPred[,2] > 0.5,Y)
@@ -340,16 +340,16 @@ auc@y.values
 ```
 
 Make prediction with randomForest model
-¼ÓÁËÎÄ±¾ÌØÕ÷µÄËæ»úÉ­ÁÖÄ£ĞÍ×öÔ¤²â
+ Ä±  É­ï¿½ï¿½Ä£ ï¿½Ô¤ï¿½ï¿½
 ```{r}
 tatpred <- predict(tarfModel, tatest, type = "prob")
 MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = tatpred[,1])
 write.csv(MySubmission, "rfText2.csv", row.names = F)
 ```
 
-##4-3 Why not a neural net?  ÊÔÊÔÉñ¾­ÍøÂç      
+##4-3 Why not a neural net?          
 Neural net based on numerical features.    
-»ùÓÚÊıÖµÌØÕ÷µÄÉñ¾­ÍøÂç£¨Ã»ÓĞGPU ³´¼¦Âı£©       
+ ï¿½Öµ  ï¿½ç£¨Ã»ï¿½ï¿½GPU          
 ```{r cache=TRUE}
 # nntrain <- tatrain[,c(4,8:40)]
 # nntest <- tatest[,c(4,8:40)]
@@ -377,8 +377,8 @@ Neural net based on numerical features.
 # proc.time() - ptm
 ```
 
-##4-4 Support Vector Machine Ö§³ÖÏòÁ¿»ú
-ÏÈ×öÏÂDummy Encoding
+##4-4 Support Vector Machine Ö§  
+ ï¿½Dummy Encoding
 ```{r cache=TRUE}
 taDF <- rbind(tatrain, tatest)
 names(taDF)
@@ -392,7 +392,7 @@ tadtrain <- tadDF[1:ntrain,]
 tadtest <- tadDF[((1+ntrain):nrow(tadDF)),]
 ```
 
-SVM Model Fitting Ö§³ÖÏòÁ¿»ú
+SVM Model Fitting Ö§  
 public  0.88249
 ```{r cache=TRUE,warning=FALSE}
 svmModel <- svm(x = tadtrain, 
@@ -411,7 +411,7 @@ MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = svmtpredp
 write.csv(MySubmission, "svmText2.csv", row.names = F)
 ```
 
-##4-5 Simple Ensemble ¼òµ¥µÄ×éºÏÄ£ĞÍ
+##4-5 Simple Ensemble ï¿½òµ¥µ ï¿½Ä£ï¿½ï¿½
 ```{r cache=TRUE}
 enpred <- 0.2*svmtpredp+0.8*tatpred[,2]
 MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = enpred)
@@ -419,7 +419,7 @@ write.csv(MySubmission, "svm_rf_ensemble2.csv", row.names = F)
 ```
 
 
-#5 Clustering on TFIDF matrix ×ö¸ö¾ÛÀà¿´¿´
+#5 Clustering on TFIDF matrix  ï¿½ï¿½à¿´ï¿½ï¿½
 ```{r cache=TRUE}
 cTest <- removeSparseTerms(dtmTest, 0.98)
 cWords <- as.data.frame(as.matrix(cTest))
@@ -441,7 +441,7 @@ tactest <- cbind(tatest, kmclusters$cluster[(1+ntrain):nrow(OriginalDF)])
 names(tactest) <- c(names(tactest)[1:39],"cluster")
 ```
 
-##5-1 Another randomForest with cluster labels added ¼ÓÉÏ¾ÛÀà±êÇ©ºóÔÙÀ´Ò»¸öËæ»úÉ­ÁÖ 
+##5-1 Another randomForest with cluster labels added  Ï¾ ï¿½Ç© ï¿½Ò» É­ï¿½ï¿½ 
 
 ```{r cache=TRUE}
 set.seed(1126)
@@ -467,8 +467,8 @@ MySubmission = data.frame(UniqueID = NewsTest$UniqueID, Probability1 = tacrfPred
 write.csv(MySubmission, "rfTextCluster2.csv", row.names = F)
 ```
 
-#6 Matrix Factorization ¾ØÕó·Ö½â  
-##6-1 SVD ÆæÒìÖµ·Ö½â
+#6 Matrix Factorization  ï¿½Ö½ï¿½  
+##6-1 SVD  ï¿½Öµï¿½Ö½ï¿½
 ```{r cache=TRUE}
 s <- svd(cMatrix)
 Sig <- diag(s$d)
@@ -481,14 +481,14 @@ for (i in 1:nrow(Sig)){
     print(i)
     break}}
 ```
-ĞèÒª51¸öÊõÓï²ÅÄÜ±£ÁôÔ­TF-IDF¾ØÕó80%µÄÄÜÁ¿   
+ï¿½ï¿½Òª51  Ü± Ô­TF-IDF ï¿½80% ï¿½   
 
-##6-2 CUR Matrix Decomposition CUR¾ØÕó·Ö½â
+##6-2 CUR Matrix Decomposition CUR ï¿½Ö½ï¿½
 ```{r cache=TRUE}
 res <- CUR(cMatrix, c = 9, r = 85, k = 51)
 ```
 
-½«Í¶Ó°¼Óµ½ÑµÁ·¡¢²âÊÔÊı¾İ
+ï¿½ï¿½Í¶Ó°ï¿½Óµï¿½Ñµ  ï¿½ï¿½
 ```{r cache=TRUE}
 ncolC <- ncol(getC(res))
 Ak <- getC(res) %*% getU(res)[,1:ncolC]
@@ -497,7 +497,7 @@ tacftrain <- cbind(tactrain, AkDF[1:ntrain,])
 tacftest <- cbind(tactest, AkDF[((1+ntrain):nrow(AkDF)),])
 ```
 
-##6-3 randomForest with pc added ¼ÓÉÏÖ÷Òª³É·ÖÍ¶Ó°ºóµÄËæ»úÉ­ÁÖ
+##6-3 randomForest with pc added  ï¿½Òªï¿½É·ï¿½Í¶Ó° ï¿½É­ï¿½ï¿½
 
 ```{r cache=TRUE}
 set.seed(1126)
