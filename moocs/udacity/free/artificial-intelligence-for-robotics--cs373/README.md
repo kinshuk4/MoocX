@@ -1,6 +1,8 @@
 ## Udacity - Artificial Intelligence for Robotics
 
-Here are my code snippets from an Udacity course
+Notes and code snippets from AI for Robotics
+
+![A star algorithm](images/a-star-in-action.jpg)
 
 Course lasts for 7 weeks:
 
