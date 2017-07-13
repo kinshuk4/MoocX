@@ -2,6 +2,16 @@
 
 Here are my code snippets from an Udacity course
 
+Course lasts for 7 weeks:
+
+- [l1-localization](l1-localization)
+- [l2-kalman-filters](l2-kalman-filters)
+- [l3-particle-filters](l3-particle-filters)
+- [l4-search](l4-search)
+- [l5-pid-control](l5-pid-control)
+- [l6-slam](l6-slam)
+- [l7-final-exam-n-project-runaway-robot](l7-final-exam-n-project-runaway-robot)
+
 
 
 
