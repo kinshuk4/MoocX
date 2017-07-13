@@ -125,4 +125,4 @@ Genitive + plural: Die Farbe welcher Autos ist die schönste?
 
 https://www.jabbalab.com/blog/2400/german-indefinite-pronouns-part-2        
 
-​    
+https://www.germanveryeasy.com/pronouns    

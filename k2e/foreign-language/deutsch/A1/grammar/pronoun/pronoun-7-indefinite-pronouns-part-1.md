@@ -6,7 +6,21 @@ An indefinite pronoun is a type of pronoun that is used to refer to unknown or u
 
 In this first part we are looking at the words alle = all, beide = both, diese = this and einige = few 
 
- 
+ The main indefinite pronouns are:
+
+- alle (all)
+- andere (other)
+- beide (both)
+- einige (some)
+- ein bisschen (a bit)
+- ein paar (a couple)
+- jeder (each)
+- jemand (someone)
+- kein (none)
+- man (one)
+- mancher (some)
+- mehrere (several)
+- niemand (no one)
 
 ### Indefinite Pronoun Table
 
@@ -96,3 +110,5 @@ Genitive + plural: Die Häuser einiger Bekannten sind neu.
 
 
 https://www.jabbalab.com/blog/2396/german-indefinite-pronouns
+
+https://www.germanveryeasy.com/pronouns
