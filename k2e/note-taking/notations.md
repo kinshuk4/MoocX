@@ -12,6 +12,7 @@ Here are some of my notations:
 - P - Part
 - Ch - Chapter
 - Lc - Lecture
+- W - Week
 
 *(Note: Check out http://en.wikipedia.org/wiki/Table_of_logic_symbols for more unicode logic symbols. -A)*
 

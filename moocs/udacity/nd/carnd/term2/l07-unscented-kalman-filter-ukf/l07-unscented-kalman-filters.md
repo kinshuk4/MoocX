@@ -15,7 +15,7 @@
 - Relaxes assumption of vehicle's constant velocity
   - When vehicles are turning, they move slower. So EKF's predicted position would be outside of the circular path of the car.
 
-![img](./images/7-3.png)
+![img](../images/7-3.png)
 
 - Describe velocity using Speed (v) and yaw (psi) angle
   - Vehicle moving in a straight line has a yaw rate (psi dot) of zero.
@@ -23,11 +23,11 @@
 - Approach: Describe the change rates of the state x.
 - Assumes constant turn rate (yaw dot) and constant velocity.
 
-![img](./images/7-6.png)![img](./images/7-7.png)
+![img](../images/7-6.png)![img](../images/7-7.png)
 
 ### Process noise
 
-![img](./images/7-8.png)
+![img](../images/7-8.png)
 
 Uncertainty nu_k Two noise processes:
 
@@ -36,7 +36,7 @@ Uncertainty nu_k Two noise processes:
 
 How does the noise vector influence the process model?
 
-Sign of yaw acceleration noise:![img](./images/7-9.png)![img](./images/7-10.png)![img](./images/7-11.png)![img](./images/7-12.png)![img](./images/7-13.png)![img](./images/7-14.png)
+Sign of yaw acceleration noise:![img](../images/7-9.png)![img](../images/7-10.png)![img](../images/7-11.png)![img](../images/7-12.png)![img](../images/7-13.png)![img](../images/7-14.png)
 
 ## Unscented Kalman Filter
 
@@ -56,7 +56,7 @@ Steps:
 - Predict sigma points (insert into process function)
 - Calculate mean and variance
 
-![img](./images/7-15.png)
+![img](../images/7-15.png)
 
 - Posterior state x_k|k, posterior covariance matrix Pk|k.
 - Consider two dimensions of the state first (px, py).
@@ -66,13 +66,13 @@ Sigma points
 - Mean of state
 - Two points per state dimension.
 
-![img](./images/7-16.png)
+![img](../images/7-16.png)
 
 - Lambda (choose): distance of state dim sigma points from the mean state
 - Square root of matrix Pk|k: directions of the sigma points relative to the mean.
 - xk|k: first sigma point (mean)
 - first vector points
 
-![img](./images/7-17.png)![img](./images/7-18.png)![img](./images/7-19.png)
+![img](../images/7-17.png)![img](../images/7-18.png)![img](../images/7-19.png)
 
 #### Generate Sigma Points
