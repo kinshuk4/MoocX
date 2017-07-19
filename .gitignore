@@ -219,3 +219,5 @@ src
 .idea/
 Read the Docs
 config.rst
+
+.vscode/
