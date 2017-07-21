@@ -11,3 +11,7 @@ Behavioral finance is the study of these and dozens of other financial decision-
 ### Link:
 
 1. https://www.coursera.org/learn/duke-behavioral-finance/
+
+
+
+https://github.com/anicksaha/Course-Resources/tree/master/5.%20Behavioral%20Finance%20%40Coursera
