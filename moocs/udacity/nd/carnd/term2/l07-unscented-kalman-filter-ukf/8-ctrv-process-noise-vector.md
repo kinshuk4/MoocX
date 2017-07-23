@@ -26,3 +26,21 @@ The other noise process is the yaw acceleration ν<sub>ψ_dot_dot,k</sub>.  It i
 
 And what I want to discuss with you next is how the noise vector ν<sub>k</sub> influences our process model. 
 
+ ν<sub>ψ_dot_dot,k</sub> i.e. Yaw acceleratation noise is constant between time k and k+1. It will just add up to the yaw rate with increasing time, so the influence of the yaw acceleration on yaw rate is:
+
+e =Δt. ν<sub>ψ_dot_dot,k</sub> 
+
+Similarly, ν<sub>a,k</sub> - Longitudinal acceleratation noise is constant from time k and k+1, the influence c in the process model is : 
+
+c = Δt⋅ν<sub>a,k</sub>
+
+
+
+### What is the influence of ν<sub>a,k</sub> and ν<sub>_dot_dot,k</sub> on the yaw angle?
+
+In other words, what is d in the process model?
+
+d = 1/2 * (Δt)⋅ν<sub>ψ¨,k</sub>
+
+
+
