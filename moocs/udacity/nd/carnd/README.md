@@ -22,6 +22,7 @@ If anyone needs help in understanding the code, ping me on slack or just drop an
 
 Borrowed from 
 - https://github.com/rvarun7777/Self-Driving-Car-Nanodegree
+- https://github.com/CodyNicholson/Self-Driving_Car_Nanodegree
 - https://github.com/jessicayung/self-driving-car-nd
 - https://github.com/dat-ai/CarND
 - https://github.com/solix/selfdrivingcar-nd
