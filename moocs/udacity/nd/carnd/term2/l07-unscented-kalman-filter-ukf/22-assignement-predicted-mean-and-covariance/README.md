@@ -6,7 +6,11 @@ The standard rule for calculating the mean and covariance for a group of state s
 
 ![7-22-1](../../images/7-22-1.png)
 
+
+
 We can calculate the mean and covariance of the predicted state using the predicted sigma points. The standard rule for calculating the mean and covariance for a group of state samples is given by these equations:
+
+![7-25](../../images/7-25.png)
 
 In this quiz, we have two objects we want to calculate. The mean predicted state X and the state prediction covariance P. This time we started the point but we already have the predicted sigma points. This is a vector where you can put them the weights for the sigma points. This is the vector for the predicted state mean and this is the metrics for the state prediction conversions. Good luck with this quiz. 
 
@@ -19,6 +23,12 @@ The index **i** means we are talking about the column **i** of the matrix. We al
 ![alt tag](../../images/predictedMeanAndCovarianceEquationsWeights.PNG)
 
 In the above image you can see how the weights are calculated, and how they depend on lambda. We have predicted sigma points and we want to recover the covariance matrix. We need to use lambda to invert the spreading of the sigma points, and this is what the weights do.
+
+Here are the steps:
+
+1. Set weights
+2. predict state mean
+3. predit state covariance matrix
 
 ### Code
 
