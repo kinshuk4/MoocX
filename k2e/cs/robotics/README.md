@@ -2,6 +2,54 @@
 
 - TOC {:toc}
 
+## Moocs
+
+- *Udacity*: [Robotics Nanodegree](https://www.udacity.com/robotics)
+- *Udacity*: [Self-Driving Car Nanodegree](https://www.udacity.com/drive)
+- *Coursera*: [Robotics Specialization](https://www.coursera.org/specializations/robotics), *University of Pennsylvania*
+- *EdX*: [Robotics MicroMasters](https://www.edx.org/micromasters/pennx-robotics), *University of Pennsylvania*
+- *FutureLearn*: [Robot Academy](http://robotacademy.net.au/), *Queensland University of Technology*
+
+### EdX
+
+- [Autonomous Mobile Robots](https://www.edx.org/course/autonomous-mobile-robots-ethx-amrx-2), *ETHZurich*
+- [Autonomous Navigation for Flying Robots](https://www.edx.org/course/autonomous-navigation-flying-robots-tumx-autonavx-0), *Technische Universitat Munchen*
+- [Underactuated Robotics](https://www.edx.org/course/underactuated-robotics-mitx-6-832x-0), *Massachusetts Institute of Technology*
+- [Robotics](https://www.edx.org/course/robotics-columbiax-csmm-103x#!), *Columbia University in the city of New York*
+- Robot Mechanics and Control [Part I](https://www.edx.org/course/robot-mechanics-control-part-i-snux-snu446-345-1x) and [Part II](https://www.edx.org/course/robot-mechanics-control-part-ii-snux-snu446-345-2x), *Seoul National University*
+
+### Coursera
+
+- [Control of Mobile Robots](https://www.coursera.org/learn/mobile-robot), *Georgia Institute of technology*
+
+### Others
+
+- [Autonomous Intelligent Systems](http://ais.informatik.uni-freiburg.de/teaching/ss16/robotics/index_en.php), *University of Freiburg*
+- [MIT Race Car](https://mit-racecar.github.io/), *Massachusetts Institute of Technology*
+- [SLAM Lectures](https://www.youtube.com/watch?v=B2qzYCeT9oQ&list=PLpUPoM7Rgzi_7YWn14Va2FODh7LzADBSm), *Clause Brenne*
+- [Introduction to Robotics](https://see.stanford.edu/Course/CS223A), *Stanford Engineering Everywhere*
+- [Introduction to Robotics](https://ocw.mit.edu/courses/mechanical-engineering/2-12-introduction-to-robotics-fall-2005/lecture-notes/), *MIT OCW*
+
+# Primary Tools
+
+- **C++**[Basics](https://www.youtube.com/watch?v=3fwKlU9AwSY&list=PLfVsf4Bjg79Cu5MYkyJ-u4SyQmMhFeC1C), *LearningLad*[Google Unit Testing](https://github.com/google/googletest/blob/master/googletest/docs/Primer.md) and [Best Practices](http://shop.oreilly.com/product/0636920049814.do)
+- **ROS**: [Learn ROS Fast](http://www.theconstructsim.com/construct-learn-develop-robots-using-ros/robotigniteacademy_learnros/), *Robot Ignite Academy*
+- **Source Control**: [GitKraken](https://www.youtube.com/channel/UCp06FAzrFalo3txskS1gCfA/playlists)
+- **Command Line and Bash Scripting**
+- **Python**
+- **MATLAB**
+
+# Other Useful Tools and Concepts
+
+- **Functional Programming, Elixir**: [Elixir Learning Resources](https://elixir-lang.org/learning.html)
+- **Control Systems**: [Control Bootcamp](https://youtu.be/Pi7l8mMjYVE?list=PLMrJAkhIeNNR20Mz-VpzgfQs5zrYi085m), *Steve Brunton*
+- **LaTex**:[LaTex Tutorials](https://www.youtube.com/watch?v=SoDv0qhyysQ&index=1&list=PL1D4EAB31D3EBC449), *Michelle Krummel*
+- **Analytics**: [The Analytic Edge](https://www.edx.org/course/analytics-edge-mitx-15-071x-3)
+- **Text editors**: [Sublime](https://www.sublimetext.com/), [Atom](https://github.com/mithi/robotics-coursework/blob/master/atom.io)
+- **Others**: [Red Blob Games](http://www.redblobgames.com/), *Amit Patel*
+
+# 
+
 # Introduction to Kalman Filters by Michel van Biezen
 
 [playlist with 55 videos](https://www.youtube.com/playlist?list=PLX2gX-ftPVXU3oUFNATxGXY90AULiqnWT)
@@ -218,5 +266,6 @@ Programming in ROS (Robot Operating System) with Python. Focus on Robot arms.
 - Week 10: Course Recap, Things We Have Not Covered, Robotics and AI Revisited
 
 
-
 https://github.com/jfjensen/total-robotics
+
+https://github.com/mithi/robotics-coursework
