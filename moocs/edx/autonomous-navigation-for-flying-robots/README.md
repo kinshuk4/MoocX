@@ -1,5 +1,7 @@
 # AUTONAVx Autonomous Navigation for Flying Robots
 
+ (edX MOOC) by TU Munich
+
 [Course link](https://www.edx.org/course/autonomous-navigation-flying-robots-tumx-autonavx-0)
 
 [Registered user link](https://courses.edx.org/courses/course-v1:TUMx+AUTONAVx+2T2015/course/)

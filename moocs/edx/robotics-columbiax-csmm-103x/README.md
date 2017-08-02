@@ -47,3 +47,15 @@ Week 7
 
 - [![bio for Professor Matei Ciocarlie](https://www.edx.org/sites/default/files/person/image/matei-ciocarlie_110x110.jpg)Professor Matei Ciocarlie](https://www.edx.org/bio/professor-matei-ciocarlie)Department of Mechanical EngineeringColumbia University
 - ​
+
+
+
+https://github.com/eborghi10/ColumbiaX-Robotics
+
+https://github.com/jjjjohnson/robo_projects/tree/a52423ec735452e13389de5bf9bcc10591138277
+
+https://github.com/btmorr/robotics-coursework
+
+https://github.com/pitosalas/campusrover/tree/d5a323e88ef78edc222815ae30716cd8c2710298/content/content/pages
+
+https://github.com/zzzdeb/csmm103_robotics
