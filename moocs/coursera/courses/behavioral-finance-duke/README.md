@@ -8,6 +8,50 @@ But in certain circumstances, these shortcuts lead to predictable errors – pre
 
 Behavioral finance is the study of these and dozens of other financial decision-making errors that can be avoided, if we are familiar with the biases that cause them. In this course, we examine these predictable errors, and discover where we are most susceptible to them. This course is intended to guide participants towards better financial choices. Learn how to improve your spending, saving, and investing decisions for the future.
 
+### Lessons
+
+[1.1 Utility-of-Money.pdf](1.1 Utility-of-Money.pdf)
+
+[1.2 Omission-Bias.pdf](1.2 Omission-Bias.pdf)
+
+[2.1 Problems_with_Probability.pdf](2.1 Problems_with_Probability.pdf)
+
+[2.2 Probability_weighting.pdf](2.2 Probability_weighting.pdf)
+
+[2.3 Availability.pdf](2.3 Availability.pdf)
+
+[2.4 Framing.pdf](2.4 Framing.pdf)
+
+[2.5 Representativeness.pdf](2.5 Representativeness.pdf)
+
+[3.1 Money-Management.pdf](3.1 Money-Management.pdf)
+
+[3.2 Market-Bubbles-and-Crashes.pdf](3.2 Market-Bubbles-and-Crashes.pdf)
+
+### Index
+
+Rational Expected Utility
+Utility of Money
+The Utility of a Gamble: Risk Aversion
+Risk Aversion
+The St Petersburg Paradox
+Are we “Rational” Decision-Makers?
+Budget Constraint
+Indifference Curves
+Axiom 1: Dominance, or "More Is Better"
+Axiom 2: Invariance, or "Consistency"
+Axiom 3: Independence, or "Cancellation"
+The “Independence” axiom is violated when individuals change their selection between options 1 and 2, following the addition of a third option (even though that third option is not selected).
+Examples of Irrational Behavior
+Omission Bias
+Omission bias is characterized by our tendency to feel worse about negative outcomes that resulted from action vs inaction. Mr Brown carried out an action (he sold the shares), while Mr Duke did nothing. Thus, despite the fact that their financial loss ($20,000) is equivalent, Omission Bias suggests that Mr Brown felt worse.
+
+
+
+
+
+
+
 ### Link:
 
 1. https://www.coursera.org/learn/duke-behavioral-finance/
