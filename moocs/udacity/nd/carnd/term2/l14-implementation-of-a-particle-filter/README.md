@@ -2,7 +2,7 @@
 
 ### Pseudocode
 
-![img](./images/14.1.png)
+![img](../images/14.1.png)
 
 - 1: Initialisation
 - 3: Prediction step (add control input)
@@ -10,7 +10,7 @@
 - 7-10: Resampling step
 - 11: Bayes Filter Posterior
 
-Flowchart:![img](./images/14.2.png)
+Flowchart:![img](../images/14.2.png)
 
 ### Initialisation
 
