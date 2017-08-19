@@ -1,0 +1,3 @@
+# Following Trajectories
+
+Autonomous vehicle system architecture starts with the perception system, which estimates the state of the surrounding environment including landmarks and vehicles and pedestrians. The localization block compares a model to a map to figure out where the vehicle is. The path planning block charts a trajectory using environmental model, the map, and vehicle location. Finally the control loop applies the actuators to follow this trajectory. Typically the path planning block passes the reference trajectory to the control block as a polynomial. Third degree polynomials are common so they can fit most roads.
