@@ -253,3 +253,11 @@ https://github.com/jfjensen/total-robotics
 https://github.com/mithi/robotics-coursework
 
 https://github.com/pitosalas/campusrover/tree/d5a323e88ef78edc222815ae30716cd8c2710298/content/content/pages
+
+
+
+### Self-healing soft pneumatic robots
+
+[paper 1](http://robotics.sciencemag.org/content/2/9/eaan4268.full)
+
+[paper 2](https://www.sciencenews.org/article/robot-heal-thyself)
