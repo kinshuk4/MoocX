@@ -1,4 +1,0 @@
-onCreate() calls: 1
-onStart() calls: 1
-onResume() calls: 1
-onRestart() calls: 0

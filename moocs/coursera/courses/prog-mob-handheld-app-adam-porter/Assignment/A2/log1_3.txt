@@ -1,1 +1,0 @@
-02-06 13:14:18.804: I/Lab-ActivityOne(2133): Entered the onCreate() method

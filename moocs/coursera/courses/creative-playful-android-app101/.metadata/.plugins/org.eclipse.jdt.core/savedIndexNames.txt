@@ -1,4 +1,0 @@
-INDEX VERSION 1.126+D:\lyf\Code\Github\Coursera\CreativePlayfulAndroidApp101\.metadata\.plugins\org.eclipse.jdt.core
-3733682401.index
-851619346.index
-2605405693.index

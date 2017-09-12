@@ -1,7 +1,0 @@
-name: Publish Document
-account: rpubs
-server: rpubs.com
-appId: https://api.rpubs.com/api/v1/document/187416/e9917c4e6066416486ecc59d2d910a5b
-bundleId: https://api.rpubs.com/api/v1/document/187416/e9917c4e6066416486ecc59d2d910a5b
-url: http://rpubs.com/englianhu/187416/edit
-when: 1466206870.4947

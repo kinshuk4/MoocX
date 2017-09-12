@@ -1,5 +1,0 @@
-02-16 13:30:26.913: I/Lab-Intents(1944): Entered startImplicitActivation()
-02-16 13:30:26.913: I/Lab-Intents(1944): Chooser Intent Action:android.intent.action.CHOOSER
-02-16 13:32:21.835: I/Lab-Intents(2076): Entered startExplicitActivation()
-02-16 13:32:39.485: I/Lab-Intents(2076): Entered enterClicked()
-02-16 13:32:54.395: I/Lab-Intents(2076): Entered onActivityResult()
