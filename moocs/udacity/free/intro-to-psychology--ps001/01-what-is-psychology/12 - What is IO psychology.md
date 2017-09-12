@@ -1,1 +1,0 @@
-If you guessed anythingthat involved a work setting,so industrial plants or a business office,you were right. because industrial and organizational psychology isthe application of psychological conceptsand questions to the work setting.

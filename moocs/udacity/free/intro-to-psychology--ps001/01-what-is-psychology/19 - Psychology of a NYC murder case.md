@@ -1,1 +1,0 @@
-This type of question would be for a social psychologist, because they focus on understanding how other people influence how we think, feel or behave. Or in this case, how we didn't behave. 

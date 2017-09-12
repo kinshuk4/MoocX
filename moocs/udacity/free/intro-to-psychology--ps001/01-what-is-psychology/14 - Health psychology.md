@@ -1,1 +1,0 @@
-I also wanted to talk about health psychology. Health psychology examines the role psychological factors play in our health. For example they'll ask questions like this, does stress, a psychological factor, affect our health? What do you think, yes or no? 
