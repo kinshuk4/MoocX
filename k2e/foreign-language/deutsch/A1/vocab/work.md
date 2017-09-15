@@ -1,1 +1,0 @@
-[work.md](profession/work.md)

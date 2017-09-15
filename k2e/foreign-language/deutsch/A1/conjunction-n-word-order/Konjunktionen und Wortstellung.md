@@ -1,1 +1,0 @@
-http://www.nthuleen.com/teach/grammar/konjunktionenexpl.html

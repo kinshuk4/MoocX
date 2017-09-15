@@ -1,3 +1,0 @@
-
-
-[restaurant.md](../restaurant.md)
