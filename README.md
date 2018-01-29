@@ -7,14 +7,14 @@ My main organized content:
 
 ## MOOCs
 
-- [coursera](./moocs/coursera/README.md)
-- [udacity](./moocs/udacity/README.md)
-- [edx](./moocs/edx/README.md)
-- [udemy](./moocs/udemy/README.md)
 - [awseducate](./moocs/awseducate/README.md)
-- [khan-academy](./moocs/khan-academy/README.md)
 - [Companies - Mos](./Mos/README.md)
+- [coursera](./moocs/coursera/README.md)
+- [edx](./moocs/edx/README.md)
+- [khan-academy](./moocs/khan-academy/README.md)
 - [misc](./misc/README.md)
+- [udacity](./moocs/udacity/README.md)
+- [udemy](./moocs/udemy/README.md)
 
 ## University Individual Courses
 
